@@ -1,1 +1,127 @@
-dsd
+ㅁ
+
+ALTER TABLE Order ADD CONSTRAINT PK_ORDER PRIMARY KEY (
+	orderNumber,
+	orderDate,
+	menuNum,
+	FrRegiNum
+);
+
+ALTER TABLE storeClerk ADD CONSTRAINT PK_STORECLERK PRIMARY KEY (
+	clerkNum,
+	FrRegiNum
+);
+
+ALTER TABLE notice ADD CONSTRAINT PK_NOTICE PRIMARY KEY (
+	noticeNum
+);
+
+ALTER TABLE QnA ADD CONSTRAINT PK_QNA PRIMARY KEY (
+	qnaNum
+);
+
+ALTER TABLE HOemp ADD CONSTRAINT PK_HOEMP PRIMARY KEY (
+	eno
+);
+
+ALTER TABLE QA ADD CONSTRAINT PK_QA PRIMARY KEY (
+	inspectionNum,
+	QANum
+);
+
+ALTER TABLE prodOrder ADD CONSTRAINT PK_PRODORDER PRIMARY KEY (
+	orderNum,
+	productNum
+);
+
+ALTER TABLE QAcheckList ADD CONSTRAINT PK_QACHECKLIST PRIMARY KEY (
+	QANum
+);
+
+ALTER TABLE defectOrder ADD CONSTRAINT PK_DEFECTORDER PRIMARY KEY (
+	defNum,
+	orderNum,
+	productNum
+);
+
+ALTER TABLE stock ADD CONSTRAINT PK_STOCK PRIMARY KEY (
+	productNum,
+	FrRegiNum
+);
+
+ALTER TABLE Product ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
+	productNum
+);
+
+ALTER TABLE Account ADD CONSTRAINT PK_ACCOUNT PRIMARY KEY (
+	acntNum
+);
+
+ALTER TABLE Statement ADD CONSTRAINT PK_STATEMENT PRIMARY KEY (
+	statementNum,
+	FrRegiNum
+);
+
+ALTER TABLE Order ADD CONSTRAINT FK_menu_TO_Order_1 FOREIGN KEY (
+	menuNum
+)
+REFERENCES menu (
+	menuNum
+);
+
+ALTER TABLE Order ADD CONSTRAINT FK_store_TO_Order_1 FOREIGN KEY (
+	FrRegiNum
+)
+REFERENCES store (
+	FrRegiNum
+);
+
+ALTER TABLE storeClerk ADD CONSTRAINT FK_store_TO_storeClerk_1 FOREIGN KEY (
+	FrRegiNum
+)
+REFERENCES store (
+	FrRegiNum
+);
+
+ALTER TABLE QA ADD CONSTRAINT FK_QAcheckList_TO_QA_1 FOREIGN KEY (
+	QANum
+)
+REFERENCES QAcheckList (
+	QANum
+);
+
+ALTER TABLE prodOrder ADD CONSTRAINT FK_Product_TO_prodOrder_1 FOREIGN KEY (
+	productNum
+)
+REFERENCES Product (
+	productNum
+);
+
+ALTER TABLE defectOrder ADD CONSTRAINT FK_prodOrder_TO_defectOrder_1 FOREIGN KEY (
+	orderNum
+)
+REFERENCES prodOrder (
+	orderNum
+);
+
+ALTER TABLE defectOrder ADD CONSTRAINT FK_prodOrder_TO_defectOrder_2 FOREIGN KEY (
+	productNum
+)
+REFERENCES prodOrder (
+	productNum
+);
+
+ALTER TABLE stock ADD CONSTRAINT FK_Product_TO_stock_1 FOREIGN KEY (
+	productNum
+)
+REFERENCES Product (
+	productNum
+);
+
+ALTER TABLE stock ADD CONSTRAINT FK_store_TO_stock_1 FOREIGN KEY (
+	FrRegiNum
+)
+REFERENCES store (
+	FrRegiNum
+);
+
