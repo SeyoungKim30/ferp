@@ -57,7 +57,7 @@
     -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     	<property name="dataSource" ref="dataSource"></property>
-    	<property name="configLocation" value="classpath:ferp/resource/mybatis.Spring.xml"></property>
+    	<property name="configLocation" value="classpath:ferp/resource/mybatisConfig.xml"></property>
     </bean>
     
     <!-- 

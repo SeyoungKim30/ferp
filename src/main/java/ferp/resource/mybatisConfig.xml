@@ -2,17 +2,19 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!-- 1. 사용할(XXXMapper.xml) 패키지명 포함 vo 클래스를 alias 선언 -->
+
 	<typeAliases>
+		<typeAlias alias="stock" type="vo.Stock"/>
 		<typeAlias alias="menu" type="vo.Menu"/>
 		<typeAlias alias="notice" type="vo.Notice"/>
 		<typeAlias alias="store" type="vo.Store"/>
 	</typeAliases>
-	
-	<!-- 2. 사용 XXXMapper.xml을 추가 -->
+			
+
 	<mappers>
-		<mapper resource="ferp/resource/heejunMapper.xml"/>
-
-
+			<mapper resource="ferp/resource/aaaa.xml"/>
+			<mapper resource="ferp/resource/heejunMapper.xml"/>
 	</mappers>
+	
+	
 </configuration>
