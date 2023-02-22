@@ -10,30 +10,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${path}/a00_com/bootstrap.min.css" >
-<link rel="stylesheet" href="${path}/a00_com/jquery-ui.css" >
-<style>
-	td{text-align:center;}
-</style>
-<script src="${path}/a00_com/jquery.min.js"></script>
-<script src="${path}/a00_com/popper.min.js"></script>
-<script src="${path}/a00_com/bootstrap.min.js"></script>
-<script src="${path}/a00_com/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		<%-- 
-		
-		--%>	
-	});
-</script>
+<title>본사-매장정보출력</title>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 </head>
 
 <body>
 
-	<%@ include file="/resourse/store_main_index.jsp" %>
+	<%@ include file="/resource/hq_main_index.jsp" %>
 	
 	<div class="container">
 		<div class="main_wrapper">
@@ -47,7 +32,7 @@
 				
 				
 				<!-- 검색 시작 -->
-				<div clas="hdq_search">
+				<div class="hdq_search">
 				
 				</div>
 				<!-- 검색칸 끝 -->
@@ -77,7 +62,7 @@
 				
 				
 				<!-- 정보출력표 시작 -->
-				<div class="hdq_infoprint">
+				<div class="frs_salesInfo_print">
 					<table>
 						<thead>
 							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
@@ -85,7 +70,7 @@
 						<tbody>
 							<tr>
 								<td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td>
-								<td><div class=""/><div class=""/></td>
+								<td><span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span></td>
 							</tr>
 						</tbody>
 					</table>
