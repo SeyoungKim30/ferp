@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import="java.util.*"
-%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
-<fmt:requestEncoding value="utf-8"/>     
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="path" value="${pageContext.request.contextPath }" />
+<fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +14,13 @@
 
 </head>
 
-<body>
-
-	<%@ include file="/resource/hq_main_index.jsp" %>
-	
-	<div class="container">
-		<div class="main_wrapper">
-			<div class="contents">
-			
+<body class="container">
+	<%@ include file="/resource/templates/header.jsp"%>
+	<div class="main_wrapper">
+		<%@ include file="/resource/templates/sidebar.jsp"%>
+		<div class="contents">
+		
+		
 				<!-- 전체매장총매출출력칸 시작-->
 				<div class="hdq_totalSalesPrt">
 				
@@ -77,10 +74,9 @@
 				</div>
 				<!-- 정보출력표 끝 -->
 			
-			
-			</div>
+
+		
 		</div>
 	</div>
-
 </body>
 </html>
