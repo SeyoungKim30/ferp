@@ -5,9 +5,12 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <fmt:requestEncoding value="utf-8"/>    
 <!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="${path}/resource/css/reset.css"/>
+<link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 
  <header>  
       <div class="logo">
-      <a href="#">헤<img src="/resource/img/ferp_main_logo.png" alt="">더</a>
+      <a href="#"><img src="${path }/resource/img/F.ERP.png" alt=""></a>
       </div>
 </header>

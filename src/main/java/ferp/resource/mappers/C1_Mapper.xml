@@ -16,5 +16,8 @@
     		SELECT * FROM Account
     	</select>
     	
+    	<insert id="r7201insertAccount" parameterType="account" >
+    	insert into account values()
+    	</insert>
 
     </mapper>

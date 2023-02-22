@@ -5,16 +5,38 @@ public class Account {
 	private String acntNum;
 	private String acntGroup;
 	private String acntTitle;
+	private boolean acntUsing;
+	
 	public Account() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Account(String acntNum, String acntGroup, String acntTitle) {
 		super();
 		this.acntNum = acntNum;
 		this.acntGroup = acntGroup;
 		this.acntTitle = acntTitle;
 	}
+	
+	
+	public Account(String acntNum, String acntGroup, String acntTitle, boolean acntUsing) {
+		super();
+		this.acntNum = acntNum;
+		this.acntGroup = acntGroup;
+		this.acntTitle = acntTitle;
+		this.acntUsing = acntUsing;
+	}
+
+	
+	public boolean getAcntUsing() {
+		return acntUsing;
+	}
+
+	public void setAcntUsing(boolean acntUsing) {
+		this.acntUsing = acntUsing;
+	}
+
 	public String getAcntNum() {
 		return acntNum;
 	}
