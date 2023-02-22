@@ -44,10 +44,10 @@
     	1. dbcp(database connection pool)로 연결
     -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    	<property name="driverClassName" value="${jdbc.driver}"/>
-    	<property name="url" value="${jdbc.url}"/>
-    	<property name="username" value="${jdbc.user}"/>
-    	<property name="password" value="${jdbc.pass}"/>
+    	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+    	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+    	<property name="username" value="scott"/>
+    	<property name="password" value="tiger"/>
     </bean>
     
     <!-- 
@@ -91,5 +91,5 @@
     
     <bean id="multipartResolver"
 			class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-	
+	<bean id="downloadViewer" class="ferp.download.DownloadView"></bean>
 </beans>

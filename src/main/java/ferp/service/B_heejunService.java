@@ -2,6 +2,7 @@ package ferp.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ferp.dao.B_heejunDao;
 import vo.Menu;
 import vo.Notice;
+import vo.NoticeSch;
 import vo.Store;
 
 @Service
@@ -53,12 +55,26 @@ public class B_heejunService {
 	
 	// 매장 정보 등록
 	public String insertStore(Store ins) {
+		if(ins.getEno()==0) ins.setEno(0);
+		
 		dao.insertStore(ins);
 		
 		return ins.getFrName();
 	}
 	
-	
+	// 공지사항 조회
+	public List<Notice> searchNotice(NoticeSch sch){
+		if(sch.getTitle()==null) sch.setTitle("");
+		
+		return dao.searchNotice(sch);
+	}
+	// 공지사항 상세 페이지
+	public Notice detailNotice(String noticeNum) {
+		// 조회수 증가
+		dao.plusCnt(noticeNum);
+		
+		return dao.detailNotice(noticeNum);
+	}
 	// 공지사항 등록
 	public String insertNotice(Notice ins) {
 		if( ins.getMultipartfile() != null) {
@@ -74,5 +90,25 @@ public class B_heejunService {
 		
 		return ins.getTitle();
 		
+	}
+	// 공지사항 수정
+	public String updateNotice(Notice upt) {
+		if( upload(upt.getMultipartfile())!=null && !upload(upt.getMultipartfile()).equals("")){
+			String fname = upload(upt.getMultipartfile());
+			upt.setFname(fname);
+		}
+		
+		if(upt.getFname()==null) upt.setFname("");
+		
+		dao.updateNotice(upt);
+		
+		return upt.getNoticeNum();
+	}
+	// 공지사항 삭제
+	public String deleteNotice(String noticeNum) {
+		
+		dao.deleteNotice(noticeNum);
+		
+		return noticeNum;
 	}
 }
