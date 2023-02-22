@@ -10,6 +10,9 @@
 <meta charset="UTF-8">
 <title>계정과목 생성</title>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
+<style>
+.search{background-color:lightgray;}
+</style>
 </head>
 
 <body class="container">
@@ -17,9 +20,13 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-			<input placeholder="계정코드"> <select><option>자산</option></select>
-			<input placeholder="계정명"> <input type="submit" value="계정검색" class="btn-primary">
-
+		<form class="search">
+			<input placeholder="계정코드">
+			<select><option>자산</option></select>
+			<input placeholder="계정명">
+			<button type="submit">계정검색</button>
+		</form>
+		
 			<table>
 				<thead>
 					<tr>
@@ -41,7 +48,7 @@
 							<option>수익</option>
 							</select></td>
 						<td><input name="acntTitle"></td>
-						<td><input value="1" type="hidden" name="acntUsing"><button>계정등록</button></td>
+						<td><input value="1" type="hidden" name="acntUsing"><button class="btn-primary">계정등록</button></td>
 					</form>
 					</tr>
 					<c:forEach items="${accountList }" var="each">
@@ -64,8 +71,5 @@
 		</div>
 	</div>
 	
-	<button class="btn-primary">hiasdnl</button>
-	<button class="btn-secondary">hiasdnl</button>
-	<button class="btn-success">hiasdnl</button>
 </body>
 </html>
