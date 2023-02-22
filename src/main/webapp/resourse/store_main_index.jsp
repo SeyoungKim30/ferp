@@ -13,8 +13,8 @@
 
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="${path}/resourse/css/reset.css"/>
-<link rel="stylesheet" href="${path}/resourse/css/store_main_index.css"/>
+<link rel="stylesheet" href="ferp/resourse/css/reset.css"/>
+<link rel="stylesheet" href="ferp/resourse/css/store_main_index.css"/>
 
 </head>
 
@@ -22,7 +22,7 @@
     <div class="container">
         <header>  
             <div class="logo">
-                <h1><a href="#"><img src="/img/F.ERP.png" alt=""></a></h1>
+                <h1><a href="#"><img src="ferp/resourse/img/F.ERP.png" alt=""></a></h1>
             </div>
         </header>
         <div class="main_wrapper">
