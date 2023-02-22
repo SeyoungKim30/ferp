@@ -11,6 +11,7 @@
 			
 <mappers>
 		<mapper resource="ferp/resource/mappers/C1_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/C2_Mapper.xml"/>
 </mappers>
 	
 </configuration>
