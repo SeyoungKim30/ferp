@@ -51,11 +51,18 @@
 	<section>
 	<!-- 여기서부터 작업 -->
         <div class="main_wrapper">
-    	    <h2 class="insert_product">공지사항 등록</h2>
+        <form enctype="multipart/form-data" method="post">
+        	<div>
+	        	<h2 class="insert_product">공지사항 등록</h2>
+		        <input type="hidden" name="important">
+	        	<input type="checkbox" id="important" >
+	        	<span>중요공지사항</span>
+        	</div>
+    	    
         	<div class="content">
-        	<form enctype="multipart/form-data" method="post">
+        	
         		<!-- 작성자 value값에 로그인한 사원의 이름 mem.name -->
-        		<input type="hidden" name="writer" value="">
+        		<input type="hidden" name="writer" value="홍길동">
 				<div class="first_line">
 					<h3 class="notice_title">제목</h3>
 				</div>
@@ -95,6 +102,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	    $(".insBtn").click(function(){
+			if($('#important').is(':checked')){
+				$("input[name=important]").attr('value','o');
+			}
+			if(!$('#important').is(':checked')){
+				$("input[name=important]").attr('value','x');
+			}
 			  Swal.fire({
 				  title: '등록하시겠습니까?',
 				  icon: 'question',

@@ -4,15 +4,14 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias alias="stock" type="vo.Stock"/>
 		<typeAlias alias="menu" type="vo.Menu"/>
 		<typeAlias alias="notice" type="vo.Notice"/>
+		<typeAlias alias="noticeSch" type="vo.NoticeSch"/>
 		<typeAlias alias="store" type="vo.Store"/>
 	</typeAliases>
 			
 
 	<mappers>
-			<mapper resource="ferp/resource/aaaa.xml"/>
 			<mapper resource="ferp/resource/heejunMapper.xml"/>
 	</mappers>
 	

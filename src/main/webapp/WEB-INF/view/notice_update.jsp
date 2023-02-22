@@ -14,7 +14,7 @@
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="/ferp/resourse/css/insertPage.css"/>
+<link rel="stylesheet" href="/ferp/resourse/css/notice_insert.css"/>
 <style type="text/css">
 
 
@@ -51,38 +51,37 @@
 	<section>
 	<!-- 여기서부터 작업 -->
         <div class="main_wrapper">
-        	<form enctype="multipart/form-data" method="post">
+        <form enctype="multipart/form-data" method="post">
         	<div>
-     	        <h2 class="insert_product">메 뉴 등 록</h2>
-     	        <input type="hidden" name="necessary">
-	        	<input type="checkbox" id="necessary" >
-	        	<span>선택가능여부</span>
+	        	<h2 class="insert_product">공지사항 등록</h2>
+	        	<input type="hidden" name="noticeNum" value="${notice.noticeNum}">
+		        <input type="hidden" name="important" value="${notice.important}">
+	        	<input type="checkbox" id="important" >
+	        	<span>중요공지사항</span>
         	</div>
-
+    	    
         	<div class="content">
+        	
+        		<!-- 작성자 value값에 로그인한 사원의 이름 mem.name -->
 				<div class="first_line">
-					<h3 class="menu_name">메뉴명</h3>
-					<h3 class="menu_price">가격</h3>
+					<h3 class="notice_title">제목</h3>
 				</div>
 				<div class="second_line">
-					<input type="text" name="menuName" placeholder="메뉴명 입력">
-					<input type="number" name="price" placeholder="판매가 입력">
+					<input type="text" name="title" value="${notice.title}" placeholder="공지사항 제목 입력">
 				</div>
 				<div class="third_line">
-					<h3 class="menu_info">메뉴설명</h3>
-					<h3 class="menu_category">카테고리</h3>
+					<h3 class="notice_content">내용</h3>
 				</div>
 				<div class="fourth_line">
-					<input type="text" name="info" placeholder="메뉴설명 입력">
-					<input type="text" name="category" placeholder="카테고리 입력">
+					<textarea name="content" rows="15" cols="70" placeholder="공지사항 내용 입력">${notice.content}</textarea>
 				</div>
 				<div class="fifth_line">
-					<h3 class="menu_img">메뉴사진</h3>
+					<h3 class="notice_file">파일</h3>
 				</div>
 				<div class="sixth_line">
 					<div class="block">
 						<div class="img_block">
-							<input class="upload-name" type="text" value="파일선택" disabled="disabled" style="width: 290px;">
+							<input class="upload-name" name="fname" type="text" value="${notice.fname}" readonly="readonly"  style="width: 290px;">
 							
 			              	<label for="input_file">업로드</label> 
              				<input type="file" name="multipartfile" id="input_file" class="upload-hidden" > 
@@ -90,7 +89,7 @@
 					</div>
 				</div>
 				<div class="submit_line">
-					<button type="button" class="insBtn">등 록</button>
+					<button type="button" class="insBtn">수 정</button>
 				</div>	
 			</form>		
 			</div>
@@ -102,19 +101,15 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
-
 	    $(".insBtn").click(function(){
-			if($('#necessary').is(':checked')){
-				$("input[name=necessary]").attr('value','o');
+			if($('#important').is(':checked')){
+				$("input[name=important]").attr('value','o');
 			}
-			if(!$('#necessary').is(':checked')){
-				$("input[name=necessary]").attr('value','x');
+			if(!$('#important').is(':checked')){
+				$("input[name=important]").attr('value','x');
 			}
-			console.log($('#necessary').is(':checked'))
-			console.log($("input[name=necessary]").val())
-			
 			  Swal.fire({
-				  title: '등록하시겠습니까?',
+				  title: '수정하시겠습니까?',
 				  icon: 'question',
 				  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 				  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
@@ -123,58 +118,30 @@ $(document).ready(function(){
 				  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 				}).then((result) => {
 				  if (result.value) {
-					  if($("[name=menuName]").val() == ""){
+					  if($("[name=title]").val() == ""){
 						  Swal.fire({
-							  title: '메뉴명을 입력해주세요.',
+							  title: '공지사항 제목을 입력해주세요.',
 							  icon: 'warning',
 							  showCancelButton: false,
 							  confirmButtonColor: '#3085d6',
 							  confirmButtonText: '확인'
 							}).then((result) => {
 							  if (result.value) {
-								  $("[name=menuName]").focus()
+								  $("[name=title]").focus()
 							      return;
 							  }
 						  })
 					  }
-					  else if($("[name=price]").val() == ""){
+					  else if($("[name=content]").val() == ""){
 						  Swal.fire({
-							  title: '판매가를 입력해주세요.',
+							  title: '공지사항 내용을 입력해주세요.',
 							  icon: 'warning',
 							  showCancelButton: false,
 							  confirmButtonColor: '#3085d6',
 							  confirmButtonText: '확인'
 							}).then((result) => {
 							  if (result.value) {
-								  $("[name=price]").focus()
-							      return;
-							  }
-						  })
-					  }
-					  else if($("[name=info]").val() == ""){
-						  Swal.fire({
-							  title: '메뉴설명을 입력해주세요.',
-							  icon: 'warning',
-							  showCancelButton: false,
-							  confirmButtonColor: '#3085d6',
-							  confirmButtonText: '확인'
-							}).then((result) => {
-							  if (result.value) {
-								  $("[name=info]").focus()
-							      return;
-							  }
-						  })
-					  }
-					  else if($("[name=category]").val() == ""){
-						  Swal.fire({
-							  title: '카테고리를 입력해주세요.',
-							  icon: 'warning',
-							  showCancelButton: false,
-							  confirmButtonColor: '#3085d6',
-							  confirmButtonText: '확인'
-							}).then((result) => {
-							  if (result.value) {
-								  $("[name=category]").focus()
+								  $("[name=content]").focus()
 							      return;
 							  }
 						  })

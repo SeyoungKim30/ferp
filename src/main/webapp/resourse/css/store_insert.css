@@ -89,8 +89,8 @@ span{
 	display: flex;
 	margin-top: 15px;
 }
-.third_line .store_open{
-	padding-right: 46.2%;
+.third_line .store_name{
+	padding-right: 48%;
 }
 
 /* 4번째 라인*/
@@ -98,11 +98,11 @@ span{
 	display: flex;
 	justify-content: space-between;
 }
-[name=frOpen]{
+[name=frName]{
     width: 47%;
     margin-right: 6%;
 }
-[name=frOperTime]{
+[name=frOpen]{
 	width: 47%;
 }
 
@@ -111,19 +111,19 @@ span{
 	display: flex;
 	margin-top: 15px;
 }
-.fifth_line .store_closeDte{
-	padding-right: 48%;
+.fifth_line .store_opertime{
+	padding-right: 46.1%;
 }
 
 /* 6번째 라인*/
 .sixth_line{
 	display: flex;
 }
-[name=frClosedDte]{
+[name=frOperTime]{
     width: 47%;
     margin-right: 6%;
 }
-[name=frRepName]{
+[name=frClosedDte]{
 	width: 47%;
 }
 /* 7번째 라인*/
@@ -131,7 +131,7 @@ span{
 	display: flex;
 	margin-top: 15px;
 }
-.seventh_line .store_tel{
+.seventh_line .store_repName{
 	padding-right: 46.2%;
 }
 
@@ -139,11 +139,11 @@ span{
 .eighth_line{
 	display: flex;
 }
-[name=frTel]{
+[name=frRepName]{
     width: 47%;
     margin-right: 6%;
 }
-[name=eno]{
+[name=frTel]{
 	width: 47%;
 }
 
@@ -153,16 +153,28 @@ span{
 	display: flex;
 	margin-top: 15px;
 }
+.ninth_line .store_eno{
+	padding-right: 46.2%;
+}
+
 /* 10번째 라인*/
 .tenth_line{
 	display: flex;
 }
-[name=frAddress]{
+[name=eno]{
     width: 47%;
-    margin-right: 44%;
+    margin-right: 6%;
 }
-
-button{
+[name=frAddress]{
+	width: 46%;
+}
+/* 등록 라인 */
+.submit_line{
+	margin-top: 40px;
+	margin-bottom: 40px;
+	float: right;
+}
+.submit_line > button{
     width: 100px;
     height: 40px;
     text-align: center;

@@ -63,39 +63,49 @@
 					<input type="text" name="frPass" placeholder="비밀번호 입력">
 				</div>
 				<div class="third_line">
+					<h3 class="store_name">매장명</h3>
 					<h3 class="store_open">오픈시간</h3>
-					<h3 class="store_opertime">운영시간</h3>
+					
 				</div>
 				<div class="fourth_line">
+					<input type="text" name="frName" placeholder="매장명 입력">
 					<input type="text" name="frOpen" placeholder="오픈시간 입력">
-					<input type="text" name="frOperTime" placeholder="운영시간 입력">
 				</div>
 				<div class="fifth_line">
+					<h3 class="store_opertime">운영시간</h3>
 					<h3 class="store_closeDte">휴무일</h3>
-					<h3 class="store_repName">대표자명</h3>
+					
 				</div>
 				<div class="sixth_line">
+					<input type="text" name="frOperTime" placeholder="운영시간 입력">				
 					<input type="text" name="frClosedDte" placeholder="휴무일 입력">
-					<input type="text" name="frRepName" placeholder="대표자명 입력">
+
 				</div>
 				<div class="seventh_line">
+					<h3 class="store_repName">대표자명</h3>
 					<h3 class="store_tel">전화번호</h3>
-					<h3 class="store_eno">담당직원</h3>
+					
 				</div>
 				<div class="eighth_line">
+					<input type="text" name="frRepName" placeholder="대표자명 입력">				
 					<input type="text" name="frTel" placeholder="전화번호 입력">
-					<select name="eno">
-						<option disabled="disabled" selected="selected">담당직원 선택</option>
-					</select>
+
 				</div>	
 				<div class="ninth_line">
+					<h3 class="store_eno">담당직원</h3>
 					<h3 class="store_address">주소</h3>
 				</div>
 				<div class="tenth_line">
+					<select name="eno">
+						<option disabled="disabled" selected="selected">담당직원 선택</option>
+						<option value="100">김개똥</option>
+					</select>				
 					<input type="text" name="frAddress" placeholder="주소 입력">
+				</div>					
+						
+				<div class="submit_line">
 					<button type="button" class="insBtn">등 록</button>
-				</div>							
-
+				</div>	
 			</form>		
 			</div>
         </div>
