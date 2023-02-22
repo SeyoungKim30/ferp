@@ -4,7 +4,7 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <fmt:requestEncoding value="UTF-8" />
 <!DOCTYPE html>
 <html>
@@ -16,14 +16,30 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
-
+<style type="text/css">
+	
+	.lnb>ul>li>a:after{
+	width: 18px;
+	height: 16px;
+	background: url(${path}/resource/img/menu_icon_down.png);
+	position: absolute;
+	top: 11px;
+	right: 14px;
+	content: "";
+	}
+	
+	.lnb>ul>li.active>a:after{
+	    background: url(${path}/resource/img/menu_icon_up.png);
+	}
+	
+</style>
 </head>
 
 <body>
     <div class="container">
         <header>  
             <div class="logo">
-                <h1><a href="#"><img src="ferp/resourse/img/F.ERP.png" alt=""></a></h1>
+                <h1><a href="#"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
             </div>
         </header>
         <div class="main_wrapper">
@@ -102,6 +118,7 @@ $('.lnb > ul > li').click(function() {
     }
 });
 
+<!-- eq(n) 열려 있는 사이드바 n 숫자로 조정하세요.  -->
 $('.lnb > ul > li').eq(0).trigger("click");
 </script>
 </html>
