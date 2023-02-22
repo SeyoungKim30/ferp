@@ -14,7 +14,7 @@
 
 </head>
 <body>
-
+<%@ include file="/resource/header.jsp" %>
 
 <input placeholder="계정코드">
 <select><option>자산</option></select>
@@ -33,6 +33,6 @@
 <tr><td>10100</td><td>자산</td><td>현금</td><td><input type="checkbox"></td></tr>
 </tbody>
 </table>
-
+${accountList }
 </body>
 </html>
