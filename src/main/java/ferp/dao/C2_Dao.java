@@ -1,5 +1,9 @@
 package ferp.dao;
 
-public interface C2_Dao {
+import java.util.List;
 
+import vo.Product;
+
+public interface C2_Dao {
+	public List<Product> r8101ProductSch(Product sch);
 }
