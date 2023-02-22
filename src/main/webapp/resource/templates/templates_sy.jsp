@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>계정과목 생성</title>
+<title>타이틀</title>
 </head>
 
 <body class="container">

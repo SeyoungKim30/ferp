@@ -18,4 +18,9 @@ public class C1_Service {
 		
 		return dao.r7200SelectAccount(ac);
 	}
+	
+	public int r7201insertAccount(Account ac) {
+		
+		return dao.r7201insertAccount(ac);
+	}
 }
