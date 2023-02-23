@@ -28,7 +28,10 @@ public class A1_Controller {
 	// http://localhost:6080/ferp/storeLogin.do
 	@RequestMapping("/storeLogin.do")
 	public String pg1000storeLogin(Store st, Model d, HttpSession session){
-		if(service.storeLogin(st)==null){
+		if(st.getFrRegiNum()==null) {
+			d.addAttribute("loginState", "로그인페이지");
+			return "WEB-INF\\store\\pg1000_storeLogin.jsp";
+		}else if(service.storeLogin(st)==null){
 			d.addAttribute("loginState", "틀림");
 			return "WEB-INF\\store\\pg1000_storeLogin.jsp";
 		}else {
