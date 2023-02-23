@@ -1,0 +1,137 @@
+@charset "UTF-8";
+button:hover, .selectedFunction:hover, .unselectedFunction:hover{
+	cursor: pointer;
+}
+.container{
+	padding:10px;
+	width:97%;	
+}
+.fstCon{
+	margin-top:41px; 
+}
+.row{
+	display: flex;
+}
+.center{
+	justify-content: center;
+}
+.border{
+	border:1px solid black;
+}
+.margin{
+	margin:20px;
+}
+.margin-tn{
+	margin:0 20px 20px 20px;
+}
+.padding-up{
+	padding-top:10px;
+}
+.margin-s{
+	margin-top:20px;
+	margin-bottom:20px;
+	margin-left:20px;
+}
+.regList{
+	padding-left:15px;
+	width:25%;
+	height:40px;
+	border:1px solid #a4a4a4;
+	border-radius:5px;
+}
+button.regList{
+	padding-left:15px;
+	width:25%;
+	height:40px;
+	border:1px solid #a4a4a4;
+	border-radius:5px;
+	margin-left: 20px;
+}
+input[type="text"].regList:read-only, input[type="date"].regList:read-only {
+	background-color: #efefef;
+}
+input[type="text"].listInput{
+	width:100%;
+	height:40px;
+	border:none;
+	font-size: large;
+	text-align: center;
+}
+input[type="text"].listInput:disabled{
+	background-color: white;
+}
+.w100{
+	width:100%;
+}
+.regBtn{
+	width:10%;
+	height:40px;
+	font-size: large;
+	font-weight: 500;
+	color:white;
+	background-color: #a4a4a4;
+	border:1px solid #a4a4a4;
+	border-radius:5px;
+}
+.uptBtn, .uptCfm{
+	background-color:green;
+	color:white;
+	border:none;
+	border-radius: 3px;
+	width:40%;
+	padding:3px;
+	margin-top:7px;
+}
+.delBtn{
+	background-color:red;
+	color:white;
+	border:none;
+	border-radius: 3px;
+	width:40%;
+	padding:3px;
+}
+.fileBtn{
+	background-color:#efefef;
+	border:1px solid #e4e4e4;
+	border-radius: 3px;
+	width:40%;
+	padding:3px;
+	margin-top:7px;
+}
+.thDiv{
+	border:1px solid #a4a4a4;
+	background-color: #e4e4e4;
+	font-size: large;
+	text-align: center;
+	padding:5px;
+}
+.tdDiv{
+	border:1px solid #a4a4a4;
+	text-align: center;
+	font-size: large;
+	padding:5px;
+}
+.pgBtnPrev{
+	border:1px solid #e4e4e4;
+	border-radius: 10px 0 0 10px;
+	width:5%;
+	padding:3px;
+	margin-top:7px;
+}
+.pgBtnNext{
+	border:1px solid #e4e4e4;
+	border-radius: 0 10px 10px 0;
+	width:5%;
+	padding:3px;
+	margin-top:7px;
+}
+.pgBtn{
+	border:1px solid #e4e4e4;
+	border-radius: 3px;
+	width:2%;
+	padding:3px;
+	margin-top:7px;
+}
+.hide{
+	display:none;
+}
