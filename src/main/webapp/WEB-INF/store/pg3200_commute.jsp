@@ -51,6 +51,17 @@
     .main_wrapper{
     	display: block;
     }
+    
+    select[name=clerkName]{
+	    margin: auto;
+	    display: block;
+	    width: 480px;
+	    height: 50px;
+	    border-radius: 10px;
+	    padding-left: 20px;
+	    font-size: 20px;
+	    font-family: inherit;
+    }
 	
 </style>
 </head>
@@ -68,7 +79,7 @@
         		<div class="btn start_btn">출근</div>
         		<div class="btn end_btn">퇴근</div>
         	</div>
-        		<select>
+        		<select name="clerkName">
         			<option>직원1</option>
         			<option>직원2</option>
         			<option>세션처리후</option>
