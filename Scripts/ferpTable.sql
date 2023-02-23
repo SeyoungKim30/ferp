@@ -2,7 +2,7 @@ SELECT * FROM dasom;
 
 CREATE TABLE store (
 	FrRegiNum	varchar2(50)	NOT NULL,
-	eno	number	NOT NULL,
+	empNum	number	NOT NULL,
 	frName	varchar2(50)	NULL,
 	frOpen	varchar2(20)	NULL,
 	frOperTime	varchar2(20)	NULL,
@@ -23,7 +23,7 @@ CREATE TABLE menu (
 	category	varchar2(50)	NULL
 );
 
-CREATE TABLE Order (
+CREATE TABLE orders (
 	orderNumber	varchar2(50)	NOT NULL,
 	orderDate	varchar2(50)	NOT NULL,
 	menuNum	varchar2(50)	NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE storeClerk (
 	address	varchar2(300)	NULL
 );
 
-CREATE TABLE schedule (
+CREATE TABLE clerkSchedule (
 	onDay	date	NULL,
 	offDay	date	NULL,
 	clerkNum	varchar2(50)	NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE empCheckInInfo (
 
 CREATE TABLE notice (
 	noticeNum	varchar2(50)	NOT NULL,
-	eno	number	NOT NULL,
+	empNum	number	NOT NULL,
 	title	varchar2(300)	NULL,
 	content	varchar2(1000)	NULL,
 	readcnt	number	NULL,
@@ -86,8 +86,8 @@ CREATE TABLE QnA (
 	state	varchar2(20)	NULL
 );
 
-CREATE TABLE HOemp (
-	eno	number	NOT NULL,
+CREATE TABLE emp (
+	empNum	number	NOT NULL,
 	pass	varchar2(20)	NULL,
 	ename	varchar2(20)	NULL,
 	dname	varchar2(30)	NULL
@@ -98,7 +98,7 @@ CREATE TABLE QA (
 	QANum	varchar2(50)	NOT NULL,
 	result	varchar2(50)	NULL,
 	FrRegiNum	varchar2(50)	NOT NULL,
-	eno	number	NOT NULL,
+	empNum	number	NOT NULL,
 	inspectdte	date	NULL,
 	regdte	date	NULL,
 	comment	varchar2(100)	NULL
@@ -203,8 +203,8 @@ ALTER TABLE QnA ADD CONSTRAINT PK_QNA PRIMARY KEY (
 	qnaNum
 );
 
-ALTER TABLE HOemp ADD CONSTRAINT PK_HOEMP PRIMARY KEY (
-	eno
+ALTER TABLE emp ADD CONSTRAINT PK_emp PRIMARY KEY (
+	empNum
 );
 
 ALTER TABLE QA ADD CONSTRAINT PK_QA PRIMARY KEY (

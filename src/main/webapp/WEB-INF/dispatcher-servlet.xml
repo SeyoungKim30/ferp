@@ -32,7 +32,7 @@
        http://www.springframework.org/schema/tx/spring-tx.xsd   
       " >
 	<!-- 자동으로 특정 패키지에 컨테이너 할당할 클래스 설정 -->
-      <context:component-scan base-package="springFerp">
+      <context:component-scan base-package="ferp">
       	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
       	<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
       	<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
@@ -57,14 +57,14 @@
     -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     	<property name="dataSource" ref="dataSource"></property>
-    	<property name="configLocation" value="classpath:resource/mybatis.Spring.xml"></property>
+    	<property name="configLocation" value="classpath:ferp/resource/mybatisConfig.xml"></property>
     </bean>
     
     <!-- 
      	# 자동 생성 dao 인터페이스
      -->
      <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-     	<property name="basePackage" value="springFerp.dao"></property>
+     	<property name="basePackage" value="ferp.dao"></property>
      </bean>
     
     

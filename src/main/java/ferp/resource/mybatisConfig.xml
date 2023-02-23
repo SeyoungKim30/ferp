@@ -5,12 +5,13 @@
 
 	<typeAliases>
 	<typeAlias alias="stock" type="vo.Stock"/>
+	<typeAlias alias="account" type="vo.Account"/>
+	<typeAlias alias="product" type="vo.Product"/>
 	</typeAliases>
 			
-
-	<mappers>
-			<mapper resource="ferp/resource/aaaa.xml"/>
-	</mappers>
-	
+<mappers>
+		<mapper resource="ferp/resource/mappers/C1_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/C2_Mapper.xml"/>
+</mappers>
 	
 </configuration>
