@@ -27,18 +27,55 @@
 </style>
 <script>
 $(document).ready(function(){
+	var accountList=[];
+	
 	function fetchlist(){
-		this.numList=[];
 		let url="/ferp/selectAccountJson.do"
-		var vm= this;	//vue객체의 다른 속성(모델, 메소드)을 fetch 안에서 사용하기 위해
 	 	fetch(url).then(function(response){return response.json() }).then(function(json){
-	 		vm.accountList=json.accountList;
-	 		console.log(json.accountList);
+	 		accountList=json.accountList;
+	 		console.log("함수내부 : " + accountList);
 	 	}).catch(function(err){console.log(err)})
 	}
 	
 	fetchlist();
+
+	function matching(myinput,myresult,mylist){
+		console.log("함수 실행")
+		mylist.forEach(function(each,index){
+			if(each.acntTitle==myinput){
+				console.log(myinput)
+				myresult=each.acntNum;
+			}
+		})	
+	}
 	
+	$('.acntTitle').on("keyup",function(){
+		var myinput = $(this).val();
+		var myresult = $(this).parents('tr').find(".acntNum")
+		for(var i=0;i<accountList.length;i++){
+			if(accountList[i].acntTitle==myinput){
+				console.log('일치');
+				myresult.val(accountList[i].acntNum);
+				break;
+			}else{
+				myresult.val('');
+			}
+		}
+	})
+	
+	$('.acntNum').on("keyup",function(){
+		var myinput = $(this).val();
+		var myresult = $(this).parents('tr').find(".acntTitle")
+		for(var i=0;i<accountList.length;i++){
+			if(accountList[i].acntNum==myinput){
+				console.log('일치');
+				myresult.val(accountList[i].acntTitle);
+				break;
+			}else{
+				myresult.val('');
+			}
+		}
+	})	
 })
 </script>
 </head>
@@ -69,7 +106,7 @@ $(document).ready(function(){
 			</div>
 			<hr>
 			<form action="${path }/insertACstatement.do" method="post" id="insertACstatement">
-				<label>전표일자<input type="date" name="stmtDate"></label>
+				<label>전표일자<input type="date" name="stmtDate" required="required"></label>
 				<input name="statementNum" type="hidden" value="A">
 				<input name="frRegiNum" type="hidden" value="세션로그인번호">
 				<button class="btn-primary">등록</button>
@@ -86,47 +123,24 @@ $(document).ready(function(){
 					</thead>
 					<tbody>
 						<tr>
-							<td><input name="stmtlist[0].acntNum"></td>
-							<td><input name="stmtlist[0].debit"></td>
-							<td><input placeholder="계정과목명(자동완성되게)"></td>
-							<td><input name="stmtlist[0].credit"></td>
+							<td><input class="acntNum" name="stmtlist[0].acntNum" required="required"></td>
+							<td><input name="stmtlist[0].debit" required="required"></td>
+							<td><input class="acntTitle" placeholder="계정과목명"></td>
+							<td><input name="stmtlist[0].credit" required="required"></td>
 							<td><input name="stmtlist[0].stmtOpposite"></td>
 							<td><input name="stmtlist[0].remark"></td>
 						</tr>
 						<tr>
-							<td><input name="stmtlist[1].acntNum"></td>
+							<td><input class="acntNum" name="stmtlist[1].acntNum"></td>
 							<td><input name="stmtlist[1].debit"></td>
-							<td><input value="보통예금"></td>
+							<td><input class="acntTitle" placeholder="계정과목명"></td>
 							<td><input name="stmtlist[1].credit"></td>
 							<td><input name="stmtlist[1].stmtOpposite"></td>
 							<td><input name="stmtlist[1].remark"></td>
 						</tr>
-						<!-- <tr>
-							<td><input name="stmtlist[2].acntNum"></td>
-							<td><input name="stmtlist[2].debit"></td>
-							<td><input value="보통예금"></td>
-							<td><input name="stmtlist[2].credit"></td>
-							<td><input name="stmtlist[2].stmtOpposite"></td>
-							<td><input name="stmtlist[2].remark"></td>
-						</tr>
-						<tr>
-							<td><input name="stmtlist[3].acntNum"></td>
-							<td><input name="stmtlist[3].debit"></td>
-							<td><input value="보통예금"></td>
-							<td><input name="stmtlist[3].credit"></td>
-							<td><input name="stmtlist[3].stmtOpposite"></td>
-							<td><input name="stmtlist[3].remark"></td>
-						</tr> -->
 					</tbody>
 				</table>
 			</form>
-<script>
-$('[name=stmtDate]').on("change",function(){
-	console.log($(this).val())
-})
-</script>
-
-
 
 		</div>
 	</div>
