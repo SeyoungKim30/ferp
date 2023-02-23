@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+$(document).ready(function(){
+	var vm2= new Vue({
+		el:"#insertACstatement",
+		data:{inum:"",ititle:"",accountList:[]},
+		methods:{
+			matching:function(){
+				var vm2=this
+				vm2.accountList.forEach(function(each,index){
+					if(each.acntNum==vm2.inum){
+						console.log("일치")
+						console.log(vm2.inum)
+						console.log(each.acntNum)
+						vm2.ititle=each.acntTitle
+					}
+				})
+			},
+			matching2:function(){
+				var vm2=this
+				vm2.accountList.forEach(function(each,index){
+					if(each.acntTitle==vm2.ititle){vm2.inum=each.acntNum}
+				})
+			},
+			fetchList:function(){
+				this.numList=[];
+				let url="/ferp/selectAccountJson.do"
+				var vm= this;	//vue객체의 다른 속성(모델, 메소드)을 fetch 안에서 사용하기 위해
+			 	fetch(url).then(function(response){return response.json() }).then(function(json){
+			 		vm.accountList=json.accountList;
+			 		console.log(json.accountList);
+			 	}).catch(function(err){console.log(err)})
+			}
+		},
+		mounted:function(){
+			this.fetchList();
+		}
+	})
+})
+</script>
+</head>
+<body>
+
+<div id="insertACstatement">
+<input v-model="inum" @keyup="matching" list="numlist">
+<datalist id="numlist">
+			<option v-for="(eachnum) in accountList" v-bind:value="eachnum.acntNum" v-if="eachnum.acntUsing">{{eachnum.acntTitle}}</option>
+</datalist>
+<input v-model="ititle" list="titlelist" @keyup="matching2" >
+<datalist id="titlelist">
+		<option v-for="(eachnum) in accountList" v-bind:value="eachnum.acntTitle">{{eachnum.acntNum}}</option>
+</datalist>
+<br>
+{{accountList}}
+</div>
+
+</body>
+</html>

@@ -5,9 +5,8 @@
 
 <mapper namespace="ferp.dao.C1_Dao">
 
-	<select id="r7200SelectAccount" resultType="account"
-		parameterType="account">
-		SELECT * FROM Account
+	<select id="r7200SelectAccount" resultType="account" parameterType="account">
+		SELECT * FROM Account where acntNum Like '%'||#{acntNum}||'%' And acntTitle LIKE '%'||#{acntTitle}||'%'
 	</select>
 
 	<insert id="r7201insertAccount" parameterType="account">
@@ -19,7 +18,8 @@
 		INSERT INTO ACSTATEMENT
 		values(#{statementNum}||to_char((SELECT count(DISTINCT statementNum)
 		<if test="first">+1</if> FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}),'FM0000')
-		,#{frRegiNum},#{acntNum},#{debit},#{credit},#{stmtOpposite},#{stmtDate},#{remark})
+		,#{frRegiNum},#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR}
+		,TO_DATE(#{stmtDate},'YYYY-MM-DD'),#{remark,jdbcType=VARCHAR})
 	</insert>
 
 </mapper>

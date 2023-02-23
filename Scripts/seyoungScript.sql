@@ -21,3 +21,7 @@ INSERT INTO ACSTATEMENT
 SELECT * FROM ACSTATEMENT a ;
 
 DELETE FROM ACSTATEMENT a ;
+
+SELECT TO_DATE('2022-11-11','YYYY-MM-DD') FROM dual; 
+
+SELECT * FROM Account where acntNum Like '%'||''||'%' And acntTitle LIKE '%'||'현'||'%';

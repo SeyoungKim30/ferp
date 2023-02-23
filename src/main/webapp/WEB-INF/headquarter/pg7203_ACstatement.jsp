@@ -9,6 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>타이틀</title>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <style>
 .toolbar {
@@ -22,6 +25,22 @@
 	display: inline;
 }
 </style>
+<script>
+$(document).ready(function(){
+	function fetchlist(){
+		this.numList=[];
+		let url="/ferp/selectAccountJson.do"
+		var vm= this;	//vue객체의 다른 속성(모델, 메소드)을 fetch 안에서 사용하기 위해
+	 	fetch(url).then(function(response){return response.json() }).then(function(json){
+	 		vm.accountList=json.accountList;
+	 		console.log(json.accountList);
+	 	}).catch(function(err){console.log(err)})
+	}
+	
+	fetchlist();
+	
+})
+</script>
 </head>
 
 <body class="container">
@@ -49,10 +68,10 @@
 				</div>
 			</div>
 			<hr>
-			<form action="${path }/insertACstatement.do" method="post">
+			<form action="${path }/insertACstatement.do" method="post" id="insertACstatement">
 				<label>전표일자<input type="date" name="stmtDate"></label>
-				<input name="statementNum" type="hidden">
-				<input name="frRegiNum" type="hidden">
+				<input name="statementNum" type="hidden" value="A">
+				<input name="frRegiNum" type="hidden" value="세션로그인번호">
 				<button class="btn-primary">등록</button>
 				<table>
 					<thead>
@@ -82,7 +101,7 @@
 							<td><input name="stmtlist[1].stmtOpposite"></td>
 							<td><input name="stmtlist[1].remark"></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td><input name="stmtlist[2].acntNum"></td>
 							<td><input name="stmtlist[2].debit"></td>
 							<td><input value="보통예금"></td>
@@ -97,11 +116,15 @@
 							<td><input name="stmtlist[3].credit"></td>
 							<td><input name="stmtlist[3].stmtOpposite"></td>
 							<td><input name="stmtlist[3].remark"></td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 			</form>
-
+<script>
+$('[name=stmtDate]').on("change",function(){
+	console.log($(this).val())
+})
+</script>
 
 
 
