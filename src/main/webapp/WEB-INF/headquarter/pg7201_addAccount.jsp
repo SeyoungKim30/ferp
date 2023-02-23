@@ -38,7 +38,7 @@
 				</thead>
 				<tbody>
 					<tr>
-					<form action="${path }/insertAccount.do">
+					<form action="${path }/account/insertAccount.do">
 						<td><input name="acntNum"></td>
 						<td><select name="acntGroup">
 							<option>자산</option>

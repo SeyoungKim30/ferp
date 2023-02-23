@@ -4,10 +4,17 @@
 <configuration>
 
 	<typeAliases>
+<<<<<<< HEAD
 	<typeAlias alias="stock" type="vo.Stock"/>
 	<typeAlias alias="account" type="vo.Account"/>
 	<typeAlias alias="product" type="vo.Product"/>
 	<typeAlias alias="store" type="vo.Store"/>
+=======
+		<typeAlias alias="stock" type="vo.Stock"/>
+		<typeAlias alias="account" type="vo.Account"/>
+		<typeAlias alias="product" type="vo.Product"/>
+		<typeAlias alias="acstmt" type="vo.ACStatement"/>
+>>>>>>> branch 'main' of https://github.com/SeyoungKim30/ferp.git
 	</typeAliases>
 			
 <mappers>
