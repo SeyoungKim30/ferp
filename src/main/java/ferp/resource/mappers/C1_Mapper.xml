@@ -2,15 +2,24 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-    
-    <mapper namespace="ferp.dao.C1_Dao">
-    	
-    	<select id="r7200SelectAccount" resultType="account" parameterType="account">
-    		SELECT * FROM Account
-    	</select>
-    	
-    	<insert id="r7201insertAccount" parameterType="account" >
-    	INSERT INTO ACCOUNT values(#{acntNum},#{acntGroup},#{acntTitle},#{acntUsing})
-    	</insert>
 
-    </mapper>
+<mapper namespace="ferp.dao.C1_Dao">
+
+	<select id="r7200SelectAccount" resultType="account"
+		parameterType="account">
+		SELECT * FROM Account
+	</select>
+
+	<insert id="r7201insertAccount" parameterType="account">
+		INSERT INTO ACCOUNT
+		values(#{acntNum},#{acntGroup},#{acntTitle},#{acntUsing})
+	</insert>
+
+	<insert id="r7203insertStatement" parameterType="acstmt">
+		INSERT INTO ACSTATEMENT
+		values(#{statementNum}||to_char((SELECT count(DISTINCT statementNum)
+		<if test="first">+1</if> FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}),'FM0000')
+		,#{frRegiNum},#{acntNum},#{debit},#{credit},#{stmtOpposite},#{stmtDate},#{remark})
+	</insert>
+
+</mapper>

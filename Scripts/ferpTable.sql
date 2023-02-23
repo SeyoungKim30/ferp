@@ -164,11 +164,11 @@ CREATE TABLE clerkFile (
 	FrRegiNum	varchar2(50)	NOT NULL
 );
 
-CREATE TABLE Statement (
+CREATE TABLE ACStatement (
 	statementNum	varchar2(50)	NULL,
 	FrRegiNum	varchar2(50)	NULL,
 	acntNum	varchar2(50)	NOT NULL,
-	debt	varchar2(50)	NULL,
+	debt	number	NULL,
 	credit	number	NULL,
 	stmtOpposite	varchar2(50)	NULL,
 	stmtDate	date	NULL,
