@@ -7,9 +7,11 @@
 	<typeAlias alias="stock" type="vo.Stock"/>
 	<typeAlias alias="account" type="vo.Account"/>
 	<typeAlias alias="product" type="vo.Product"/>
+	<typeAlias alias="store" type="vo.Store"/>
 	</typeAliases>
 			
 <mappers>
+		<mapper resource="ferp/resource/mappers/A1_Mapper.xml"/>
 		<mapper resource="ferp/resource/mappers/C1_Mapper.xml"/>
 		<mapper resource="ferp/resource/mappers/C2_Mapper.xml"/>
 </mappers>
