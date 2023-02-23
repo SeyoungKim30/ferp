@@ -39,16 +39,6 @@ $(document).ready(function(){
 	
 	fetchlist();
 
-	function matching(myinput,myresult,mylist){
-		console.log("함수 실행")
-		mylist.forEach(function(each,index){
-			if(each.acntTitle==myinput){
-				console.log(myinput)
-				myresult=each.acntNum;
-			}
-		})	
-	}
-	
 	$('.acntTitle').on("keyup",function(){
 		var myinput = $(this).val();
 		var myresult = $(this).parents('tr').find(".acntNum")
@@ -76,6 +66,9 @@ $(document).ready(function(){
 			}
 		}
 	})	
+	
+	totalcalculator('.debit','.totaldebit');
+	totalcalculator('.credit','.totalcredit');
 })
 </script>
 </head>
@@ -84,7 +77,6 @@ $(document).ready(function(){
 	<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
-
 		<div class="contents">
 			<div class="toolbar">
 				<div>
@@ -92,7 +84,7 @@ $(document).ready(function(){
 					<button class="btn-dark">다음전표</button>
 				</div>
 				<div class="search">
-					<form>
+					<form action="${path }/selectACstatement.do">
 					<label>전표일자<input type="date" name="stmtDate"></label>
 					<label>전표번호<input placeholder="전표번호" name="statementNum"></label>
 					<button>검색</button>
@@ -122,27 +114,59 @@ $(document).ready(function(){
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach varStatus="ii" items="${stmtList}" var="each" >
 						<tr>
-							<td><input class="acntNum" name="stmtlist[0].acntNum" required="required"></td>
-							<td><input name="stmtlist[0].debit" required="required"></td>
+							<td><input class="acntNum" name="stmtlist[${ii.index }].acntNum" required="required" value="${each.acntNum }"></td>
+							<td><input name="stmtlist[${ii.index }].debit" required="required" class="debit" value="${each.debit }"></td>
 							<td><input class="acntTitle" placeholder="계정과목명"></td>
-							<td><input name="stmtlist[0].credit" required="required"></td>
-							<td><input name="stmtlist[0].stmtOpposite"></td>
-							<td><input name="stmtlist[0].remark"></td>
+							<td><input name="stmtlist[${ii.index }].credit" required="required" class="credit" value="${each.credit }"></td>
+							<td><input name="stmtlist[${ii.index }].stmtOpposite" value="${each.stmtOpposite}"></td>
+							<td><input name="stmtlist[${ii.index }].remark" value="${each.remark}"></td>
 						</tr>
-						<tr>
-							<td><input class="acntNum" name="stmtlist[1].acntNum"></td>
-							<td><input name="stmtlist[1].debit"></td>
-							<td><input class="acntTitle" placeholder="계정과목명"></td>
-							<td><input name="stmtlist[1].credit"></td>
-							<td><input name="stmtlist[1].stmtOpposite"></td>
-							<td><input name="stmtlist[1].remark"></td>
-						</tr>
+						</c:forEach>
+						
+						<c:if test="${empty stmtList}">
+						<c:forEach varStatus="ii" begin="0" end="10" >
+							<tr>
+								<td><input class="acntNum" name="stmtlist[${ii.index }].acntNum" required="required"></td>
+								<td><input name="stmtlist[${ii.index }].debit" required="required" class="debit"></td>
+								<td><input class="acntTitle" placeholder="계정과목명"></td>
+								<td><input name="stmtlist[${ii.index }].credit" required="required" class="credit"></td>
+								<td><input name="stmtlist[${ii.index }].stmtOpposite"></td>
+								<td><input name="stmtlist[${ii.index }].remark"></td>
+							</tr>
+						</c:forEach>
+						</c:if>
 					</tbody>
+					<tfoot>
+						<tr>
+						<td>차변합계</td><td class="totaldebit"></td><td>대변합계</td><td class="totalcredit"></td><td>차액</td><td id="DCgap">얼마</td>
+						</tr>
+					</tfoot>
 				</table>
+			
 			</form>
 
 		</div>
 	</div>
+	<script>
+
+	function totalcalculator(whichone,whichtotal){
+		let totalsum=0;
+		let debitlist=document.querySelectorAll(whichone);
+		for(var i=0;i<debitlist.length;i++){
+			totalsum+=Number(debitlist[i].value);
+		}
+		$(whichtotal).text(totalsum);
+	}
+	$('.credit').on('keyup',function(){
+		totalcalculator('.credit','.totalcredit');
+	})
+	
+	$('.debit').on('keyup',function(){
+		totalcalculator('.debit','.totaldebit');
+	})	
+	
+	</script>
 </body>
 </html>

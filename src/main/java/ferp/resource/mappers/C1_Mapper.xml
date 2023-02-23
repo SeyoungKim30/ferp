@@ -5,11 +5,11 @@
 
 <mapper namespace="ferp.dao.C1_Dao">
 
-	<select id="r7200SelectAccount" resultType="account" parameterType="account">
+	<select id="r7100SelectAccount" resultType="account" parameterType="account">
 		SELECT * FROM Account where acntNum Like '%'||#{acntNum}||'%' And acntTitle LIKE '%'||#{acntTitle}||'%'
 	</select>
 
-	<insert id="r7201insertAccount" parameterType="account">
+	<insert id="r7101insertAccount" parameterType="account">
 		INSERT INTO ACCOUNT
 		values(#{acntNum},#{acntGroup},#{acntTitle},#{acntUsing})
 	</insert>
@@ -21,5 +21,14 @@
 		,#{frRegiNum},#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR}
 		,TO_DATE(#{stmtDate},'YYYY-MM-DD'),#{remark,jdbcType=VARCHAR})
 	</insert>
+
+	<select id="r7211selectACStatement" parameterType="acstmt" resultType="acstmt">
+	SELECT * FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}
+	AND STATEMENTNUM =
+	<if test="statementNum==null or statementNum==''">(SELECT min(STATEMENTNUM) FROM ACSTATEMENT a2)</if>
+	<if test="statementNum!=null and statementNum!=''">#{statementNum}</if>
+	
+	</select>
+
 
 </mapper>

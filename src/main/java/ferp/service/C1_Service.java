@@ -15,14 +15,14 @@ public class C1_Service {
 	@Autowired
 	C1_Dao dao;
 
-	public List<Account> r7200SelectAccount(Account ac) {
+	public List<Account> r7100SelectAccount(Account ac) {
 		if(ac.getAcntNum()==null) {ac.setAcntNum("");}
 		if(ac.getAcntTitle()==null) {ac.setAcntTitle("");}
-		return dao.r7200SelectAccount(ac);
+		return dao.r7100SelectAccount(ac);
 	}
 
-	public int r7201insertAccount(Account ac) {
-		return dao.r7201insertAccount(ac);
+	public int r7101insertAccount(Account ac) {
+		return dao.r7101insertAccount(ac);
 	}
 
 	public int r7203insertStatement(String statementNum,String stmtDate,String frRegiNum,List<ACStatement> stmtlist) {
@@ -41,4 +41,9 @@ public class C1_Service {
 		}
 		return stmtcount;
 	}
+	
+	public List<ACStatement> r7211selectACStatement(ACStatement stmt) {
+		return dao.r7211selectACStatement(stmt);
+	}
+	
 }

@@ -22,21 +22,21 @@ public class C1_Controller {
 
 	// http://localhost:6080/ferp/selectAccountJson.do
 	@RequestMapping("selectAccountJson.do")
-	public String r7200SelectAccountJson(Account account, Model model) {
-		model.addAttribute("accountList", service.r7200SelectAccount(account));
+	public String r7100SelectAccountJson(Account account, Model model) {
+		model.addAttribute("accountList", service.r7100SelectAccount(account));
 		return "pageJsonReport";
 	}
 	
 	// http://localhost:6080/ferp/selectAccount.do
 	@RequestMapping("selectAccount.do")
-	public String r7201SelectAccount(Account account, Model model) {
-		model.addAttribute("accountList", service.r7200SelectAccount(account));
+	public String r7101SelectAccount(Account account, Model model) {
+		model.addAttribute("accountList", service.r7100SelectAccount(account));
 		return "WEB-INF\\headquarter\\pg7201_addAccount.jsp";
 	}
 
 	@RequestMapping("insertAccount.do")
-	public String r7201insertAccount(Account account) {
-		service.r7201insertAccount(account);
+	public String r7101insertAccount(Account account) {
+		service.r7101insertAccount(account);
 		return "redirect:/addAccount.do";
 	}
 
@@ -60,6 +60,21 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg7203_ACstatement.jsp";
 	}
 	
+	@RequestMapping("selectACstatement.do")
+	public String r7211selectACStatement(ACStatement acstmt,Model model) {
+		model.addAttribute("stmtList",service.r7211selectACStatement(acstmt));
+		return "WEB-INF\\headquarter\\pg7203_ACstatement.jsp";
+	}
 	
+	@RequestMapping("updateACstatement.do")
+	public String r7212updateACStatement(ACStatement acstmt) {
+		
+		return "WEB-INF\\headquarter\\pg7203_ACstatement.jsp";
+	}
 	
+	@RequestMapping("deleteACstatement.do")
+	public String r7213deleteACStatement(ACStatement acstmt) {
+		
+		return "WEB-INF\\headquarter\\pg7203_ACstatement.jsp";
+	}
 }
