@@ -31,6 +31,58 @@
     	display: block;
     }
     
+    input[name=frRegiNum]{
+   	    width: 250px;
+	    padding-left: 15px;
+	    font-size: 15px;
+	    height: 40px;
+    }
+    
+    input[name=frPass]{
+    	width: 250px;
+    	font-size: 15px;
+    	padding-left: 15px;
+    	height: 40px;
+    }
+    
+    .idBox{
+   	    padding: 100px 0 10px;
+	    text-align: center;
+	    font-size: 20px;
+	    display: flex;
+	    justify-content: center;
+    }
+    
+    .passBox{
+    	text-align: center;
+    	padding: 10px 0 70px;
+    	font-size: 20px;
+    	display: flex;
+	    justify-content: center;
+    }
+    
+    .loginBtn{
+		display: block;
+	    font-size: 18px;
+	    font-family: inherit;
+	    width: 120px;
+	    height: 40px;
+	    margin: auto;
+	    background: #fff;
+	    border: 1px solid #000;
+	    border-radius: 5px;
+    }
+    
+    .loginBox{
+    	margin: auto;
+    }
+    
+    span{
+    	width: 200px;
+    	text-align: left;
+    	display: block;
+   	    line-height: 40px;
+    }
 	
 </style>
 </head>
@@ -44,11 +96,19 @@
            	<h2>프랜차이즈 매장 관리 시스템</h1>
         </header>
         <div class="main_wrapper">
+        <div class="loginBox">
         	<form method="post" id="loginForm">
-				<input type="text" name="frRegiNum" placeholder="'-'는 제외하고 입력하세요.">
-				<input type="password" name="frPass">
+        		<div class="idBox">
+      				<span>사업자 번호</span>
+					<input type="text" name="frRegiNum" placeholder="'-'는 제외하고 입력하세요.">
+        		</div>
+        		<div class="passBox">
+        			<span>비밀번호</span>
+					<input type="password" name="frPass">
+				</div>
 				<button type="submit" class="loginBtn">로그인</button>
         	</form>
+        </div>
 		</div>
     </div>
 </body>

@@ -19,8 +19,8 @@ public class A1_Controller {
 
 	// http://localhost:6080/ferp/addCommute.do
 	@RequestMapping("/addCommute.do")
-	public String pg3200addCommute(){
-
+	public String pg3200addCommute(HttpSession session){
+		Store st = (Store)session.getAttribute("login");
 		return "WEB-INF\\store\\pg3200_commute.jsp";
 	}
 	

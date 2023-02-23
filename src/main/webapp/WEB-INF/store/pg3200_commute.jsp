@@ -72,7 +72,8 @@
             <div class="logo">
                 <h1><a href="#"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
             </div>
-           	<h2>프랜차이즈 매장 관리 시스템</h1>
+           	<h2>프랜차이즈 매장 관리 시스템</h2>
+           	<h2>${login.frName}</h2>
         </header>
         <div class="main_wrapper">
         	<div class="btns">
