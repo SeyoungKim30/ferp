@@ -24,13 +24,13 @@
 			frTel = #{frTel},
 			frAddress = #{frAddress},
 			frPass = #{frPass}
-		WHERE FrRegiNum = {#frRegiNum}
+		WHERE FrRegiNum = #{frRegiNum}
 	</update>
 	
 	<select id="detailStore" resultType="store" parameterType="string">
 		SELECT *
 		FROM store
-		WHERE FrRegiNum = {#frRegiNum}
+		WHERE FrRegiNum = #{frRegiNum}
 	</select>
 	
 	

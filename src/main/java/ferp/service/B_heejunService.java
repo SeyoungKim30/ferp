@@ -74,6 +74,13 @@ public class B_heejunService {
 		
 		return dao.detailStore(frRegiNum);
 	}
+	// 해당 매장 정보 삭제
+	public String deleteStore(String frRegiNum) {
+		dao.deleteStore(frRegiNum);
+		
+		return frRegiNum;
+	}
+	
 	
 	
 	// 공지사항 조회

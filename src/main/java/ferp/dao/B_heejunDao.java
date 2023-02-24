@@ -19,6 +19,8 @@ public interface B_heejunDao {
 	public void updateStore(Store upt);
 	// 해당 매장 정보 조회
 	public Store detailStore(String frRegiNum);
+	// 해당 매장 정보 삭제
+	public void deleteStore(String frRegiNum);
 	
 	
 	// 공지사항 조회

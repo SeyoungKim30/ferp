@@ -84,8 +84,8 @@
 						<h3 class="store_pass">비밀번호</h3>
 					</div>
 					<div class="second_line">
-						<input type="text" name="frRegiNum" placeholder="사업자번호 입력">
-						<input type="text" name="frPass" placeholder="비밀번호 입력">
+						<input type="text" name="frRegiNum" value="${store.frRegiNum}" placeholder="사업자번호 입력">
+						<input type="text" name="frPass" value="${store.frPass}" placeholder="비밀번호 입력">
 					</div>
 					<div class="third_line">
 						<h3 class="store_name">매장명</h3>
@@ -93,8 +93,8 @@
 						
 					</div>
 					<div class="fourth_line">
-						<input type="text" name="frName" placeholder="매장명 입력">
-						<input type="text" name="frOpen" placeholder="오픈시간 입력">
+						<input type="text" name="frName" value="${store.frName}" placeholder="매장명 입력">
+						<input type="text" name="frOpen" value="${store.frOpen}" placeholder="오픈시간 입력">
 					</div>
 					<div class="fifth_line">
 						<h3 class="store_opertime">운영시간</h3>
@@ -102,8 +102,8 @@
 						
 					</div>
 					<div class="sixth_line">
-						<input type="text" name="frOperTime" placeholder="운영시간 입력">				
-						<input type="text" name="frClosedDte" placeholder="휴무일 입력">
+						<input type="text" name="frOperTime" value="${store.frOperTime}" placeholder="운영시간 입력">				
+						<input type="text" name="frClosedDte" value="${store.frClosedDte}" placeholder="휴무일 입력">
 	
 					</div>
 					<div class="seventh_line">
@@ -112,8 +112,8 @@
 						
 					</div>
 					<div class="eighth_line">
-						<input type="text" name="frRepName" placeholder="대표자명 입력">				
-						<input type="text" name="frTel" placeholder="전화번호 입력">
+						<input type="text" name="frRepName" value="${store.frRepName}" placeholder="대표자명 입력">				
+						<input type="text" name="frTel" value="${store.frTel}" placeholder="전화번호 입력">
 	
 					</div>	
 					<div class="ninth_line">
@@ -121,11 +121,12 @@
 						<h3 class="store_address">주소</h3>
 					</div>
 					<div class="tenth_line">
-						<select name="eno">
+						<input type="hidden" value="${store.eno}" id="enoHidden">
+						<select name="eno" id="eno">
 							<option disabled="disabled" selected="selected">담당직원 선택</option>
 							<option value="100">김개똥</option>
 						</select>				
-						<input type="text" name="frAddress" placeholder="주소 입력">
+						<input type="text" name="frAddress" value="${store.frAddress}" placeholder="주소 입력">
 					</div>					
 							
 					<div class="submit_line">
@@ -139,6 +140,12 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	$("#eno option").each(function(idx, opt) {
+		if($(this).val() == $("#enoHidden").val()){
+			$(this).attr("selected", "selected")
+		}
+	})
+	
     $(".uptBtn").click(function(){
 		  Swal.fire({
 			  title: '수정하시겠습니까?',
