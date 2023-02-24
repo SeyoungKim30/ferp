@@ -52,7 +52,7 @@
     	display: block;
     }
     
-    select[name=clerkName]{
+    select[name=clerkNum]{
 	    margin: auto;
 	    display: block;
 	    width: 480px;
@@ -80,13 +80,11 @@
         		<div class="btn start_btn">출근</div>
         		<div class="btn end_btn">퇴근</div>
         	</div>
-        		<select name="clerkName">
-        			<option>직원1</option>
-        			<option>직원2</option>
-        			<option>세션처리후</option>
-        			<option>직원이름 쭉 가져올 거임</option>
-        			<option>임시임</option>
-        			<option>작업 전임</option>
+        		<select name="clerkNum">
+        		<option disabled="disabled" selected>직원명 선택</option>
+        		<c:forEach var="sc" items="${myClerk}">
+        			<option value="${sc.clerkNum}">${sc.clerkName}</option>
+        		</c:forEach>
         		</select>
 		</div>
     </div>
