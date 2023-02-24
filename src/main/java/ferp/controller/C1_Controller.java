@@ -50,14 +50,8 @@ public class C1_Controller {
 	// http://localhost:6080/ferp/insertACstatement.do
 	@PostMapping("insertACstatement.do")
 	public String r7203insertStatement(ACStatement acstmt) {
-		System.out.println("~~~~~~~~~~0번: "+acstmt.getStmtlist().get(0).getAcntNum());
-		System.out.println("~~~~~~~~~~1번: "+acstmt.getStmtlist().get(1).getAcntNum());
-		System.out.println("~~~~~~~~~~~전표 번호 : "+acstmt.getStatementNum());
-		System.out.println("총 길이: "+acstmt.getStmtlist().size());
-		System.out.println("~~~~~~~~~~0번 전표번호: "+acstmt.getStmtlist().get(0).getStatementNum());
-		System.out.println("~~~~~~~~~~1번 전표번호: "+acstmt.getStmtlist().get(1).getStatementNum());
 		service.r7203insertStatement(acstmt.getStatementNum(), acstmt.getStmtDate(),acstmt.getFrRegiNum(), acstmt.getStmtlist());
-		return "WEB-INF\\headquarter\\pg7203_ACstatement.jsp";
+		return "redirect:/selectACstatement.do?statementNum="+acstmt.getStatementNum();
 	}
 	
 	@RequestMapping("selectACstatement.do")
@@ -76,5 +70,10 @@ public class C1_Controller {
 	public String r7213deleteACStatement(ACStatement acstmt) {
 		
 		return "WEB-INF\\headquarter\\pg7203_ACstatement.jsp";
+	}
+	
+	@RequestMapping("statementList.do")
+	public String r7204selectStatementList() {
+		return "WEB-INF\\headquarter\\pg7204_statementList.jsp";	
 	}
 }

@@ -167,8 +167,9 @@ CREATE TABLE clerkFile (
 CREATE TABLE ACStatement (
 	statementNum	varchar2(50)	NULL,
 	FrRegiNum	varchar2(50)	NULL,
-	acntNum	varchar2(50)	NOT NULL,
-	debt	number	NULL,
+	lineNum NUMBER,
+	acntNum	varchar2(50)	s NULL,
+	debit	number	NULL,
 	credit	number	NULL,
 	stmtOpposite	varchar2(50)	NULL,
 	stmtDate	date	NULL,

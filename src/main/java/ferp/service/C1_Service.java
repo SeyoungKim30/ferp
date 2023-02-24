@@ -26,14 +26,9 @@ public class C1_Service {
 	}
 
 	public int r7203insertStatement(String statementNum,String stmtDate,String frRegiNum,List<ACStatement> stmtlist) {
-		System.out.println("서비스~~~~~~~~~~~~~~~~~~~~~"+statementNum);
 		int stmtcount=0;
 		for (ACStatement stmt : stmtlist) {
-			if(stmtcount==0) {
-				stmt.setFirst(true);
-			}else {
-				stmt.setFirst(false);
-			}
+			stmt.setLineNum(stmtcount);
 			stmt.setStatementNum(statementNum);
 			stmt.setStmtDate(stmtDate);
 			stmt.setFrRegiNum(frRegiNum);

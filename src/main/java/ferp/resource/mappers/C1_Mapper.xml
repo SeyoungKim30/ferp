@@ -17,8 +17,8 @@
 	<insert id="r7203insertStatement" parameterType="acstmt">
 		INSERT INTO ACSTATEMENT
 		values(#{statementNum}||to_char((SELECT count(DISTINCT statementNum)
-		<if test="first">+1</if> FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}),'FM0000')
-		,#{frRegiNum},#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR}
+		<if test="lineNum==0">+1</if> FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}),'FM0000')
+		,#{frRegiNum},#{lineNum},#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR}
 		,TO_DATE(#{stmtDate},'YYYY-MM-DD'),#{remark,jdbcType=VARCHAR})
 	</insert>
 
@@ -29,6 +29,14 @@
 	<if test="statementNum!=null and statementNum!=''">#{statementNum}</if>
 	
 	</select>
-
+	
+	<update id="r7212updateACStatement" parameterType="acstmt">
+	UPDATE ACSTATEMENT SET acntnum= #{acntNum}, debit=#{debit}, credit=#{credit},STMTOPPOSITE =#{stmtOpposite,jdbcType=VARCHAR},REMARK =#{remark,jdbcType=VARCHAR}
+	WHERE STATEMENTNUM =#{statementNum} AND TO_CHAR(stmtdate,'YYYY-MM-DD') = #{stmtDate} AND lineNum=#{lineNum}
+	</update>
+	
+	<delete id="r7213deleteACStatement" parameterType="acstmt">
+	DELETE FROM ACSTATEMENT WHERE STATEMENTNUM =#{statementNum} AND TO_CHAR(stmtdate,'YYYY-MM-DD') = #{stmtDate}
+	</delete>
 
 </mapper>

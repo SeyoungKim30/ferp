@@ -6,13 +6,13 @@ public class ACStatement {
 
 	private String statementNum;
 	private String frRegiNum;
+	private int lineNum;
 	private String acntNum;
 	private int debit ;
 	private int credit ;
 	private String stmtOpposite;
 	private String stmtDate;
 	private String remark;
-	private boolean first;	//전표의 첫번째
 	
 	private List<ACStatement> stmtlist;
 	
@@ -22,19 +22,28 @@ public class ACStatement {
 	public ACStatement(String acntNum) {
 		this.acntNum=acntNum;
 	}
-	
-	public ACStatement(String statementNum, String frRegiNum, String acntNum, int debit, int credit,
-			String stmtOpposite, String stmtDate, String remark, boolean first) {
+
+	public ACStatement(String statementNum, String frRegiNum, int lineNum, String acntNum, int debit, int credit,
+			String stmtOpposite, String stmtDate, String remark,  List<ACStatement> stmtlist) {
 		super();
 		this.statementNum = statementNum;
 		this.frRegiNum = frRegiNum;
+		this.lineNum = lineNum;
 		this.acntNum = acntNum;
 		this.debit = debit;
 		this.credit = credit;
 		this.stmtOpposite = stmtOpposite;
 		this.stmtDate = stmtDate;
 		this.remark = remark;
-		this.first = first;
+		this.stmtlist = stmtlist;
+	}
+
+	public int getLineNum() {
+		return lineNum;
+	}
+
+	public void setLineNum(int lineNum) {
+		this.lineNum = lineNum;
 	}
 
 	public List<ACStatement> getStmtlist() {
@@ -51,14 +60,6 @@ public class ACStatement {
 
 	public void setDebit(int debit) {
 		this.debit = debit;
-	}
-
-	public boolean isFirst() {
-		return first;
-	}
-
-	public void setFirst(boolean first) {
-		this.first = first;
 	}
 
 	public String getStatementNum() {
