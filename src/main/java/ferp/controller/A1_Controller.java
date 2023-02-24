@@ -22,18 +22,6 @@ public class A1_Controller {
 	@Autowired(required = false)
 	private A1_Service service;
 	
-	@ModelAttribute("myClerk")
-		public List<StoreClerk> getStoreClerk(HttpSession session){
-			Store st = (Store)session.getAttribute("login");
-			return service.getStoreClerk(st.getFrRegiNum());
-		}
-	
-	
-	@RequestMapping("/addCommute.do")
-	public String pg3200addCommute(){
-		return "WEB-INF\\store\\pg3200_commute.jsp";
-	}
-	
 	// 가맹점 로그인
 	// http://localhost:6080/ferp/storeLogin.do
 	@RequestMapping("/storeLogin.do")
@@ -46,7 +34,21 @@ public class A1_Controller {
 			return "WEB-INF\\store\\pg1000_storeLogin.jsp";
 		}else {
 			session.setAttribute("login", service.storeLogin(st));
-			return "/addCommute.do";
+			return "/storeMainMenu.do";
 		}
 	}
+	
+	@RequestMapping("/storeMainMenu.do")
+	public String pg1001storeMainMenu(HttpSession session) {
+		Store st = (Store)session.getAttribute("login");
+		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
+	}
+	
+	@RequestMapping("/addCommute.do")
+	public String pg3200addCommute(Model d,HttpSession session){
+		Store st = (Store)session.getAttribute("login");
+		d.addAttribute("myClerk", service.getStoreClerk(st.getFrRegiNum()));
+		return "WEB-INF\\store\\pg3200_commute.jsp";
+	}
+	
 }

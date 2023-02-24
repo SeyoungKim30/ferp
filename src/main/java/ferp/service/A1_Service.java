@@ -12,7 +12,7 @@ import vo.StoreClerk;
 @Service
 public class A1_Service {
 
-	@Autowired
+	@Autowired(required = false)
 	private A1_Dao dao;
 	
 	public Store storeLogin(Store st) {

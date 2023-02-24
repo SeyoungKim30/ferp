@@ -14,7 +14,7 @@
 		</select>
 		
 		<!-- 로그인한 매장의 직원 목록 불러오기 -->
-		<select id="getStoreClerk" parameterType="string" resultType="storeClerk">
+		<select id="getStoreClerk" parameterType="storeClerk" resultType="storeClerk">
 			SELECT *
 			FROM STORECLERK
 			WHERE frRegiNum = #{frRegiNum}

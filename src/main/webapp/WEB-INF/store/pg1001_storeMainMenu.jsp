@@ -19,7 +19,7 @@
 <style type="text/css">
 	.btns{
 		display: flex;
-	    gap: 80px;
+	    gap: 50px;
 	    width: 100%;
 	    justify-content: center;
         padding: 60px 0;
@@ -77,15 +77,11 @@
         </header>
         <div class="main_wrapper">
         	<div class="btns">
-        		<div class="btn start_btn">출근</div>
-        		<div class="btn end_btn">퇴근</div>
+        		<div class="btn">키오스크<br>(직원용)</div>
+        		<div class="btn">키오스크<br>(매장용)</div>
+        		<div class="btn">출퇴근<br>등록</div>
+        		<div class="btn">매장<br>관리</div>
         	</div>
-        		<select name="clerkNum">
-        		<option disabled="disabled" selected>직원명 선택</option>
-        		<c:forEach var="mc" items="${myClerk}">
-        			<option value="${mc.clerkNum}">${mc.clerkName}</option>
-        		</c:forEach>
-        		</select>
 		</div>
     </div>
 </body>
