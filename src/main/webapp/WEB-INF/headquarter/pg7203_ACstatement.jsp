@@ -139,9 +139,7 @@ $(document).ready(function(){
 						</c:if>
 					</tbody>
 					<tfoot>
-						<tr>
-						<td>차변합계</td><td class="totaldebit"></td><td>대변합계</td><td class="totalcredit"></td><td>차액</td><td id="DCgap">얼마</td>
-						</tr>
+						<tr><td>차변합계</td><td class="totaldebit"></td><td>대변합계</td><td class="totalcredit"></td><td>차액</td><td id="DCgap">얼마</td></tr>
 					</tfoot>
 				</table>
 			
