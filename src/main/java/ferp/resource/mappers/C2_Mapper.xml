@@ -8,5 +8,13 @@
 	<select id="r8101ProductSch" resultType="product" parameterType="product">
 		SELECT * FROM Product
 	</select>
+	<select id="r8201ProductSch" resultType="product" parameterType="product">
+		SELECT * FROM Product
+		WHERE productNum LIKE '%'||#{productNum}||'%'
+		AND category LIKE '%'||#{category}||'%'
+		AND productName LIKE '%'||#{productName}||'%'
+		AND opposite LIKE '%'||#{opposite}||'%'
+		AND remark LIKE '%'||#{remark}||'%'
+	</select>
 
 </mapper>
