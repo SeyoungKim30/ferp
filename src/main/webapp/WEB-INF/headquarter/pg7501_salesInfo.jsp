@@ -33,7 +33,7 @@
 	    align-items: center; 
 	    margin-top: 5px;
 	    justify-content: center;
-	    
+
 	}
 	.hdq_search>form{
 		 display: inline-flex;
@@ -41,7 +41,59 @@
 	}
 	
 	input[type=text]{
-		height: 25px;
+		height:30px;
+	}
+	
+	.hdq_searchStandard{
+		display:inline-flex;
+		width: 80%;
+		align-items: center; 
+	    justify-content: space-between;
+	    margin: 15px 0px;
+	}
+	.sort{
+		display:inline-flex;	
+		align-items: center; 
+	    justify-content: center;
+	    gap:10px;
+	}
+	.sort>span{
+   	 	font-weight:600;
+    	font-size: 18px;
+	}
+	.sort>ul{
+		display:inline-flex;
+		align-items: center; 
+	    justify-content: center;	
+	    gap:5px;
+	}
+	.sort>ul>li{
+		width: 85px;
+   	 	height: 30px;
+    	text-align: center;
+    	line-height: 30px;/*세로정렬*/
+    	background-color: rgba( 204, 204, 204, 0.5 );
+    	color:#666666;
+    	border-radius: 25px;
+    	
+	}
+	.period{
+		display:inline-flex;
+		align-items: center; 
+	    justify-content: center;
+	    gap: 10px;
+	}
+	.period>span{
+		font-weight: 600;
+    	font-size: 18px;
+	}
+	input[type=month]{
+		height: 30px;
+		border-radius: 25px;
+		border: white;
+   		background: rgba( 204, 204, 204, 0.5 );
+   		text-align: center;
+   		color:#666666;
 	}
 	
 </style>
@@ -98,13 +150,24 @@
 					<div class="period">
 						<span>매출조회 기간</span>
 						<form>
-							<input name="strperiod" type="month"/>
+							<input id="strperiod" name="strperiod" type="month"/>
 							~
-							<input name="endperiod" type="month"/>
-							<button type="hidden">검색</button>
+							<input id="endperiod" name="endperiod" type="month"/>
+					   <!-- <button value="hidden"></button> -->
+							
 						</form>
 					</div>
 				</div>
+				
+				<script>
+				
+					var today = new Date() 
+					today.setDate(today.getMonth()-1)
+					document.getElementById('strperiod').value=today.toISOString().slice(0,7); 
+					document.getElementById('endperiod').value=today.toISOString().slice(0,7);
+					//slice() 메소드를 이용하여 toISOString() 메소드로 받아온 현재 날짜 문자열의 7자리(앞에서부터)를 잘라옵니다.
+
+					</script>
 				<!-- 검색기준 끝 -->
 				
 				
