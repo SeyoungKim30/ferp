@@ -14,8 +14,6 @@
 
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="/ferp/resource/css/notice_list.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 
@@ -76,94 +74,23 @@
                 </ul>
             </div>
             <div class="contents">
-           		<h2 class="notice_main">공 지 사 항</h2>
-           		<div class="sch_line">
-           			<form method="post">
-		           		<input type="text" name="title" id="title" value="${sch.title}" placeholder="제목 검색">
-						<button type="button" class="schBtn">검 색</button>
-					</form>
-           		</div>
-				<table>
-			   	<col width="15%">
-			   	<col width="60%">
-			   	<col width="15%">
-			   	<col width="10%">
-				    <thead>
-				      <tr>
-				        <th>NO</th>
-				        <th>제목</th>
-				        <th>작성일</th>
-				        <th>조회수</th>
-				      </tr>
-    				</thead>
-				    <tbody>
-				    	<c:forEach var="notice" items="${list}">
-				    	<tr>
-				    		<td>${notice.noticeNum}</td>
-				    		<td class="tab_title" onclick="goDetail('${notice.noticeNum}')">${notice.title}</td>
-				    		<td><fmt:formatDate value="${notice.regdte}"/></td>
-				    		<td>${notice.readCnt}</td>
-				    	</tr>
-						</c:forEach>
-				    </tbody>   				
-				</table>
+                <div class="main_banner">메인 슬라이더 배너 영역</div>
+                <div class="btm_content">
+                    <div class="notice">
+                        <h3>- 공지사항</h3>
+                        <div class="boxes">
+                        </div>
+                    </div>
+                    <div class="schedule">
+                        <h3>- 금일 스케쥴</h3>
+                        <div class="boxes"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </body>
 <script type="text/javascript">
-$(document).ready(function(){
-	<%-- 
-	
-	--%>
-    var insMsg = "${insMsg}"
-    if(insMsg != ""){
-		  Swal.fire({
-			  title: '공지사항 등록 성공!',
-			  icon: 'success',
-			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
-			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
-			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
-			}).then((result) => {
-			  if (result.value) {
-				//"확인" 버튼을 눌렀을 때 작업할 내용
-			  }
-			})	
-    }
-    var uptMsg = "${uptMsg}"
-    if(uptMsg != ""){
-		  Swal.fire({
-			  title: '공지사항 수정 성공!',
-			  icon: 'success',
-			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
-			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
-			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
-			}).then((result) => {
-			  if (result.value) {
-				//"확인" 버튼을 눌렀을 때 작업할 내용
-			  }
-			})	
-    }
-    var delMsg = "${delMsg}"
-    if(delMsg != ""){
-		  Swal.fire({
-			  title: '공지사항 삭제 성공!',
-			  icon: 'success',
-			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
-			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
-			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
-			}).then((result) => {
-			  if (result.value) {
-				//"확인" 버튼을 눌렀을 때 작업할 내용
-			  }
-			})	
-    }
-});
-// 상세페이지로 이동
-function goDetail(noticeNum) {
-	  location.href="${path}/noticeDetail.do?noticeNum="+noticeNum;
-}
-
 $('.lnb > ul > li').click(function() {
     if ( $(this).hasClass('active') ) {
         $(this).find('> ul').stop().slideUp(300);

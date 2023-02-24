@@ -4,206 +4,239 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
+<c:set var="path" value="${pageContext.request.contextPath }" />
 <fmt:requestEncoding value="UTF-8" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 손 안의 백화점, 가인</title>
+<title>ferp 매장 관리</title>
+
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="/ferp/resourse/css/notice_insert.css"/>
-<style type="text/css">
+<link rel="stylesheet" href="/ferp/resource/css/notice_insert.css"/>
+<link rel="stylesheet" href="${path}/resource/css/reset.css"/>
+<link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 
-
-
-/* 
-	↑↑↑ 위에 css 지워야 함 ↑↑↑
-	
-	위에 css는 섹션 위치 확인하시라고 
-	높이값이랑 색깔값 넣었어요
-	위치만 확인하고 지워주세요!
-	
-	1) 헤더는 로그인 세션 처리할 때 c:if로 바꿀 예정
-	
-	2) <div class="main_wrapper"> 안에만 내용 넣어 주세요.
-			해당 div는 1200px이라서 안에 크기는 px로 조절하시면 됩니다.
-			
-	3) reset.css를 꼭 link로 걸어주시고 수정 절대 금지!
-	-> 수정하면 모든 페이지가 다 바뀝니다!
-			<link rel="stylesheet" href="/Gain/markup/reset.css"/>
-			
-	4) 제이쿼리는 CDN으로 넣었어요. 최신 버전으로 넣었는데 문제 생기면 말씀해주세요!
-			<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-
- */
- 
-
-
-</style>
 </head>
 
 <body>
-
-
-	<section>
-	<!-- 여기서부터 작업 -->
+    <div class="container">
+        <header>  
+            <div class="logo">
+                <h1><a href="#"><img src="/ferp/resource/img/F.ERP.png" alt=""></a></h1>
+            </div>
+        </header>
         <div class="main_wrapper">
-        <form enctype="multipart/form-data" method="post">
-        	<div>
-	        	<h2 class="insert_product">공지사항 등록</h2>
-		        <input type="hidden" name="important">
-	        	<input type="checkbox" id="important" >
-	        	<span>중요공지사항</span>
-        	</div>
-    	    
-        	<div class="content">
-        	
-        		<!-- 작성자 value값에 로그인한 사원의 이름 mem.name -->
-        		<input type="hidden" name="writer" value="홍길동">
-				<div class="first_line">
-					<h3 class="notice_title">제목</h3>
-				</div>
-				<div class="second_line">
-					<input type="text" name="title" placeholder="공지사항 제목 입력">
-				</div>
-				<div class="third_line">
-					<h3 class="notice_content">내용</h3>
-				</div>
-				<div class="fourth_line">
-					<textarea name="content" rows="15" cols="70" placeholder="공지사항 내용 입력"></textarea>
-				</div>
-				<div class="fifth_line">
-					<h3 class="notice_file">파일</h3>
-				</div>
-				<div class="sixth_line">
-					<div class="block">
-						<div class="img_block">
-							<input class="upload-name" type="text" value="파일선택" disabled="disabled" style="width: 290px;">
-							
-			              	<label for="input_file">업로드</label> 
-             				<input type="file" name="multipartfile" id="input_file" class="upload-hidden" > 
+            <div class="lnb">
+                <ul>
+                    <li>
+                        <a href="#">공지 및 문의</a>
+                        <ul>
+                            <li><a href="#">- 공지사항 조회</a></li>
+                            <li><a href="#">- 문의글 등록</a></li>
+                            <li><a href="#">- 1:1 채팅</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">직원 관리</a>
+                        <ul>
+                            <li><a href="#">- 직원 정보 조회</a></li>
+                            <li><a href="#">- 근태 조회</a></li>
+                            <li><a href="#">- 스케쥴 관리</a></li>
+                            <li><a href="#">- 급여액 조회</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">재무 관리</a>
+                        <ul>
+                            <li><a href="#">- 전표 수기 입력</a></li>
+                            <li><a href="#">- 거래 내역 조회</a></li>
+                            <li><a href="#">- 손익 계산서 조회</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">물류 관리</a>
+                        <ul>
+                            <li><a href="#">- 발주 신청</a></li>
+                            <li><a href="#">- 배송 불량 신청</a></li>
+                            <li><a href="#">- 배송 불량 신청 현황</a></li>
+                            <li><a href="#">- 발주 계산서 조회</a></li>
+                            <li><a href="#">- 재고 관리</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">매장 관리</a>
+                        <ul>
+                            <li><a href="#">- 비밀번호 변경</a></li>
+                            <li><a href="#">- 매출 조회</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="contents">
+		        <form enctype="multipart/form-data" method="post">
+		        	<h2 class="insert_product">공지사항 등록</h2>	
+		        	<div class="top_line">
+				        <input type="hidden" name="important">
+			        	<input type="checkbox" id="important" >
+			        	<span>중요공지사항</span>
+		        	</div>
+		    	    
+		        	<div class="content">
+		        	
+		        		<!-- 작성자 value값에 로그인한 사원의 이름 mem.name -->
+		        		<input type="hidden" name="writer" value="홍길동">
+						<div class="first_line">
+							<h3 class="notice_title">제목</h3>
 						</div>
+						<div class="second_line">
+							<input type="text" name="title" placeholder="공지사항 제목 입력">
+						</div>
+						<div class="third_line">
+							<h3 class="notice_content">내용</h3>
+						</div>
+						<div class="fourth_line">
+							<textarea name="content" rows="15" cols="70" placeholder="공지사항 내용 입력"></textarea>
+						</div>
+						<div class="fifth_line">
+							<h3 class="notice_file">파일</h3>
+						</div>
+						<div class="sixth_line">
+							<div class="block">
+								<div class="img_block">
+									<input class="upload-name" type="text" value="파일선택" disabled="disabled" style="width: 290px;">
+									
+					              	<label for="input_file">업로드</label> 
+		             				<input type="file" name="multipartfile" id="input_file" class="upload-hidden" > 
+								</div>
+							</div>
+						</div>
+						<div class="submit_line">
+							<button type="button" class="insBtn">등 록</button>
+						</div>	
 					</div>
-				</div>
-				<div class="submit_line">
-					<button type="button" class="insBtn">등 록</button>
-				</div>	
-			</form>		
-			</div>
+				</form>		
+            </div>
         </div>
-    <!-- 여기까지만 작업 -->
-    </section>
-
-
+    </div>
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
-	    $(".insBtn").click(function(){
-			if($('#important').is(':checked')){
-				$("input[name=important]").attr('value','o');
-			}
-			if(!$('#important').is(':checked')){
-				$("input[name=important]").attr('value','x');
-			}
-			  Swal.fire({
-				  title: '등록하시겠습니까?',
-				  icon: 'question',
-				  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
-				  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
-				  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
-				  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
-				  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
-				}).then((result) => {
-				  if (result.value) {
-					  if($("[name=title]").val() == ""){
-						  Swal.fire({
-							  title: '공지사항 제목을 입력해주세요.',
-							  icon: 'warning',
-							  showCancelButton: false,
-							  confirmButtonColor: '#3085d6',
-							  confirmButtonText: '확인'
-							}).then((result) => {
-							  if (result.value) {
-								  $("[name=title]").focus()
-							      return;
-							  }
-						  })
-					  }
-					  else if($("[name=content]").val() == ""){
-						  Swal.fire({
-							  title: '공지사항 내용을 입력해주세요.',
-							  icon: 'warning',
-							  showCancelButton: false,
-							  confirmButtonColor: '#3085d6',
-							  confirmButtonText: '확인'
-							}).then((result) => {
-							  if (result.value) {
-								  $("[name=content]").focus()
-							      return;
-							  }
-						  })
-					  }
-					  else{
-						  $("form").submit();
-					  }
-					  
+    $(".insBtn").click(function(){
+		if($('#important').is(':checked')){
+			$("input[name=important]").attr('value','o');
+		}
+		if(!$('#important').is(':checked')){
+			$("input[name=important]").attr('value','x');
+		}
+		  Swal.fire({
+			  title: '등록하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+			}).then((result) => {
+			  if (result.value) {
+				  if($("[name=title]").val() == ""){
+					  Swal.fire({
+						  title: '공지사항 제목을 입력해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=title]").focus()
+						      return;
+						  }
+					  })
 				  }
-				})	    	
-	  	})
-	
-	   var fileTarget = $('.img_block .upload-hidden');
+				  else if($("[name=content]").val() == ""){
+					  Swal.fire({
+						  title: '공지사항 내용을 입력해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=content]").focus()
+						      return;
+						  }
+					  })
+				  }
+				  else{
+					  $("form").submit();
+				  }
+				  
+			  }
+			})	    	
+  	})
 
-	    fileTarget.on('change', function(){
-	        if(window.FileReader){
-	            // 파일명 추출
-	            var filename = $(this)[0].files[0].name;
-	        } 
+   var fileTarget = $('.img_block .upload-hidden');
 
-	        else {
-	            // Old IE 파일명 추출
-	            var filename = $(this).val().split('/').pop().split('\\').pop();
-	        };
+    fileTarget.on('change', function(){
+        if(window.FileReader){
+            // 파일명 추출
+            var filename = $(this)[0].files[0].name;
+        } 
 
-	        $(this).siblings('.upload-name').val(filename);
-	    });
+        else {
+            // Old IE 파일명 추출
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+        };
 
-	    //preview image 
-	    var imgTarget = $('.img_block .upload-hidden');
+        $(this).siblings('.upload-name').val(filename);
+    });
 
-	    imgTarget.on('change', function(){
-	        var parent = $(this).parent();
-	        parent.children('.upload-display').remove();
+    //preview image 
+    var imgTarget = $('.img_block .upload-hidden');
 
-	        if(window.FileReader){
-	            //image 파일만
-	            if (!$(this)[0].files[0].type.match(/image\//)) return;
-	            
-	            var reader = new FileReader();
-	            reader.onload = function(e){
-	                var src = e.target.result;
-	                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-	            }
-	            reader.readAsDataURL($(this)[0].files[0]);
-	        }
+    imgTarget.on('change', function(){
+        var parent = $(this).parent();
+        parent.children('.upload-display').remove();
 
-	        else {
-	            $(this)[0].select();
-	            $(this)[0].blur();
-	            var imgSrc = document.selection.createRange().text;
-	            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+        if(window.FileReader){
+            //image 파일만
+            if (!$(this)[0].files[0].type.match(/image\//)) return;
+            
+            var reader = new FileReader();
+            reader.onload = function(e){
+                var src = e.target.result;
+                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        }
 
-	            var img = $(this).siblings('.upload-display').find('img');
-	            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
-	        }
-	    });
-	    
-	    
+        else {
+            $(this)[0].select();
+            $(this)[0].blur();
+            var imgSrc = document.selection.createRange().text;
+            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
 
-	});
+            var img = $(this).siblings('.upload-display').find('img');
+            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+        }
+    });
+    
+    
 
+});
+$('.lnb > ul > li').click(function() {
+    if ( $(this).hasClass('active') ) {
+        $(this).find('> ul').stop().slideUp(300);
+        $(this).removeClass('active');
+    }
+    else {
+        $(this).find('> ul').stop().slideDown(300);
+        $(this).addClass('active');
+    }
+});
 
+$('.lnb > ul > li').eq(0).trigger("click");
 </script>
 </html>

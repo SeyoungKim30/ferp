@@ -1,5 +1,7 @@
 package ferp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ferp.service.B_heejunService;
+import vo.HOemp;
 import vo.Menu;
 import vo.Notice;
 import vo.NoticeSch;
@@ -21,6 +24,10 @@ public class B_heejunController {
 	@Autowired(required = false)
 	private B_heejunService service;
 	
+	@ModelAttribute("empCombo")
+	public List<HOemp> getHOemp(){
+		return service.getHOemp();
+	}
 	
 	// 본사 홈페이지 controller
 	@RequestMapping("/mainpage.do")
@@ -43,6 +50,7 @@ public class B_heejunController {
 		return "redirect:/mainpage.do";
 	}
 	
+	
 	// 매장정보등록 controller
 	// http://localhost:7080/ferp/storeInsert.do
 	@GetMapping("/storeInsert.do")
@@ -57,6 +65,24 @@ public class B_heejunController {
 		// redirect로 본사 홈페이지로 이동
 		return "redirect:/mainpage.do";
 	}
+	// 매장 정보 수정
+	@GetMapping("/storeUpdate.do")
+	public String storeUpdate(@RequestParam String frRegiNum, Model d) {
+		d.addAttribute("store", service.detailStore(frRegiNum));
+		
+		return "WEB-INF\\view\\store_update.jsp";
+	}
+	@PostMapping("/storeUpdate.do")
+	public String storeUpdate(Store upt, RedirectAttributes redirect) {
+		if( service.updateStore(upt) != null) {
+			redirect.addFlashAttribute("updMsg", "매장 정보 수정 완료");
+		}
+		
+		// 매장 정보 조회 페이지로 redirect
+		return "";
+	}
+	// 매장 정보 삭제
+	
 	
 	// 공지사항 조회
 	// http://localhost:7080/ferp/noticeList.do

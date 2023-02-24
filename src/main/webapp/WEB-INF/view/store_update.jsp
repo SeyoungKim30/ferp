@@ -15,7 +15,7 @@
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="/ferp/resource/css/insertPage.css"/>
+<link rel="stylesheet" href="/ferp/resource/css/store_insert.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 
@@ -76,48 +76,60 @@
                 </ul>
             </div>
             <div class="contents">
-	        	<div>
-	        	<form enctype="multipart/form-data" method="post">
-	     	        <h2 class="insert_product">메 뉴 등 록</h2>
-	     	        <div class="top_line">
-		     	        <input type="hidden" name="necessary">
-			        	<input type="checkbox" id="necessary" >
-			        	<span>선택가능여부</span>
-		        	</div>
-	        	</div>
-	
+	    	    <h2 class="insert_product">매 장 정 보 수 정</h2>
 	        	<div class="content">
+	        	<form method="post">
 					<div class="first_line">
-						<h3 class="menu_name">메뉴명</h3>
-						<h3 class="menu_price">가격</h3>
+						<h3 class="store_num">사업자번호</h3>
+						<h3 class="store_pass">비밀번호</h3>
 					</div>
 					<div class="second_line">
-						<input type="text" name="menuName" placeholder="메뉴명 입력">
-						<input type="number" name="price" placeholder="판매가 입력">
+						<input type="text" name="frRegiNum" placeholder="사업자번호 입력">
+						<input type="text" name="frPass" placeholder="비밀번호 입력">
 					</div>
 					<div class="third_line">
-						<h3 class="menu_info">메뉴설명</h3>
-						<h3 class="menu_category">카테고리</h3>
+						<h3 class="store_name">매장명</h3>
+						<h3 class="store_open">오픈시간</h3>
+						
 					</div>
 					<div class="fourth_line">
-						<input type="text" name="info" placeholder="메뉴설명 입력">
-						<input type="text" name="category" placeholder="카테고리 입력">
+						<input type="text" name="frName" placeholder="매장명 입력">
+						<input type="text" name="frOpen" placeholder="오픈시간 입력">
 					</div>
 					<div class="fifth_line">
-						<h3 class="menu_img">메뉴사진</h3>
+						<h3 class="store_opertime">운영시간</h3>
+						<h3 class="store_closeDte">휴무일</h3>
+						
 					</div>
 					<div class="sixth_line">
-						<div class="block">
-							<div class="img_block">
-								<input class="upload-name" type="text" value="파일선택" disabled="disabled" style="width: 290px;">
-								
-				              	<label for="input_file">업로드</label> 
-	             				<input type="file" name="multipartfile" id="input_file" class="upload-hidden" > 
-							</div>
-						</div>
+						<input type="text" name="frOperTime" placeholder="운영시간 입력">				
+						<input type="text" name="frClosedDte" placeholder="휴무일 입력">
+	
 					</div>
+					<div class="seventh_line">
+						<h3 class="store_repName">대표자명</h3>
+						<h3 class="store_tel">전화번호</h3>
+						
+					</div>
+					<div class="eighth_line">
+						<input type="text" name="frRepName" placeholder="대표자명 입력">				
+						<input type="text" name="frTel" placeholder="전화번호 입력">
+	
+					</div>	
+					<div class="ninth_line">
+						<h3 class="store_eno">담당직원</h3>
+						<h3 class="store_address">주소</h3>
+					</div>
+					<div class="tenth_line">
+						<select name="eno">
+							<option disabled="disabled" selected="selected">담당직원 선택</option>
+							<option value="100">김개똥</option>
+						</select>				
+						<input type="text" name="frAddress" placeholder="주소 입력">
+					</div>					
+							
 					<div class="submit_line">
-						<button type="button" class="insBtn">등 록</button>
+						<button type="button" class="uptBtn">수 정</button>
 					</div>	
 				</form>		
 				</div>
@@ -126,33 +138,10 @@
     </div>
 </body>
 <script type="text/javascript">
-$('.lnb > ul > li').click(function() {
-    if ( $(this).hasClass('active') ) {
-        $(this).find('> ul').stop().slideUp(300);
-        $(this).removeClass('active');
-    }
-    else {
-        $(this).find('> ul').stop().slideDown(300);
-        $(this).addClass('active');
-    }
-});
-
-$('.lnb > ul > li').eq(0).trigger("click");
-
 $(document).ready(function(){
-
-    $(".insBtn").click(function(){
-		if($('#necessary').is(':checked')){
-			$("input[name=necessary]").attr('value','o');
-		}
-		if(!$('#necessary').is(':checked')){
-			$("input[name=necessary]").attr('value','x');
-		}
-		console.log($('#necessary').is(':checked'))
-		console.log($("input[name=necessary]").val())
-		
+    $(".uptBtn").click(function(){
 		  Swal.fire({
-			  title: '등록하시겠습니까?',
+			  title: '수정하시겠습니까?',
 			  icon: 'question',
 			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
@@ -161,58 +150,127 @@ $(document).ready(function(){
 			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
-				  if($("[name=menuName]").val() == ""){
+				  if($("[name=frRegiNum]").val() == ""){
 					  Swal.fire({
-						  title: '메뉴명을 입력해주세요.',
+						  title: '사업자번호를 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=menuName]").focus()
+							  $("[name=frRegiNum]").focus()
 						      return;
 						  }
 					  })
 				  }
-				  else if($("[name=price]").val() == ""){
+				  else if($("[name=frPass]").val() == ""){
 					  Swal.fire({
-						  title: '판매가를 입력해주세요.',
+						  title: '비밀번호를 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=price]").focus()
+							  $("[name=frPass]").focus()
 						      return;
 						  }
 					  })
 				  }
-				  else if($("[name=info]").val() == ""){
+				  else if($("[name=frOpen]").val() == ""){
 					  Swal.fire({
-						  title: '메뉴설명을 입력해주세요.',
+						  title: '오픈시간을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=info]").focus()
+							  $("[name=frOpen]").focus()
 						      return;
 						  }
 					  })
 				  }
-				  else if($("[name=category]").val() == ""){
+				  else if($("[name=frOperTime]").val() == ""){
 					  Swal.fire({
-						  title: '카테고리를 입력해주세요.',
+						  title: '운영시간을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=category]").focus()
+							  $("[name=frOperTime]").focus()
+						      return;
+						  }
+					  })
+				  }
+				  else if($("[name=frClosedDte]").val() == ""){
+					  Swal.fire({
+						  title: '휴무일을 입력해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frClosedDte]").focus()
+						      return;
+						  }
+					  })
+				  }
+				  else if($("[name=frRepName]").val() == ""){
+					  Swal.fire({
+						  title: '대표자명를 입력해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frRepName]").focus()
+						      return;
+						  }
+					  })
+				  }
+				  else if($("[name=frTel]").val() == ""){
+					  Swal.fire({
+						  title: '전화번호를 입력해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frTel]").focus()
+						      return;
+						  }
+					  })
+				  }
+				  else if($("[name=eno]").val() == ""){
+					  Swal.fire({
+						  title: '담당직원을 선택해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+						      return;
+						  }
+					  })
+				  }
+				  else if($("[name=frAddress]").val() == ""){
+					  Swal.fire({
+						  title: '주소를 입력해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frAddress]").focus()
 						      return;
 						  }
 					  })
@@ -225,54 +283,19 @@ $(document).ready(function(){
 			})	    	
   	})
 
-   var fileTarget = $('.img_block .upload-hidden');
-
-    fileTarget.on('change', function(){
-        if(window.FileReader){
-            // 파일명 추출
-            var filename = $(this)[0].files[0].name;
-        } 
-
-        else {
-            // Old IE 파일명 추출
-            var filename = $(this).val().split('/').pop().split('\\').pop();
-        };
-
-        $(this).siblings('.upload-name').val(filename);
-    });
-
-    //preview image 
-    var imgTarget = $('.img_block .upload-hidden');
-
-    imgTarget.on('change', function(){
-        var parent = $(this).parent();
-        parent.children('.upload-display').remove();
-
-        if(window.FileReader){
-            //image 파일만
-            if (!$(this)[0].files[0].type.match(/image\//)) return;
-            
-            var reader = new FileReader();
-            reader.onload = function(e){
-                var src = e.target.result;
-                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-            }
-            reader.readAsDataURL($(this)[0].files[0]);
-        }
-
-        else {
-            $(this)[0].select();
-            $(this)[0].blur();
-            var imgSrc = document.selection.createRange().text;
-            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-
-            var img = $(this).siblings('.upload-display').find('img');
-            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
-        }
-    });
-    
-    
 
 });
+$('.lnb > ul > li').click(function() {
+    if ( $(this).hasClass('active') ) {
+        $(this).find('> ul').stop().slideUp(300);
+        $(this).removeClass('active');
+    }
+    else {
+        $(this).find('> ul').stop().slideDown(300);
+        $(this).addClass('active');
+    }
+});
+
+$('.lnb > ul > li').eq(0).trigger("click");
 </script>
 </html>

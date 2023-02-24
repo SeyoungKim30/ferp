@@ -52,14 +52,26 @@ input[type=checkbox]{
 span{
 	float: right;
     letter-spacing: 6px;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.top_line{
+	margin-top: 10px;
+}
+.top_line [type=checkbox]{
+	margin-top: 3px;
+    width: 20px;
+    height: 15px;
 }
 /* 1번째 라인*/
 .first_line{
 	display: flex;
 	margin-top: 45px;
+	margin-bottom: 10px;
 }
 .first_line .menu_name{
-	padding-right: 62.5%;
+	padding-right: 64.5%;
 }
 
 /* 2번째 라인*/
@@ -79,9 +91,10 @@ span{
 .third_line{
 	display: flex;
 	margin-top: 40px;
+	margin-bottom: 10px;
 }
 .third_line .menu_info{
-	padding-right: 60.8%;
+	padding-right: 63%;
 }
 
 /* 4번째 라인*/
@@ -101,6 +114,7 @@ span{
 .fifth_line{
 	display: flex;
 	margin-top: 40px;
+	margin-bottom: 10px;
 }
 .fifth_line .menu_img{
 	padding-right: 26%;
@@ -202,7 +216,7 @@ span{
 	float: right;
 }
 .submit_line > button{
-    width: 100px;
+    width: 90px;
     height: 40px;
     text-align: center;
     border-radius: 10px;

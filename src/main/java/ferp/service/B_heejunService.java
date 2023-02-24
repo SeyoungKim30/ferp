@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import ferp.dao.B_heejunDao;
+import vo.HOemp;
 import vo.Menu;
 import vo.Notice;
 import vo.NoticeSch;
@@ -61,6 +62,19 @@ public class B_heejunService {
 		
 		return ins.getFrName();
 	}
+	// 매장 정보 수정
+	public String updateStore(Store upt) {
+		
+		dao.updateStore(upt);
+		
+		return upt.getFrRepName();
+	}
+	// 해당 매장 정보 조회
+	public Store detailStore(String frRegiNum) {
+		
+		return dao.detailStore(frRegiNum);
+	}
+	
 	
 	// 공지사항 조회
 	public List<Notice> searchNotice(NoticeSch sch){
@@ -110,5 +124,10 @@ public class B_heejunService {
 		dao.deleteNotice(noticeNum);
 		
 		return noticeNum;
+	}
+	
+	// 직원 콤보박스
+	public List<HOemp> getHOemp(){
+		return dao.getHOemp();
 	}
 }

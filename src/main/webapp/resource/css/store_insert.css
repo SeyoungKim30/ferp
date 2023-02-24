@@ -65,7 +65,7 @@ span{
 /* 1번째 라인*/
 .first_line{
 	display: flex;
-	margin-top: 15px;
+	margin-top: 25px;
 }
 .first_line .store_num{
     padding-right: 44.5%;
@@ -75,6 +75,7 @@ span{
 .second_line{
 	display: flex;
 	justify-content: space-between;
+	margin-top: 10px;
 }
 [name=frRegiNum]{
     width: 47%;
@@ -87,7 +88,7 @@ span{
 /* 3번째 라인*/
 .third_line{
 	display: flex;
-	margin-top: 15px;
+	margin-top: 25px;
 }
 .third_line .store_name{
 	padding-right: 48%;
@@ -97,6 +98,7 @@ span{
 .fourth_line{
 	display: flex;
 	justify-content: space-between;
+	margin-top: 10px;
 }
 [name=frName]{
     width: 47%;
@@ -109,7 +111,7 @@ span{
 /* 5번째 라인*/
 .fifth_line{
 	display: flex;
-	margin-top: 15px;
+	margin-top: 25px;
 }
 .fifth_line .store_opertime{
 	padding-right: 46.1%;
@@ -118,6 +120,8 @@ span{
 /* 6번째 라인*/
 .sixth_line{
 	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
 }
 [name=frOperTime]{
     width: 47%;
@@ -129,7 +133,7 @@ span{
 /* 7번째 라인*/
 .seventh_line{
 	display: flex;
-	margin-top: 15px;
+	margin-top: 25px;
 }
 .seventh_line .store_repName{
 	padding-right: 46.2%;
@@ -138,6 +142,8 @@ span{
 /* 8번째 라인*/
 .eighth_line{
 	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
 }
 [name=frRepName]{
     width: 47%;
@@ -151,7 +157,7 @@ span{
 /* 9번째 라인*/
 .ninth_line{
 	display: flex;
-	margin-top: 15px;
+	margin-top: 25px;
 }
 .ninth_line .store_eno{
 	padding-right: 46.2%;
@@ -160,13 +166,15 @@ span{
 /* 10번째 라인*/
 .tenth_line{
 	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;	
 }
 [name=eno]{
     width: 47%;
     margin-right: 6%;
 }
 [name=frAddress]{
-	width: 46%;
+	width: 47%;
 }
 /* 등록 라인 */
 .submit_line{
@@ -175,7 +183,7 @@ span{
 	float: right;
 }
 .submit_line > button{
-    width: 100px;
+    width: 90px;
     height: 40px;
     text-align: center;
     border-radius: 10px;
