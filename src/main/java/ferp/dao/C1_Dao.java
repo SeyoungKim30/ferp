@@ -7,8 +7,9 @@ import vo.Account;
 
 public interface C1_Dao {
 	
-	public List<Account> r7200SelectAccount(Account ac);
-	public int r7201insertAccount(Account ac);
+	public List<Account> r7100SelectAccount(Account ac);
+	public int r7101insertAccount(Account ac);
 	public int r7203insertStatement(ACStatement stmt);
+	public List<ACStatement> r7211selectACStatement(ACStatement stmt);
 
 }
