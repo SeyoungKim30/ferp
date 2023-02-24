@@ -52,7 +52,7 @@
     	display: block;
     }
     
-    select[name=clerkName]{
+    select[name=clerkNum]{
 	    margin: auto;
 	    display: block;
 	    width: 480px;
@@ -72,20 +72,19 @@
             <div class="logo">
                 <h1><a href="#"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
             </div>
-           	<h2>프랜차이즈 매장 관리 시스템</h1>
+           	<h2>프랜차이즈 매장 관리 시스템</h2>
+           	<h2>${login.frName}</h2>
         </header>
         <div class="main_wrapper">
         	<div class="btns">
         		<div class="btn start_btn">출근</div>
         		<div class="btn end_btn">퇴근</div>
         	</div>
-        		<select name="clerkName">
-        			<option>직원1</option>
-        			<option>직원2</option>
-        			<option>세션처리후</option>
-        			<option>직원이름 쭉 가져올 거임</option>
-        			<option>임시임</option>
-        			<option>작업 전임</option>
+        		<select name="clerkNum">
+        		<option disabled="disabled" selected>직원명 선택</option>
+        		<c:forEach var="sc" items="${myClerk}">
+        			<option value="${sc.clerkNum}">${sc.clerkName}</option>
+        		</c:forEach>
         		</select>
 		</div>
     </div>

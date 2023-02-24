@@ -4,12 +4,18 @@
 <configuration>
 
 	<typeAliases>
-	<typeAlias alias="stock" type="vo.Stock"/>
-	<typeAlias alias="account" type="vo.Account"/>
-	<typeAlias alias="product" type="vo.Product"/>
+		<typeAlias alias="stock" type="vo.Stock"/>
+		<typeAlias alias="account" type="vo.Account"/>
+		<typeAlias alias="product" type="vo.Product"/>
+		<typeAlias alias="store" type="vo.Store"/>
+		<typeAlias alias="acstmt" type="vo.ACStatement"/>
+		<typeAlias alias="storeclerk" type="vo.StoreClerk"/>
+		<typeAlias alias="storeclerksch" type="vo.SCPage"/>
 	</typeAliases>
 			
 <mappers>
+		<mapper resource="ferp/resource/mappers/A1_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/A2_Mapper.xml"/>
 		<mapper resource="ferp/resource/mappers/C1_Mapper.xml"/>
 		<mapper resource="ferp/resource/mappers/C2_Mapper.xml"/>
 </mappers>

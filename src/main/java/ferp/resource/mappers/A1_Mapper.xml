@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+    
+    <mapper namespace="ferp.dao.A1_Dao">
+		
+		<!-- 로그인 -->
+		<select id="storeLogin" parameterType="store" resultType="store">
+			SELECT * 
+			FROM STORE
+			WHERE frRegiNum = #{frRegiNum}
+			AND frPass = #{frPass}
+		</select>
+		
+		<!-- 로그인한 매장의 직원 목록 불러오기 -->
+		<select id="getStoreClerk" parameterType="string" resultType="storeClerk">
+			SELECT *
+			FROM STORECLERK
+			WHERE frRegiNum = #{frRegiNum}
+		</select>
+		
+    </mapper>
