@@ -15,7 +15,15 @@ public class C2_Service {
 	C2_Dao dao;
 	
 	public List<Product> r8101ProductSch(Product sch){
-		
 		return dao.r8101ProductSch(sch);
+	}
+	
+	public List<Product> r8201ProductSch(Product sch){
+		if(sch.getProductNum()==null) sch.setProductNum("");
+		if(sch.getCategory()==null) sch.setCategory("");
+		if(sch.getProductName()==null) sch.setProductName("");
+		if(sch.getOpposite()==null) sch.setOpposite("");
+		if(sch.getRemark()==null) sch.setRemark("");
+		return dao.r8201ProductSch(sch);
 	}
 }
