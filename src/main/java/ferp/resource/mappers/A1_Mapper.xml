@@ -47,4 +47,13 @@
 		AND FRREGINUM =#{FrRegiNum}
 		</update>
 		
+		<!-- 로그인한 매장의 판매 메뉴 불러오기 -->
+		<select id="">
+		SELECT m.*
+		FROM MENU m, ONSALE o 
+		WHERE m.MENUNUM = o.MENUNUM
+		AND FrRegiNum = #{FrRegiNum}
+		AND category LIKE '%'||#{category}||'%'
+		</select>
+		
     </mapper>

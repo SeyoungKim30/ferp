@@ -13,6 +13,7 @@
 		<typeAlias alias="storeclerksch" type="vo.SCPage"/>
 		<typeAlias alias="clerkschedule" type="vo.ClerkSchedule"/>
 		<typeAlias alias="emp" type="vo.Emp"/>
+		<typeAlias alias="menu" type="vo.Menu"/>
 	</typeAliases>
 			
 <mappers>
