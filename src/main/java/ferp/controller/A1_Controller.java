@@ -57,7 +57,7 @@ public class A1_Controller {
 		Store st = (Store)session.getAttribute("login");
 		inscs.setFrRegiNum(st.getFrRegiNum());
 		service.addOnDay(inscs);
-		d.addAttribute("msg","출근완료");
+		d.addAttribute("msg","출근 등록이 완료되었습니다.");
 		return "pageJsonReport";
 	}
 	
