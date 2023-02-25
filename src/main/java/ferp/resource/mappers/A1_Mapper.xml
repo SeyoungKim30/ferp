@@ -13,6 +13,14 @@
 			AND frPass = #{frPass}
 		</select>
 		
+		<!-- 본사 로그인 -->
+		<select id="empLogin" parameterType="emp" resultType="emp">
+			SELECT * 
+			FROM emp
+			WHERE empnum = #{empnum}
+			AND pass = #{pass}
+		</select>
+		
 		<!-- 로그인한 매장의 직원 목록 불러오기 -->
 		<select id="getStoreClerk" parameterType="storeclerk" resultType="storeclerk">
 			SELECT *

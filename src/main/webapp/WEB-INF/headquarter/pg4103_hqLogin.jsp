@@ -100,12 +100,12 @@
         <div class="loginBox">
         	<form method="post" id="loginForm">
         		<div class="idBox">
-      				<span>사업자 번호</span>
-					<input type="text" name="frRegiNum" placeholder="'-'는 제외하고 입력하세요.">
+      				<span>사원 번호</span>
+					<input type="text" name="empnum" placeholder="'-'는 제외하고 입력하세요.">
         		</div>
         		<div class="passBox">
         			<span>비밀번호</span>
-					<input type="password" name="frPass">
+					<input type="password" name="pass">
 				</div>
 				<button type="submit" class="loginBtn">로그인</button>
         	</form>

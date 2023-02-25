@@ -1,20 +1,16 @@
 package ferp.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ferp.service.A1_Service;
 import vo.ClerkSchedule;
+import vo.Emp;
 import vo.Store;
-import vo.StoreClerk;
 
 
 @Controller
@@ -36,6 +32,21 @@ public class A1_Controller {
 			return "WEB-INF\\store\\pg1000_storeLogin.jsp";
 		}else {
 			session.setAttribute("login", service.storeLogin(st));
+			return "/storeMainMenu.do";
+		}
+	}
+	// 본사 로그인
+	// http://localhost:6080/ferp/empLogin.do
+	@RequestMapping("/empLogin.do")
+	public String pg4103empLogin(Emp emp, Model d, HttpSession session){
+		if(emp.getEmpnum()==0) {
+			d.addAttribute("loginState", "로그인페이지");
+			return "WEB-INF\\headquarter\\pg4103_hqLogin.jsp";
+		}else if(service.empLogin(emp)==null){
+			d.addAttribute("loginState", "틀림");
+			return "WEB-INF\\headquarter\\pg4103_hqLogin.jsp";
+		}else {
+			session.setAttribute("login", service.empLogin(emp));
 			return "/storeMainMenu.do";
 		}
 	}

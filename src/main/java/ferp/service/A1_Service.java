@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ferp.dao.A1_Dao;
 import vo.ClerkSchedule;
+import vo.Emp;
 import vo.Store;
 import vo.StoreClerk;
 
@@ -20,6 +21,12 @@ public class A1_Service {
 		if(st.getFrRegiNum()==null) st.setFrRegiNum("");
 		if(st.getFrPass()==null) st.setFrPass("");
 		return dao.storeLogin(st);
+	}
+	
+	public Emp empLogin(Emp emp) {
+		if(emp.getEmpnum()==0) emp.setEmpnum(0);
+		if(emp.getPass()==null) emp.setPass("");
+		return dao.empLogin(emp);
 	}
 	
 	public List<StoreClerk> getStoreClerk(String FrRegiNum){
