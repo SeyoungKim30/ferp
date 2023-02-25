@@ -25,7 +25,6 @@ $(document).ready(function(){
 		let url="/ferp/selectAccountJson.do"
 	 	fetch(url).then(function(response){return response.json() }).then(function(json){
 	 		accountList=json.accountList;
-	 		console.log("함수내부 : " + accountList);
 	 	}).catch(function(err){console.log(err)})
 	}
 	
@@ -36,7 +35,6 @@ $(document).ready(function(){
 		var myresult = $(this).parents('tr').find(".acntNum")
 		for(var i=0;i<accountList.length;i++){
 			if(accountList[i].acntTitle==myinput){
-				console.log('일치');
 				myresult.val(accountList[i].acntNum);
 				break;
 			}else{
@@ -146,7 +144,7 @@ $(document).ready(function(){
 						<tr><td>차변합계</td><td class="totaldebit"></td><td>대변합계</td><td class="totalcredit"></td><td>차액</td><td id="DCgap">얼마</td></tr>
 					</tfoot>
 				</table>
-			
+			<div style="display: none"><button id="real-submit-btn"></button></div>
 			</form>
 
 		</div>
@@ -172,7 +170,7 @@ $(document).ready(function(){
 	function multipathSubmit(formId,realpath){
 			let formm=document.querySelector("#"+formId)
 			formm.action=realpath;
-			formm.submit();
+			$('#real-submit-btn').click();
 		}
 
 	document.querySelector('.btn-submit').addEventListener('click',function(){

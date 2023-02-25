@@ -28,10 +28,12 @@
 .toolbar div {
 	display: inline-block;
 }
-
-.toolbar label input,select{
+.toolbar label{
 	margin-left: .5rem;
-	margin-right: 1rem;
+	display: inline-block;
+}
+.toolbar label input,select{
+	display:block;
 }
 
 table input {

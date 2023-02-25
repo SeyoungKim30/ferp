@@ -16,10 +16,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
-<style>
-.toolbar div input,select{
-	display:block;}
-</style>
+
 </head>
 
 <body class="container">
