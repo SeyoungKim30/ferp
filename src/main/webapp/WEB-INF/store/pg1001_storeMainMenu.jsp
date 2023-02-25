@@ -70,7 +70,7 @@
     <div class="container">
         <header>  
             <div class="logo">
-                <h1><a href="#"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
+                <h1><a href="${path}/storeMainMenu.do"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
             </div>
            	<h2>프랜차이즈 매장 관리 시스템</h2>
            	<h2>${login.frName}</h2>

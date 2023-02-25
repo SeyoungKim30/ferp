@@ -14,4 +14,7 @@ public interface A1_Dao {
 	
 	// 출근 등록
 	public void addOnDay(ClerkSchedule inscs);
+	
+	// 퇴근 등록
+	public void addOffTime(ClerkSchedule uptcs);
 }

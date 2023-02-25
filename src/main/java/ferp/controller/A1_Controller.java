@@ -61,4 +61,13 @@ public class A1_Controller {
 		return "pageJsonReport";
 	}
 	
+	@RequestMapping("/addOffTime.do")
+	public String addOffTime(ClerkSchedule uptcs, Model d, HttpSession session) {
+		Store st = (Store)session.getAttribute("login");
+		uptcs.setFrRegiNum(st.getFrRegiNum());
+		service.addOffTime(uptcs);
+		d.addAttribute("msg","퇴근 등록이 완료되었습니다.");
+		return "pageJsonReport";
+	}
+	
 }

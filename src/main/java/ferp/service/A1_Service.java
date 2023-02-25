@@ -30,4 +30,9 @@ public class A1_Service {
 	public void addOnDay(ClerkSchedule inscs) {
 		dao.addOnDay(inscs);
 	}
+	
+	// 퇴근 등록
+	public void addOffTime(ClerkSchedule uptcs) {
+		dao.addOffTime(uptcs);
+	}
 }

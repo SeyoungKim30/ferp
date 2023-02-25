@@ -15,6 +15,8 @@
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 <style type="text/css">
@@ -74,7 +76,7 @@
     <div class="container">
         <header>  
             <div class="logo">
-                <h1><a href="#"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
+                <h1><a href="${path}/storeMainMenu.do"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
             </div>
            	<h2>프랜차이즈 매장 관리 시스템</h2>
            	<h2>${login.frName}</h2>
@@ -86,7 +88,7 @@
         		<div class="btn end_btn">퇴근</div>
         	</div>
         		<select name="clerkNum">
-        		<option disabled="disabled" selected>직원명 선택</option>
+        		<option value="" selected>직원명 선택</option>
         		<c:forEach var="mc" items="${myClerk}">
         			<option value="${mc.clerkNum}">${mc.clerkName}</option>
         		</c:forEach>
@@ -98,9 +100,64 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".start_btn").click(function () {
-		if(confirm("출근 등록을 하시겠습니까?")){
-			regAjax("/addOnDay.do")
-		}
+		  Swal.fire({
+			  title: '출근 등록을 하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#2262F3',
+			  cancelButtonColor: '#888',
+			  confirmButtonText: '등록',
+			  cancelButtonText: '취소'
+			}).then((result) => {
+				if(result.value){					
+					if($("[name=clerkNum]").val() == ""){
+						  Swal.fire({
+							  title: '등록할 직원을 골라주세요',
+							  icon: 'warning',
+							  showCancelButton: false,
+							  confirmButtonColor: '#2262F3',
+							  confirmButtonText: '확인'
+							}).then((result) => {
+							  if (result.value) {
+								  $("[name=clerkNum]").focus()
+							      return;
+							  }
+						  })
+					}else{
+						regAjax("/addOnDay.do");
+					}
+				}
+			})
+	})
+	$(".end_btn").click(function () {
+		  Swal.fire({
+			  title: '퇴근 등록을 하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#2262F3',
+			  cancelButtonColor: '#888',
+			  confirmButtonText: '등록',
+			  cancelButtonText: '취소'
+			}).then((result) => {
+				if(result.value){					
+					if($("[name=clerkNum]").val() == ""){
+						  Swal.fire({
+							  title: '등록할 직원을 골라주세요',
+							  icon: 'warning',
+							  showCancelButton: false,
+							  confirmButtonColor: '#2262F3',
+							  confirmButtonText: '확인'
+							}).then((result) => {
+							  if (result.value) {
+								  $("[name=clerkNum]").focus()
+							      return;
+							  }
+						  })
+					}else{
+						regAjax("/addOffTime.do");
+					}
+				}
+			})
 	})
 	
 	function regAjax(url) {

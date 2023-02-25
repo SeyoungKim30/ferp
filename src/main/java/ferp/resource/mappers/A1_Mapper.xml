@@ -22,12 +22,21 @@
 		
 		
 		<!-- 출근 등록 -->
-		<select id="addOnDay" parameterType="clerkschedule">
+		<insert id="addOnDay" parameterType="clerkschedule">
 		INSERT INTO EMPCHECKIN(FrRegiNum,clerkNum,onTime) VALUES (
 			#{FrRegiNum},
 			#{clerkNum},
 			sysdate
 		)
-		</select>
+		</insert>
+		
+		<!-- 퇴근 등록 -->
+		<update id="addOffTime" parameterType="clerkschedule">
+		UPDATE EMPCHECKIN
+			SET OFFTIME = SYSDATE
+		WHERE clerkNum = #{clerkNum}
+		AND TO_CHAR(ONTIME,'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		AND FRREGINUM =#{FrRegiNum}
+		</update>
 		
     </mapper>
