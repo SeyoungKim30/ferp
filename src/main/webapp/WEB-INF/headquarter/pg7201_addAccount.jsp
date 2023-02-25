@@ -9,7 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>계정과목 생성</title>
-<link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
+<link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
+<link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
 .search{background-color:lightgray;}
 </style>
@@ -20,13 +21,22 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		<form class="search">
-			<input placeholder="계정코드">
-			<select><option>자산</option></select>
-			<input placeholder="계정명">
-			<button type="submit">계정검색</button>
-		</form>
 		
+		<div class="toolbox">
+		<h3>계정과목 검색</h3>
+			<form class="toolbar">
+			<div>
+				<label>계정코드<input placeholder="계정코드 필수입력"></label>
+				<label>구분<select><option>자산</option>
+							<option>자본</option>
+							<option>부채</option>
+							<option>비용</option>
+							<option>수익</option></select></label>
+				<label>계정명<input placeholder="계정명 필수입력"></label>
+			</div>
+				<button class="btn-search">계정검색</button>
+			</form>
+		</div>
 			<table>
 				<thead>
 					<tr>
@@ -38,8 +48,8 @@
 				</thead>
 				<tbody>
 					<tr>
-					<form action="${path }/account/insertAccount.do">
-						<td><input name="acntNum"></td>
+					<form action="${path }/insertAccount.do">
+						<td><input name="acntNum" placeholder="새로운 계정을 등록합니다"></td>
 						<td><select name="acntGroup">
 							<option>자산</option>
 							<option>자본</option>
@@ -47,11 +57,11 @@
 							<option>비용</option>
 							<option>수익</option>
 							</select></td>
-						<td><input name="acntTitle"></td>
-						<td><input value="1" type="hidden" name="acntUsing"><button class="btn-primary">계정등록</button></td>
+						<td><input name="acntTitle" placeholder="새로운 계정을 등록합니다"></td>
+						<td><input value="1" type="hidden" name="acntUsing"><button class="btn-submit">계정등록</button></td>
 					</form>
 					</tr>
-					<c:forEach items="${accountList }" var="each">
+					<c:forEach items="${accountListtrue }" var="each">
 						<tr>
 							<td>${each.acntNum }</td>
 							<td>${each.acntGroup }</td>
@@ -59,7 +69,14 @@
 							<td><input type="checkbox" checked="${each.acntUsing }"></td>
 						</tr>
 					</c:forEach>
-
+					<c:forEach items="${accountListfalse }" var="each">
+						<tr>
+							<td>${each.acntNum }</td>
+							<td>${each.acntGroup }</td>
+							<td>${each.acntTitle }</td>
+							<td><input type="checkbox"></td>
+						</tr>
+					</c:forEach>
 					<tr>
 						<td>testing</td>
 						<td>자산</td>

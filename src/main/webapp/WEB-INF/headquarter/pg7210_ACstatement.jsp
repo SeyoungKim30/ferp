@@ -2,29 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="login" value="fakeID1111" />
 <fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>타이틀</title>
+<title>전표관리</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
-<style>
-.toolbar {
-	margin-top: 0px;
-	margin-bottom: 1em;
-	display: flex;
-	justify-content: space-between;
-}
+<link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 
-.toolbar div {
-	display: inline;
-}
-</style>
 <script>
 $(document).ready(function(){
 	var accountList=[];
@@ -78,30 +70,30 @@ $(document).ready(function(){
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
+		
+		<form action="${path }/insertACstatement.do" method="post" id="form1">
+		
+		<div class="toolbox">
 			<div class="toolbar">
 				<div>
 					<button class="btn-dark">이전전표</button>
 					<button class="btn-dark">다음전표</button>
 				</div>
-				<div class="search">
-					<form action="${path }/selectACstatement.do">
-					<label>전표일자<input type="date" name="stmtDate"></label>
-					<label>전표번호<input placeholder="전표번호" name="statementNum"></label>
-					<button>검색</button>
-					</form>
-				</div>
 				<div>
-					<button class="btn-secondary"
-						title="저장되지 않은 내용을 모두 삭제하고 새 전표를 입력합니다.">새 전표</button>
+					<button class="btn-reset" title="저장되지 않은 내용을 모두 삭제하고 새 전표를 입력합니다." type="button">새 전표</button>
 					<button class="btn-danger">삭제하기</button>
 				</div>
 			</div>
-			<hr>
-			<form action="${path }/insertACstatement.do" method="post" id="insertACstatement">
-				<label>전표일자<input type="date" name="stmtDate" required="required"></label>
-				<input name="statementNum" type="hidden" value="A">
-				<input name="frRegiNum" type="hidden" value="세션로그인번호">
-				<button class="btn-primary">등록</button>
+			<div class="toolbar">
+				<div>
+					<label>전표일자<input type="date" name="stmtDate" required="required" value="${fn:substring(stmtList[0].stmtDate,0,10) }"></label>
+					<label>전표번호<input name="statementNum" value="${stmtList[0].statementNum }" placeholder="검색할때만 입력하세요"></label>
+					<input name="frRegiNum" type="hidden" value="${login}">
+					<button type="button" class="btn-search">검색</button>
+				</div>
+				<div><button type="button" class="btn-submit">등록</button></div>
+			</div>
+			</div>
 				<table>
 					<thead>
 						<tr>
@@ -116,26 +108,38 @@ $(document).ready(function(){
 					<tbody>
 						<c:forEach varStatus="ii" items="${stmtList}" var="each" >
 						<tr>
-							<td><input class="acntNum" name="stmtlist[${ii.index }].acntNum" required="required" value="${each.acntNum }"></td>
-							<td><input name="stmtlist[${ii.index }].debit" required="required" class="debit" value="${each.debit }"></td>
+							<td>
+								<input class="lineNum" name="stmtlist[${ii.index }].lineNum" type="hidden" value="${each.lineNum}">
+								<input class="acntNum" name="stmtlist[${ii.index }].acntNum" value="${each.acntNum }" required></td>
+							<td><input name="stmtlist[${ii.index }].debit" class="debit" value="${each.debit }" required></td>
 							<td><input class="acntTitle" placeholder="계정과목명"></td>
-							<td><input name="stmtlist[${ii.index }].credit" required="required" class="credit" value="${each.credit }"></td>
+							<td><input name="stmtlist[${ii.index }].credit" class="credit" value="${each.credit }" required></td>
 							<td><input name="stmtlist[${ii.index }].stmtOpposite" value="${each.stmtOpposite}"></td>
 							<td><input name="stmtlist[${ii.index }].remark" value="${each.remark}"></td>
 						</tr>
 						</c:forEach>
 						
 						<c:if test="${empty stmtList}">
-						<c:forEach varStatus="ii" begin="0" end="10" >
 							<tr>
-								<td><input class="acntNum" name="stmtlist[${ii.index }].acntNum" required="required"></td>
-								<td><input name="stmtlist[${ii.index }].debit" required="required" class="debit"></td>
+								<td>
+									<input class="lineNum" name="stmtlist[0].lineNum" type="hidden" value="0">
+									<input class="acntNum" name="stmtlist[0].acntNum" required></td>
+								<td><input name="stmtlist[0].debit" class="debit" required></td>
 								<td><input class="acntTitle" placeholder="계정과목명"></td>
-								<td><input name="stmtlist[${ii.index }].credit" required="required" class="credit"></td>
-								<td><input name="stmtlist[${ii.index }].stmtOpposite"></td>
-								<td><input name="stmtlist[${ii.index }].remark"></td>
+								<td><input name="stmtlist[0].credit" class="credit" required></td>
+								<td><input name="stmtlist[0].stmtOpposite"></td>
+								<td><input name="stmtlist[0].remark"></td>
 							</tr>
-						</c:forEach>
+							<tr>
+								<td>
+									<input class="lineNum" name="stmtlist[1].lineNum" type="hidden" value="1">
+									<input class="acntNum" name="stmtlist[1].acntNum" required="required"></td>
+								<td><input name="stmtlist[1].debit" required="required" class="debit"></td>
+								<td><input class="acntTitle" placeholder="계정과목명"></td>
+								<td><input name="stmtlist[1].credit" required="required" class="credit"></td>
+								<td><input name="stmtlist[1].stmtOpposite"></td>
+								<td><input name="stmtlist[1].remark"></td>
+							</tr>
 						</c:if>
 					</tbody>
 					<tfoot>
@@ -148,7 +152,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 	<script>
-
+	
 	function totalcalculator(whichone,whichtotal){
 		let totalsum=0;
 		let debitlist=document.querySelectorAll(whichone);
@@ -164,6 +168,35 @@ $(document).ready(function(){
 	$('.debit').on('keyup',function(){
 		totalcalculator('.debit','.totaldebit');
 	})	
+	
+	function multipathSubmit(formId,realpath){
+			let formm=document.querySelector("#"+formId)
+			formm.action=realpath;
+			formm.submit();
+		}
+
+	document.querySelector('.btn-submit').addEventListener('click',function(){
+		let statementNum = $('[name=statementNum]').val();
+		if(statementNum==''){
+			$('[name=statementNum]').val('A');
+			multipathSubmit('form1',"${path }/insertACstatement.do");
+			
+		}else{
+			multipathSubmit('form1',"${path }/updateACstatement.do");
+		}
+	})
+	
+	document.querySelector('.btn-search').addEventListener('click',function(){
+		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()
+	})
+	
+	document.querySelector('.btn-reset').addEventListener('click',function(){
+		$('input').val('');
+		$('.lineNum').each(function(i){
+			$(this).val(i);
+			$('[name=frRegiNum]').val('${login}');
+		})
+	})
 	
 	</script>
 </body>

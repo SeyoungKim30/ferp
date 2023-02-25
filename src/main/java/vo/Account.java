@@ -12,6 +12,11 @@ public class Account {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Account(boolean acntUsing) {
+		super();
+		this.acntUsing = acntUsing;
+	}
+
 	public Account(String acntNum, String acntGroup, String acntTitle) {
 		super();
 		this.acntNum = acntNum;
