@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ferp.service.A1_Service;
+import vo.ClerkSchedule;
 import vo.Store;
 import vo.StoreClerk;
 
@@ -24,7 +25,7 @@ public class A1_Controller {
 	
 	// 가맹점 로그인
 	// http://localhost:6080/ferp/storeLogin.do
-	// http://localhost:6080/ferp/storeMainMenu.do
+	// http://localhost:6080/ferp/storeClerkList.do
 	@RequestMapping("/storeLogin.do")
 	public String pg1000storeLogin(Store st, Model d, HttpSession session){
 		if(st.getFrRegiNum()==null) {
@@ -44,11 +45,20 @@ public class A1_Controller {
 		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
 	}
 	
-//	@RequestMapping("/addCommute.do")
-//	public String pg3200addCommute(Model d,HttpSession session){
-//		Store st = (Store)session.getAttribute("login");
-//		d.addAttribute("myClerk", service.getStoreClerk(st.getFrRegiNum()));
-//		return "WEB-INF\\store\\pg3200_commute.jsp";
-//	}
+	@RequestMapping("/addCommute.do")
+	public String pg3200addCommute(Model d,HttpSession session){
+		Store st = (Store)session.getAttribute("login");
+		d.addAttribute("myClerk", service.getStoreClerk(st.getFrRegiNum()));
+		return "WEB-INF\\store\\pg3200_commute.jsp";
+	}
+	
+	@RequestMapping("/addOnDay.do")
+		public String addOnDay(ClerkSchedule inscs, Model d, HttpSession session) {
+		Store st = (Store)session.getAttribute("login");
+		inscs.setFrRegiNum(st.getFrRegiNum());
+		service.addOnDay(inscs);
+		d.addAttribute("msg","출근완료");
+		return "pageJsonReport";
+	}
 	
 }

@@ -11,6 +11,7 @@
 		<typeAlias alias="acstmt" type="vo.ACStatement"/>
 		<typeAlias alias="storeclerk" type="vo.StoreClerk"/>
 		<typeAlias alias="storeclerksch" type="vo.SCPage"/>
+		<typeAlias alias="clerkschedule" type="vo.ClerkSchedule"/>
 	</typeAliases>
 			
 <mappers>

@@ -20,4 +20,14 @@
 			WHERE frRegiNum = #{frRegiNum}
 		</select>
 		
+		
+		<!-- 출근 등록 -->
+		<select id="addOnDay" parameterType="clerkschedule">
+		INSERT INTO EMPCHECKIN(FrRegiNum,clerkNum,onTime) VALUES (
+			#{FrRegiNum},
+			#{clerkNum},
+			sysdate
+		)
+		</select>
+		
     </mapper>

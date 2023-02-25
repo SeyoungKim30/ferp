@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ferp.dao.A1_Dao;
+import vo.ClerkSchedule;
 import vo.Store;
 import vo.StoreClerk;
 
@@ -23,5 +24,10 @@ public class A1_Service {
 	
 	public List<StoreClerk> getStoreClerk(String FrRegiNum){
 		return dao.getStoreClerk(FrRegiNum);
+	}
+	
+	// 출근 등록
+	public void addOnDay(ClerkSchedule inscs) {
+		dao.addOnDay(inscs);
 	}
 }

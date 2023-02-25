@@ -14,6 +14,7 @@
 
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 <style type="text/css">
@@ -64,6 +65,9 @@
     }
 	
 </style>
+<script type="text/javascript">
+
+</script>
 </head>
 
 <body>
@@ -76,6 +80,7 @@
            	<h2>${login.frName}</h2>
         </header>
         <div class="main_wrapper">
+        <form method="post" id="commuteFm">
         	<div class="btns">
         		<div class="btn start_btn">출근</div>
         		<div class="btn end_btn">퇴근</div>
@@ -86,10 +91,33 @@
         			<option value="${mc.clerkNum}">${mc.clerkName}</option>
         		</c:forEach>
         		</select>
+        </form>
 		</div>
     </div>
 </body>
 <script type="text/javascript">
-
+$(document).ready(function() {
+	$(".start_btn").click(function () {
+		if(confirm("출근 등록을 하시겠습니까?")){
+			regAjax("/addOnDay.do")
+		}
+	})
+	
+	function regAjax(url) {
+		$.ajax({
+			type : "post",
+			url : "/ferp" + url,
+			data : $("#commuteFm").serialize(),
+			dataType : "json",
+			success : function(data) {
+				alert(data.msg);
+				location.href="/ferp/storeMainMenu.do";
+			},
+			error : function(err) {
+				console.log(err)
+			}
+		})
+	}
+});
 </script>
 </html>
