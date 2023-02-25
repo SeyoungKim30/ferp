@@ -78,7 +78,7 @@
         <div class="main_wrapper">
         	<div class="btns">
         		<div class="btn">키오스크<br>(직원용)</div>
-        		<div class="btn">키오스크<br>(매장용)</div>
+        		<div class="btn" onclick="location.href='${path}/kiosqueMainForCustomer.do'">키오스크<br>(고객용)</div>
         		<div class="btn" onclick="location.href='${path}/addCommute.do'">출퇴근<br>등록</div>
         		<div class="btn">매장<br>관리</div>
         	</div>

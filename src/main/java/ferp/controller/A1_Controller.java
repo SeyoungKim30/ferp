@@ -45,6 +45,11 @@ public class A1_Controller {
 		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
 	}
 	
+	@RequestMapping("/kiosqueMainForCustomer.do")
+	public String pg2100kiosqueMain() {
+		return "WEB-INF\\customer\\pg2100_KiosqueMain.jsp";
+	}
+	
 	@RequestMapping("/addCommute.do")
 	public String pg3200addCommute(Model d,HttpSession session){
 		Store st = (Store)session.getAttribute("login");
