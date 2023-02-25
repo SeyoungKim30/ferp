@@ -12,6 +12,7 @@ public class ACStatement {
 	private int credit ;
 	private String stmtOpposite;
 	private String stmtDate;
+	private String stmtDate2;
 	private String remark;
 	
 	private List<ACStatement> stmtlist;
@@ -36,6 +37,15 @@ public class ACStatement {
 		this.stmtDate = stmtDate;
 		this.remark = remark;
 		this.stmtlist = stmtlist;
+	}
+
+	
+	public String getStmtDate2() {
+		return stmtDate2;
+	}
+
+	public void setStmtDate2(String stmtDate2) {
+		this.stmtDate2 = stmtDate2;
 	}
 
 	public int getLineNum() {

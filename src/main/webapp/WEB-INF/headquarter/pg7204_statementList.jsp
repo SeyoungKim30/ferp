@@ -29,42 +29,60 @@
 		<div class="contents">
 
 	<div class="toolbar">
+		<form action="${path }/statementList.do" method="post">
 		<div>
-				<div><label>시작일자<input type="date"></label></div>
-				<div><label>종료일자<input type="date"></label></div>
-				<div><label>거래처<input placeholder="거래처"></label></div>
-				<div><label>계정과목<select><option>계정과목</option></select></label></div>
+				<input type="hidden" name="frRegiNum" value="${login }">
+				<div><label>시작일자<input name="stmtDate" type="date" value="${stmt.stmtDate }" required></label></div>
+				<div><label>종료일자<input name="stmtDate2" type="date" value="${stmt.stmtDate2 }"></label></div>
+				<div><label>거래처<input name="stmtOpposite" value="${stmt.stmtOpposite }"></label></div>
+				<div><label>계정과목<select name="acntNum">
+					<c:forEach items="${accountList }" var="ii">
+						<option <c:if test="${ii.acntNum==stmt.acntNum }">selected="selected"</c:if> 
+							value="${ii.acntNum }">${ii.acntTitle }</option>
+					</c:forEach>
+					</select>
+					</label></div>
 		</div>
 		<div>
-		<button>일자별 조회</button>
-		<button>건별 조회</button>
+		<button id="byDate" type="button">일자별 조회</button>
+		<button id="byEach">건별 조회</button>
+		<input type="hidden" name="howtosearch" value="1">
 		</div>
+		</form>
 	</div>
-
-<table style="width:100%">
+<table>
 <thead>
-<tr><th>일자</th><th>계정명</th><th>금액</th><th>거래처</th><th>적요</th></tr>
+<tr><th>일자</th><th>금액</th><th>거래처</th><th>적요</th></tr>
 </thead>
 <tbody>
-<tr style="font-weight: bold"><td>전체</td><td>상품매출</td><td>452,100</td><td></td><td></td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
-<tr><td>2023-02-18</td><td>상품매출</td><td>6,000</td><td>결제대행사</td><td>주문번호 1065132</td></tr>
+<tr class="table-active"><td>전체 기간내</td><td class="totalPrice">452,100</td><td></td><td></td></tr>
+<c:forEach items="${stmtList}" var="ii">
+	<tr><td>${ii.stmtDate }</td>
+	<td class="debit"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ii.debit}" /></td>
+	<td>${ii.stmtOpposite }</td><td>${ii.remark }</td></tr>
+</c:forEach>
 </tbody>
 </table>
-
-		
 		
 		
 		
 		</div>
 	</div>
+	
+	
+<script>
+var totalPrice=0;
+$('.debit').each(function(){
+	let thisnum=$(this).text().replace(/,/g, "")
+	totalPrice+=Number(thisnum)
+})
+$('.totalPrice').text(totalPrice.toLocaleString())
+
+$('#byDate').on('click',function(){
+	$('[name=howtosearch]').val(2)
+	$('#byEach').click();
+})
+</script>
+
 </body>
 </html>

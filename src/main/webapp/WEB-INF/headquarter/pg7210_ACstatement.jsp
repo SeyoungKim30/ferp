@@ -70,27 +70,29 @@ $(document).ready(function(){
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
+		
+		<form action="${path }/insertACstatement.do" method="post" id="form1">
+		
+		<div class="toolbox">
 			<div class="toolbar">
 				<div>
 					<button class="btn-dark">이전전표</button>
 					<button class="btn-dark">다음전표</button>
 				</div>
 				<div>
-					<button class="btn-secondary"
-						title="저장되지 않은 내용을 모두 삭제하고 새 전표를 입력합니다.">새 전표</button>
+					<button class="btn-reset" title="저장되지 않은 내용을 모두 삭제하고 새 전표를 입력합니다." type="button">새 전표</button>
 					<button class="btn-danger">삭제하기</button>
 				</div>
 			</div>
-			<hr>
-			<form action="${path }/insertACstatement.do" method="post" id="insertACstatement">
 			<div class="toolbar">
 				<div>
 					<label>전표일자<input type="date" name="stmtDate" required="required" value="${fn:substring(stmtList[0].stmtDate,0,10) }"></label>
-					<label>전표번호<input name="statementNum" value="${stmtList[0].statementNum }"></label>
+					<label>전표번호<input name="statementNum" value="${stmtList[0].statementNum }" placeholder="검색할때만 입력하세요"></label>
 					<input name="frRegiNum" type="hidden" value="${login}">
-					<button type="button" class="btn-secondary btn-search">검색</button>
+					<button type="button" class="btn-search">검색</button>
 				</div>
-				<div><button class="btn-primary">등록</button></div>
+				<div><button type="button" class="btn-submit">등록</button></div>
+			</div>
 			</div>
 				<table>
 					<thead>
@@ -106,10 +108,12 @@ $(document).ready(function(){
 					<tbody>
 						<c:forEach varStatus="ii" items="${stmtList}" var="each" >
 						<tr>
-							<td><input class="acntNum" name="stmtlist[${ii.index }].acntNum" required="required" value="${each.acntNum }"></td>
-							<td><input name="stmtlist[${ii.index }].debit" required="required" class="debit" value="${each.debit }"></td>
+							<td>
+								<input class="lineNum" name="stmtlist[${ii.index }].lineNum" type="hidden" value="${each.lineNum}">
+								<input class="acntNum" name="stmtlist[${ii.index }].acntNum" value="${each.acntNum }" required></td>
+							<td><input name="stmtlist[${ii.index }].debit" class="debit" value="${each.debit }" required></td>
 							<td><input class="acntTitle" placeholder="계정과목명"></td>
-							<td><input name="stmtlist[${ii.index }].credit" required="required" class="credit" value="${each.credit }"></td>
+							<td><input name="stmtlist[${ii.index }].credit" class="credit" value="${each.credit }" required></td>
 							<td><input name="stmtlist[${ii.index }].stmtOpposite" value="${each.stmtOpposite}"></td>
 							<td><input name="stmtlist[${ii.index }].remark" value="${each.remark}"></td>
 						</tr>
@@ -117,15 +121,19 @@ $(document).ready(function(){
 						
 						<c:if test="${empty stmtList}">
 							<tr>
-								<td><input class="acntNum" name="stmtlist[0].acntNum" required="required"></td>
-								<td><input name="stmtlist[0].debit" required="required" class="debit"></td>
+								<td>
+									<input class="lineNum" name="stmtlist[0].lineNum" type="hidden" value="0">
+									<input class="acntNum" name="stmtlist[0].acntNum" required></td>
+								<td><input name="stmtlist[0].debit" class="debit" required></td>
 								<td><input class="acntTitle" placeholder="계정과목명"></td>
-								<td><input name="stmtlist[0].credit" required="required" class="credit"></td>
+								<td><input name="stmtlist[0].credit" class="credit" required></td>
 								<td><input name="stmtlist[0].stmtOpposite"></td>
 								<td><input name="stmtlist[0].remark"></td>
 							</tr>
 							<tr>
-								<td><input class="acntNum" name="stmtlist[1].acntNum" required="required"></td>
+								<td>
+									<input class="lineNum" name="stmtlist[1].lineNum" type="hidden" value="1">
+									<input class="acntNum" name="stmtlist[1].acntNum" required="required"></td>
 								<td><input name="stmtlist[1].debit" required="required" class="debit"></td>
 								<td><input class="acntTitle" placeholder="계정과목명"></td>
 								<td><input name="stmtlist[1].credit" required="required" class="credit"></td>
@@ -161,17 +169,33 @@ $(document).ready(function(){
 		totalcalculator('.debit','.totaldebit');
 	})	
 	
-function multipathSubmit(formId,realpath){
-		let formm=document.querySelector("#"+formId)
-		formm.action=realpath;
-	}
+	function multipathSubmit(formId,realpath){
+			let formm=document.querySelector("#"+formId)
+			formm.action=realpath;
+			formm.submit();
+		}
 
-	document.querySelector('.btn-primary').addEventListener('click',function(){
-		multipathSubmit('insertACstatement',"${path }/insertACstatement.do");
+	document.querySelector('.btn-submit').addEventListener('click',function(){
+		let statementNum = $('[name=statementNum]').val();
+		if(statementNum==''){
+			$('[name=statementNum]').val('A');
+			multipathSubmit('form1',"${path }/insertACstatement.do");
+			
+		}else{
+			multipathSubmit('form1',"${path }/updateACstatement.do");
+		}
 	})
 	
 	document.querySelector('.btn-search').addEventListener('click',function(){
 		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()
+	})
+	
+	document.querySelector('.btn-reset').addEventListener('click',function(){
+		$('input').val('');
+		$('.lineNum').each(function(i){
+			$(this).val(i);
+			$('[name=frRegiNum]').val('${login}');
+		})
 	})
 	
 	</script>

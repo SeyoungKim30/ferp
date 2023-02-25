@@ -6,7 +6,10 @@
 <mapper namespace="ferp.dao.C1_Dao">
 
 	<select id="r7100SelectAccount" resultType="account" parameterType="account">
-		SELECT * FROM Account where acntNum Like '%'||#{acntNum}||'%' And acntTitle LIKE '%'||#{acntTitle}||'%'
+		SELECT * FROM Account 
+		where acntNum Like '%'||#{acntNum}||'%' 
+		And acntTitle LIKE '%'||#{acntTitle}||'%'
+		and acntUsing = #{acntUsing}
 	</select>
 
 	<insert id="r7101insertAccount" parameterType="account">
@@ -14,10 +17,10 @@
 		values(#{acntNum},#{acntGroup},#{acntTitle},#{acntUsing})
 	</insert>
 
-	<insert id="r7203insertStatement" parameterType="acstmt">
+	<insert id="r7210insertStatement" parameterType="acstmt">
 		INSERT INTO ACSTATEMENT
-		values(#{statementNum}||to_char((SELECT count(DISTINCT statementNum)
-		<if test="lineNum==0">+1</if> FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}),'FM0000')
+		values(#{statementNum}||to_char((SELECT count(DISTINCT statementNum) <if test="lineNum==0">+1</if> 
+		FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}),'FM0000')
 		,#{frRegiNum},#{lineNum},#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR}
 		,TO_DATE(#{stmtDate},'YYYY-MM-DD'),#{remark,jdbcType=VARCHAR})
 	</insert>
@@ -38,5 +41,35 @@
 	<delete id="r7213deleteACStatement" parameterType="acstmt">
 	DELETE FROM ACSTATEMENT WHERE STATEMENTNUM =#{statementNum} AND TO_CHAR(stmtdate,'YYYY-MM-DD') = #{stmtDate}
 	</delete>
+	
+	
+	<select id="r7204selectStatementList" parameterType="acstmt" resultType="acstmt">
+	SELECT STATEMENTNUM,
+		CASE WHEN acntgroup='비용' THEN debit-credit 
+		WHEN acntgroup='자산' THEN debit-credit
+		ELSE CREDIT - debit END AS DEBIT,
+	STMTOPPOSITE,TO_CHAR(STMTDATE,'YYYY-MM-DD') "STMTDATE", REMARK 
+	FROM ACSTATEMENT s , ACCOUNT a
+	WHERE s.ACNTNUM = a.ACNTNUM 
+	AND s.ACNTNUM = #{acntNum}
+	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
+	AND STMTDATE BETWEEN TO_DATE(#{stmtDate},'YYYY-MM-DD') AND TO_DATE(#{stmtDate2},'YYYY-MM-DD')
+	AND FRREGINUM = #{frRegiNum}
+	</select>
+	
+	<select id="r7204selectStatementListByDate" parameterType="acstmt" resultType="acstmt">
+	SELECT TO_CHAR(STMTDATE,'YYYY-MM-DD') as "STMTDATE",
+		sum(CASE WHEN acntgroup='비용' THEN debit-credit 
+		WHEN acntgroup='자산' THEN debit-credit
+		ELSE CREDIT - debit END) AS DEBIT
+	FROM ACSTATEMENT s , ACCOUNT a
+	WHERE s.ACNTNUM = a.ACNTNUM 
+	AND s.ACNTNUM = #{acntNum}
+	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
+	AND STMTDATE BETWEEN TO_DATE(#{stmtDate},'YYYY-MM-DD') AND TO_DATE(#{stmtDate2},'YYYY-MM-DD')
+	AND FRREGINUM = #{frRegiNum}
+	GROUP BY STMTDATE
+	</select>
+	
 
 </mapper>
