@@ -101,7 +101,7 @@
         	<form method="post" id="loginForm">
         		<div class="idBox">
       				<span>사원 번호</span>
-					<input type="text" name="empnum" placeholder="'-'는 제외하고 입력하세요.">
+					<input type="text" name="empnum">
         		</div>
         		<div class="passBox">
         			<span>비밀번호</span>

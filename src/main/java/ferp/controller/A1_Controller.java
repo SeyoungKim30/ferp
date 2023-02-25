@@ -47,14 +47,23 @@ public class A1_Controller {
 			return "WEB-INF\\headquarter\\pg4103_hqLogin.jsp";
 		}else {
 			session.setAttribute("login", service.empLogin(emp));
-			return "/storeMainMenu.do";
+			return "/goEmpMainPage.do";
 		}
 	}
+	
+	
 	
 	@RequestMapping("/storeMainMenu.do")
 	public String pg1001storeMainMenu() {
 		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
 	}
+	
+	@RequestMapping("/goEmpMainPage.do")
+	public String goEmpMainPage() {
+		return "\\WEB-INF\\headquarter\\hq_main_index.jsp";
+	}
+	
+	
 	
 	@RequestMapping("/kiosqueMainForCustomer.do")
 	public String pg2100kiosqueMain() {
