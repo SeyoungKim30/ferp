@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ferp.service.C1_Service;
 import vo.ACStatement;
@@ -91,5 +90,16 @@ public class C1_Controller {
 		model.addAttribute("accountList", service.r7100SelectAccount(new Account(true)));
 		model.addAttribute("stmtList",service.r7204selectStatementList(aCStatement,howtosearch));
 		return "WEB-INF\\headquarter\\pg7204_statementList.jsp";	
+	}
+	
+	// http://localhost:6080/ferp/productOrderList.do
+	@GetMapping("productOrderList.do")
+	public String r9201() {
+		return "WEB-INF\\headquarter\\pg9201_prodOrderList.jsp";
+	}
+	
+	@PostMapping("productOrderList.do")
+	public String r9201selectProdOrder(Model model) {
+		return "WEB-INF\\headquarter\\pg9201_prodOrderList.jsp";
 	}
 }
