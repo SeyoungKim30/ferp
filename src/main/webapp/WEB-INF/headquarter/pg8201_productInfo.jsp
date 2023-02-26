@@ -47,7 +47,7 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-			<h2>본사 재고 조회</h2>
+			<h2>자재 정보 상세</h2>
 			<form>
 				<div class="searchbox">
 					<div class="searchbar">

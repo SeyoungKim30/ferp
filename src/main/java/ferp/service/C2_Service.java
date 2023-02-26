@@ -18,12 +18,18 @@ public class C2_Service {
 		return dao.r8101ProductSch(sch);
 	}
 	
-	public List<Product> r8201ProductSch(Product sch){
+	public List<Product> r8201ProductList(Product sch){
 		if(sch.getProductNum()==null) sch.setProductNum("");
 		if(sch.getCategory()==null) sch.setCategory("");
 		if(sch.getProductName()==null) sch.setProductName("");
 		if(sch.getOpposite()==null) sch.setOpposite("");
 		if(sch.getRemark()==null) sch.setRemark("");
-		return dao.r8201ProductSch(sch);
+		return dao.r8201ProductList(sch);
+	}
+	public Product r8201ProductInfo(String productNum) {
+		return dao.r8201ProductInfo(productNum);
+	}
+	public void r8202ProductIns(Product ins) {
+		dao.r8202ProductIns(ins);
 	}
 }

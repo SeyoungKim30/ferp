@@ -8,7 +8,7 @@
 	<select id="r8101ProductSch" resultType="product" parameterType="product">
 		SELECT * FROM Product
 	</select>
-	<select id="r8201ProductSch" resultType="product" parameterType="product">
+	<select id="r8201ProductList" resultType="product" parameterType="product">
 		SELECT * FROM Product
 		WHERE productNum LIKE '%'||#{productNum}||'%'
 		AND category LIKE '%'||#{category}||'%'
@@ -16,5 +16,8 @@
 		AND opposite LIKE '%'||#{opposite}||'%'
 		AND remark LIKE '%'||#{remark}||'%'
 	</select>
-
+	<insert id="r8202ProductIns" parameterType="product">
+		INSERT INTO PRODUCT values(#{productNum},#{category},
+		#{productName},#{opposite},#{price},#{img},#{remark})		
+	</insert>
 </mapper>
