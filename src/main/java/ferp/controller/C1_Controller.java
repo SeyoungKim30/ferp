@@ -92,4 +92,12 @@ public class C1_Controller {
 		model.addAttribute("stmtList",service.r7204selectStatementList(aCStatement,howtosearch));
 		return "WEB-INF\\headquarter\\pg7204_statementList.jsp";	
 	}
+	
+	//발주 조회
+	// http://localhost:6080/ferp/productOrderList.do
+	@GetMapping("productOrderList.do")
+	public String r9201() {
+		return "WEB-INF\\headquarter\\pg9201_productOrderList.jsp";
+	}
+	
 }
