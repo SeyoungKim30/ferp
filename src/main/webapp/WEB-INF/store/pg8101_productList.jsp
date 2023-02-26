@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>본사 재고 조회</title>
+<title>매장 재고 조회</title>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
 <style>
 .inputbox{
@@ -21,23 +21,13 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+		<%--$("[name=stockDate]").val("${sch.stockDate}");--%>
 		$("[name=productNum]").val("${sch.productNum}");
 		$("[name=category]").val("${sch.category}");
 		$("[name=productName]").val("${sch.productName}");
 		$("[name=opposite]").val("${sch.opposite}");
 		$("[name=orderState]").val("${sch.orderState}");	
-		<%--
-		$("#insBtn").click(function(){
-			location.href="${path}/hproductInsFrm.do" 
-		})
-		--%>
 	});
-	<%--
-	function goDetail(productNum){
-		location.href="${path}/hproductInfo.do?productNum="+productNum 
-	}
-	
-	--%>
 	
 </script>
 </head>
@@ -46,8 +36,9 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-			<h2>본사 재고 조회</h2>
+			<h2>매장 재고 조회</h2>
 			<form method="post">
+				<!-- <input class="inputbox" name="stockDate" value="${sch.stockDate}" placeholder="입고일자 입력"/> -->
 				<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
 				<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
 				<input class="inputbox" name="productName" value="${sch.productName}" placeholder="자재명 입력"/>
@@ -59,19 +50,17 @@
 				    	</c:forEach>
 				    </select>
 				<button class="btn-secondary" type="submit">검색</button>
-			    &nbsp;
-			    <button class="btn-primary" id="insBtn" type="button" 
-			    	onclick="location.href='${path}/hproductInsFrm.do'">자재등록</button>
 			</form>
 			<div class="searchtab">
 				<table>
 				<thead>
-					<tr><th>자재코드</th><th>카테고리명</th><th>자재명</th><th>거래처</th>
+					<tr><th>입고일자</th><th>자재코드</th><th>카테고리명</th><th>자재명</th><th>거래처</th>
 						<th>단가</th><th>수량</th><th>발주상태</th><th>비고</th></tr>
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
 			    	    <tr ondblclick="goDetail(${prod.productNum})">
+			    	    	<td><fmt:formatDate value="${prod.stockDate}"/></td>
 			    	    	<td>${prod.productNum}</td><td>${prod.category}</td>
 			    	    	<td>${prod.productName}</td><td>${prod.opposite}</td>
 			    	    	<td>${prod.price}</td><td>${prod.amount}</td>

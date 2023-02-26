@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ferp.dao.C2_Dao;
 import vo.Product;
+import vo.ProductProdOrder;
 
 @Service
 public class C2_Service {
@@ -14,17 +15,25 @@ public class C2_Service {
 	@Autowired(required=false)
 	C2_Dao dao;
 	
-	public List<Product> r8101ProductSch(Product sch){
-		return dao.r8101ProductSch(sch);
-	}
-	
-	public List<Product> r8201ProductList(Product sch){
+	public List<ProductProdOrder> r8101ProductList(ProductProdOrder sch){
+		//if(sch.getStockDate()==null) sch.setStockDate(null);
 		if(sch.getProductNum()==null) sch.setProductNum("");
 		if(sch.getCategory()==null) sch.setCategory("");
 		if(sch.getProductName()==null) sch.setProductName("");
 		if(sch.getOpposite()==null) sch.setOpposite("");
-		if(sch.getRemark()==null) sch.setRemark("");
+		if(sch.getOrderState()==null) sch.setOrderState("");
+		return dao.r8101ProductList(sch);
+	}
+	public List<ProductProdOrder> r8201ProductList(ProductProdOrder sch){
+		if(sch.getProductNum()==null) sch.setProductNum("");
+		if(sch.getCategory()==null) sch.setCategory("");
+		if(sch.getProductName()==null) sch.setProductName("");
+		if(sch.getOpposite()==null) sch.setOpposite("");
+		if(sch.getOrderState()==null) sch.setOrderState("");
 		return dao.r8201ProductList(sch);
+	}
+	public List<String> orderStateCom(){
+		return dao.orderStateCom();
 	}
 	public Product r8201ProductInfo(String productNum) {
 		return dao.r8201ProductInfo(productNum);
