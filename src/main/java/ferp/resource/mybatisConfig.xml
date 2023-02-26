@@ -11,11 +11,13 @@
 		<typeAlias alias="acstmt" type="vo.ACStatement"/>
 		<typeAlias alias="storeclerk" type="vo.StoreClerk"/>
 		<typeAlias alias="storeclerksch" type="vo.SCPage"/>
+		<typeAlias alias="orders" type="vo.Orders"/>
 	</typeAliases>
 			
 <mappers>
 		<mapper resource="ferp/resource/mappers/A1_Mapper.xml"/>
 		<mapper resource="ferp/resource/mappers/A2_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/B1_Mapper.xml"/>
 		<mapper resource="ferp/resource/mappers/C1_Mapper.xml"/>
 		<mapper resource="ferp/resource/mappers/C2_Mapper.xml"/>
 </mappers>

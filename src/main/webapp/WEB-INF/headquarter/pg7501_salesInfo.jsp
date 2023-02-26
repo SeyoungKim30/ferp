@@ -7,6 +7,10 @@
 <!DOCTYPE html>
 <html>
 
+<!--
+<link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
+-->
+
 <style type="text/css">
 
 	.hdq_totalSalesPrt{
@@ -168,9 +172,10 @@
 		display:flex;
 		text-align:center;
 		justify-content: space-between;
+		border:none;
+		vertical-align: inherit;
 	}
 	.frt_last_culmm>span{
-		align-items: center; 
 		height: 25px;
 	    width:47%;
 	    line-height:25px;/*세로정렬*/
@@ -327,11 +332,11 @@
 				<div id="frs_salesInfo_table">
 					<table>
 						<col width="30%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="60px">
-						<col width="60px">
+						<col width="14%">
+						<col width="14%">
+						<col width="13%">
+						<col width="7%">
+						<col width="7%">
 						<col width="15%">
 						<thead>
 							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
@@ -339,7 +344,9 @@
 						<tbody>
 							<tr>
 								<td>투썸플레이스 국회의사당역점</td><td>300000000</td><td>100000000</td><td>02)123-1234</td><td>김세영</td><td>허소솜</td>
-								<td class="frt_last_culmm"><span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span></td>
+								<td class="frt_last_culmm">
+									<span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span>
+								</td>
 							</tr>
 						</tbody>
 					</table>
