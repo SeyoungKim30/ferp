@@ -37,11 +37,13 @@
 	}
 	.hdq_search>form{
 		 display: inline-flex;
-   		 gap: 25px;
+		 width: 80%;
+		 justify-content: space-between;
 	}
 	
 	input[type=text]{
 		height:30px;
+		width: 25%;
 	}
 	
 	.hdq_searchStandard{
@@ -49,7 +51,7 @@
 		width: 80%;
 		align-items: center; 
 	    justify-content: space-between;
-	    margin: 15px 0px;
+	    margin: 20px 0px;
 	}
 	.sort{
 		display:inline-flex;	
@@ -89,6 +91,8 @@
 	}
 	input[type=month]{
 		height: 30px;
+		width: 120px;
+   		padding: 0 10px;
 		border-radius: 25px;
 		border: white;
    		background: rgba( 204, 204, 204, 0.5 );
@@ -96,14 +100,162 @@
    		color:#666666;
 	}
 	
+	/*검색버튼*/
+	.frsalesSchBtn {
+		color: #fff;
+		font-size: 15px;
+    	font-weight: 500;
+		background-color: #007bff;
+		margin-left: 10px;
+   		width: 65px;
+   	 	border-radius: 5px;
+   	 	border:0px;
+	}
+	
+	.frsalesSchBtn:hover {
+		color: #fff;
+		background-color: #0069d9;
+		border-color: #0062cc
+	}
+	
+	.frsalesSchBtn.focus, .frsalesSchBtn:focus {
+		box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
+	}
+	
+	.frsalesSchBtn.disabled, .frsalesSchBtn:disabled {
+		color: #fff;
+		background-color: #007bff;
+		border-color: #007bff
+	}
+	
+	
+	.frsalesSchBtn:not(:disabled):not(.disabled).active, .frsalesSchBtn:not(:disabled):not(.disabled):active,
+		.show>.frsalesSchBtn.dropdown-toggle {
+		color: #fff;
+		background-color: #0062cc;
+		border-color: #005cbf
+	}
+	
+	.frsalesSchBtn:not(:disabled):not(.disabled).active:focus, .frsalesSchBtn:not(:disabled):not(.disabled):active:focus,
+		.show>.frsalesSchBtn.dropdown-toggle:focus {
+		box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
+	}
+	
+	
+	/* 테이블 */
+	#frs_salesInfo_table{
+		width:80%;
+	}
+	table{
+		width:100%;
+		border:1px solid rgba( 204, 204, 204);
+		border-collapse:collapse;
+	}
+	thead{
+		background: rgba( 204, 204, 204, 0.5 );
+		text-align: center;
+    	font-weight: 600;
+	}
+	thead>tr>td{
+		padding: 8px 0px;
+	}
+	tr,td{
+		border:1px solid rgb( 204, 204, 204);
+		padding: 5px 0px 5px 10px;
+	}
+	.frt_last_culmm{
+		padding: 5px 10px;
+		display:flex;
+		text-align:center;
+		justify-content: space-between;
+	}
+	.frt_last_culmm>span{
+		align-items: center; 
+		height: 25px;
+	    width:47%;
+	    line-height:25px;/*세로정렬*/
+	}
+
+	/* 수정버튼 */
+	.fr_uptBtn {
+		color: #fff;
+		background-color: #28a745;
+		border-color: #28a745;
+		border-radius: 5px;
+   	 	border:0px;
+	}
+	
+	.fr_uptBtn:hover {
+		color: #fff;
+		background-color: #218838;
+		border-color: #1e7e34
+	}
+	
+	.fr_uptBtn.focus, .fr_uptBtn:focus {
+		box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .5)
+	}
+	
+	.fr_uptBtn.disabled, .fr_uptBtn:disabled {
+		color: #fff;
+		background-color: #28a745;
+		border-color: #28a745
+	}
+	
+	.fr_uptBtn:not(:disabled):not(.disabled).active, .fr_uptBtn:not(:disabled):not(.disabled):active,
+		.show>.fr_uptBtn.dropdown-toggle {
+		color: #fff;
+		background-color: #1e7e34;
+		border-color: #1c7430
+	}
+	
+	.fr_uptBtn:not(:disabled):not(.disabled).active:focus, .fr_uptBtn:not(:disabled):not(.disabled):active:focus,
+		.show>.fr_uptBtn.dropdown-toggle:focus {
+		box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .5)
+	}
+	
+	/* 삭제버튼 */
+	.fr_delBtn {
+		color: #fff;
+		background-color: #dc3545;
+		border-color: #dc3545;
+		border-radius: 5px;
+   	 	border:0px;
+	}
+	.fr_delBtn:hover {
+		color: #fff;
+		background-color: #c82333;
+		border-color: #bd2130
+	}
+	
+	.fr_delBtn.focus, .fr_delBtn:focus {
+		box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5)
+	}
+	
+	.fr_delBtn.disabled, .fr_delBtn:disabled {
+		color: #fff;
+		background-color: #dc3545;
+		border-color: #dc3545
+	}
+	
+	.fr_delBtn:not(:disabled):not(.disabled).active, .fr_delBtn:not(:disabled):not(.disabled):active,
+		.show>.fr_delBtn.dropdown-toggle {
+		color: #fff;
+		background-color: #bd2130;
+		border-color: #b21f2d
+	}
+	
+	.fr_delBtn:not(:disabled):not(.disabled).active:focus, .fr_delBtn:not(:disabled):not(.disabled):active:focus,
+		.show>.fr_delBtn.dropdown-toggle:focus {
+		box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5)
+	}
+	
 </style>
 
 
 <head>
+
 <meta charset="UTF-8">
 <title>본사-매장정보출력</title>
-
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 </head>
 
@@ -167,20 +319,27 @@
 					document.getElementById('endperiod').value=today.toISOString().slice(0,7);
 					//slice() 메소드를 이용하여 toISOString() 메소드로 받아온 현재 날짜 문자열의 7자리(앞에서부터)를 잘라옵니다.
 
-					</script>
+				</script>
 				<!-- 검색기준 끝 -->
 				
 				
-				<!-- 정보출력표 시작 -->
-				<div class="frs_salesInfo_print">
+				<!-- 정보출력표 시작-->
+				<div id="frs_salesInfo_table">
 					<table>
+						<col width="30%">
+						<col width="10%">
+						<col width="10%">
+						<col width="10%">
+						<col width="60px">
+						<col width="60px">
+						<col width="15%">
 						<thead>
 							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td>
-								<td><span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span></td>
+								<td>투썸플레이스 국회의사당역점</td><td>300000000</td><td>100000000</td><td>02)123-1234</td><td>김세영</td><td>허소솜</td>
+								<td class="frt_last_culmm"><span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span></td>
 							</tr>
 						</tbody>
 					</table>
