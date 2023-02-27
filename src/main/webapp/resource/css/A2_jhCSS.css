@@ -2,8 +2,7 @@
 button:hover, .selectedFunction:hover, .unselectedFunction:hover{
 	cursor: pointer;
 }
-.container{
-	padding:10px;
+.containerJ{
 	width:97%;	
 }
 .fstCon{

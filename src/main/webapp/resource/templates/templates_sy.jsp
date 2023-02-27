@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-<c:set var="login" value="fakeID1111" />
 <fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
 <html>

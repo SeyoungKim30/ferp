@@ -106,6 +106,7 @@ public class B2_Controller {
 	public String noticeDetail(@RequestParam String noticeNum, Model d) {
 		d.addAttribute("notice", service.detailNotice(noticeNum));
 		
+		
 		return "WEB-INF\\view\\notice_detail.jsp";
 	}
 	// 파일 다운로드

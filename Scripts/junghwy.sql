@@ -45,7 +45,8 @@ CREATE TABLE storeClerk (
 	phoneNum	varchar2(20)	NULL,
 	address	varchar2(300)	NULL
 );
-INSERT INTO storeclerk values('1','123456789','김중휘','남','960101','010-1111-1111','구의');
+INSERT INTO storeclerk values('0','123456789','김세영','여','940101','010-1100-0011','서울',12000);
+INSERT INTO storeclerk values('1','123456789','김중휘','남','960101','010-1111-1111','구의',9800);
 INSERT INTO storeclerk values('2','123456789','신아령','여','950202','010-2222-2222','한국');
 INSERT INTO storeclerk values('3','123456789','이지원','여','960303','010-3333-3333','한국');
 INSERT INTO storeclerk values('4','123456789','이희준','남','970404','010-4444-4444','한국');
@@ -99,7 +100,7 @@ SELECT * FROM store;
 SELECT * FROM PRODUCT;
 INSERT INTO product values('pd-frt-0001','과일','사과','본사',1200,'','1ea');
 INSERT INTO product values('pd-frt-0002','과일','망고','본사',6000,'','1ea');
-INSERT INTO product values('pd-dai-0001','유제품','유우','본사',2500,'','900ml');
+INSERT INTO product values('pd-dai-0001','유제품','우유','본사',2500,'','900ml');
 INSERT INTO product values('pd-dai-0002','유제품','크림','본사',12000,'','1kg');
 INSERT INTO product values('pd-cfb-0001','커피빈','아라비카','본사',7900,'','200g');
 INSERT INTO product values('pd-f-0001','과일','사과','본사',1200,'','');
@@ -125,3 +126,24 @@ SELECT s.FRREGINUM ,po.ORDERDATE ,p.OPPOSITE ,p.PRODUCTNAME ,po.AMOUNT
 FROM PRODUCT p, PRODORDER po, STOCK s 
 WHERE p.PRODUCTNUM = po.PRODUCTNUM 
 AND p.PRODUCTNUM = s.PRODUCTNUM;
+
+SELECT * FROM ORDERS;
+
+ALTER TABLE orders ADD orderOPTION varchar2(500);
+
+ALTER TABLE orders MODIFY orderdate DATE;
+
+DELETE FROM orders WHERE orderdate LIKE '%'||''||'%'; 
+
+SELECT * FROM store;
+
+SELECT to_char(s.STOCKDATE,'YYYY-MM-dd') ,p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAME ,p.OPPOSITE ,p.PRICE ,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK 
+      FROM PRODUCT p , STOCK s , PRODORDER p2 
+      WHERE p.PRODUCTNUM = s.PRODUCTNUM 
+      AND p.PRODUCTNUM = p2.PRODUCTNUM 
+      AND to_char(s.STOCKDATE,'YYYY-MM-dd') = '2023-02-11'
+      AND p.productNum LIKE '%'||''||'%'
+      AND category LIKE '%'||''||'%'
+      AND productName LIKE '%'||''||'%'
+      AND opposite LIKE '%'||''||'%'
+      AND orderState LIKE '%'||''||'%';

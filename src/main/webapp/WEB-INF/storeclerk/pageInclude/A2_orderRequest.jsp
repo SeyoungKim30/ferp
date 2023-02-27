@@ -45,7 +45,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="containerJ">
 		<div class="row">
 			<div class="selectedFunction firstOp">발주 신청</div>
 			<div class="unselectedFunction secondOp">배송 불량 신청</div>
