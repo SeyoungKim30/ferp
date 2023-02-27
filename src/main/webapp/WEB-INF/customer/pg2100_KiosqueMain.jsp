@@ -55,8 +55,9 @@
 			justify-content: center;
 			border-radius: 10px 10px 0 0;
 			background-color: #fff;
-			font-size: 32px;
+			font-size: 26px;
 			border-bottom: 2px solid #2262f3;
+			cursor: pointer;
 		}
 		.tab_wrap > .tab_list.on{
 			border-bottom: 2px solid transparent;
