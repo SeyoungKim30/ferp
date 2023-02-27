@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath }"/>
 <fmt:requestEncoding value="utf-8"/>    
 <style type="text/css">
 	
@@ -43,8 +42,9 @@
                     <li>
                         <a href="#">재무 관리</a>
                         <ul>
-                            <li><a href="#">- 전표 수기 입력</a></li>
-                            <li><a href="#">- 거래 내역 조회</a></li>
+                            <li><a href="${path }/selectAccount.do">- 계정 과목 관리</a></li>
+                            <li><a href="${path }/ACstatement.do">- 전표 입력</a></li>
+                            <li><a href="${path }/statementList.do">- 거래 내역 조회</a></li>
                             <li><a href="#">- 손익 계산서 조회</a></li>
                         </ul>
                     </li>
@@ -52,6 +52,7 @@
                         <a href="#">물류 관리</a>
                         <ul>
                             <li><a href="#">- 발주 신청</a></li>
+                            <li><a href="${path }/productOrderList.do">- 발주 조회</a></li>
                             <li><a href="#">- 배송 불량 신청</a></li>
                             <li><a href="#">- 배송 불량 신청 현황</a></li>
                             <li><a href="#">- 발주 계산서 조회</a></li>

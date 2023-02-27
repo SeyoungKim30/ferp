@@ -5,8 +5,33 @@
 
 <mapper namespace="ferp.dao.C2_Dao">
 
-	<select id="r8101ProductSch" resultType="product" parameterType="product">
-		SELECT * FROM Product
+	<select id="r8101ProductList" resultType="productProdOrder" parameterType="productProdOrder">
+		SELECT s.STOCKDATE ,p.PRODUCTNUM ,p.CATEGORY ,p.OPPOSITE ,p.PRICE ,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK 
+		FROM PRODUCT p , STOCK s , PRODORDER p2 
+		WHERE p.PRODUCTNUM = s.PRODUCTNUM 
+		AND p.PRODUCTNUM = p2.PRODUCTNUM 
+		AND p.productNum LIKE '%'||#{productNum}||'%'
+		AND category LIKE '%'||#{category}||'%'
+		AND productName LIKE '%'||#{productName}||'%'
+		AND opposite LIKE '%'||#{opposite}||'%'
+		AND orderState LIKE '%'||#{orderState}||'%'
 	</select>
-
+	
+	<select id="r8201ProductList" resultType="productProdOrder" parameterType="productProdOrder">
+		SELECT p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAME ,p.OPPOSITE ,p.PRICE ,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK 
+		FROM PRODUCT p , PRODORDER p2 
+		WHERE p.PRODUCTNUM = p2.PRODUCTNUM 
+		AND p.productNum LIKE '%'||#{productNum}||'%'
+		AND category LIKE '%'||#{category}||'%'
+		AND productName LIKE '%'||#{productName}||'%'
+		AND opposite LIKE '%'||#{opposite}||'%'
+		AND orderState LIKE '%'||#{orderState}||'%'
+	</select>
+	<select id="orderStateCom" resultType="string">
+		SELECT DISTINCT orderState FROM PRODORDER
+	</select>
+	<insert id="r8202ProductIns" parameterType="product">
+		INSERT INTO PRODUCT values(#{productNum},#{category},
+		#{productName},#{opposite},#{price},#{img},#{remark})		
+	</insert>
 </mapper>

@@ -13,11 +13,47 @@
 			AND frPass = #{frPass}
 		</select>
 		
+		<!-- 본사 로그인 -->
+		<select id="empLogin" parameterType="emp" resultType="emp">
+			SELECT * 
+			FROM emp
+			WHERE empnum = #{empnum}
+			AND pass = #{pass}
+		</select>
+		
 		<!-- 로그인한 매장의 직원 목록 불러오기 -->
-		<select id="getStoreClerk" parameterType="storeClerk" resultType="storeClerk">
+		<select id="getStoreClerk" parameterType="storeclerk" resultType="storeclerk">
 			SELECT *
 			FROM STORECLERK
 			WHERE frRegiNum = #{frRegiNum}
+		</select>
+		
+		
+		<!-- 출근 등록 -->
+		<insert id="addOnDay" parameterType="clerkschedule">
+		INSERT INTO EMPCHECKIN(FrRegiNum,clerkNum,onTime) VALUES (
+			#{FrRegiNum},
+			#{clerkNum},
+			sysdate
+		)
+		</insert>
+		
+		<!-- 퇴근 등록 -->
+		<update id="addOffTime" parameterType="clerkschedule">
+		UPDATE EMPCHECKIN
+			SET OFFTIME = SYSDATE
+		WHERE clerkNum = #{clerkNum}
+		AND TO_CHAR(ONTIME,'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		AND FRREGINUM =#{FrRegiNum}
+		</update>
+		
+		<!-- 로그인한 매장의 판매 메뉴 불러오기 -->
+		<select id="getMenuList" parameterType="menu" resultType="menu">
+		SELECT m.*
+		FROM MENU m, ONSALE o 
+		WHERE m.MENUNUM = o.MENUNUM
+		AND FrRegiNum = #{FrRegiNum}
+		AND category LIKE '%'||#{category}||'%'
 		</select>
 		
     </mapper>
