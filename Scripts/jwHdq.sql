@@ -2,28 +2,29 @@
 --매장매입은 발주
 
 --본사:저번달 전체매장의 총 매출조회 
-SELECT sum(payprice) allfrsales
+SELECT nvl(sum(payprice),0) allfrsales
 FROM orders
 WHERE state='완료'
-AND SUBSTR(orderdate, 1, 5)=to_char(add_months(SYSDATE, -1),'YY/MM');
---orderdate가 date라면
---AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM');
+AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM');
+--AND SUBSTR(orderdate, 1, 5)=to_char(add_months(SYSDATE, -1),'YY/MM');
 
 
 --본사:전체매장의 개별매출조회(사용자지정 기간-月기준)
 SELECT frname, s.frreginum, frtel, frrepname, ename, frsales
-FROM store s, emp e, (  SELECT frreginum, sum(payprice) frsales
+FROM store s, emp e, (  SELECT frreginum, nvl(sum(payprice),0) frsales
 						FROM orders
-						WHERE state='complete'
-						AND SUBSTR(orderdate, 1, 5) BETWEEN '23/01' AND '23/02'
+						WHERE state='완료'
+						AND to_char(orderdate,'YYYY/MM') BETWEEN '2023/01' AND '2023/02'
 						GROUP BY frreginum ) ord
 WHERE ord.frreginum=s.frreginum AND s.empnum=e.empnum;
 
 
 
+SELECT * FROM store;
+SELECT * FROM emp;
+
+
 SELECT * FROM orders; 
-SELECT * FROM store; 
-SELECT * FROM emp; 
 SELECT * FROM PRODORDER;
 --where SUBSTR(orderdate, 1, 5) BETWEEN '23/01' AND '23/02'; <<절대 BETWEEN '2023/01'형태XXXXX
 --AND orderdate BETWEEN to_Date('화면에서 받아오는 시작날짜','YYYY/MM') AND to_Date('화면에서 받아오는 끝날짜','YYYY/MM')
@@ -33,12 +34,12 @@ SELECT * FROM PRODORDER;
 
 
  
-SELECT * FROM store; --frreginum 123456789   empnum 3917, 
---INSERT INTO store VALUES('123456790', 3917,'투썸 부산광안리점', '08:00', '14', '22:00', '김사희', '051-123-4754', '부산 광안리구 갈매기로 123', 'busan01' );
---INSERT INTO store VALUES('123456791', 970525, '투썸 광화문점', '07:00', '14', '21:00', '이종혁', '02-264-6537', '서울 종로구 광화로 45', 'gwanghwamun');
-SELECT * FROM emp;   --empnum 970525   empnum 3917 
+SELECT * FROM store;
+--INSERT INTO store VALUES('123456790', 3917,'투썸 부산광안리점', '08:00', '14', '월', '김사희', '051-123-4754', '부산 광안리구 갈매기로 123', 'busan01' );
+--INSERT INTO store VALUES('123456791', 970525, '투썸 광화문점', '07:00', '14', '화', '이종혁', '02-264-6537', '서울 종로구 광화로 45', 'gwanghwamun');
+SELECT * FROM emp; 
 --INSERT INTO emp VALUES (3917, 'a1234', '김아무', '관리팀');
-SELECT * FROM orders;--frreginum 123456789   123456790   123456791
+SELECT * FROM orders;
 
 --123456789 가게
 INSERT INTO orders VALUES ('a10000', to_Date('2023/01/02','YY/MM/DD'),'1000',123456789,'complete',1,4100,'' );
