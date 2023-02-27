@@ -13,7 +13,7 @@
 			
 
 	<mappers>
-			<mapper resource="ferp/resource/B2_Mapper.xml"/>
+			<mapper resource="ferp/resource/mappers/B2_Mapper.xml"/>
 	</mappers>
 	
 	
