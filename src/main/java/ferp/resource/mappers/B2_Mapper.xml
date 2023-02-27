@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+
+<mapper namespace="ferp.dao.B2_Dao">
+	<insert id="insertMenu" parameterType="menu">
+		INSERT INTO menu VALUES('M'||menu_seq.nextval, #{menuName}, #{price}, #{info}, #{img}, #{necessary}, #{category})
+	</insert>
+	
+	<insert id="insertStore" parameterType="store">
+		INSERT INTO store VALUES(#{frRegiNum}, #{eno}, #{frName}, #{frOpen}, 
+			#{frOperTime}, #{frClosedDte}, #{frRepName}, #{frTel}, #{frAddress}, #{frPass})
+	</insert>
+
+	<update id="updateStore" parameterType="store">
+		UPDATE store
+		SET eno = #{eno},
+			frName = #{frName},
+			frOpen = #{frOpen},
+			frOperTime = #{frOperTime},
+			frClosedDte = #{frClosedDte},
+			frRepName = #{frRepName},
+			frTel = #{frTel},
+			frAddress = #{frAddress},
+			frPass = #{frPass}
+		WHERE FrRegiNum = #{frRegiNum}
+	</update>
+	
+	<select id="detailStore" resultType="store" parameterType="string">
+		SELECT *
+		FROM store
+		WHERE FrRegiNum = #{frRegiNum}
+	</select>
+	
+	
+	<select id="searchNotice" resultType="notice" parameterType="noticeSch">
+		SELECT *
+		FROM notice
+		WHERE title LIKE '%'||#{title}||'%'
+		ORDER BY regdte DESC
+	</select>
+	
+	<select id="detailNotice" resultType="notice" parameterType="string">
+		SELECT *
+		FROM notice
+		WHERE noticeNum = #{noticeNum}
+	</select>
+	<update id="plusCnt" parameterType="string">
+		UPDATE notice
+			SET readcnt = readcnt+1
+		WHERE noticeNum = #{noticeNum}
+	</update>
+	<insert id="insertNotice" parameterType="notice">
+		INSERT INTO notice VALUES(notice_seq.nextval, #{title}, #{content}, 
+					#{writer}, 0, sysdate, sysdate, #{fname}, #{important})
+	</insert>
+	
+	<update id="updateNotice" parameterType="notice">
+		UPDATE notice
+		SET title = #{title},
+			content = #{content},
+			fname = #{fname},
+			important = #{important}
+		WHERE noticeNum = #{noticeNum}
+	</update>
+	
+	<delete id="deleteNotice">
+		DELETE notice
+		WHERE noticeNum = #{noticeNum}
+	</delete>
+	
+	<select id="getHOemp" resultType="hoemp">
+		SELECT *
+		FROM HOemp
+	</select>
+</mapper>

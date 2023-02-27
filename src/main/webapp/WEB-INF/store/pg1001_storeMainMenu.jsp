@@ -27,15 +27,15 @@
 	
 	.btn{
 		width: 200px;
-		height: 200px;
-		background: #2262F3;
-		border-radius: 10px;
-		color: #fff;
-		font-weight: 600;
-		font-size: 48px;
-		line-height: 200px;
-		text-align: center;
-		cursor: pointer;
+	    height: 200px;
+	    background: #2262F3;
+	    border-radius: 10px;
+	    color: #fff;
+	    font-weight: 600;
+	    font-size: 29px;
+	    text-align: center;
+	    cursor: pointer;
+	    padding-top: 65px;
 	}
 	
 	header h2{
@@ -70,7 +70,7 @@
     <div class="container">
         <header>  
             <div class="logo">
-                <h1><a href="#"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
+                <h1><a href="${path}/storeMainMenu.do"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
             </div>
            	<h2>프랜차이즈 매장 관리 시스템</h2>
            	<h2>${login.frName}</h2>
@@ -78,8 +78,8 @@
         <div class="main_wrapper">
         	<div class="btns">
         		<div class="btn">키오스크<br>(직원용)</div>
-        		<div class="btn">키오스크<br>(매장용)</div>
-        		<div class="btn">출퇴근<br>등록</div>
+        		<div class="btn" onclick="location.href='${path}/kiosqueMainForCustomer.do'">키오스크<br>(고객용)</div>
+        		<div class="btn" onclick="location.href='${path}/addCommute.do'">출퇴근<br>등록</div>
         		<div class="btn">매장<br>관리</div>
         	</div>
 		</div>
