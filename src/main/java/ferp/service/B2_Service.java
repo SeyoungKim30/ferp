@@ -110,7 +110,6 @@ public class B2_Service {
 		dao.insertNotice(ins);
 		
 		return ins.getTitle();
-		
 	}
 	// 공지사항 수정
 	public String updateNotice(Notice upt) {
