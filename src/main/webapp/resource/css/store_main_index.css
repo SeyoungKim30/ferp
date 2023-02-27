@@ -53,6 +53,7 @@ header{
 .lnb>ul>li>a:after{
 width: 18px;
 height: 16px;
+<<<<<<< HEAD
 background: url(ferp/resource/img/menu_icon_down.png);
 position: absolute;
 top: 11px;
@@ -62,6 +63,17 @@ content: "";
 
 .lnb>ul>li.active>a:after{
     background: url(ferp/resource/img/menu_icon_up.png);
+=======
+background: url(/ferp/resource/img/menu_icon_down.png);
+position: absolute;
+top: 11px;
+right: 14px;
+content: "";
+}
+
+.lnb>ul>li.active>a:after{
+    background: url(/ferp/resource/img/menu_icon_up.png);
+>>>>>>> refs/heads/heejun
 }
 
 .lnb>ul>li>ul>li:hover{
