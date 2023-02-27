@@ -81,7 +81,7 @@
 	        	<div class="top_line">
 		        	<input type="hidden" name="noticeNum" value="${notice.noticeNum}">
 			        <input type="hidden" name="important" value="${notice.important}">
-		        	<input type="checkbox" id="important" >
+		        	<input type="checkbox" id="important">
 		        	<span>중요공지사항</span>
 	        	</div>
 	    	    
@@ -123,6 +123,9 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	if($("input[name=important]").val() == 'o'){
+		$("#important").attr("checked", "checked")
+	}
     $(".insBtn").click(function(){
 		if($('#important').is(':checked')){
 			$("input[name=important]").attr('value','o');
