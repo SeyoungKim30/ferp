@@ -17,7 +17,12 @@
 	
 	.lnb>ul>li.active>a:after{
 	    background: url(${path}/resource/img/menu_icon_up.png);
+	  }
+	    
+	.lnb ul li a.pagetitleActive{
+		color: #007bff;
 	}
+	
 </style>
  <div class="lnb">
                 <ul>
@@ -68,6 +73,7 @@
                 </ul>
             </div>
 <script type="text/javascript">
+$( document ).ready( function() {
 $('.lnb > ul > li').click(function() {
     if ( $(this).hasClass('active') ) {
         $(this).find('> ul').stop().slideUp(300);
@@ -80,6 +86,15 @@ $('.lnb > ul > li').click(function() {
     
 });
 
+let pageIdx = localStorage.getItem("pageIdx")
+$.each($('.lnb ul li ul li'),function(){
+	if($(this).attr('id')==pageIdx){
+		$(this).find('a').addClass('pagetitleActive');
+	}
+})
+
 <!-- eq(n) 열려 있는 사이드바 n 숫자로 조정하세요.  -->
-$('.lnb > ul > li').eq(0).trigger("click");
+$('.lnb > ul > li').eq(localStorage.getItem("eqIdx")).trigger("click");
+
+})
 </script>         
