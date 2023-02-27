@@ -219,7 +219,7 @@ $('.lnb > ul > li').click(function() {
     }
 });
 
->>>>>>> refs/heads/heejun
+
 $('.lnb > ul > li').eq(0).trigger("click");
 </script>
 </html>

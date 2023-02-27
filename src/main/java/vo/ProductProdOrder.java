@@ -17,7 +17,7 @@ public class ProductProdOrder {
 	private int amount;
 	private String paymentState;
 	private String orderState;
-	private Date stockDate;
+	private String stockDate;
 	public ProductProdOrder() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -125,10 +125,10 @@ public class ProductProdOrder {
 	public void setOrderState(String orderState) {
 		this.orderState = orderState;
 	}
-	public Date getStockDate() {
+	public String getStockDate() {
 		return stockDate;
 	}
-	public void setStockDate(Date stockDate) {
+	public void setStockDate(String stockDate) {
 		this.stockDate = stockDate;
 	}
 	

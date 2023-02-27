@@ -43,3 +43,9 @@ AND orderState LIKE '%'||''||'%';
 -- 매장 매매내역 등록
 -- 매장 매매내역 수정
 -- 매장 매매내역 삭제
+SELECT TO_CHAR(s.stockDate,'YYYY-MM-DD') stockDate ,p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAME ,p.OPPOSITE ,p.PRICE ,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK 
+		FROM PRODUCT p , STOCK s , PRODORDER p2 
+		WHERE p.PRODUCTNUM = s.PRODUCTNUM 
+		AND p.PRODUCTNUM = p2.PRODUCTNUM 
+		AND stockDate = to_date('2023-02-11','YYYY-MM-DD');
+		
