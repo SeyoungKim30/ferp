@@ -37,7 +37,6 @@
 	    align-items: center; 
 	    margin-top: 5px;
 	    justify-content: center;
-
 	}
 	.hdq_search>form{
 		 display: inline-flex;
@@ -49,7 +48,6 @@
 		height:30px;
 		width: 25%;
 	}
-	
 	.hdq_searchStandard{
 		display:inline-flex;
 		width: 80%;
@@ -270,7 +268,7 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		
-		
+				<h2></h2>
 				<!-- 전체매장총매출출력칸 시작-->
 				<div class="hdq_totalSalesPrt">
 					<div>
@@ -342,12 +340,14 @@
 							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
 						</thead>
 						<tbody>
+							<c:forEach var="strinfo" items="${sbslist}">
 							<tr>
-								<td>투썸플레이스 국회의사당역점</td><td>300000000</td><td>100000000</td><td>02)123-1234</td><td>김세영</td><td>허소솜</td>
+								<td>${strinfo.frname }</td><td>300000000</td><td>100000000</td><td>02)123-1234</td><td>김세영</td><td>허소솜</td>
 								<td class="frt_last_culmm">
 									<span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span>
 								</td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
