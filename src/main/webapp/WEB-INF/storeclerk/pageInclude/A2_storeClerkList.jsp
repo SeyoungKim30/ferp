@@ -14,9 +14,7 @@
 <link rel="stylesheet" href="${path}/resource/css/A2_jhCSS.css">
 <link rel="stylesheet" href="${path}/resource/css/A2_storeclerkJH.css">
 <script src="${path}/a00_com/jquery.min.js"></script>
-<script src="${path}/a00_com/popper.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
-<script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script	src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
@@ -24,6 +22,7 @@
 	$(document).ready(function() {
 		$(".regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
+				//localStorage.setItem("pageLoc","inDiv")
 				regAjax("insStoreclerk.do")
 			}
 		})
@@ -43,22 +42,24 @@
 			})
 		}
 		$(".firstOp").click(function(){
+			//localStorage.setItem("pageLoc","inDiv")
 			location.href="${path}/storeClerkList.do"
 		})
 		$(".secondOp").click(function(){
-			
+			//localStorage.setItem("pageLoc","inDiv")
 		})
 		$(".thirdOp").click(function(){
-			
+			//localStorage.setItem("pageLoc","inDiv")
 		})
 		$(".fourthOp").click(function(){
+			//localStorage.setItem("pageLoc","inDiv")
 			location.href="${path}/clerkPayList.do"
 		})
 	});
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="containerJ">
 		<div class="row">
 			<div class="selectedFunction firstOp">정보 조회</div>
 			<div class="unselectedFunction secondOp">근태 조회</div>
@@ -138,7 +139,7 @@
 				</c:forEach>
 				<div class="row center">
 					<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${SCsch.startBlock-1});'">
-						이전
+						&lt;
 					</button>
 					<c:forEach var="cnt" begin="${SCsch.startBlock }" end="${SCsch.endBlock}">
 				  		<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
@@ -146,13 +147,14 @@
 						</button>
 				  	</c:forEach>
 				  	<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${SCsch.startBlock+1});'">
-						다음
+						&gt;
 					</button>
 				</div>    
 				<script type="text/javascript">
 					function goPage(cnt){
 						$("[name=curPage]").val(cnt);
 						localStorage.setItem("sclistPg",cnt)
+						//localStorage.setItem("pageLoc","inDiv")
 						$("#pageFrm").submit()
 					}
 					if(${SCsch.curPage==1}){
@@ -173,6 +175,7 @@
 						}
 						$(".uptCfm").click(function(){
 							if(confirm("변경사항을 저장하시겠습니까?")){
+								//localStorage.setItem("pageLoc","inDiv")
 								uptAjax("uptStoreClerk.do",i)				
 							}
 						})
@@ -185,7 +188,6 @@
 							dataType : "json",
 							success : function(data) {
 								console.log(data)
-								alert(data.msg)
 								location.reload()
 							},
 							error : function(err) {
@@ -198,6 +200,7 @@
 					
 					function delInfo(i){
 						if(confirm("직원정보를 삭제하시겠습니까?")){
+							//localStorage.setItem("pageLoc","inDiv")
 							delAjax("delStoreClerk.do",i)				
 						}
 					}

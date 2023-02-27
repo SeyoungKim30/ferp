@@ -1,181 +1,208 @@
-SELECT * FROM dasom;
+DROP TABLE store CASCADE CONSTRAINT;
 
 CREATE TABLE store (
-	FrRegiNum	varchar2(50)	NOT NULL,
-	empNum	number	NOT NULL,
-	frName	varchar2(50)	NULL,
-	frOpen	varchar2(20)	NULL,
-	frOperTime	varchar2(20)	NULL,
-	frClosedDte	varchar2(20)	NULL,
-	frRepName	varchar2(20)	NULL,
-	frTel	varchar2(20)	NULL,
-	frAddress	varchar2(100)	NULL,
-	frPass	varchar2(20)	NULL
+	FrRegiNum	varchar2(50)		NOT NULL,
+	empNum	number		NOT NULL,
+	frName	varchar2(50)		NULL,
+	frOpen	date		NULL,
+	frOperTime	varchar2(50)		NULL,
+	frClosedDte	varchar2(50)		NULL,
+	frRepName	varchar2(20)		NULL,
+	frTel	varchar2(20)		NULL,
+	frAddress	varchar2(100)		NULL,
+	frPass	varchar2(20)		NULL
 );
+
+DROP TABLE menu;
 
 CREATE TABLE menu (
-	menuNum	varchar2(50)	NOT NULL,
-	menuName	varchar2(50)	NULL,
-	price	varchar2(50)	NULL,
-	info	varchar2(100)	NULL,
-	img	varchar2(100)	NULL,
-	necessary	varchar2(50)	NULL,
-	category	varchar2(50)	NULL
+	menuNum	varchar2(50)		NOT NULL,
+	menuName	varchar2(50)		NULL,
+	price	number		NULL,
+	info	varchar2(100)		NULL,
+	img	varchar2(100)		NULL,
+	necessary	varchar2(50)		NULL,
+	category	varchar2(50)		NULL
 );
+
+DROP TABLE orders;
 
 CREATE TABLE orders (
-	orderNumber	varchar2(50)	NOT NULL,
-	orderDate	varchar2(50)	NOT NULL,
-	menuNum	varchar2(50)	NOT NULL,
-	FrRegiNum	varchar2(50)	NOT NULL,
-	state	varchar2(50)	NULL,
-	amount	number	NULL,
-	payprice	number	NULL
+	orderNum	varchar2(50)		NOT NULL,
+	orderDate	date		NOT NULL,
+	menuNum	varchar2(50)		NOT NULL,
+	FrRegiNum	varchar2(50)		NOT NULL,
+	state	varchar2(50)		NULL,
+	amount	number		NULL,
+	payprice	number		NULL,
+	orderOption	varchar2(500)		NULL
 );
+
+DROP TABLE onSale;
 
 CREATE TABLE onSale (
-	menuNum	varchar2(50)	NOT NULL,
-	FrRegiNum	varchar2(50)	NOT NULL
+	menuNum	varchar2(50)		NOT NULL,
+	FrRegiNum	varchar2(50)		NOT NULL
 );
+
+DROP TABLE storeClerk;
 
 CREATE TABLE storeClerk (
-	clerkNum	varchar2(50)	NOT NULL,
-	FrRegiNum	varchar2(50)	NOT NULL,
-	clerkName	varchar2(50)	NULL,
-	gender	varchar2(10)	NULL,
-	residentNum	varchar2(20)	NULL,
-	phoneNum	varchar2(20)	NULL,
-	address	varchar2(300)	NULL
+	clerkNum	varchar2(50)		NOT NULL,
+	FrRegiNum	varchar2(50)		NOT NULL,
+	clerkName	varchar2(50)		NULL,
+	residentNum	varchar2(20)		NULL,
+	phoneNum	varchar2(20)		NULL,
+	address	varchar2(300)		NULL,
+	hourlyPay	number		NULL
 );
+
+DROP TABLE clerkSchedule;
 
 CREATE TABLE clerkSchedule (
-	onDay	date	NULL,
-	offDay	date	NULL,
-	clerkNum	varchar2(50)	NOT NULL,
-	FrRegiNum	varchar2(50)	NOT NULL
+	onDay	date		NULL,
+	offDay	date		NULL,
+	clerkNum	varchar2(50)		NOT NULL,
+	FrRegiNum	varchar2(50)		NOT NULL
 );
 
-CREATE TABLE empCheckInInfo (
-	FrRegiNum	varchar2(50)	NOT NULL,
-	clerkNum	varchar2(50)	NOT NULL,
-	onTime	date	NULL,
-	offTime	date	NULL
+DROP TABLE empCheckIn;
+
+CREATE TABLE empCheckIn (
+	FrRegiNum	varchar2(50)		NOT NULL,
+	clerkNum	varchar2(50)		NOT NULL,
+	onTime	date		NULL,
+	offTime	date		NULL
 );
+
+DROP TABLE notice;
 
 CREATE TABLE notice (
-	noticeNum	varchar2(50)	NOT NULL,
-	empNum	number	NOT NULL,
-	title	varchar2(300)	NULL,
-	content	varchar2(1000)	NULL,
-	readcnt	number	NULL,
-	regdte	date	NULL,
-	uptdte	date	NULL,
-	fname	varchar2(300)	NULL,
-	important	varchar2(50)	NULL
+	noticeNum	varchar2(50)		NOT NULL,
+	title	varchar2(300)		NULL,
+	content	varchar2(1000)		NULL,
+	empNum	varchar2(30)		NULL,
+	readcnt	number		NULL,
+	regdte	date		NULL,
+	uptdte	date		NULL,
+	fname	varchar2(300)		NULL,
+	important	varchar2(50)		NULL,
+	replyNum	varchar2(50)		NULL,
+	category	varchar2(50)		NULL,
+	state	varchar2(50)		NULL
 );
 
-CREATE TABLE QnA (
-	qnaNum	varchar2(50)	NOT NULL,
-	FrRegiNum	varchar2(50)	NOT NULL,
-	replyNum	varchar2(50)	NULL,
-	category	varchar2(50)	NULL,
-	title	varchar2(100)	NULL,
-	content	varchar2(1000)	NULL,
-	image	varchar2(300)	NULL,
-	regdte	date	NULL,
-	state	varchar2(20)	NULL
-);
+DROP TABLE emp;
 
 CREATE TABLE emp (
-	empNum	number	NOT NULL,
-	pass	varchar2(20)	NULL,
-	ename	varchar2(20)	NULL,
-	dname	varchar2(30)	NULL
+	empNum	number		NOT NULL,
+	pass	varchar2(20)		NULL,
+	ename	varchar2(20)		NULL,
+	dname	varchar2(30)		NULL
 );
+
+DROP TABLE QA;
 
 CREATE TABLE QA (
-	inspectionNum	varchar2(50)	NOT NULL,
-	QANum	varchar2(50)	NOT NULL,
-	result	varchar2(50)	NULL,
-	FrRegiNum	varchar2(50)	NOT NULL,
-	empNum	number	NOT NULL,
-	inspectdte	date	NULL,
-	regdte	date	NULL,
-	comment	varchar2(100)	NULL
+	inspectionNum	varchar2(50)		NOT NULL,
+	FrRegiNum	varchar2(50)		NOT NULL,
+	QANum	varchar2(50)		NOT NULL,
+	results	varchar2(50)		NULL,
+	empNum	number		NOT NULL,
+	inspectdte	date		NULL,
+	regdte	date		NULL,
+	comments	varchar2(100)		NULL
 );
+
+DROP TABLE prodOrder;
 
 CREATE TABLE prodOrder (
-	orderNum	varchar2(50)	NOT NULL,
-	productNum	varchar2(50)	NOT NULL,
-	demander	varchar2(50)	NOT NULL,
-	supplier	varchar2(50)	NULL,
-	orderDate	date	NOT NULL,
-	amount	number	NULL,
-	paymentState	varchar2(50)	NULL,
-	orderState	varchar2(50)	NULL
+	orderNum	varchar2(50)		NOT NULL,
+	productNum	varchar2(50)		NOT NULL,
+	demander	varchar2(50)		NOT NULL,
+	supplier	varchar2(50)		NULL,
+	orderDate	date		NOT NULL,
+	amount	number		NULL,
+	paymentState	varchar2(50)		NULL,
+	orderState	varchar2(50)		NULL
 );
+
+DROP TABLE QAcheckList;
 
 CREATE TABLE QAcheckList (
-	QANum	varchar2(50)	NOT NULL,
-	QAitem	varchar2(300)	NULL,
-	usable	varchar2(50)	NULL
+	QANum	varchar2(50)		NOT NULL,
+	QAitem	varchar2(300)		NULL,
+	usable	varchar2(50)		NULL
 );
+
+DROP TABLE defectOrder;
 
 CREATE TABLE defectOrder (
-	defNum	varchar2(50)	NOT NULL,
-	orderNum	varchar2(50)	NOT NULL,
-	productNum	varchar2(50)	NOT NULL,
-	applyDate	date	NOT NULL,
-	img	varchar2(1000)	NULL,
-	state	varchar2(50)	NOT NULL,
-	method	varchar2(50)	NOT NULL
+	defNum	varchar2(50)		NOT NULL,
+	orderNum	varchar2(50)		NOT NULL,
+	productNum	varchar2(50)		NOT NULL,
+	applyDate	date		NOT NULL,
+	img	varchar2(1000)		NULL,
+	state	varchar2(50)		NOT NULL,
+	methods	varchar2(50)		NOT NULL
 );
+
+DROP TABLE stock;
 
 CREATE TABLE stock (
-	productNum	varchar2(50)	NOT NULL,
-	FrRegiNum	varchar2(50)	NOT NULL,
-	stockDate	date	NULL,
-	applyAmount	number	NULL,
-	remainAmount	number	NULL,
-	remark	varchar2(1000)	NULL
+	productNum	varchar2(50)		NOT NULL,
+	FrRegiNum	varchar2(50)		NOT NULL,
+	stockDate	date		NULL,
+	applyAmount	number		NULL,
+	remainAmount	number		NULL,
+	remark	varchar2(1000)		NULL
 );
+
+DROP TABLE Product;
 
 CREATE TABLE Product (
-	productNum	varchar2(50)	NOT NULL,
-	category	varchar2(50)	NULL,
-	productName	varchar2(50)	NULL,
-	opposite	varchar2(50)	NULL,
-	price	number	NULL,
-	img	varchar2(1000)	NULL,
-	remark	varchar2(1000)	NULL
+	productNum	varchar2(50)		NOT NULL,
+	category	varchar2(50)		NULL,
+	productName	varchar2(50)		NULL,
+	opposite	varchar2(50)		NULL,
+	price	number		NULL,
+	img	varchar2(1000)		NULL,
+	remark	varchar2(1000)		NULL
 );
+/*
+DROP TABLE Account;
 
 CREATE TABLE Account (
-	acntNum	varchar2(50)	NOT NULL,
-	acntGroup	varchar2(20)	NULL,
-	acntTitle	varchar2(50)	NULL
+	acntNum	varchar2(50)		NOT NULL,
+	acntGroup	varchar2(20)		NULL,
+	acntTitle	varchar2(50)		NULL,
+	acntUsing	number		NULL
 );
+*/
+DROP TABLE clerkFile;
 
 CREATE TABLE clerkFile (
-	fname	varchar2(300)	NULL,
-	regdte	date	NULL,
-	uptdte	date	NULL,
-	clerkNum	varchar2(50)	NOT NULL,
-	FrRegiNum	varchar2(50)	NOT NULL
+	fname	varchar2(300)		NULL,
+	regdte	date		NULL,
+	uptdte	date		NULL,
+	clerkNum	varchar2(50)		NOT NULL,
+	FrRegiNum	varchar2(50)		NOT NULL
 );
 
+DROP TABLE ACStatement;
+
 CREATE TABLE ACStatement (
-	statementNum	varchar2(50)	NULL,
-	FrRegiNum	varchar2(50)	NULL,
-	lineNum NUMBER,
-	acntNum	varchar2(50)	s NULL,
-	debit	number	NULL,
-	credit	number	NULL,
-	stmtOpposite	varchar2(50)	NULL,
-	stmtDate	date	NULL,
-	remark	varchar2(1000)	NULL
+	statementNum	varchar2(50)		NULL,
+	FrRegiNum	varchar2(50)		NULL,
+	lineNum	number		NOT NULL,
+	stmtDate	date		NULL,
+	acntNum	varchar2(50)		NOT NULL,
+	debt	number		NULL,
+	credit	number		NULL,
+	stmtOpposite	varchar2(50)		NULL,
+	remark	varchar2(1000)		NULL
 );
---
+
 ALTER TABLE store ADD CONSTRAINT PK_STORE PRIMARY KEY (
 	FrRegiNum
 );
@@ -184,8 +211,8 @@ ALTER TABLE menu ADD CONSTRAINT PK_MENU PRIMARY KEY (
 	menuNum
 );
 
-ALTER TABLE Order ADD CONSTRAINT PK_ORDER PRIMARY KEY (
-	orderNumber,
+ALTER TABLE orders ADD CONSTRAINT PK_ORDERS PRIMARY KEY (
+	orderNum,
 	orderDate,
 	menuNum,
 	FrRegiNum
@@ -200,16 +227,13 @@ ALTER TABLE notice ADD CONSTRAINT PK_NOTICE PRIMARY KEY (
 	noticeNum
 );
 
-ALTER TABLE QnA ADD CONSTRAINT PK_QNA PRIMARY KEY (
-	qnaNum
-);
-
-ALTER TABLE emp ADD CONSTRAINT PK_emp PRIMARY KEY (
+ALTER TABLE emp ADD CONSTRAINT PK_EMP PRIMARY KEY (
 	empNum
 );
 
 ALTER TABLE QA ADD CONSTRAINT PK_QA PRIMARY KEY (
 	inspectionNum,
+	FrRegiNum,
 	QANum
 );
 
@@ -241,19 +265,42 @@ ALTER TABLE Account ADD CONSTRAINT PK_ACCOUNT PRIMARY KEY (
 	acntNum
 );
 
-ALTER TABLE Statement ADD CONSTRAINT PK_STATEMENT PRIMARY KEY (
+ALTER TABLE ACStatement ADD CONSTRAINT PK_ACSTATEMENT PRIMARY KEY (
 	statementNum,
-	FrRegiNum
+	FrRegiNum,
+	lineNum,
+	stmtDate
 );
 
-ALTER TABLE Order ADD CONSTRAINT FK_menu_TO_Order_1 FOREIGN KEY (
+ALTER TABLE store ADD CONSTRAINT FK_emp_TO_store_1 FOREIGN KEY (
+	empNum
+)
+REFERENCES emp (
+	empNum
+);
+
+ALTER TABLE orders ADD CONSTRAINT FK_menu_TO_orders_1 FOREIGN KEY (
 	menuNum
 )
 REFERENCES menu (
 	menuNum
 );
 
-ALTER TABLE Order ADD CONSTRAINT FK_store_TO_Order_1 FOREIGN KEY (
+ALTER TABLE orders ADD CONSTRAINT FK_store_TO_orders_1 FOREIGN KEY (
+	FrRegiNum
+)
+REFERENCES store (
+	FrRegiNum
+);
+
+ALTER TABLE onSale ADD CONSTRAINT FK_menu_TO_onSale_1 FOREIGN KEY (
+	menuNum
+)
+REFERENCES menu (
+	menuNum
+);
+
+ALTER TABLE onSale ADD CONSTRAINT FK_store_TO_onSale_1 FOREIGN KEY (
 	FrRegiNum
 )
 REFERENCES store (
@@ -267,11 +314,42 @@ REFERENCES store (
 	FrRegiNum
 );
 
+ALTER TABLE empCheckIn ADD CONSTRAINT PK_EMPCHECKIN PRIMARY KEY (
+	clerkNum,
+	FrRegiNum
+);
+
+ALTER TABLE clerkSchedule ADD CONSTRAINT FK_storeC_clerkSchedule_1 FOREIGN KEY (
+	clerkNum,
+	FrRegiNum
+)
+REFERENCES storeClerk (
+	clerkNum,
+	FrRegiNum
+);
+
+ALTER TABLE empCheckIn ADD CONSTRAINT FK_storeClerk_TO_empCheckIn_1 FOREIGN KEY (
+	FrRegiNum,
+	clerkNum
+)
+REFERENCES storeClerk (
+	FrRegiNum,
+	clerkNum
+);
+
+
 ALTER TABLE QA ADD CONSTRAINT FK_QAcheckList_TO_QA_1 FOREIGN KEY (
 	QANum
 )
 REFERENCES QAcheckList (
 	QANum
+);
+
+ALTER TABLE QA ADD CONSTRAINT FK_emp_TO_QA_1 FOREIGN KEY (
+	empNum
+)
+REFERENCES emp (
+	empNum
 );
 
 ALTER TABLE prodOrder ADD CONSTRAINT FK_Product_TO_prodOrder_1 FOREIGN KEY (
@@ -281,17 +359,25 @@ REFERENCES Product (
 	productNum
 );
 
-ALTER TABLE defectOrder ADD CONSTRAINT FK_prodOrder_TO_defectOrder_1 FOREIGN KEY (
-	orderNum
+ALTER TABLE prodOrder ADD CONSTRAINT FK_store_TO_prodOrder_1 FOREIGN KEY (
+	demander
 )
-REFERENCES prodOrder (
-	orderNum
+REFERENCES store (
+	FrRegiNum
 );
 
-ALTER TABLE defectOrder ADD CONSTRAINT FK_prodOrder_TO_defectOrder_2 FOREIGN KEY (
+ALTER TABLE defectOrder ADD CONSTRAINT PK_DEFECTORDER PRIMARY KEY (
+	defNum,
+	orderNum,
+	productNum
+);
+
+ALTER TABLE defectOrder ADD CONSTRAINT FK_prodOrder_TO_defectOrder_1 FOREIGN KEY (
+	orderNum,
 	productNum
 )
 REFERENCES prodOrder (
+	orderNum,
 	productNum
 );
 
@@ -307,5 +393,25 @@ ALTER TABLE stock ADD CONSTRAINT FK_store_TO_stock_1 FOREIGN KEY (
 )
 REFERENCES store (
 	FrRegiNum
+);
+
+ALTER TABLE clerkFile ADD CONSTRAINT PK_CLERKFILE PRIMARY KEY (
+	clerkNum,
+	FrRegiNum
+);
+ALTER TABLE clerkFile ADD CONSTRAINT FK_storeClerk_TO_clerkFile_1 FOREIGN KEY (
+	clerkNum,
+	FrRegiNum
+)
+REFERENCES storeClerk (
+	clerkNum,
+	FrRegiNum
+);
+
+ALTER TABLE ACStatement ADD CONSTRAINT FK_Account_TO_ACStatement_1 FOREIGN KEY (
+	acntNum
+)
+REFERENCES Account (
+	acntNum
 );
 

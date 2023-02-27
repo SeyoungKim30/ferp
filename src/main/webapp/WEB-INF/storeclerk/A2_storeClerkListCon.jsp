@@ -1,8 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+==<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="java.util.*" 
+%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:requestEncoding value="utf-8"/>    
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<fmt:requestEncoding value="UTF-8" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ferp 매장 관리</title>
+
+<!-- 제이쿼리 CDN -->
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${path}/resource/css/reset.css"/>
+<link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 <style type="text/css">
 	
 	.lnb>ul>li>a:after{
@@ -18,8 +31,23 @@
 	.lnb>ul>li.active>a:after{
 	    background: url(${path}/resource/img/menu_icon_up.png);
 	}
+	
 </style>
- <div class="lnb">
+</head>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+})
+</script>
+<body>
+    <div class="container">
+        <header>  
+            <div class="logo">
+                <h1><a href="#"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
+            </div>
+        </header>
+        <div class="main_wrapper">
+            <div class="lnb">
                 <ul>
                     <li>
                         <a href="#">공지 및 문의</a>
@@ -41,9 +69,8 @@
                     <li>
                         <a href="#">재무 관리</a>
                         <ul>
-                            <li><a href="${path }/selectAccount.do">- 계정 과목 관리</a></li>
-                            <li><a href="${path }/ACstatement.do">- 전표 입력</a></li>
-                            <li><a href="${path }/statementList.do">- 거래 내역 조회</a></li>
+                            <li><a href="#">- 전표 수기 입력</a></li>
+                            <li><a href="#">- 거래 내역 조회</a></li>
                             <li><a href="#">- 손익 계산서 조회</a></li>
                         </ul>
                     </li>
@@ -51,7 +78,6 @@
                         <a href="#">물류 관리</a>
                         <ul>
                             <li><a href="#">- 발주 신청</a></li>
-                            <li id="9201"><a href="${path }/productOrderList.do">- 발주 조회</a></li>
                             <li><a href="#">- 배송 불량 신청</a></li>
                             <li><a href="#">- 배송 불량 신청 현황</a></li>
                             <li><a href="#">- 발주 계산서 조회</a></li>
@@ -67,6 +93,13 @@
                     </li>
                 </ul>
             </div>
+            <div class="contents">
+                <%@ include file="/WEB-INF/storeclerk/pageInclude/A2_storeClerkList.jsp" %>
+            </div>
+        </div>
+    </div>
+    <div class="asd">asd</div>
+</body>
 <script type="text/javascript">
 $('.lnb > ul > li').click(function() {
     if ( $(this).hasClass('active') ) {
@@ -77,9 +110,15 @@ $('.lnb > ul > li').click(function() {
         $(this).find('> ul').stop().slideDown(300);
         $(this).addClass('active');
     }
-    
+    localStorage.setItem("pageIdx","2")
+    console.log(localStorage.getItem("pageIdx"))
+    // 페이지인덱스가 뭐일때 
+    if(localStorage.getItem("pageIdx") == '2'){
+    	$('.asd').css('color','blue')
+    }
 });
 
 <!-- eq(n) 열려 있는 사이드바 n 숫자로 조정하세요.  -->
 $('.lnb > ul > li').eq(0).trigger("click");
-</script>         
+</script>
+</html>

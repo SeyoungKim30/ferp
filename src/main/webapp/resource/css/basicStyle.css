@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 button {
-	background-color: #E7E7E7;
+	background-color: #DDD;
 	display: inline-block;
 	font-weight: 400;
 	text-align: center;
@@ -15,7 +15,7 @@ button {
 	padding: .375rem .75rem;
 	font-size: 1rem;
 	line-height: 1.5;
-	border-radius: .25rem;
+	border-radius: 10px;
 	transition: color .15s ease-in-out, background-color .15s ease-in-out,
 		border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
@@ -326,7 +326,7 @@ input, select {
 	background-color: #fff;
 	background-clip: padding-box;
 	border: 1px solid #ced4da;
-	border-radius: .25rem;
+	border-radius: 10px;
 	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
@@ -341,7 +341,7 @@ input::-ms-expand {
 	border: 0
 }
 
-input:focus {
+input:focus:not([type=radio]) {
 	color: #495057;
 	background-color: #fff;
 	border-color: #80bdff;

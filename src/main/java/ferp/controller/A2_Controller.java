@@ -22,7 +22,7 @@ public class A2_Controller {
 	@GetMapping("/storeClerkList.do")
 	public String pg3100(@ModelAttribute("SCsch") SCPage SCsch, Model d) {
 		d.addAttribute("scList", service.storeClerkList(SCsch));
-		return "/WEB-INF/storeclerk/A2_storeClerkList.jsp";
+		return "/WEB-INF/storeclerk/A2_storeClerkListCon.jsp";
 	}
 //	직원 정보 등록
 	@PostMapping("/insStoreclerk.do")
@@ -49,11 +49,11 @@ public class A2_Controller {
 	@GetMapping("/clerkPayList.do")
 	public String clerkPayList(@ModelAttribute("SCpsch") SCPage SCpsch, Model d) {
 		d.addAttribute("scList", service.storeClerkPayList(SCpsch));
-		return "/WEB-INF/storeclerk/A2_clerkPay.jsp";
+		return "/WEB-INF/storeclerk/A2_clerkPayCon.jsp";
 	}
 //	발주 신청서 리스트 조회
 	@GetMapping("/requestProd.do")
 	public String requestProd() {
-		return "/WEB-INF/storeclerk/A2_orderRequest.jsp";
+		return "/WEB-INF/storeclerk/A2_orderRequestCon.jsp";
 	}
 }

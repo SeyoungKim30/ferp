@@ -45,7 +45,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="containerJ">
 		<div class="row">
 			<div class="unselectedFunction firstOp">정보 조회</div>
 			<div class="unselectedFunction secondOp">근태 조회</div>
