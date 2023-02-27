@@ -8,7 +8,7 @@ import vo.Notice;
 import vo.NoticeSch;
 import vo.Store;
 
-public interface B_heejunDao {
+public interface B2_Dao {
 	// 메뉴 등록
 	public void insertMenu(Menu ins);
 	

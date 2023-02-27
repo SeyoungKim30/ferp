@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ferp.service.B_heejunService;
+import ferp.service.B2_Service;
 import vo.HOemp;
 import vo.Menu;
 import vo.Notice;
@@ -20,9 +20,9 @@ import vo.NoticeSch;
 import vo.Store;
 
 @Controller
-public class B_heejunController {
+public class B2_Controller {
 	@Autowired(required = false)
-	private B_heejunService service;
+	private B2_Service service;
 	
 	@ModelAttribute("empCombo")
 	public List<HOemp> getHOemp(){

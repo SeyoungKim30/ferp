@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import ferp.dao.B_heejunDao;
+import ferp.dao.B2_Dao;
 import vo.HOemp;
 import vo.Menu;
 import vo.Notice;
@@ -17,9 +17,9 @@ import vo.NoticeSch;
 import vo.Store;
 
 @Service
-public class B_heejunService {
+public class B2_Service {
 	@Autowired(required = false)
-	private B_heejunDao dao;
+	private B2_Dao dao;
 	
 	// 업로드할 경로 지정
 	@Value("${upload}")
