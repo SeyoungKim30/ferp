@@ -4,7 +4,7 @@
 --본사:저번달 전체매장의 총 매출조회 
 SELECT sum(payprice) allfrsales
 FROM orders
-WHERE state='complete'
+WHERE state='완료'
 AND SUBSTR(orderdate, 1, 5)=to_char(add_months(SYSDATE, -1),'YY/MM');
 --orderdate가 date라면
 --AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM');
@@ -39,33 +39,37 @@ SELECT * FROM store; --frreginum 123456789   empnum 3917,
 SELECT * FROM emp;   --empnum 970525   empnum 3917 
 --INSERT INTO emp VALUES (3917, 'a1234', '김아무', '관리팀');
 SELECT * FROM orders;--frreginum 123456789   123456790   123456791
+
 --123456789 가게
-/*
-INSERT INTO orders VALUES ('a10000', to_Date('2023/01/02','YY/MM/DD'),'1000',123456789,'complete',1,4100 );
-INSERT INTO orders VALUES ('a10001', to_Date('2023/01/02','YY/MM/DD'),'1000',123456789,'complete',1,4100 );
-INSERT INTO orders VALUES ('a10002', to_Date('2023/01/05','YY/MM/DD'),'1000',123456789,'complete',2,8200 );
-INSERT INTO orders VALUES ('a10003', to_Date('2023/01/05','YY/MM/DD'),'1000',123456789,'cancel',2,8200 );
-INSERT INTO orders VALUES ('a10004', to_Date('2023/01/06','YY/MM/DD'),'1000',123456789,'complete',2,8200 );
-INSERT INTO orders VALUES ('a10005', to_Date('2023/01/08','YY/MM/DD'),'1001',123456789,'complete',1,5800 );
+INSERT INTO orders VALUES ('a10000', to_Date('2023/01/02','YY/MM/DD'),'1000',123456789,'complete',1,4100,'' );
+INSERT INTO orders VALUES ('a10001', to_Date('2023/01/02','YY/MM/DD'),'1000',123456789,'complete',1,4100,'' );
+INSERT INTO orders VALUES ('a10002', to_Date('2023/01/05','YY/MM/DD'),'1000',123456789,'complete',2,8200,'' );
+INSERT INTO orders VALUES ('a10003', to_Date('2023/01/05','YY/MM/DD'),'1000',123456789,'cancel',2,8200,'' );
+INSERT INTO orders VALUES ('a10004', to_Date('2023/01/06','YY/MM/DD'),'1000',123456789,'complete',2,8200,'' );
+INSERT INTO orders VALUES ('a10005', to_Date('2023/01/08','YY/MM/DD'),'1001',123456789,'complete',1,5800,'' );
 --123456790
-INSERT INTO orders VALUES ('b10000', to_Date('2023/01/02','YY/MM/DD'),'1000',123456790,'complete',1,4100 );
-INSERT INTO orders VALUES ('b10001', to_Date('2023/01/02','YY/MM/DD'),'1000',123456790,'cancel',1,4100 );
-INSERT INTO orders VALUES ('b10002', to_Date('2023/01/07','YY/MM/DD'),'1000',123456790,'complete',2,8200 );
-INSERT INTO orders VALUES ('b10003', to_Date('2023/01/08','YY/MM/DD'),'1000',123456790,'complete',2,8200 );
-INSERT INTO orders VALUES ('b10004', to_Date('2023/01/09','YY/MM/DD'),'1000',123456790,'complete',2,8200 );
-INSERT INTO orders VALUES ('b10005', to_Date('2023/01/09','YY/MM/DD'),'1001',123456790,'cancel',1,5800 );
+INSERT INTO orders VALUES ('b10000', to_Date('2023/01/02','YY/MM/DD'),'1000',123456790,'complete',1,4100,'' );
+INSERT INTO orders VALUES ('b10001', to_Date('2023/01/02','YY/MM/DD'),'1000',123456790,'cancel',1,4100,'' );
+INSERT INTO orders VALUES ('b10002', to_Date('2023/01/07','YY/MM/DD'),'1000',123456790,'complete',2,8200,'' );
+INSERT INTO orders VALUES ('b10003', to_Date('2023/01/08','YY/MM/DD'),'1000',123456790,'complete',2,8200,'' );
+INSERT INTO orders VALUES ('b10004', to_Date('2023/01/09','YY/MM/DD'),'1000',123456790,'complete',2,8200,'' );
+INSERT INTO orders VALUES ('b10005', to_Date('2023/01/09','YY/MM/DD'),'1001',123456790,'cancel',1,5800,'' );
 --123456791 가게
-INSERT INTO orders VALUES ('c10000', to_Date('2023/01/01','YY/MM/DD'),'1000',123456791,'cancel',1,4100 );
-INSERT INTO orders VALUES ('c10001', to_Date('2023/01/01','YY/MM/DD'),'1000',123456791,'complete',1,4100 );
-INSERT INTO orders VALUES ('c10002', to_Date('2023/01/12','YY/MM/DD'),'1000',123456791,'cancel',2,8200 );
-INSERT INTO orders VALUES ('c10003', to_Date('2023/01/13','YY/MM/DD'),'1000',123456791,'complete',2,8200 );
-INSERT INTO orders VALUES ('c10004', to_Date('2023/01/13','YY/MM/DD'),'1000',123456791,'cancel',2,8200 );
-INSERT INTO orders VALUES ('c10005', to_Date('2023/01/17','YY/MM/DD'),'1001',123456791,'complete',1,5800 );
-INSERT INTO orders VALUES ('c10006', to_Date('2023/01/19','YY/MM/DD'),'1001',123456791,'complete',1,5800 );
-INSERT INTO orders VALUES ('c10007', to_Date('2023/03/01','YY/MM/DD'),'1001',123456791,'complete',1,5800 );
+INSERT INTO orders VALUES ('c10000', to_Date('2023/01/01','YY/MM/DD'),'1000',123456791,'cancel',1,4100,'' );
+INSERT INTO orders VALUES ('c10001', to_Date('2023/01/01','YY/MM/DD'),'1000',123456791,'complete',1,4100,'' );
+INSERT INTO orders VALUES ('c10002', to_Date('2023/01/12','YY/MM/DD'),'1000',123456791,'cancel',2,8200,'' );
+INSERT INTO orders VALUES ('c10003', to_Date('2023/01/13','YY/MM/DD'),'1000',123456791,'complete',2,8200,'');
+INSERT INTO orders VALUES ('c10004', to_Date('2023/01/13','YY/MM/DD'),'1000',123456791,'cancel',2,8200,'' );
+INSERT INTO orders VALUES ('c10005', to_Date('2023/01/17','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
+INSERT INTO orders VALUES ('c10006', to_Date('2023/01/19','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
+INSERT INTO orders VALUES ('c10007', to_Date('2023/03/01','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
 
-**/
+INSERT INTO orders VALUES ('c10008', to_Date('2023/02/03','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
+INSERT INTO orders VALUES ('c10009', to_Date('2023/02/11','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
 
+
+
+SELECT * FROM orders;
 
 
 
