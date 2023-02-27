@@ -25,7 +25,7 @@ public class A1_Service {
 	}
 	
 	public Emp empLogin(Emp emp) {
-		if(emp.getEmpnum()==0) emp.setEmpnum(0);
+		if(emp.getEmpnum()==null) emp.setEmpnum("");
 		if(emp.getPass()==null) emp.setPass("");
 		return dao.empLogin(emp);
 	}

@@ -56,7 +56,7 @@ public class B2_Service {
 	
 	// 매장 정보 등록
 	public String insertStore(Store ins) {
-		if(ins.getEmpNum()==0) ins.setEmpNum(0);
+		if(ins.getEmpNum()==null) ins.setEmpNum("");
 		
 		dao.insertStore(ins);
 		

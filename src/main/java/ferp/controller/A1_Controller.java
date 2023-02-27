@@ -40,7 +40,7 @@ public class A1_Controller {
 	// http://localhost:6080/ferp/empLogin.do
 	@RequestMapping("/empLogin.do")
 	public String pg4103empLogin(Emp emp, Model d, HttpSession session){
-		if(emp.getEmpnum()==0) {
+		if(emp.getEmpnum()==null) {
 			d.addAttribute("loginState", "로그인페이지");
 			return "WEB-INF\\headquarter\\pg4103_hqLogin.jsp";
 		}else if(service.empLogin(emp)==null){

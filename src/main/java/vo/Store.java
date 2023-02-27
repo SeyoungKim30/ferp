@@ -2,7 +2,7 @@ package vo;
 
 public class Store {
 	private String frRegiNum;
-	private int empNum;
+	private String empNum;
 	private String frName;
 	private String frOpen;
 	private String frOperTime;
@@ -15,7 +15,7 @@ public class Store {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Store(String frRegiNum, int empNum, String frName, String frOpen, String frOperTime, String frClosedDte,
+	public Store(String frRegiNum, String empNum, String frName, String frOpen, String frOperTime, String frClosedDte,
 			String frRepName, String frTel, String frAddress, String frPass) {
 		super();
 		this.frRegiNum = frRegiNum;
@@ -35,10 +35,10 @@ public class Store {
 	public void setFrRegiNum(String frRegiNum) {
 		this.frRegiNum = frRegiNum;
 	}
-	public int getEmpNum() {
+	public String getEmpNum() {
 		return empNum;
 	}
-	public void setEmpNum(int empNum) {
+	public void setEmpNum(String empNum) {
 		this.empNum = empNum;
 	}
 	public String getFrName() {

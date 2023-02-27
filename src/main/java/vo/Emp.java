@@ -1,7 +1,7 @@
 package vo;
 
 public class Emp {
-	private int empnum;
+	private String empnum;
 	private String pass;
 	private String ename;
 	private String dname;
@@ -11,11 +11,11 @@ public class Emp {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getEmpnum() {
+	public String getEmpnum() {
 		return empnum;
 	}
 
-	public void setEmpnum(int empnum) {
+	public void setEmpnum(String empnum) {
 		this.empnum = empnum;
 	}
 
