@@ -46,9 +46,9 @@
                     <li>
                         <a href="#">재무 관리</a>
                         <ul>
-                            <li><a href="${path }/selectAccount.do">- 계정 과목 관리</a></li>
-                            <li><a href="${path }/ACstatement.do">- 전표 입력</a></li>
-                            <li><a href="${path }/statementList.do">- 거래 내역 조회</a></li>
+                            <li id="7201"><a href="${path }/selectAccount.do">- 계정 과목 관리</a></li>
+                            <li id="7210"><a href="${path }/ACstatement.do">- 전표 입력</a></li>
+                            <li id="7204"><a href="${path }/statementList.do">- 거래 내역 조회</a></li>
                             <li><a href="#">- 손익 계산서 조회</a></li>
                         </ul>
                     </li>

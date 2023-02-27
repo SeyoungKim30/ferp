@@ -18,6 +18,9 @@
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 
 <script>
+localStorage.setItem("pageIdx","7210")
+localStorage.setItem("eqIdx","2")
+
 $(document).ready(function(){
 	var accountList=[];
 	

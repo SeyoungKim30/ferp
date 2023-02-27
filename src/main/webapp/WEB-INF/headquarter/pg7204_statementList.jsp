@@ -16,7 +16,10 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
-
+<script type="text/javascript">
+	localStorage.setItem("pageIdx","7204")
+	localStorage.setItem("eqIdx","2")
+</script>
 </head>
 
 <body class="container">

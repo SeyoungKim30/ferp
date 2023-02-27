@@ -14,6 +14,10 @@
 <style>
 .search{background-color:lightgray;}
 </style>
+<script type="text/javascript">
+	localStorage.setItem("pageIdx","7201")
+	localStorage.setItem("eqIdx","2")
+</script>
 </head>
 
 <body class="container">
