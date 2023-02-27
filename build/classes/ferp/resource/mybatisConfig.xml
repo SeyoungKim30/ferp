@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="stock" type="vo.Stock"/>
+		<typeAlias alias="account" type="vo.Account"/>
+		<typeAlias alias="product" type="vo.Product"/>
+		<typeAlias alias="store" type="vo.Store"/>
+		<typeAlias alias="acstmt" type="vo.ACStatement"/>
+		<typeAlias alias="storeclerk" type="vo.StoreClerk"/>
+		<typeAlias alias="storeclerksch" type="vo.SCPage"/>
+		<typeAlias alias="orders" type="vo.Orders"/>
+
+		<typeAlias alias="clerkschedule" type="vo.ClerkSchedule"/>
+		<typeAlias alias="emp" type="vo.Emp"/>
+		<typeAlias alias="menu" type="vo.Menu"/>
+		<typeAlias alias="productProdOrder" type="vo.ProductProdOrder"/>
+		<typeAlias alias="notice" type="vo.Notice"/>
+		<typeAlias alias="noticeSch" type="vo.NoticeSch"/>
+		<typeAlias alias="hoemp" type="vo.HOemp"/>
+	</typeAliases>
+			
+<mappers>
+		<mapper resource="ferp/resource/mappers/A1_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/A2_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/B1_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/C1_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/C2_Mapper.xml"/>
+		<mapper resource="ferp/resource/mappers/B2_Mapper.xml"/>
+</mappers>
+
+	
+</configuration>

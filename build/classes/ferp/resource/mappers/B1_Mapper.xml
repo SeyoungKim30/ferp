@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="ferp.dao.B1_Dao">
+	
+	<!-- 본사:지난달전체매장매출총액 -->
+	<select id="lastmonthAllSales" resultType="int">
+		SELECT sum(payprice) allfrsales
+		FROM orders
+		WHERE state='complete'
+		AND SUBSTR(orderdate, 1, 5)=to_char(add_months(SYSDATE, -1),'YY/MM')
+	</select>
+	
+	<!-- 본사:매장별매출 전체조회 -->
+	<select id="SalesByStoreList" parameterType="orders" resultType="orders">
+		SELECT frname, s.frreginum, frtel, frrepname, ename, frsales
+		FROM store s, emp e, (  SELECT frreginum, sum(payprice) frsales
+								FROM orders
+								WHERE state='complete'
+								AND SUBSTR(orderdate, 1, 5) BETWEEN #{frSchOrderdt} AND #{toSchOrderdt}
+								GROUP BY frreginum ) ord
+		WHERE ord.frreginum=s.frreginum AND s.empnum=e.empnum
+	</select>
+
+</mapper>

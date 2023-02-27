@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ferp.dao.A2_Dao">
+	<!-- 직원정보조회/등록/수정/삭제 -->
+	<select id="storeClerkList" parameterType="storeclerksch" resultType="storeclerk">
+		select *
+			from (
+				select rownum cnt, s.*
+				from storeclerk s
+				where 1=1
+				and clerkname LIKE '%'||#{clerkName}||'%'
+				)
+			where cnt between #{start} and #{end}
+	</select>
+	<insert id="insStoreclerk" parameterType="storeclerk">
+		INSERT INTO storeclerk 
+		values(clerkNum_seq.nextval,#{frRegiNum},#{clerkName},#{gender},#{residentNum},#{phoneNum},#{address},#{hourlyPay})
+	</insert>
+	<select id="totNum" parameterType="storeclerksch" resultType="int">
+		SELECT COUNT(*)
+		FROM storeclerk
+		WHERE 1=1
+		AND clerkname LIKE '%'||#{clerkName}||'%'
+	</select>
+	<update id="uptStoreClerk" parameterType="storeclerk">
+		UPDATE storeclerk
+			SET clerkName = #{clerkName},
+				gender = #{gender},
+				residentNum = #{residentNum},
+				phoneNum = #{phoneNum},
+				address = #{address},
+				hourlyPay = #{hourlyPay}
+			WHERE clerkNum = #{clerkNum}
+	</update>
+	<delete id="delStoreClerk" parameterType="int">
+		DELETE FROM storeclerk WHERE clerknum = #{clerkNum}
+	</delete>
+	<!-- 직원 급여액 조회 -->
+	<select id="storeClerkPayList" parameterType="storeclerksch" resultType="storeclerk">
+		select *
+			from (
+				select rownum cnt, s.*
+				from storeclerk s
+				where 1=1
+				and clerkname LIKE '%'||#{clerkName}||'%'
+				)
+			where cnt between #{start} and #{end}
+	</select>
+</mapper>
