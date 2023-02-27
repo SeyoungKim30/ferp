@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="now" value="<%= new java.util.Date() %>" />
 <fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,7 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		<%--$("[name=stockDate]").val("${sch.stockDate}");--%>
+		$("[name=stockDate]").val("${sch.stockDate}");
 		$("[name=productNum]").val("${sch.productNum}");
 		$("[name=category]").val("${sch.category}");
 		$("[name=productName]").val("${sch.productName}");
@@ -38,7 +39,7 @@
 		<div class="contents">
 			<h2>매장 재고 조회</h2>
 			<form method="post">
-				<!-- <input class="inputbox" name="stockDate" value="${sch.stockDate}" placeholder="입고일자 입력"/> -->
+				<input class="inputbox" type="date" name="stockDate" value="<fmt:formatDate value="${now}" pattern = "yyyy-MM-dd"/>"/>
 				<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
 				<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
 				<input class="inputbox" name="productName" value="${sch.productName}" placeholder="자재명 입력"/>
@@ -60,7 +61,7 @@
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
 			    	    <tr ondblclick="goDetail(${prod.productNum})">
-			    	    	<td><fmt:formatDate value="${prod.stockDate}"/></td>
+			    	    	<td>${prod.stockDate}</td>
 			    	    	<td>${prod.productNum}</td><td>${prod.category}</td>
 			    	    	<td>${prod.productName}</td><td>${prod.opposite}</td>
 			    	    	<td>${prod.price}</td><td>${prod.amount}</td>

@@ -13,10 +13,10 @@ import vo.ProductProdOrder;
 public class C2_Service {
 	
 	@Autowired(required=false)
-	C2_Dao dao;
+	private C2_Dao dao;
 	
 	public List<ProductProdOrder> r8101ProductList(ProductProdOrder sch){
-		//if(sch.getStockDate()==null) sch.setStockDate(null);
+		if(sch.getStockDate()==null) sch.setStockDate("");
 		if(sch.getProductNum()==null) sch.setProductNum("");
 		if(sch.getCategory()==null) sch.setCategory("");
 		if(sch.getProductName()==null) sch.setProductName("");
