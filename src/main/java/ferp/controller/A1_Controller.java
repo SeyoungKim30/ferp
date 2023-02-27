@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ferp.service.A1_Service;
 import vo.ClerkSchedule;
 import vo.Emp;
+import vo.Menu;
 import vo.Store;
 
 
@@ -21,7 +22,7 @@ public class A1_Controller {
 	
 	// 가맹점 로그인
 	// http://localhost:6080/ferp/storeLogin.do
-	// http://localhost:6080/ferp/storeClerkList.do
+	// http://localhost:6080/ferp/storeLogin.do
 	@RequestMapping("/storeLogin.do")
 	public String pg1000storeLogin(Store st, Model d, HttpSession session){
 		if(st.getFrRegiNum()==null) {
@@ -64,7 +65,8 @@ public class A1_Controller {
 	}
 	
 	
-	
+	// http://localhost:6080/ferp/kiosqueMainForCustomer.do
+
 	@RequestMapping("/kiosqueMainForCustomer.do")
 	public String pg2100kiosqueMain() {
 		return "WEB-INF\\customer\\pg2100_KiosqueMain.jsp";
