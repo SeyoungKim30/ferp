@@ -9,6 +9,8 @@ import vo.NoticeSch;
 import vo.Store;
 
 public interface B2_Dao {
+	// 메뉴 조회
+	public List<Menu> searchMenu(Menu sch);
 	// 메뉴 등록
 	public void insertMenu(Menu ins);
 	

@@ -35,6 +35,14 @@ public class B2_Controller {
 		return "WEB-INF\\view\\mainpage.jsp";
 	}
 	
+	// 메뉴 조회 controller
+	// http://localhost:7080/ferp/menuList.do
+	@RequestMapping("/menuList.do")
+	public String menuList(@ModelAttribute("sch") Menu sch, Model d) {
+		d.addAttribute("menu", service.searchMenu(sch));
+		
+		return "WEB-INF\\view\\menu_list.jsp";
+	}
 	// 메뉴 등록 controller
 	// http://localhost:7080/ferp/menuInsert.do
 	@GetMapping("/menuInsert.do")

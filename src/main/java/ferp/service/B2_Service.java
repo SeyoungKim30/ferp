@@ -25,6 +25,13 @@ public class B2_Service {
 	@Value("${upload}")
 	private String upload;
 	
+	// 메뉴 조회
+	public List<Menu> searchMenu(Menu sch){
+		if(sch.getMenuName()==null) sch.setMenuName("");
+		
+		return dao.searchMenu(sch);
+	}
+	
 	// 메뉴등록 시 사진 업로드
 	public String upload(MultipartFile multipartfile) {
 		String img = multipartfile.getOriginalFilename();

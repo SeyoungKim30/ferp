@@ -4,6 +4,12 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 
 <mapper namespace="ferp.dao.B2_Dao">
+	<select id="searchMenu" resultType="menu" parameterType="menu">
+		SELECT *
+		FROM menu
+		WHERE menuname LIKE '%'||#{menuName}||'%'
+	</select>
+
 	<insert id="insertMenu" parameterType="menu">
 		INSERT INTO menu VALUES('M'||menu_seq.nextval, #{menuName}, #{price}, #{info}, #{img}, #{necessary}, #{category})
 	</insert>
