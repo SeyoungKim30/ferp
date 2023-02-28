@@ -12,9 +12,12 @@ import vo.Orders;
 public class B1_Service {
 
 	@Autowired(required=false)
-	B1_Dao dao;
+	private B1_Dao dao;
 	
-	
+	//본사:지난달전체매장매출총액
+	public int lastmonthAllSales() {
+		return dao.lastmonthAllSales();
+	}
 	//본사:매장별매출 전체조회
 	public List<Orders> SalesByStoreList(Orders sbsl){
 		return dao.SalesByStoreList(sbsl);

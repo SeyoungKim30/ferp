@@ -2,28 +2,34 @@
 --매장매입은 발주
 
 --본사:저번달 전체매장의 총 매출조회 
-SELECT sum(payprice) allfrsales
+SELECT nvl(sum(payprice),0) allfrsales
 FROM orders
 WHERE state='완료'
-AND SUBSTR(orderdate, 1, 5)=to_char(add_months(SYSDATE, -1),'YY/MM');
---orderdate가 date라면
---AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM');
+AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM');
+--AND SUBSTR(orderdate, 1, 5)=to_char(add_months(SYSDATE, -1),'YY/MM');
 
 
 --본사:전체매장의 개별매출조회(사용자지정 기간-月기준)
-SELECT frname, s.frreginum, frtel, frrepname, ename, frsales
+SELECT frname, s.frreginum, frtel, frrepname, ename, nvl(frsales, 0) frsales
 FROM store s, emp e, (  SELECT frreginum, sum(payprice) frsales
 						FROM orders
-						WHERE state='complete'
-						AND SUBSTR(orderdate, 1, 5) BETWEEN '23/01' AND '23/02'
+						WHERE state='완료'
+						AND to_char(orderdate,'YYYY/MM') BETWEEN '2023/01' AND '2023/02'
 						GROUP BY frreginum ) ord
-WHERE ord.frreginum=s.frreginum AND s.empnum=e.empnum;
+WHERE ord.frreginum(+)=s.frreginum AND s.empnum=e.empnum
+AND frname LIKE '%'||''||'%'
+AND frrepname LIKE '%'||''||'%'
+AND ename LIKE '%'||''||'%'
+ORDER BY frname;
 
+
+
+
+SELECT * FROM store;
+SELECT * FROM emp;
 
 
 SELECT * FROM orders; 
-SELECT * FROM store; 
-SELECT * FROM emp; 
 SELECT * FROM PRODORDER;
 --where SUBSTR(orderdate, 1, 5) BETWEEN '23/01' AND '23/02'; <<절대 BETWEEN '2023/01'형태XXXXX
 --AND orderdate BETWEEN to_Date('화면에서 받아오는 시작날짜','YYYY/MM') AND to_Date('화면에서 받아오는 끝날짜','YYYY/MM')
@@ -33,44 +39,47 @@ SELECT * FROM PRODORDER;
 
 
  
-SELECT * FROM store; --frreginum 123456789   empnum 3917, 
---INSERT INTO store VALUES('123456790', 3917,'투썸 부산광안리점', '08:00', '14', '22:00', '김사희', '051-123-4754', '부산 광안리구 갈매기로 123', 'busan01' );
---INSERT INTO store VALUES('123456791', 970525, '투썸 광화문점', '07:00', '14', '21:00', '이종혁', '02-264-6537', '서울 종로구 광화로 45', 'gwanghwamun');
-SELECT * FROM emp;   --empnum 970525   empnum 3917 
---INSERT INTO emp VALUES (3917, 'a1234', '김아무', '관리팀');
-SELECT * FROM orders;--frreginum 123456789   123456790   123456791
-
---123456789 가게
-INSERT INTO orders VALUES ('a10000', to_Date('2023/01/02','YY/MM/DD'),'1000',123456789,'complete',1,4100,'' );
-INSERT INTO orders VALUES ('a10001', to_Date('2023/01/02','YY/MM/DD'),'1000',123456789,'complete',1,4100,'' );
-INSERT INTO orders VALUES ('a10002', to_Date('2023/01/05','YY/MM/DD'),'1000',123456789,'complete',2,8200,'' );
-INSERT INTO orders VALUES ('a10003', to_Date('2023/01/05','YY/MM/DD'),'1000',123456789,'cancel',2,8200,'' );
-INSERT INTO orders VALUES ('a10004', to_Date('2023/01/06','YY/MM/DD'),'1000',123456789,'complete',2,8200,'' );
-INSERT INTO orders VALUES ('a10005', to_Date('2023/01/08','YY/MM/DD'),'1001',123456789,'complete',1,5800,'' );
---123456790
-INSERT INTO orders VALUES ('b10000', to_Date('2023/01/02','YY/MM/DD'),'1000',123456790,'complete',1,4100,'' );
-INSERT INTO orders VALUES ('b10001', to_Date('2023/01/02','YY/MM/DD'),'1000',123456790,'cancel',1,4100,'' );
-INSERT INTO orders VALUES ('b10002', to_Date('2023/01/07','YY/MM/DD'),'1000',123456790,'complete',2,8200,'' );
-INSERT INTO orders VALUES ('b10003', to_Date('2023/01/08','YY/MM/DD'),'1000',123456790,'complete',2,8200,'' );
-INSERT INTO orders VALUES ('b10004', to_Date('2023/01/09','YY/MM/DD'),'1000',123456790,'complete',2,8200,'' );
-INSERT INTO orders VALUES ('b10005', to_Date('2023/01/09','YY/MM/DD'),'1001',123456790,'cancel',1,5800,'' );
---123456791 가게
-INSERT INTO orders VALUES ('c10000', to_Date('2023/01/01','YY/MM/DD'),'1000',123456791,'cancel',1,4100,'' );
-INSERT INTO orders VALUES ('c10001', to_Date('2023/01/01','YY/MM/DD'),'1000',123456791,'complete',1,4100,'' );
-INSERT INTO orders VALUES ('c10002', to_Date('2023/01/12','YY/MM/DD'),'1000',123456791,'cancel',2,8200,'' );
-INSERT INTO orders VALUES ('c10003', to_Date('2023/01/13','YY/MM/DD'),'1000',123456791,'complete',2,8200,'');
-INSERT INTO orders VALUES ('c10004', to_Date('2023/01/13','YY/MM/DD'),'1000',123456791,'cancel',2,8200,'' );
-INSERT INTO orders VALUES ('c10005', to_Date('2023/01/17','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
-INSERT INTO orders VALUES ('c10006', to_Date('2023/01/19','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
-INSERT INTO orders VALUES ('c10007', to_Date('2023/03/01','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
-
-INSERT INTO orders VALUES ('c10008', to_Date('2023/02/03','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
-INSERT INTO orders VALUES ('c10009', to_Date('2023/02/11','YY/MM/DD'),'1001',123456791,'complete',1,5800,'' );
-
-
-
-SELECT * FROM orders;
-
-
-
+SELECT * FROM store; -- frreginum 1234567891   1234567892
+-- to_date('08:00','HH24:MI')
+--INSERT INTO store VALUES('123456791', '22051002','투썸 광화문점', to_date('2017-01-15','YYYY-MM-DD'), '07:00-23:00','월', '김사희', '02-724-2368', '서울 종로구 새문안로85', 'gwanghwa' );
+--INSERT INTO store VALUES('123456792', '22051002','투썸 홍대입구역점', to_date('2010-03-05','YYYY-MM-DD'), '07:00-00:00','화', '이종혁', '02-3142-7955', '서울 마포구 월드컵북록2길57', 'hongdae');
+SELECT * FROM emp; --epnum 22051002
+--INSERT INTO emp VALUES ('22051002', 'a1234', '이성미', '관리부');
 SELECT * FROM menu;
+SELECT * FROM orders;
+--ordernum orderdate menunum frreginum state amount payprice orderoption 
+/*
+--2023년1월 1234567891
+INSERT INTO orders VALUES ('23010412345678911001', to_Date('2023/01/04','YY/MM/DD'),'1021','1234567891','완료',1,4600, '');
+INSERT INTO orders VALUES ('23010412345678911002', to_Date('2023/01/04','YY/MM/DD'),'1021','1234567891','완료',2,9200, '');
+INSERT INTO orders VALUES ('23010412345678911003', to_Date('2023/01/04','YY/MM/DD'),'1022','1234567891','완료',1,5900, '');
+INSERT INTO orders VALUES ('23010412345678911004', to_Date('2023/01/04','YY/MM/DD'),'1022','1234567891','완료',2,11800, '');
+INSERT INTO orders VALUES ('23010512345678911001', to_Date('2023/01/05','YY/MM/DD'),'1022','1234567891','취소',2,11800, '');
+INSERT INTO orders VALUES ('23010512345678911002', to_Date('2023/01/05','YY/MM/DD'),'1022','1234567891','완료',2,11800, '');
+INSERT INTO orders VALUES ('23011212345678911001', to_Date('2023/01/12','YY/MM/DD'),'1021','1234567891','완료',2,9200, '');
+INSERT INTO orders VALUES ('23011212345678911002', to_Date('2023/01/12','YY/MM/DD'),'1022','1234567891','완료',2,11800, '');
+
+INSERT INTO orders VALUES ('23020412345678911001', to_Date('2022/02/04','YY/MM/DD'),'1021','1234567891','완료',1,4600, '');
+INSERT INTO orders VALUES ('23020412345678911002', to_Date('2023/02/04','YY/MM/DD'),'1021','1234567891','완료',2,9200, '');
+INSERT INTO orders VALUES ('23020412345678911003', to_Date('2023/02/04','YY/MM/DD'),'1022','1234567891','완료',1,5900, '');
+INSERT INTO orders VALUES ('23020412345678911004', to_Date('2023/02/04','YY/MM/DD'),'1022','1234567891','완료',2,11800, '');
+
+--2023년1월 1234567892
+INSERT INTO orders VALUES ('23010412345678921001', to_Date('2023/01/04','YY/MM/DD'),'1021','1234567892','완료',1,4600, '');
+INSERT INTO orders VALUES ('23010412345678921002', to_Date('2023/01/04','YY/MM/DD'),'1021','1234567892','완료',2,9200, '');
+INSERT INTO orders VALUES ('23010412345678921003', to_Date('2023/01/04','YY/MM/DD'),'1022','1234567892','취소',1,5900, '');
+INSERT INTO orders VALUES ('23010412345678921004', to_Date('2023/01/04','YY/MM/DD'),'1022','1234567892','완료',2,11800, '');
+INSERT INTO orders VALUES ('23010512345678921001', to_Date('2023/01/05','YY/MM/DD'),'1022','1234567892','취소',2,11800, '');
+INSERT INTO orders VALUES ('23010512345678921002', to_Date('2023/01/05','YY/MM/DD'),'1022','1234567892','완료',2,11800, '');
+INSERT INTO orders VALUES ('23011212345678921001', to_Date('2023/01/12','YY/MM/DD'),'1021','1234567892','완료',2,9200, '');
+INSERT INTO orders VALUES ('23011212345678921002', to_Date('2023/01/12','YY/MM/DD'),'1022','1234567892','완료',2,11800, '');
+INSERT INTO orders VALUES ('23011212345678921003', to_Date('2023/01/12','YY/MM/DD'),'1022','1234567892','완료',2,11800, '');
+
+INSERT INTO orders VALUES ('23020412345678921001', to_Date('2023/02/04','YY/MM/DD'),'1021','1234567891','완료',1,4600, '');
+INSERT INTO orders VALUES ('23020412345678921002', to_Date('2023/02/04','YY/MM/DD'),'1021','1234567891','완료',2,9200, '');
+INSERT INTO orders VALUES ('23020412345678921003', to_Date('2023/02/04','YY/MM/DD'),'1022','1234567891','취소',1,5900, '');
+INSERT INTO orders VALUES ('23020412345678921004', to_Date('2023/02/04','YY/MM/DD'),'1022','1234567891','완료',2,11800, '');
+*/
+
+
+
