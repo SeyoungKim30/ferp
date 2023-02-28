@@ -26,10 +26,10 @@
 		AND frname LIKE '%'||#{frname}||'%'
 		</if>
 		<if test="frrepname!=null and frrepname.equals('')">
-		AND frrepname LIKE '%'||''||'%'
+		AND frrepname LIKE '%'||#{frrepname}||'%'
 		</if>
 		<if test="ename!=null and ename.equals('')">
-		AND ename LIKE '%'||''||'%'
+		AND ename LIKE '%'||#{ename}||'%'
 		</if>
 		ORDER BY frname
 	</select>

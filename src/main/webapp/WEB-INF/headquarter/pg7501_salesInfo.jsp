@@ -253,7 +253,18 @@
 	}
 	
 </style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$(".infoSch").keyup(function(){
+			if(event.keyCode==13){
+				search()
+			}
+		})
+		
+	}
 
+</script>
 
 <head>
 
@@ -268,12 +279,14 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		
-				<h2></h2>
+				<h2>매장 정보 조회</h2>
+				<hr>
+				
 				<!-- 전체매장총매출출력칸 시작-->
 				<div class="hdq_totalSalesPrt">
 					<div>
 					<h2>투썸플레이스 지난 달 총 매출&nbsp;&nbsp;&nbsp;&nbsp;
-						<span>9@@@@@@00</span>&nbsp;원
+						<span>${addAllsales}</span>&nbsp;원
 					</h2>
 					</div>
 				</div>
@@ -282,10 +295,10 @@
 				
 				<!-- 검색 시작 -->
 				<div class="hdq_search">
-					<form>
-						<input id="storeSch" name=""  type="text" placeholder=" 매장명 입력"/>
-						<input id="ownerSch" name=""  type="text" placeholder=" 점주명 입력"/>
-						<input id="hdqmngSch" name=""  type="text" placeholder=" 담당직원 입력"/>
+					<form method="post">
+						<input class="infoSch" name="frname" value="${sch.frname}"  type="text" placeholder=" 매장명 입력"/>
+						<input class="infoSch" name="frrepname" value="${sch.frrepname}"  type="text" placeholder=" 점주명 입력"/>
+						<input class="infoSch" name="ename"  value="${sch.ename}" type="text" placeholder=" 담당직원 입력"/>
 						<button class="frsalesSchBtn" type="submit">검색</button>
 					</form>
 				</div>
@@ -308,7 +321,7 @@
 							<input id="strperiod" name="strperiod" type="month"/>
 							~
 							<input id="endperiod" name="endperiod" type="month"/>
-					   <!-- <button value="hidden"></button> -->
+					   		<button value="hidden"></button> 
 							
 						</form>
 					</div>
