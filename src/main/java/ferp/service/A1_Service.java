@@ -35,8 +35,23 @@ public class A1_Service {
 	}
 	
 	//메뉴 불러오기
-	public List<Menu> getMenuList(String FrRegiNum, String category){
-		return dao.getMenuList(FrRegiNum, category);
+	public List<Menu> getMenuList(String FrRegiNum){
+		return dao.getMenuList(FrRegiNum);
+	}
+	public List<Menu> getMenuListCoffee(String FrRegiNum){
+		return dao.getMenuListCoffee(FrRegiNum);
+	}
+	public List<Menu> getMenuListSmoothie(String FrRegiNum){
+		return dao.getMenuListSmoothie(FrRegiNum);
+	}
+	public List<Menu> getMenuListEtc(String FrRegiNum){
+		return dao.getMenuListEtc(FrRegiNum);
+	}
+	public List<Menu> getMenuListCake(String FrRegiNum){
+		return dao.getMenuListCake(FrRegiNum);
+	}
+	public List<Menu> getMenuListSandwich(String FrRegiNum){
+		return dao.getMenuListSandwich(FrRegiNum);
 	}
 	
 	// 출근 등록

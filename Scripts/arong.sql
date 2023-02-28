@@ -1,6 +1,8 @@
 SELECT * FROM PRODUCT;
+DELETE FROM PRODUCT WHERE PRODUCTNUM ='11';
 SELECT * FROM STOCK;
 SELECT * FROM PRODORDER;
+INSERT INTO PRODORDER VALUES ('111','11','1234567890','11',sysdate,'11','11','11');
 SELECT * FROM STORE;
 -- 본사 재고 조회
 SELECT p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAME ,p.OPPOSITE ,p.PRICE ,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK 
@@ -13,7 +15,8 @@ AND opposite LIKE '%'||''||'%'
 AND orderState LIKE '%'||''||'%';
 SELECT DISTINCT orderState FROM PRODORDER;
 -- 본사 재고 등록
-INSERT INTO PRODUCT VALUES ('productNum','category','productName','opposite','price','img','remark');
+INSERT INTO PRODUCT VALUES (#{productNum}, #{category}, 
+#{productName}, #{opposite}, #{price}, #{img}, #{remark});
 -- 본사 재고 수정
 UPDATE PRODUCT
 SET productNum = #{productNum},
@@ -48,4 +51,3 @@ SELECT TO_CHAR(s.stockDate,'YYYY-MM-DD') stockDate ,p.PRODUCTNUM ,p.CATEGORY ,p.
 		WHERE p.PRODUCTNUM = s.PRODUCTNUM 
 		AND p.PRODUCTNUM = p2.PRODUCTNUM 
 		AND stockDate = to_date('2023-02-11','YYYY-MM-DD');
-		

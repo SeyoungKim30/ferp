@@ -9,6 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>본사 재고 조회</title>
+<!-- 제이쿼리 CDN -->
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
@@ -20,6 +23,10 @@
 	margin-top: 10px;
 }
 </style>
+<script type="text/javascript">
+	localStorage.setItem("pageIdx","8201")
+	localStorage.setItem("eqIdx","3")
+</script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("[name=productNum]").val("${sch.productNum}");
@@ -33,13 +40,10 @@
 		})
 		--%>
 	});
-	<%--
-	function goDetail(productNum){
-		location.href="${path}/hproductInfo.do?productNum="+productNum 
-	}
-	
-	--%>
-	
+// 상세페이지로 이동
+function goDetail(noticeNum) {
+	  location.href="${path}/hproductInfo.do?productNum="+productNum;
+}
 </script>
 </head>
 <body class="container">
@@ -47,8 +51,9 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-			<h2>본사 재고 조회</h2>
-			<form method="post">
+		<h2>본사 재고 조회</h2><br><hr><br>
+			<div class="toolbox">
+			<form class="toolbar" method="post">
 				<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
 				<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
 				<input class="inputbox" name="productName" value="${sch.productName}" placeholder="자재명 입력"/>
@@ -60,10 +65,10 @@
 				    	</c:forEach>
 				    </select>
 				<button class="btn-secondary" type="submit">검색</button>
-			    &nbsp;
 			    <button class="btn-primary" id="insBtn" type="button" 
 			    	onclick="location.href='${path}/hproductInsFrm.do'">자재등록</button>
 			</form>
+			</div>
 			<div class="searchtab">
 				<table>
 				<thead>
@@ -72,7 +77,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
-			    	    <tr ondblclick="goDetail(${prod.productNum})">
+			    	    <tr ondblclick="goDetail('${prod.productNum}')">
 			    	    	<td>${prod.productNum}</td><td>${prod.category}</td>
 			    	    	<td>${prod.productName}</td><td>${prod.opposite}</td>
 			    	    	<td>${prod.price}</td><td>${prod.amount}</td>
