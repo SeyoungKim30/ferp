@@ -1,7 +1,5 @@
 package vo;
 
-import java.util.Date;
-
 public class ProductProdOrder {
 	private String productNum;
 	private String category;

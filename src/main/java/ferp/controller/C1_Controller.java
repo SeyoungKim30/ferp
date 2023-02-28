@@ -1,10 +1,9 @@
 package ferp.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -101,5 +100,12 @@ public class C1_Controller {
 	@PostMapping("productOrderList.do")
 	public String r9201selectProdOrder(Model model) {
 		return "WEB-INF\\headquarter\\pg9201_prodOrderList.jsp";
+	}
+	
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@GetMapping("selectActiveStoreJson.do")
+	public String selectActiveStore(Model model) {
+		model.addAttribute("storeList",service.selectActiveStore());
+		return "pageJsonReport";
 	}
 }

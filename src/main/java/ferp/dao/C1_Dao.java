@@ -4,6 +4,7 @@ import java.util.List;
 
 import vo.ACStatement;
 import vo.Account;
+import vo.Store;
 
 public interface C1_Dao {
 	
@@ -18,4 +19,9 @@ public interface C1_Dao {
 	//건별(모든내용)
 	public List<ACStatement> r7204selectStatementList(ACStatement stmt);
 	public List<ACStatement> r7204selectStatementListByDate(ACStatement stmt);
+	
+	
+	
+	//모든 store 리스트
+	public List<Store> selectActiveStore();
 }

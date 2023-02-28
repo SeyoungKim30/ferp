@@ -70,5 +70,8 @@
 	GROUP BY STMTDATE
 	</select>
 	
+	<select id="selectActiveStore" resultType="store">
+	select * from store where frPass IS NOT NULL 
+	</select>
 
 </mapper>

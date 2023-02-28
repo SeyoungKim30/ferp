@@ -9,4 +9,61 @@ public class ProdOrder {
 	private int amount;
 	private String paymentState;
 	private String orderState;
+	
+	
+	
+	public ProdOrder() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public String getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+	public String getProductNum() {
+		return productNum;
+	}
+	public void setProductNum(String productNum) {
+		this.productNum = productNum;
+	}
+	public String getDemander() {
+		return demander;
+	}
+	public void setDemander(String demander) {
+		this.demander = demander;
+	}
+	public String getSupplier() {
+		return supplier;
+	}
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	public String getPaymentState() {
+		return paymentState;
+	}
+	public void setPaymentState(String paymentState) {
+		this.paymentState = paymentState;
+	}
+	public String getOrderState() {
+		return orderState;
+	}
+	public void setOrderState(String orderState) {
+		this.orderState = orderState;
+	}
+	
+	
 }
