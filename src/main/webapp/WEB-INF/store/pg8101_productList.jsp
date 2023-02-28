@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>매장 재고 조회</title>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
+<link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
 .inputbox{
 	width: 200px;
