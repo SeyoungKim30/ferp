@@ -558,7 +558,6 @@ modalClose.on('click', ()=>{
 });
 
 // tab
-
 var tabList = $('.tab_wrap > .tab_list');
 var tabCon = $('.tab_content_wrap');
 tabList.click(function(){

@@ -24,7 +24,7 @@ public class B1_Controller {
 		return service.lastmonthAllSales();
 	}
 	// 본사:매장별매출 전체조회
-	@GetMapping("salesInfo.do")
+	@GetMapping("salesInfo2.do")
 	public String r7503SalesInfo(@ModelAttribute("sch") Orders ord, Model d){
 		d.addAttribute("sbslist", service.SalesByStoreList(ord));
 		return "WEB-INF\\headquarter\\pg7501_salesInfo.jsp";
