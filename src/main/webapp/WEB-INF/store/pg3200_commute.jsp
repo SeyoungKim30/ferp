@@ -65,6 +65,10 @@
 	    font-size: 20px;
 	    font-family: inherit;
     }
+    
+    #commuteFm{
+    	padding: 50px;
+    }
 	
 </style>
 <script type="text/javascript">
@@ -83,16 +87,16 @@
         </header>
         <div class="main_wrapper">
         <form method="post" id="commuteFm">
-        	<div class="btns">
-        		<div class="btn start_btn">출근</div>
-        		<div class="btn end_btn">퇴근</div>
-        	</div>
         		<select name="clerkNum">
         		<option value="" selected>직원명 선택</option>
         		<c:forEach var="mc" items="${myClerk}">
         			<option value="${mc.clerkNum}">${mc.clerkName}</option>
         		</c:forEach>
         		</select>
+        	<div class="btns">
+        		<div class="btn start_btn">출근</div>
+        		<div class="btn end_btn">퇴근</div>
+        	</div>
         </form>
 		</div>
     </div>
