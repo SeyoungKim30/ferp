@@ -1,5 +1,7 @@
 package vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Product {
 	private String productNum;
 	private String category;
@@ -8,6 +10,7 @@ public class Product {
 	private int price;
 	private String img;
 	private String remark;
+	private MultipartFile multipartfile;
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -64,6 +67,12 @@ public class Product {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public MultipartFile getMultipartfile() {
+		return multipartfile;
+	}
+	public void setMultipartfile(MultipartFile multipartfile) {
+		this.multipartfile = multipartfile;
 	}
 	
 }
