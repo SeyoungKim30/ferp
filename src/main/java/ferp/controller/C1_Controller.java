@@ -91,8 +91,7 @@ public class C1_Controller {
 		model.addAttribute("stmtList",service.r7204selectStatementList(aCStatement,howtosearch));
 		return "WEB-INF\\headquarter\\pg7204_statementList.jsp";	
 	}
-	
-<<<<<<< HEAD
+
 	// http://localhost:6080/ferp/productOrderList.do
 	@GetMapping("productOrderList.do")
 	public String r9201() {
@@ -103,13 +102,5 @@ public class C1_Controller {
 	public String r9201selectProdOrder(Model model) {
 		return "WEB-INF\\headquarter\\pg9201_prodOrderList.jsp";
 	}
-=======
-	//발주 조회
-	// http://localhost:6080/ferp/productOrderList.do
-	@GetMapping("productOrderList.do")
-	public String r9201() {
-		return "WEB-INF\\headquarter\\pg9201_productOrderList.jsp";
-	}
-	
->>>>>>> branch 'seyoung' of https://github.com/SeyoungKim30/ferp.git
+
 }
