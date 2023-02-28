@@ -68,7 +68,14 @@ public class A1_Controller {
 	// http://localhost:6080/ferp/kiosqueMainForCustomer.do
 
 	@RequestMapping("/kiosqueMainForCustomer.do")
-	public String pg2100kiosqueMain() {
+	public String pg2100kiosqueMain(Model d, HttpSession session) {
+		Store st = (Store)session.getAttribute("login");
+		d.addAttribute("Allmenu", service.getMenuList(st.getFrRegiNum()));
+		d.addAttribute("coffeeMenu", service.getMenuListCoffee(st.getFrRegiNum()));
+		d.addAttribute("smoMenu", service.getMenuListSmoothie(st.getFrRegiNum()));
+		d.addAttribute("etcMenu", service.getMenuListEtc(st.getFrRegiNum()));
+		d.addAttribute("sandMenu", service.getMenuListSandwich(st.getFrRegiNum()));
+		d.addAttribute("cakeMenu", service.getMenuListCake(st.getFrRegiNum()));
 		return "WEB-INF\\customer\\pg2100_KiosqueMain.jsp";
 	}
 	

@@ -84,6 +84,12 @@
 			background-color: #e0e0e0;
 			margin-bottom: 20px;
 		}
+		
+		.tab_content_wrap .tab_con .con_img img{
+			width: 100%;
+			height: 100%;
+		}
+		
 		.tab_content_wrap .tab_con .con_info{
 			text-align: center;
 		}
@@ -397,85 +403,100 @@
 			<li name="tab_list_2" class="tab_list list_2">커피</li>
 			<li name="tab_list_3" class="tab_list list_3">스무디</li>
 			<li name="tab_list_4" class="tab_list list_4">음료</li>
-			<li name="tab_list_5" class="tab_list list_5">케이크</li>
-			<li name="tab_list_6" class="tab_list list_6">샌드위치</li>
+			<li name="tab_list_5" class="tab_list list_5">샌드위치</li>
+			<li name="tab_list_6" class="tab_list list_6">케이크</li>
 		</ul>
 		<div class="con_wrap">
 			<div class="large_con">
 				<div name="tab_list_1" class="tab_content_wrap con_1 on">
+					<c:forEach var="mn" items="${Allmenu}">
 					<a href="#" class="tab_con">
-						<div class="con_img"></div>
+						<div class="con_img">
+							<img alt="${mn.menuName }의 이미지" src="${path }/resource/img/${mn.img}">
+						</div>
 						<div class="con_info">
-							<p class="con_name">스페니쉬 연유 라떼 1</p>
-							<p class="con_price">5,800￦</p>
+							<p class="con_name">${mn.menuName }</p>
+							<p class="con_price">
+								<fmt:formatNumber value="${mn.price }" pattern="#,###" />￦
+							</p>
 						</div>
 					</a>
-					<a href="#" class="tab_con">
-						<div class="con_img"></div>
-						<div class="con_info">
-							<p class="con_name">스페니쉬 연유 라떼 2</p>
-							<p class="con_price">5,800￦</p>
-						</div>
-					</a>
-					<a href="#" class="tab_con">
-						<div class="con_img"></div>
-						<div class="con_info">
-							<p class="con_name">스페니쉬 연유 라떼 3</p>
-							<p class="con_price">5,800￦</p>
-						</div>
-					</a>
-					<a href="#" class="tab_con">
-						<div class="con_img"></div>
-						<div class="con_info">
-							<p class="con_name">스페니쉬 연유 라떼 4</p>
-							<p class="con_price">5,800￦</p>
-						</div>
-					</a>
+					</c:forEach>
 				</div>
 				<div name="tab_list_2" class="tab_content_wrap con_2">
+					<c:forEach var="mncf" items="${coffeeMenu}">
 					<a href="#" class="tab_con">
-						<div class="con_img"></div>
+						<div class="con_img">
+							<img alt="${mncf.menuName }의 이미지" src="${path }/resource/img/${mncf.img}">
+						</div>
 						<div class="con_info">
-							<p class="con_name">아메리카노 1</p>
-							<p class="con_price">5,800￦</p>
+							<p class="con_name">${mncf.menuName }</p>
+							<p class="con_price">
+								<fmt:formatNumber value="${mncf.price }" pattern="#,###" />￦
+							</p>
 						</div>
 					</a>
+					</c:forEach>
 				</div>
 				<div name="tab_list_3" class="tab_content_wrap con_3">
+					<c:forEach var="mnsm" items="${smoMenu}">
 					<a href="#" class="tab_con">
-						<div class="con_img"></div>
+						<div class="con_img">
+							<img alt="${mnsm.menuName }의 이미지" src="${path }/resource/img/${mnsm.img}">
+						</div>
 						<div class="con_info">
-							<p class="con_name">카페라떼 1</p>
-							<p class="con_price">5,800￦</p>
+							<p class="con_name">${mnsm.menuName }</p>
+							<p class="con_price">
+								<fmt:formatNumber value="${mnsm.price }" pattern="#,###" />￦
+							</p>
 						</div>
 					</a>
+					</c:forEach>
 				</div>
 				<div name="tab_list_4" class="tab_content_wrap con_4">
+					<c:forEach var="mnetc" items="${etcMenu}">
 					<a href="#" class="tab_con">
-						<div class="con_img"></div>
+						<div class="con_img">
+							<img alt="${mnetc.menuName }의 이미지" src="${path }/resource/img/${mnetc.img}">
+						</div>
 						<div class="con_info">
-							<p class="con_name">복숭아 에이드 1</p>
-							<p class="con_price">5,800￦</p>
+							<p class="con_name">${mnetc.menuName }</p>
+							<p class="con_price">
+								<fmt:formatNumber value="${mnetc.price }" pattern="#,###" />￦
+							</p>
 						</div>
 					</a>
+					</c:forEach>
 				</div>
 				<div name="tab_list_5" class="tab_content_wrap con_5">
+					<c:forEach var="sw" items="${sandMenu}">
 					<a href="#" class="tab_con">
-						<div class="con_img"></div>
+						<div class="con_img">
+							<img alt="${sw.menuName }의 이미지" src="${path }/resource/img/${sw.img}">
+						</div>
 						<div class="con_info">
-							<p class="con_name">콤부차 1</p>
-							<p class="con_price">5,800￦</p>
+							<p class="con_name">${sw.menuName }</p>
+							<p class="con_price">
+								<fmt:formatNumber value="${sw.price }" pattern="#,###" />￦
+							</p>
 						</div>
 					</a>
+					</c:forEach>
 				</div>
 				<div name="tab_list_6" class="tab_content_wrap con_6">
+					<c:forEach var="ck" items="${cakeMenu}">
 					<a href="#" class="tab_con">
-						<div class="con_img"></div>
+						<div class="con_img">
+							<img alt="${ck.menuName }의 이미지" src="${path }/resource/img/${ck.img}">
+						</div>
 						<div class="con_info">
-							<p class="con_name">에스프레소 1</p>
-							<p class="con_price">5,800￦</p>
+							<p class="con_name">${ck.menuName }</p>
+							<p class="con_price">
+								<fmt:formatNumber value="${ck.price }" pattern="#,###" />￦
+							</p>
 						</div>
 					</a>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="small_con">
@@ -535,6 +556,7 @@ modalClose.on('click', ()=>{
 	dimmed.removeClass('on');
 	modalContainer.removeClass('on');
 });
+
 // tab
 
 var tabList = $('.tab_wrap > .tab_list');
@@ -547,6 +569,20 @@ tabList.click(function(){
 	$(this).addClass('on');
 	tabCon.removeClass('on');
 	thisCon.addClass('on');
+});
+
+// 수량 추가,제거
+$(".btn_plus").click(function () {
+	var cnt = Number($(".product_number").val());
+	cnt++;
+	$(".product_number").val(cnt);
+});
+$(".btn_minus").click(function () {
+	var cnt = Number($(".product_number").val());
+	if(cnt>1){
+		cnt--;
+	}
+	$(".product_number").val(cnt);
 });
 
 

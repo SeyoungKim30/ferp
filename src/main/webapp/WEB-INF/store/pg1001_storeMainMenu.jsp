@@ -68,13 +68,7 @@
 
 <body>
     <div class="container">
-        <header>  
-            <div class="logo">
-                <h1><a href="${path}/storeMainMenu.do"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
-            </div>
-           	<h2>프랜차이즈 매장 관리 시스템</h2>
-           	<h2>${login.frName}</h2>
-        </header>
+<%@ include file="/resource/templates/header.jsp"%>
         <div class="main_wrapper">
         	<div class="btns">
         		<div class="btn">키오스크<br>(직원용)</div>

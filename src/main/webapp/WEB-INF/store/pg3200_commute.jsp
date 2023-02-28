@@ -102,6 +102,7 @@
     </div>
 </body>
 <script type="text/javascript">
+
 $(document).ready(function() {
 	$(".start_btn").click(function () {
 		  Swal.fire({

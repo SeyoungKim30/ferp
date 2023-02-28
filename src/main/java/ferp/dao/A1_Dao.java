@@ -24,5 +24,10 @@ public interface A1_Dao {
 	
 	
 	// 각 가맹점 메뉴 리스트
-	public List<Menu> getMenuList(String FrRegiNum, String category);
+	public List<Menu> getMenuList(String FrRegiNum);
+	public List<Menu> getMenuListCoffee(String FrRegiNum);
+	public List<Menu> getMenuListEtc(String FrRegiNum);
+	public List<Menu> getMenuListSmoothie(String FrRegiNum);
+	public List<Menu> getMenuListSandwich(String FrRegiNum);
+	public List<Menu> getMenuListCake(String FrRegiNum);
 }
