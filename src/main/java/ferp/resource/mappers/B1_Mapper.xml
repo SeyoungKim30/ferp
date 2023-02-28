@@ -7,21 +7,32 @@
 	
 	<!-- 본사:지난달전체매장매출총액 -->
 	<select id="lastmonthAllSales" resultType="int">
-		SELECT sum(payprice) allfrsales
+		SELECT nvl(sum(payprice),0) allfrsales
 		FROM orders
-		WHERE state='complete'
-		AND SUBSTR(orderdate, 1, 5)=to_char(add_months(SYSDATE, -1),'YY/MM')
+		WHERE state='완료'
+		AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM')
 	</select>
 	
 	<!-- 본사:매장별매출 전체조회 -->
 	<select id="SalesByStoreList" parameterType="orders" resultType="orders">
-		SELECT frname, s.frreginum, frtel, frrepname, ename, frsales
-		FROM store s, emp e, (  SELECT frreginum, sum(payprice) frsales
+		SELECT frname, s.frreginum, frtel, frrepname, ename, nvl(frsalesum, 0) frsales
+		FROM store s, emp e, (  SELECT frreginum, sum(payprice) frsalesum
 								FROM orders
-								WHERE state='complete'
-								AND SUBSTR(orderdate, 1, 5) BETWEEN #{frSchOrderdt} AND #{toSchOrderdt}
+								WHERE state='완료'
+								AND to_char(orderdate,'YYYY/MM') BETWEEN #{frSchOrderdt} AND #{toSchOrderdt}
 								GROUP BY frreginum ) ord
-		WHERE ord.frreginum=s.frreginum AND s.empnum=e.empnum
+		WHERE ord.frreginum(+)=s.frreginum AND s.empnum=e.empnum
+		<if test="frname!=null and frname.equals('')">
+		AND frname LIKE '%'||#{frname}||'%'
+		</if>
+		<if test="frrepname!=null and frrepname.equals('')">
+		AND frrepname LIKE '%'||''||'%'
+		</if>
+		<if test="ename!=null and ename.equals('')">
+		AND ename LIKE '%'||''||'%'
+		</if>
+		ORDER BY frname
 	</select>
+	
 
 </mapper>
