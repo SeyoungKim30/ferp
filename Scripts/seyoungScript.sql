@@ -1,4 +1,5 @@
 SELECT * FROM account ;
+SELECT * FROM STORE s ;
 
 INSERT INTO ACCOUNT values('10100','자산','현금');
 ALTER TABLE statement RENAME TO ACStatement;
@@ -79,14 +80,40 @@ AND (STMTOPPOSITE IS NULL OR STMTOPPOSITE LIKE '%'||''||'%')
 AND STMTDATE BETWEEN TO_DATE('2023-02-01','YYYY-MM-DD') AND TO_DATE('2023-02-10','YYYY-MM-DD')
 AND FRREGINUM = 'fakeID1111'
 	GROUP BY STMTDATE;
-	
-SELECT * FROM PRODORDER o,PRODUCT p WHERE o.PRODUCTNUM =p.PRODUCTNUM  ;
-CREATE SEQUENCE pdSeq
+
+SELECT TRUNC(orderdate) FROM PRODORDER p ;
+/*CREATE SEQUENCE pdSeq
 INCREMENT BY 1
 START WITH 10000
 MINVALUE 10000
 MAXVALUE 99999
 ORDER
-CYCLE;
+CYCLE;*/
 SELECT * FROM product;
-INSERT INTO Product values(pdSeq.nextval,'유제품','매일우유 바리스타 1L*5','매일우유 서부통판센터',7200,,)
+--INSERT INTO Product values('PD'||pdSeq.nextval,'유제품','매일우유 바리스타 1L*5','매일우유 서부통판센터',7200,'/resource/img/PD10001.jpg',null);
+--INSERT INTO Product values('PD'||pdSeq.nextval,'유제품','매일우유 1% 저지방우유 1.5L','매일우유 서부통판센터',4980,'/resource/img/PD10002.PNG',null);
+SELECT * FROM PRODORDER p ;
+INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10001','1234567892','9999999999',to_date('2023-02-25','YYYY-MM-DD'),3,'정산전','완료');
+INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10002','1234567892','9999999999',to_date('2023-02-25','YYYY-MM-DD'),1,'정산전','완료');
+--INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10001','1234567892','9999999999',SYSdate,3,'정산전','요청');
+--INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10002','1234567892','9999999999',SYSdate,1,'정산전','요청');
+
+
+--물류관리 발주 조회 메뉴
+--주문지점, 발주번호, 날짜로 검색 + 월별 조회
+SELECT * FROM PRODORDER o,PRODUCT p 
+WHERE o.PRODUCTNUM =p.PRODUCTNUM AND 
+and (DEMANDER LIKE '%'||'1234567892'||'%' OR ORDERNUM LIKE '%'||'2023021234567890'||'%' OR )
+AND TRUNC(orderdate,'month') = trunc(to_date('2023-02-28','YYYY-MM-DD'),'month')
+;
+
+--조건으로 검색
+SELECT p.*, s1.ename,s1.frname FROM PRODORDER p ,(SELECT * FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM ) s1 
+WHERE p.DEMANDER = s1.FRREGINUM
+AND PRODUCTNUM LIKE '%'||''||'%'
+AND s1.ename LIKE '%'||'이성미'||'%'
+AND PAYMENTSTATE LIKE '%'||''||'%'
+AND ORDERSTATE LIKE '%'||''||'%'
+AND TRUNC(orderdate) = to_date('2023-02-28','YYYY-MM-DD')
+;
+
