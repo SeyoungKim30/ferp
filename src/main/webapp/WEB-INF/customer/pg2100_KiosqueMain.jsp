@@ -587,5 +587,4 @@ $(".btn_minus").click(function () {
 
 
 </script>
-</script>
 </html>
