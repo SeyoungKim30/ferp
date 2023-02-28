@@ -22,6 +22,10 @@
 }
 </style>
 <script type="text/javascript">
+	localStorage.setItem("pageIdx","8101")
+	localStorage.setItem("eqIdx","3")
+</script>
+<script type="text/javascript">
 	$(document).ready(function(){
 		$("[name=stockDate]").val("${sch.stockDate}");
 		$("[name=productNum]").val("${sch.productNum}");
@@ -38,8 +42,9 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-			<h2>매장 재고 조회</h2>
-			<form method="post">
+		<h2>매장 재고 조회</h2><br><hr><br>
+			<div class="toolbox">
+			<form class="toolbar" method="post">
 				<input class="inputbox" type="date" name="stockDate" value="<fmt:formatDate value="${now}" pattern = "yyyy-MM-dd"/>"/>
 				<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
 				<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
@@ -53,6 +58,7 @@
 				    </select>
 				<button class="btn-secondary" type="submit">검색</button>
 			</form>
+			</div>
 			<div class="searchtab">
 				<table>
 				<thead>
