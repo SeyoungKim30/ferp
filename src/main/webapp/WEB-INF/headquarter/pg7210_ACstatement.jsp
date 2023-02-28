@@ -179,7 +179,7 @@ $(document).ready(function(){
 	document.querySelector('.btn-submit').addEventListener('click',function(){
 		let statementNum = $('[name=statementNum]').val();
 		if(statementNum==''){
-			$('[name=statementNum]').val('A');
+			$('[name=statementNum]').val('WR');
 			multipathSubmit('form1',"${path }/insertACstatement.do");
 			
 		}else{

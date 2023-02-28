@@ -27,8 +27,6 @@
 
 내용
 https://github.com/SeyoungKim30/ferp.git
-
-		
 		</div>
 	</div>
 </body>

@@ -53,16 +53,16 @@
 				<tbody>
 					<tr>
 					<form action="${path }/insertAccount.do">
-						<td><input name="acntNum" placeholder="새로운 계정을 등록합니다"></td>
-						<td><select name="acntGroup">
+						<td><input name="acntNum" placeholder="새로운 계정을 등록합니다" required="required"></td>
+						<td><select name="acntGroup" required>
 							<option>자산</option>
 							<option>자본</option>
 							<option>부채</option>
 							<option>비용</option>
 							<option>수익</option>
 							</select></td>
-						<td><input name="acntTitle" placeholder="새로운 계정을 등록합니다"></td>
-						<td><input value="1" type="hidden" name="acntUsing"><button class="btn-submit">계정등록</button></td>
+						<td><input name="acntTitle" placeholder="새로운 계정을 등록합니다" required></td>
+						<td><input value="1" type="hidden" name="acntUsing" required><button class="btn-submit">계정등록</button></td>
 					</form>
 					</tr>
 					<c:forEach items="${accountListtrue }" var="each">

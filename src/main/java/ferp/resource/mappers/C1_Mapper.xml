@@ -18,11 +18,10 @@
 	</insert>
 
 	<insert id="r7210insertStatement" parameterType="acstmt">
-		INSERT INTO ACSTATEMENT
-		values(#{statementNum}||to_char((SELECT count(DISTINCT statementNum) <if test="lineNum==0">+1</if> 
-		FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}),'FM0000')
-		,#{frRegiNum},#{lineNum},#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR}
-		,TO_DATE(#{stmtDate},'YYYY-MM-DD'),#{remark,jdbcType=VARCHAR})
+		INSERT INTO ACSTATEMENT VALUES(
+		#{statementNum}||(SELECT nvl(substr(MAX(statementNum),3,5),1000)<if test="lineNum==0">+1</if> FROM ACSTATEMENT a WHERE STMTDATE = TO_DATE(#{stmtDate},'YYYY-MM-DD')),
+		#{frRegiNum},#{lineNum},TO_DATE(#{stmtDate},'YYYY-MM-DD'),
+		#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
 	</insert>
 
 	<select id="r7211selectACStatement" parameterType="acstmt" resultType="acstmt">
