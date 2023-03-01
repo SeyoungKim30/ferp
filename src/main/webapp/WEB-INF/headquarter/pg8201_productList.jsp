@@ -40,10 +40,14 @@
 		})
 		--%>
 	});
-// 상세페이지로 이동
-function goDetail(noticeNum) {
-	  location.href="${path}/hproductInfo.do?productNum="+productNum;
-}
+	// 상세페이지로 이동
+	function goDetail(productNum) {
+		location.href="${path}/hproductInfo.do?productNum="+productNum;
+	}
+	// 수정페이지로 이동
+	function goUpdate(productNum) {
+		location.href="${path}/hproductUpt.do?productNum="+productNum;
+	}
 </script>
 </head>
 <body class="container">
@@ -69,19 +73,22 @@ function goDetail(noticeNum) {
 			    	onclick="location.href='${path}/hproductInsFrm.do'">자재등록</button>
 			</form>
 			</div>
+			
 			<div class="searchtab">
 				<table>
 				<thead>
 					<tr><th>자재코드</th><th>카테고리명</th><th>자재명</th><th>거래처</th>
-						<th>단가</th><th>수량</th><th>발주상태</th><th>비고</th></tr>
+						<th>단가</th><th>수량</th><th>발주상태</th><th>비고</th><th>자재정보수정</th></tr>
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
-			    	    <tr ondblclick="goDetail('${prod.productNum}')">
-			    	    	<td>${prod.productNum}</td><td>${prod.category}</td>
+			    	    <tr>
+			    	    	<td onclick="goDetail('${prod.productNum}')">${prod.productNum}</td><td>${prod.category}</td>
 			    	    	<td>${prod.productName}</td><td>${prod.opposite}</td>
 			    	    	<td>${prod.price}</td><td>${prod.amount}</td>
 			    	    	<td>${prod.orderState}</td><td>${prod.remark}</td>
+			    	    	<td><button id="uptBtn" class="btn-secondary" type="button" 
+								onclick="goUpdate('${prod.productNum}')">수정</button></td>
 			    	    </tr>
 			    	</c:forEach>
 				</tbody>
