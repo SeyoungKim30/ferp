@@ -13,7 +13,7 @@
 <title>발주목록 조회</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 
@@ -30,7 +30,7 @@
 			let storeList=json.storeList;
 			let options='';
 			storeList.forEach(function(each){
-				options+=`<option label='`+each.frName +`' value='`+each.frRegiNum+`'>`;
+				options+=`<option value='`+each.frName +`' label='`+each.frRegiNum+`'>`;
 			})
 			$("#storeList").html(options);
 	 	}).catch(function(err){console.log(err)})
@@ -54,6 +54,7 @@ $(document).ready(function(){
 		<div class="contents">
 	<h2>발주 조회</h2>
 	<hr>
+	<br>
 	<div class="toolbox">
 	
 	<h3>조회 기간 선택</h3>
@@ -77,7 +78,7 @@ $(document).ready(function(){
 
 <table>
 <thead>
-<tr><th>주문일자</th><th>주문지점</th><th>상품</th><th>수량</th><th>본사 재고</th><th>상태 <button>전체 체크</button></th></tr>
+<tr><th>주문일자</th><th>주문지점</th><th>담당자</th><th>상품</th><th>수량</th><th>본사 재고</th><th>배송상태 <button>전체 체크</button></th><th>정산상태</th></tr>
 </thead>
 <tbody>
 <tr><td>2023-02-18</td><td>홍대입구9번출구점</td><td>에티오피아1kg</td><td>12</td><td>170</td><td>배송전 <button>배송체크</button></td></tr>

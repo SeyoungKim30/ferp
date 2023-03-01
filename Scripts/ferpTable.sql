@@ -254,8 +254,12 @@ ALTER TABLE defectOrder ADD CONSTRAINT PK_DEFECTORDER PRIMARY KEY (
 
 ALTER TABLE stock ADD CONSTRAINT PK_STOCK PRIMARY KEY (
 	productNum,
-	FrRegiNum
+	FrRegiNum,
+	stockDate
 );
+
+ALTER TABLE FERD.stock DROP CONSTRAINT PK_STOCK;
+
 
 ALTER TABLE Product ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
 	productNum
@@ -396,6 +400,11 @@ REFERENCES prodOrder (
 	orderNum,
 	productNum
 );
+
+--재고 
+ALTER TABLE FERD.stock DROP CONSTRAINT FK_Product_TO_stock_1;
+ALTER TABLE FERD.stock DROP CONSTRAINT FK_store_TO_stock_1;
+
 
 ALTER TABLE stock ADD CONSTRAINT FK_Product_TO_stock_1 FOREIGN KEY (
 	productNum

@@ -45,7 +45,7 @@ table input[type=checkbox]{
 }
 
 input:disabled{
-	background-color:#ced4da;
+	background-color:#f8f9fa;
 }
 
 /* 검색은 secondary 등록은 primary */

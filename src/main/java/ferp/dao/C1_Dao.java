@@ -21,7 +21,6 @@ public interface C1_Dao {
 	public List<ACStatement> r7204selectStatementListByDate(ACStatement stmt);
 	
 	
-	
 	//모든 store 리스트
 	public List<Store> selectActiveStore();
 }
