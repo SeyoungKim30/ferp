@@ -37,7 +37,10 @@
 		$("[name=opposite]").val("${sch.opposite}");
 		$("[name=orderState]").val("${sch.orderState}");	
 	});
-	
+	// 상세페이지로 이동
+	function goDetail(productNum) {
+		location.href="${path}/sproductInfo.do?productNum="+productNum;
+	}
 </script>
 </head>
 <body class="container">
@@ -70,7 +73,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
-			    	    <tr ondblclick="goDetail(${prod.productNum})">
+			    	    <tr onclick="goDetail('${prod.productNum}')">
 			    	    	<td>${prod.stockDate}</td>
 			    	    	<td>${prod.productNum}</td><td>${prod.category}</td>
 			    	    	<td>${prod.productName}</td><td>${prod.opposite}</td>

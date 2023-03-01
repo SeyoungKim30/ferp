@@ -12,7 +12,7 @@
 		FROM PRODUCT p , STOCK s , PRODORDER p2
 		WHERE p.PRODUCTNUM = s.PRODUCTNUM
 		AND p.PRODUCTNUM = p2.PRODUCTNUM
-		AND stockDate = to_date(#{stockDate},'YYYY-MM-DD')
+		AND s.stockDate LIKE '%'|| to_date(#{stockDate},'YYYY-MM-DD')||'%'
 		AND p.productNum LIKE '%'||#{productNum}||'%'
 		AND category LIKE '%'||#{category}||'%'
 		AND productName LIKE '%'||#{productName}||'%'
@@ -30,6 +30,18 @@
 		AND productName LIKE '%'||#{productName}||'%'
 		AND opposite LIKE '%'||#{opposite}||'%'
 		AND orderState LIKE '%'||#{orderState}||'%'
+	</select>
+	
+	<select id="r8101ProductInfo" resultType="product" parameterType="string">
+		SELECT *
+		FROM PRODUCT
+		WHERE productNum = #{productNum}
+	</select>
+	
+	<select id="r8201ProductInfo" resultType="product" parameterType="string">
+		SELECT *
+		FROM PRODUCT
+		WHERE productNum = #{productNum}
 	</select>
 	
 	<select id="orderStateCom" resultType="string">

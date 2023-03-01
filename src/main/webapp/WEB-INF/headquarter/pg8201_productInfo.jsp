@@ -8,90 +8,79 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>매장 재고 조회</title>
-<link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
+<title>본사 재고 등록</title>
+<!-- 제이쿼리 CDN -->
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <style>
-.searchbox{
-	border: 1px solid lightgray;
-	margin-top: 10px;
+#insform {
+	position: absolute;
+	display: block;
+	text-align: center;
+	margin: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width : 800px;
+	padding: 25px;
+	border: 1px solid #FFFFFF;
+	border-radius: 5px;
+	background-color: #FFFFFF;
 }
-.searchbar {
-	width: 30%;
-	margin: 10px;
-	display: inline-block;
-	justify-content: space-between;
+body{
+	background-color: #f5f5f5;
 }
-.inputbox{
-	width: 200px;
-}
-.searchtab{
-	border: 1px solid lightgray;
-	margin-top: 10px;
+.prodimg{
+	width: 250px;
+	height: 250px;
 }
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("[name=productNum]").val("${sch.productNum}");
-		$("[name=category]").val("${sch.category}");
-		$("[name=productName]").val("${sch.productName}");
-		$("[name=opposite]").val("${sch.opposite}");
-		$("[name=remark]").val("${sch.remark}");
-		<%-- 
-		
-		--%>	
+		$("#returnBtn").click(function(){
+			location.href = "${path}/hproductList.do"
+		})
 	});
 </script>
 </head>
-<body class="container">
-	<%@ include file="/resource/templates/header.jsp"%>
-	<div class="main_wrapper">
-		<%@ include file="/resource/templates/sidebar.jsp"%>
-		<div class="contents">
-			<h2>자재 정보 상세</h2>
-			<form>
-				<div class="searchbox">
-					<div class="searchbar">
-						<span>자재코드</span>
-						<input class="inputbox" name="productNum" value="${sch.productNum}" type="text" size="10" />
-					</div>
-					<div class="searchbar">
-						<span>카테고리명</span>
-						<input class="inputbox" name="category" value="${sch.category}" type="text" size="10" />
-					</div>
-					<div class="searchbar">
-						<span>자재명</span>
-						<input class="inputbox" name="productName" value="${sch.productName}" type="text" size="10" />
-					</div>
-					<div class="searchbar">
-						<span>거래처</span>
-						<input class="inputbox" name="opposite" value="${sch.opposite}" type="text" size="10" />
-					</div>
-					<div class="searchbar">
-						<span>발주상태</span>
-						<input class="inputbox" name="remark" value="${sch.remark}" type="text" size="10" />
-					</div>
-					<div class="searchbar">
-						<button class="btn-secondary">검색</button>
-						<button class="btn-primary">자재등록</button>
-					</div>
-				</div>
-			</form>
-			<div class="searchtab">
-				<table width="80%">
-				<thead>
-					<tr><th>자재코드</th><th>카테고리명</th><th>자재명</th>
-						<th>거래처</th><th>단가</th><th>비고</th></tr>
-				</thead>
-				<tbody>
-					<c:forEach var="product" items="${plist}">
-			    	    <tr><td>${product.productNum}</td><td>${product.category}</td>
-			    	    	<td>${product.productName}</td><td>${product.opposite}</td>
-			    	    	<td>${product.price}</td><td>${product.remark}</td></tr>
-			    	</c:forEach>
-					<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-				</tbody>
-				</table>
+<body>
+	<div>
+		<div id="insform">
+			<h2>본사 자재 상세</h2>
+			<div><img class="prodimg" src="${path}/resource/img/${product.img}"></div>
+			<div>
+				<label for="productNum">자재코드</label> 
+				<input name="productNum" type="text" value="${product.productNum}" readonly
+					class="ckValid" id="productNum" placeholder="자재코드 입력" required>
 			</div>
+			<div>
+				<label for="category">카테고리명</label> 
+				<input type="text" name="category" value="${product.category}" readonly
+					class="ckValid" id="category" placeholder="카테고리명 입력" required>
+			</div>
+			<div>
+				<label for="productName">자재명</label> 
+				<input type="text" name="productName" value="${product.productName}" readonly
+					class="ckValid" id="productName" placeholder="자재명 입력" required>
+			</div>
+			<div>
+				<label for="opposite">거래처</label> 
+				<input type="text" name="opposite" value="${product.opposite}" readonly
+					class="ckValid"	id="opposite" placeholder="거래처 입력" required>
+			</div>
+			<div>
+				<label for="price">단가</label> 
+				<input type="text" name="price" value="${product.price}" readonly
+					class="ckValid" id="price" placeholder="단가 입력" required>
+			</div>
+			<div>
+				<label for="remark">비고</label> 
+				<input type="text" name="remark" value="${product.remark}" readonly
+					class="ckValid" id="remark" placeholder="비고 입력" required>
+			</div>
+			<br>
+			<button id="returnBtn" class="btn-submit" type="button">닫기</button>
 		</div>
 	</div>
 </body>
