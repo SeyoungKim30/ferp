@@ -253,15 +253,50 @@
 	}
 	
 </style>
+
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
+	//사이드바에 번호 매긴 것 
+	/*
+	localStorage.setItem("pageIdx","7501") //id값
+	localStorage.setItem("eqIdx","3")
+	*/
+	
+	//ajax fetch사용
+	function search(){
+		let url="${path}/salesInfo.do"
+		fetch(url).then(function(response){return response.json()}).then(function(json){
+			let sbslist=json.sbslist;
+			let trtd='';
+			sbslist.forEach(function(each){
+				trtd+=`<tr><td>'`+each.frname+`'</td><td>'`+each.frsales+`'</td><td>매입액</td><td>'`+each.frtel+`'</td><td>'`+each.frRepname+`'</td><td>'`+each.ename+`'</td><td class="frt_last_culmm"><span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span></td></tr>`
+			})
+			$("tbody").html(trtd);
+	    }).catch(function(err){console.log(err)})	
+	}
+	
 	$(document).ready(function(){
 		
-		$(".infoSch").keyup(function(){
-			if(event.keyCode==13){
+		search();
+		
+		//매장명,점주,담당자로 검색 & 날짜도 검색
+		$("button").on("click", function(event){
+			search();
+		});
+		$("input").on({
+			keyup:function(){
+				if(event.keyCode==13){
+					search();
+				}
+			}
+		});
+		
+		//날짜로 검색
+		$(".infoSch2").on({
+			change:function(){
 				search()
 			}
-		})
-		
+		});
 	}
 
 </script>
@@ -317,12 +352,10 @@
 					</div>
 					<div class="period">
 						<span>매출조회 기간</span>
-						<form>
-							<input id="strperiod" name="strperiod" type="month"/>
+						<form method="post">
+							<input class="infoSch2" id="strperiod" name="strperiod" type="month"/>
 							~
-							<input id="endperiod" name="endperiod" type="month"/>
-					   		<button value="hidden"></button> 
-							
+							<input class="infoSch2" id="endperiod" name="endperiod" type="month"/>
 						</form>
 					</div>
 				</div>
@@ -352,16 +385,7 @@
 						<thead>
 							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
 						</thead>
-						<tbody>
-							<c:forEach var="strinfo" items="${sbslist}">
-							<tr>
-								<td>${strinfo.frname }</td><td>300000000</td><td>100000000</td><td>02)123-1234</td><td>김세영</td><td>허소솜</td>
-								<td class="frt_last_culmm">
-									<span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span>
-								</td>
-							</tr>
-							</c:forEach>
-						</tbody>
+						<tbody></tbody>
 					</table>
 				</div>
 				<!-- 정보출력표 끝 -->
