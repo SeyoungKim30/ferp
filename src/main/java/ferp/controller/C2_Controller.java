@@ -23,7 +23,7 @@ public class C2_Controller {
 	
 	// 매장 재고 조회
 	// http://localhost:6080/ferp/sproductList.do
-	@RequestMapping("sproductList.do")
+	@RequestMapping("/sproductList.do")
 	public String r8101ProductList(@ModelAttribute("sch") ProductProdOrder sch, Model d){
 		d.addAttribute("plist", service.r8101ProductList(sch));
 		return "WEB-INF\\store\\pg8101_productList.jsp";
