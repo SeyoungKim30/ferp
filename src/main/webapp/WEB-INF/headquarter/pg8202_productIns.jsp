@@ -34,7 +34,7 @@ body{
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#regBtn").click(function(){
+		$("#insBtn").click(function(){
 			var isInValid = false
 			for(var idx=0;idx<$(".ckValid").length;idx++){
 				if($(".ckValid").eq(idx).val()==""){
@@ -49,7 +49,9 @@ body{
 			}
 			$("form").submit()
 		})
-		
+		$("#returnBtn").click(function(){
+			location.href = "${path}/hproductList.do"
+		})
 	});
 </script>
 </head>
@@ -91,11 +93,12 @@ body{
 				</div>
 				<div>
 					<div class="custom-file">
-						<input type="file" name="multipartfile" class="custom-file-input" id="file01"> 
-						<label class="custom-file-label" for="file01"></label>
+						<label class="custom-file-label" for="file01">이미지</label>
+						<input type="file" name="multipartfile" id="file01"> 
 					</div>
-				</div>
-				<button id="regBtn" class="btn-submit" type="button">등록</button>
+				</div><br>
+				<button id="insBtn" class="btn-primary" type="button">등록</button>
+				<button id="returnBtn" class="btn-submit" type="button">닫기</button>
 			</form>
 		</div>
 	</div>

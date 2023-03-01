@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import vo.ProductProdOrder;
 public class C2_Controller {
 	
 	@Autowired
-	C2_Service service;
+	private C2_Service service;
 	
 	// 매장 재고 조회
 	// http://localhost:6080/ferp/sproductList.do
@@ -65,7 +66,18 @@ public class C2_Controller {
 	}
 	
 	// 본사 재고 수정
-	
+	@GetMapping("/hproductUpt.do")
+	public String r8203ProductUpt(@RequestParam String productNum, Model d) {
+		d.addAttribute("product", service.r8201ProductInfo(productNum));
+		return "WEB-INF\\headquarter\\pg8203_productUpt.jsp";
+	}
+	@PostMapping("/hproductUpt.do")
+	public String r8203ProductUpt(Product upt, RedirectAttributes redirect) {
+		if( service.r8203ProductUpt(upt) != null) {
+			redirect.addFlashAttribute("msg", "수정 성공");
+		}
+		return "redirect:/hproductList.do";
+	}
 	
 	// 발주 상태 콤보
 	@ModelAttribute("orderStateCom")
