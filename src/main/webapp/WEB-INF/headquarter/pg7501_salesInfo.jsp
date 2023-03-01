@@ -265,7 +265,6 @@
 
 <body class="container">
 
-${sbslist }
 	<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
@@ -273,6 +272,7 @@ ${sbslist }
 		
 				<h2>매장 정보 조회</h2>
 				<hr>
+				<br>
 				
 				<!-- 전체매장총매출출력칸 시작-->
 				<div class="hdq_totalSalesPrt">
@@ -332,18 +332,16 @@ ${sbslist }
 						<thead>
 							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
 						</thead>
-						<tbody></tbody>
+						<tbody class="infoTbody"></tbody>
 					</table>
 				</div>
 				<!-- 정보출력표 끝 -->
 			
 
-		
 		</div>
 	</div>
 	
 
-	
 </body>
 <script>
 
@@ -355,44 +353,29 @@ ${sbslist }
 	
 	//ajax fetch사용
 	function search(){
-		let url="${path}/salesInfoJson.do"
-		
-		/*
-		var strperiod = document.querySelector("[name=strperiod]")
-		var endperiod = document.querySelector("[name=endperiod]")
-		
-		one.function(){
-			var today = new Date() 
-			today.setDate(today.getMonth()-1)
-			document.getElementById('strperiod').value=today.toISOString().slice(0,7); 
-			document.getElementById('endperiod').value=today.toISOString().slice(0,7);
-			//slice() 메소드를 이용하여 toISOString() 메소드로 받아온 현재 날짜 문자열의 7자리(앞에서부터)를 잘라옵니다.
-			
-		}
-		
-		confirmButton.onclick = function(){
-			alert("원격줄서기 신청완료");
-			location.href="/ljw/pg3004_resCnt.jsp?resnum="+resnum+"&countResnum="+countResnum+"&resCnt=" + resCnt.value
-		}
-		*/
+		let url="${path}/salesInfoJson.do?frname="+$('[name=frname]').val() //?
+				console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
-			let sbslist=json.sbslist;
-			let trtd='';
+			console.log(json);
+			var sbslist=json.sbslist;
+			var trtd='';
 		
 			sbslist.forEach(function(each){
-				trtd+=`<tr><td>'`+each.frname+`'</td><td>'`+each.frsales+`'</td><td>매입액</td><td>'`+each.frtel+`'</td><td>'`+each.frRepname+`'</td><td>'`+each.ename+`'</td><td class="frt_last_culmm"><span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span></td></tr>`
+				trtd+="<tr><td>"+each.frname+"</td><td>"+each.frsales+"</td><td>매입액</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
 			})
-			$("tbody").html(trtd);
+			$("table tbody").html(trtd);
+		
 	   
 		}).catch(function(err){console.log(err)})	
 
 	}
-	
-	
-	
+
 	$(document).ready(function(){
 
+		search();
+		
+	
 		//매장명,점주,담당자로 검색 & 날짜도 검색
 		$("button").on("click", function(event){
 			search();
@@ -411,6 +394,7 @@ ${sbslist }
 				search()
 			}
 		});
-	}
+		
+	})
 </script>
 </html>
