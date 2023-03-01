@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ferp.dao.C1_Dao;
 import vo.ACStatement;
 import vo.Account;
+import vo.Prod_order_stock_emp_store;
 import vo.Store;
 
 @Service
@@ -70,9 +71,18 @@ public class C1_Service {
 			return dao.r7204selectStatementListByDate(stmt);
 		}
 	}
+
+	public List<Prod_order_stock_emp_store>r9201select(Prod_order_stock_emp_store poses){
+		return dao.r9201select(poses);
+	}
+	
+	
+	
 	
 	public List<Store> selectActiveStore(){
 		return dao.selectActiveStore();
 	}
 
+	
+	
 }

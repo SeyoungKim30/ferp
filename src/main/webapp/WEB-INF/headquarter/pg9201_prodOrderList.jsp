@@ -59,7 +59,7 @@ $(document).ready(function(){
 	
 	<h3>조회 기간 선택</h3>
 	<div class="toolbar" title="단일 주문일자,월별 조회, 발주번호 중 하나의 조건을 입력하세요">
-		<div><label>주문일자 <input type="date" name="orderDate" required></label><label>월별 조회 <input type="month" name="orderDate" required></label>
+		<div><label>주문일자 <input type="date" name="orderDate" required></label><label>월별 조회 <input type="month" name="orderDateMonth" required></label>
 			<label title="발주번호를 검색조건으로 사용합니다">발주번호<input placeholder="발주번호로 검색" name="orderNum" required></label>
 		</div>
 	</div>
@@ -67,10 +67,10 @@ $(document).ready(function(){
 	<div class="toolbar" title="조건은 다중적용이 가능합니다">
 	<div>
 		<label>주문지점<input name="demander" list="storeList"></label><datalist id="storeList"></datalist>
-		<label>담당자<select><option>김물류</option><option>전체 보기</option></select></label>
-		<label>상품 선택<select name="productNum"><option>전체 보기</option><option>에티오피아1kg</option><option>딸기</option><option>매일우유 바리스타 1L*10</option></select></label>
-		<label>발주상태<select><option>전체 보기</option><option>요청</option><option>준비</option><option>배송</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
-		<label>결제상태<select><option>전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
+		<label>담당자<input name="ename"></label>
+		<label>상품 선택<input name="productNum"></label>
+		<label>발주상태<select name="orderState"><option>전체 보기</option><option>요청</option><option>준비</option><option>배송</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
+		<label>결제상태<select name="paymentState"><option>전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
 	</div>
 	<input type="submit" class="btn-secondary" value="발주 조회">
 	</div>

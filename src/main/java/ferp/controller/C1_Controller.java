@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ferp.service.C1_Service;
 import vo.ACStatement;
 import vo.Account;
+import vo.Prod_order_stock_emp_store;
 
 @Controller
 public class C1_Controller {
@@ -97,10 +98,13 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg9201_prodOrderList.jsp";
 	}
 	
-	@PostMapping("productOrderList.do")
-	public String r9201selectProdOrder(Model model) {
-		return "WEB-INF\\headquarter\\pg9201_prodOrderList.jsp";
+	// http://localhost:6080/ferp/productOrderListJson.do
+	@GetMapping("productOrderListJson.do")
+	public String r9201selectProdOrder(Model model,Prod_order_stock_emp_store poses) {
+		model.addAttribute("list",service.r9201select(poses));
+		return "pageJsonReport";
 	}
+	
 	
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@GetMapping("selectActiveStoreJson.do")

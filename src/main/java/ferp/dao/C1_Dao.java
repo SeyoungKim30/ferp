@@ -4,6 +4,7 @@ import java.util.List;
 
 import vo.ACStatement;
 import vo.Account;
+import vo.Prod_order_stock_emp_store;
 import vo.Store;
 
 public interface C1_Dao {
@@ -20,6 +21,7 @@ public interface C1_Dao {
 	public List<ACStatement> r7204selectStatementList(ACStatement stmt);
 	public List<ACStatement> r7204selectStatementListByDate(ACStatement stmt);
 	
+	public List<Prod_order_stock_emp_store>r9201select(Prod_order_stock_emp_store poses);
 	
 	//모든 store 리스트
 	public List<Store> selectActiveStore();

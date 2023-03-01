@@ -9,9 +9,15 @@ public class ProdOrder {
 	private int amount;
 	private String paymentState;
 	private String orderState;
+	private String orderDateMonth;
 	
 	
-	
+	public String getOrderDateMonth() {
+		return orderDateMonth;
+	}
+	public void setOrderDateMonth(String orderDateMonth) {
+		this.orderDateMonth = orderDateMonth;
+	}
 	public ProdOrder() {
 		super();
 		// TODO Auto-generated constructor stub

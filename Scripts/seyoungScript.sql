@@ -122,7 +122,7 @@ AND TRUNC(orderdate) = to_date('2023-02-25','YYYY-MM-DD')
 
 --발주 검색: 최종
 SELECT po.*,se.ename,se.frname,stck.remainamount FROM PRODORDER po, product pd, 
-		(SELECT ename,FRREGINUM ,e.empnum,frname,FRREPNAME  FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se,
+		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se,
 		(SELECT * FROM STOCK s WHERE STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)) stck
 WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.productNum = po.PRODUCTNUM 
 	AND (TRUNC(orderdate) = to_date('','YYYY-MM-DD')	--일별일때
@@ -135,7 +135,7 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 ;
 
 --서브테이블
-SELECT se.* FROM (SELECT FRREGINUM ,e.empnum,frname,FRREPNAME FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se;
+SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM;
 --서브테이블 실시간 본사 재고
 SELECT * FROM STOCK s WHERE STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM);
 
