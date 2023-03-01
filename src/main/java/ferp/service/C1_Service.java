@@ -40,6 +40,11 @@ public class C1_Service {
 		return stmtcount;
 	}
 	
+	public int r7102updateAccountUsing(Account ac) {
+		return dao.r7102updateAccountUsing(ac);
+	}
+	
+	
 	public List<ACStatement> r7211selectACStatement(ACStatement stmt) {
 		return dao.r7211selectACStatement(stmt);
 	}

@@ -12,6 +12,8 @@ public interface C1_Dao {
 	
 	public List<Account> r7100SelectAccount(Account ac);
 	public int r7101insertAccount(Account ac);
+	public int r7102updateAccountUsing(Account ac);
+	
 	public int r7210insertStatement(ACStatement stmt);
 	public List<ACStatement> r7211selectACStatement(ACStatement stmt);
 	public int r7212updateACStatement(ACStatement acstmt);

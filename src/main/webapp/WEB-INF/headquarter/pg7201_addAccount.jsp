@@ -9,6 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>계정과목 생성</title>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
@@ -25,20 +28,21 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		
+		<h2>계정과목 관리</h2>
+		<hr><br>
 		<div class="toolbox">
 		<h3>계정과목 검색</h3>
-			<form class="toolbar">
+			<form class="toolbar" action="${path}/selectAccount.do" method="post">
 			<div>
-				<label>계정코드<input placeholder="계정코드 필수입력"></label>
-				<label>구분<select><option>자산</option>
+				<label>계정코드<input name="acntNum"></label>
+				<label>구분<select name="acntGroup"><option>자산</option>
 							<option>자본</option>
 							<option>부채</option>
 							<option>비용</option>
 							<option>수익</option></select></label>
-				<label>계정명<input placeholder="계정명 필수입력"></label>
+				<label>계정명<input name="acntTitle"></label>
 			</div>
-				<button class="btn-search">계정검색</button>
+				<button class="btn-primary">계정검색</button>
 			</form>
 		</div>
 			<table>
@@ -62,7 +66,7 @@
 							<option>수익</option>
 							</select></td>
 						<td><input name="acntTitle" placeholder="새로운 계정을 등록합니다" required></td>
-						<td><input value="1" type="hidden" name="acntUsing" required><button class="btn-submit">계정등록</button></td>
+						<td><input value="1" type="hidden" name="acntUsing" required><button class="btn-primary">계정등록</button></td>
 					</form>
 					</tr>
 					<c:forEach items="${accountListtrue }" var="each">
@@ -70,7 +74,7 @@
 							<td>${each.acntNum }</td>
 							<td>${each.acntGroup }</td>
 							<td>${each.acntTitle }</td>
-							<td><input type="checkbox" checked="${each.acntUsing }"></td>
+							<td><input name="acntUsing" value="${each.acntNum }" type="checkbox" checked="${each.acntUsing }"></td>
 						</tr>
 					</c:forEach>
 					<c:forEach items="${accountListfalse }" var="each">
@@ -78,19 +82,27 @@
 							<td>${each.acntNum }</td>
 							<td>${each.acntGroup }</td>
 							<td>${each.acntTitle }</td>
-							<td><input type="checkbox"></td>
+							<td><input name="acntUsing" value="${each.acntNum }" type="checkbox"></td>
 						</tr>
 					</c:forEach>
-					<tr>
-						<td>testing</td>
-						<td>자산</td>
-						<td>testing</td>
-						<td><input type="checkbox"></td>
-					</tr>
+					
 				</tbody>
 			</table>
 		</div>
 	</div>
+	<script>
+	$('[name=acntUsing]').on('click',function(){
+		let acntNumVal = $(this).val()
+		let acntUsingChecked = $(this).is(':checked')
+		let url="${path}/updateAccountUsing.do?acntNum="+acntNumVal+"&acntUsing="+acntUsingChecked;
+		console.log(url)
+			fetch(url).then(function(response){return response.text() }).then(function(text){
+				alert(text);
+		 	}).catch(function(err){console.log(err)})
+		
+		
+	})
 	
+	</script>
 </body>
 </html>

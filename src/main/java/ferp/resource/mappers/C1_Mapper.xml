@@ -49,10 +49,15 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 
 	<select id="r7100SelectAccount" resultType="account" parameterType="account">
 		SELECT * FROM Account 
-		where acntNum Like '%'||#{acntNum}||'%' 
-		And acntTitle LIKE '%'||#{acntTitle}||'%'
+		where acntNum Like '%'||#{acntNum,jdbcType=VARCHAR}||'%' 
+		And acntTitle LIKE '%'||#{acntTitle,jdbcType=VARCHAR}||'%'
+		And acntGroup LIKE '%'||#{acntGroup,jdbcType=VARCHAR}||'%'
 		and acntUsing = #{acntUsing}
 	</select>
+	
+	<update id="r7102updateAccountUsing" parameterType="account">
+	update account set acntUsing =#{acntUsing} where acntNum =#{acntNum}
+	</update>
 
 	<insert id="r7101insertAccount" parameterType="account">
 		INSERT INTO ACCOUNT

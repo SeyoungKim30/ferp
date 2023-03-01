@@ -22,17 +22,28 @@ localStorage.setItem("pageIdx","7210")
 localStorage.setItem("eqIdx","2")
 
 $(document).ready(function(){
+	//계정목록 가져오기
 	var accountList=[];
-	
 	function fetchlist(){
 		let url="/ferp/selectAccountJson.do"
 	 	fetch(url).then(function(response){return response.json() }).then(function(json){
 	 		accountList=json.accountList;
+	 		let titlehtmls='';
+	 		let numhtmls='';
+	 		accountList.forEach(function(each){
+	 			console.log(each)
+	 			titlehtmls+=`<option value='`+each.acntTitle+`' label='`+each.acntNum+`'>`
+	 			numhtmls+=`<option value='`+each.acntNum+`' label='`+each.acntTitle+`'>`
+	 		})
+	 	$('#titleList').html(titlehtmls)
+	 	$('#numList').html(numhtmls)
+	 			
 	 	}).catch(function(err){console.log(err)})
 	}
 	
 	fetchlist();
 
+	//계정목록 가져온거 입력할때마다 적용되게 하기
 	$('.acntTitle').on("keyup",function(){
 		var myinput = $(this).val();
 		var myresult = $(this).parents('tr').find(".acntNum")
@@ -71,7 +82,8 @@ $(document).ready(function(){
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		
+		<h2>전표 입력</h2>
+		<hr><br>
 		<form action="${path }/insertACstatement.do" method="post" id="form1">
 		
 		<div class="toolbox">
@@ -90,9 +102,9 @@ $(document).ready(function(){
 					<label>전표일자<input type="date" name="stmtDate" required="required" value="${fn:substring(stmtList[0].stmtDate,0,10) }"></label>
 					<label>전표번호<input name="statementNum" value="${stmtList[0].statementNum }" placeholder="검색할때만 입력하세요"></label>
 					<input name="frRegiNum" type="hidden" value="${login}">
-					<button type="button" class="btn-search">검색</button>
+					<button type="button" class="btn-secondary">검색</button>
 				</div>
-				<div><button type="button" class="btn-submit">등록</button></div>
+				<div><button type="button" class="btn-primary">등록</button></div>
 			</div>
 			</div>
 				<table>
@@ -111,9 +123,9 @@ $(document).ready(function(){
 						<tr>
 							<td>
 								<input class="lineNum" name="stmtlist[${ii.index }].lineNum" type="hidden" value="${each.lineNum}">
-								<input class="acntNum" name="stmtlist[${ii.index }].acntNum" value="${each.acntNum }" required></td>
+								<input class="acntNum" name="stmtlist[${ii.index }].acntNum" value="${each.acntNum }" required list="numList"></td>
 							<td><input name="stmtlist[${ii.index }].debit" class="debit" value="${each.debit }" required></td>
-							<td><input class="acntTitle" placeholder="계정과목명"></td>
+							<td><input class="acntTitle" placeholder="계정과목명" list="titleList"></td>
 							<td><input name="stmtlist[${ii.index }].credit" class="credit" value="${each.credit }" required></td>
 							<td><input name="stmtlist[${ii.index }].stmtOpposite" value="${each.stmtOpposite}"></td>
 							<td><input name="stmtlist[${ii.index }].remark" value="${each.remark}"></td>
@@ -124,9 +136,9 @@ $(document).ready(function(){
 							<tr>
 								<td>
 									<input class="lineNum" name="stmtlist[0].lineNum" type="hidden" value="0">
-									<input class="acntNum" name="stmtlist[0].acntNum" required></td>
+									<input class="acntNum" name="stmtlist[0].acntNum" required list="numList"></td>
 								<td><input name="stmtlist[0].debit" class="debit" required></td>
-								<td><input class="acntTitle" placeholder="계정과목명"></td>
+								<td><input class="acntTitle" placeholder="계정과목명" list="titleList"></td>
 								<td><input name="stmtlist[0].credit" class="credit" required></td>
 								<td><input name="stmtlist[0].stmtOpposite"></td>
 								<td><input name="stmtlist[0].remark"></td>
@@ -134,9 +146,9 @@ $(document).ready(function(){
 							<tr>
 								<td>
 									<input class="lineNum" name="stmtlist[1].lineNum" type="hidden" value="1">
-									<input class="acntNum" name="stmtlist[1].acntNum" required="required"></td>
+									<input class="acntNum" name="stmtlist[1].acntNum" required="required" list="numList"></td>
 								<td><input name="stmtlist[1].debit" required="required" class="debit"></td>
-								<td><input class="acntTitle" placeholder="계정과목명"></td>
+								<td><input class="acntTitle" placeholder="계정과목명" list="titleList"></td>
 								<td><input name="stmtlist[1].credit" required="required" class="credit"></td>
 								<td><input name="stmtlist[1].stmtOpposite"></td>
 								<td><input name="stmtlist[1].remark"></td>
@@ -144,12 +156,13 @@ $(document).ready(function(){
 						</c:if>
 					</tbody>
 					<tfoot>
-						<tr><td>차변합계</td><td class="totaldebit"></td><td>대변합계</td><td class="totalcredit"></td><td>차액</td><td id="DCgap">얼마</td></tr>
+						<tr><td>차변합계</td><td class="totaldebit"></td><td>대변합계</td><td class="totalcredit"> </td><td>차액</td><td id="DCgap">0</td></tr>
 					</tfoot>
 				</table>
 			<div style="display: none"><button id="real-submit-btn"></button></div>
+<datalist id="numList"></datalist>
+<datalist id="titleList"></datalist>
 			</form>
-
 		</div>
 	</div>
 	<script>
@@ -161,6 +174,10 @@ $(document).ready(function(){
 			totalsum+=Number(debitlist[i].value);
 		}
 		$(whichtotal).text(totalsum);
+		
+		let tc = Number($('.totalcredit').text());
+		let td = Number($('.totaldebit').text());
+		$('#DCgap').text(tc-td)
 	}
 	$('.credit').on('keyup',function(){
 		totalcalculator('.credit','.totalcredit');
@@ -176,7 +193,7 @@ $(document).ready(function(){
 			$('#real-submit-btn').click();
 		}
 
-	document.querySelector('.btn-submit').addEventListener('click',function(){
+	document.querySelector('.btn-primary').addEventListener('click',function(){
 		let statementNum = $('[name=statementNum]').val();
 		if(statementNum==''){
 			$('[name=statementNum]').val('WR');
@@ -187,7 +204,7 @@ $(document).ready(function(){
 		}
 	})
 	
-	document.querySelector('.btn-search').addEventListener('click',function(){
+	document.querySelector('.btn-secondary').addEventListener('click',function(){
 		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()
 	})
 	
@@ -198,7 +215,7 @@ $(document).ready(function(){
 			$('[name=frRegiNum]').val('${login}');
 		})
 	})
-	
+
 	</script>
 </body>
 </html>

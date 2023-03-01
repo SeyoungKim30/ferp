@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ferp.service.C1_Service;
 import vo.ACStatement;
@@ -38,6 +39,13 @@ public class C1_Controller {
 		account.setAcntUsing(true);
 		model.addAttribute("accountListtrue", service.r7100SelectAccount(account));
 		return "WEB-INF\\headquarter\\pg7201_addAccount.jsp";
+	}
+	
+	@RequestMapping("updateAccountUsing.do")
+	@ResponseBody
+	public String r7102updateAccountUsing(Account account){
+		int done=service.r7102updateAccountUsing(account);
+		return done+"";
 	}
 
 	@RequestMapping("insertAccount.do")
