@@ -6,25 +6,44 @@
 <mapper namespace="ferp.dao.C1_Dao">
 
 	<resultMap type="vo.Prod_order_stock_emp_store" id="posesRS">
+		<association property="product" javaType="vo.Product">
+		<result column="productName" property="productName" />
+		</association>
 		<association property="prodOrder" javaType="vo.ProdOrder" >
-		<result column="orderNum" property="orderNum"/>
-		<result column="productNum" property="productNum"/>
+			<result column="orderNum" property="orderNum"/>
+			<result column="productNum" property="productNum"/>
+			<result column="supplier" property="supplier"/>
+			<result column="orderDate" property="orderDate"/>
+			<result column="amount" property="amount"/>
+			<result column="paymentState" property="paymentState"/>
+			<result column="orderState" property="orderState"/>
+		</association>
+		<association property="store" javaType="vo.Store">
+		<result column="frRegiNum" property="frRegiNum"/>
+		<result column="frName" property="frName"/>
+		</association>
+		<association property="emp" javaType="vo.Emp">
+		<result column="empnum" property="empNum"/>
+		<result column="ename" property="ename"/>
+		</association>
+		<association property="stock" javaType="vo.Stock">
+		<result column="remainAmount" property="remainAmount"/>
 		</association>
 	</resultMap>
 
 	
-<select id="r9201select" resultMap="posesRS">
+<select id="r9201select" resultMap="posesRS" parameterType="prodOrder">
 SELECT po.*,se.ename,se.frname,stck.remainamount FROM PRODORDER po, product pd, 
 		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se,
 		(SELECT * FROM STOCK s WHERE STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)) stck
 WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.productNum = po.PRODUCTNUM 
-	AND (TRUNC(orderdate) = to_date('','YYYY-MM-DD')	--일별일때
-			OR TRUNC(orderdate,'month') = TRUNC(to_date('','YYYY-MM-DD'),'month')--월별일때
-			OR ORDERNUM LIKE '%'||'2023021234567890'||'%')	--발주번호
-	AND (po.DEMANDER LIKE '%'||'디맨더로 받아온 변수'||'%' OR se.frname LIKE '%'||'독산'||'%')	--주문지점
-	AND (se.ename LIKE '%'||''||'%' OR se.empNum LIKE '%'||''||'%')	--담당자
-	AND (pd.PRODUCTNUM LIKE '%'||''||'%' OR pd.PRODUCTNAME LIKE '%'||''||'%') --상품번호 또는 이름
-	AND po.PAYMENTSTATE LIKE '%'||''||'%' AND po.ORDERSTATE LIKE '%'||''||'%'
+	AND (TRUNC(orderdate) = to_date(#{orderDate,jdbcType=VARCHAR},'YYYY-MM-DD')	-- 일별일때
+			OR TRUNC(orderdate,'month') = TRUNC(to_date(#{orderDateMonth,jdbcType=VARCHAR},'YYYY-MM-DD'),'month')--월별일때
+			OR ORDERNUM LIKE '%'||#{orderNum,jdbcType=VARCHAR}||'%')	-- 발주번호
+	AND (po.DEMANDER LIKE '%'||#{demander,jdbcType=VARCHAR}||'%' OR se.frname LIKE '%'||#{demander,jdbcType=VARCHAR}||'%')	-- 주문지점
+	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')	-- 담당자
+	AND (pd.PRODUCTNUM LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%' OR pd.PRODUCTNAME LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%') --상품번호 또는 이름
+	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%' AND po.ORDERSTATE LIKE '%'||#{orderState,jdbcType=VARCHAR}||'%'
 </select>
 
 

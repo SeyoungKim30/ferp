@@ -12,6 +12,9 @@
 		<typeAlias alias="storeclerk" type="vo.StoreClerk"/>
 		<typeAlias alias="storeclerksch" type="vo.SCPage"/>
 		<typeAlias alias="orders" type="vo.Orders"/>
+		
+		
+		<typeAlias alias="prodOrder" type="vo.ProdOrder"/>
 		<typeAlias alias="poses" type="vo.Prod_order_stock_emp_store"/>
 
 		<typeAlias alias="clerkschedule" type="vo.ClerkSchedule"/>

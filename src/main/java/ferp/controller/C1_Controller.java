@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ferp.service.C1_Service;
 import vo.ACStatement;
 import vo.Account;
+import vo.ProdOrder;
 import vo.Prod_order_stock_emp_store;
 
 @Controller
@@ -100,8 +101,8 @@ public class C1_Controller {
 	
 	// http://localhost:6080/ferp/productOrderListJson.do
 	@GetMapping("productOrderListJson.do")
-	public String r9201selectProdOrder(Model model,Prod_order_stock_emp_store poses) {
-		model.addAttribute("list",service.r9201select(poses));
+	public String r9201selectProdOrder(Model model,ProdOrder prodOrder) {
+		model.addAttribute("list",service.r9201select(prodOrder));
 		return "pageJsonReport";
 	}
 	

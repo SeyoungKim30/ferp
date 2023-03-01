@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ferp.dao.C1_Dao;
 import vo.ACStatement;
 import vo.Account;
+import vo.ProdOrder;
 import vo.Prod_order_stock_emp_store;
 import vo.Store;
 
@@ -72,8 +73,8 @@ public class C1_Service {
 		}
 	}
 
-	public List<Prod_order_stock_emp_store>r9201select(Prod_order_stock_emp_store poses){
-		return dao.r9201select(poses);
+	public List<Prod_order_stock_emp_store>r9201select(ProdOrder prodOrder){
+		return dao.r9201select(prodOrder);
 	}
 	
 	
