@@ -30,7 +30,7 @@
 		}
 		.large_con{
 			width: 66.6666%;
-			padding: 0 15px;
+			padding: 0 15px 30px;
 		}
 		.small_con{
 			width: 33.3333%;
@@ -56,11 +56,12 @@
 			border-radius: 10px 10px 0 0;
 			background-color: #fff;
 			font-size: 26px;
-			border-bottom: 2px solid #2262f3;
+			border-bottom: 5px solid #2262f3;
 			cursor: pointer;
 		}
 		.tab_wrap > .tab_list.on{
 			border-bottom: 2px solid transparent;
+			color: #2262f3;
 		}
 		.tab_content_wrap{
 			display: none;
@@ -259,9 +260,13 @@
 		.modal_container .modal_product_name{
 			font-size: 32px;
 			font-weight: 700;
-			padding-bottom: 10px;
-			margin-bottom: 15px;
-			border-bottom: 1px solid #999;
+		}
+		.modal_container .modal_product_infoText{
+		    border-bottom: 1px solid #999;
+		    line-height: 30px;
+		    font-size: 20px;
+		    padding-bottom: 10px;
+		    color: #999;
 		}
 		.modal_product_option_wrap{
 			display: flex;
@@ -290,6 +295,8 @@
 			font-size: 24px;
 			font-weight: 700;
 			margin-bottom: 10px;
+			color: #2262f3;
+			line-height: 70px;
 		}
 		.modal_product_option .option_radio{
 			width: 100%;
@@ -356,9 +363,10 @@
 			<div class="half_con">
 				<div class="modal_product_option_wrap">
 					<div class="modal_option_wrap">
-						<p class="modal_product_name">스패니쉬 연유 라떼</p>
+						<p class="modal_product_name">음료 이름</p>
+						<p class="modal_product_infoText">음료 상세</p>
 						<form class="modal_product_option">
-							<p class="option_name">커피 메뉴</p>
+							<p class="option_name">옵션 선택</p>
 							<div class="option_radio">
 								<label for="menu_opt_1">
 									<input type="radio" name="option_1" id="menu_opt_1" value="option_ice">
@@ -372,17 +380,17 @@
 								</label>
 							</div>
 							<div class="option_checkbox">
-								<label for="menu_opt_3">
+								<label for="menu_opt_3" class="addS">
 									<input type="checkbox" name="option_2" id="menu_opt_3">
 									<span class="custom_checkbox"><i class="ri-check-line"></i></span>
 									<span class="menu_opt">샷추가(+500￦)</span>
 								</label>
-								<label for="menu_opt_4">
+								<label for="menu_opt_4" class="sizeUp">
 									<input type="checkbox" name="option_3" id="menu_opt_4">
 									<span class="custom_checkbox"><i class="ri-check-line"></i></span>
 									<span class="menu_opt">사이즈업(+500￦)</span>
 								</label>
-								<label for="menu_opt_5">
+								<label for="menu_opt_5" class="delS">
 									<input type="checkbox" name="option_4" id="menu_opt_5">
 									<span class="custom_checkbox"><i class="ri-check-line"></i></span>
 									<span class="menu_opt">연하게</span>
@@ -410,9 +418,11 @@
 			<div class="large_con">
 				<div name="tab_list_1" class="tab_content_wrap con_1 on">
 					<c:forEach var="mn" items="${Allmenu}">
-					<a href="#" class="tab_con">
+					<a name="${mn.menuNum}" href="#" class="tab_con">
 						<div class="con_img">
 							<img alt="${mn.menuName }의 이미지" src="${path }/resource/img/${mn.img}">
+							<p class="con_infoText" style="display: none">${mn.info }</p>
+							<p class="con_category" style="display: none">${mn.category}</p>
 						</div>
 						<div class="con_info">
 							<p class="con_name">${mn.menuName }</p>
@@ -425,9 +435,11 @@
 				</div>
 				<div name="tab_list_2" class="tab_content_wrap con_2">
 					<c:forEach var="mncf" items="${coffeeMenu}">
-					<a href="#" class="tab_con">
+					<a name="${mncf.menuNum}" href="#" class="tab_con">
 						<div class="con_img">
 							<img alt="${mncf.menuName }의 이미지" src="${path }/resource/img/${mncf.img}">
+							<p class="con_infoText" style="display: none">${mncf.info }</p>
+							<p class="con_category" style="display: none">${mncf.category}</p>
 						</div>
 						<div class="con_info">
 							<p class="con_name">${mncf.menuName }</p>
@@ -440,9 +452,11 @@
 				</div>
 				<div name="tab_list_3" class="tab_content_wrap con_3">
 					<c:forEach var="mnsm" items="${smoMenu}">
-					<a href="#" class="tab_con">
+					<a name="${mnsm.menuNum}" href="#" class="tab_con">
 						<div class="con_img">
 							<img alt="${mnsm.menuName }의 이미지" src="${path }/resource/img/${mnsm.img}">
+							<p class="con_infoText" style="display: none">${mnsm.info }</p>
+							<p class="con_category" style="display: none">${mnsm.category}</p>
 						</div>
 						<div class="con_info">
 							<p class="con_name">${mnsm.menuName }</p>
@@ -455,9 +469,11 @@
 				</div>
 				<div name="tab_list_4" class="tab_content_wrap con_4">
 					<c:forEach var="mnetc" items="${etcMenu}">
-					<a href="#" class="tab_con">
+					<a name="${mnetc.menuNum}" href="#" class="tab_con">
 						<div class="con_img">
 							<img alt="${mnetc.menuName }의 이미지" src="${path }/resource/img/${mnetc.img}">
+							<p class="con_infoText" style="display: none">${mnetc.info }</p>
+							<p class="con_category" style="display: none">${mnetc.category}</p>
 						</div>
 						<div class="con_info">
 							<p class="con_name">${mnetc.menuName }</p>
@@ -470,9 +486,11 @@
 				</div>
 				<div name="tab_list_5" class="tab_content_wrap con_5">
 					<c:forEach var="sw" items="${sandMenu}">
-					<a href="#" class="tab_con">
+					<a name="${sw.menuNum}" href="#" class="tab_con">
 						<div class="con_img">
 							<img alt="${sw.menuName }의 이미지" src="${path }/resource/img/${sw.img}">
+							<p class="con_infoText" style="display: none">${sw.info }</p>
+							<p class="con_category" style="display: none">${sw.category}</p>
 						</div>
 						<div class="con_info">
 							<p class="con_name">${sw.menuName }</p>
@@ -485,9 +503,11 @@
 				</div>
 				<div name="tab_list_6" class="tab_content_wrap con_6">
 					<c:forEach var="ck" items="${cakeMenu}">
-					<a href="#" class="tab_con">
+					<a name="${ck.menuNum}" href="#" class="tab_con">
 						<div class="con_img">
 							<img alt="${ck.menuName }의 이미지" src="${path }/resource/img/${ck.img}">
+							<p class="con_infoText" style="display: none">${ck.info }</p>
+							<p class="con_category" style="display: none">${ck.category}</p>
 						</div>
 						<div class="con_info">
 							<p class="con_name">${ck.menuName }</p>
@@ -543,19 +563,41 @@ var tabContent = $('.tab_con'),
 	modalContainer = $('.modal_container'),
 	modalClose = $('.modal_close');
 var conName = $('.con_info > .con_name'),
-	modalName = $('.modal_product_name')
-tabContent.on('click', ()=>{
-	dimmed.addClass('on');
-	modalContainer.addClass('on');
+	modalName = $('.modal_product_name');
+	
+tabContent.click(function () {
+		dimmed.addClass('on');
+		modalContainer.addClass('on');
+		var MenuName = $(this).find(".con_name").text();
+		$(".modal_product_name").text(MenuName);
+		var MenuImg = $(this).find(".con_img").html();
+		$(".product_img").html(MenuImg);
+		var MenuInfoText = $(this).find(".con_infoText").text();
+		$(".modal_product_infoText").text(MenuInfoText);
+		var MenuCategory = $(this).find(".con_category").text();
+		if(MenuCategory == "smoothie"){
+			$(".option_radio").css('display','none');
+			$(".delS").css('display','none');
+			$(".addS").css('display','none');
+		}else if(MenuCategory == "coffee"){
+			$(".option_radio").css('display','flex');
+			$(".delS").css('display','flex');
+			$(".addS").css('display','flex');
+		}
 });
+
+
 dimmed.on('click', ()=>{
 	dimmed.removeClass('on');
 	modalContainer.removeClass('on');
 });
-modalClose.on('click', ()=>{
+
+modalClose.click(function () {
 	dimmed.removeClass('on');
 	modalContainer.removeClass('on');
-});
+	$(".product_number").val(1);
+	$("input:radio[id='menu_opt_3']").prop('checked',false);
+})
 
 // tab
 var tabList = $('.tab_wrap > .tab_list');
