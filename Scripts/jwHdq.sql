@@ -22,9 +22,24 @@ AND frrepname LIKE '%'||''||'%'
 AND ename LIKE '%'||''||'%'
 ORDER BY frname;
 
+		SELECT frname, s.frreginum, frtel, frRepname, ename, nvl(frsalesum, 0) frsales
+		FROM store s, emp e, (  SELECT frreginum, sum(payprice) frsalesum
+								FROM orders
+								WHERE state='완료'
+								AND to_char(orderdate,'YYYY/MM') BETWEEN '2023/02' AND '2023/03'
+								GROUP BY frreginum ) ord
+		WHERE ord.frreginum(+)=s.frreginum AND s.empnum=e.empnum
+		AND frname LIKE '%'||''||'%'
+		AND frRepname LIKE '%'||''||'%'
+		AND ename LIKE '%'||''||'%'
+		ORDER BY frname;
 
-
-
+SELECT frreginum, payprice, orderdate
+								FROM orders
+								WHERE trunc(orderdate,'month') BETWEEN TO_Date('2023-01','YYYY-MM') AND TO_Date('2023-02','YYYY-MM');
+								
+	
+	
 SELECT * FROM store;
 SELECT * FROM emp;
 

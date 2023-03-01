@@ -255,51 +255,6 @@
 </style>
 
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-<script type="text/javascript">
-	//사이드바에 번호 매긴 것 
-	/*
-	localStorage.setItem("pageIdx","7501") //id값
-	localStorage.setItem("eqIdx","3")
-	*/
-	
-	//ajax fetch사용
-	function search(){
-		let url="${path}/salesInfo.do"
-		fetch(url).then(function(response){return response.json()}).then(function(json){
-			let sbslist=json.sbslist;
-			let trtd='';
-			sbslist.forEach(function(each){
-				trtd+=`<tr><td>'`+each.frname+`'</td><td>'`+each.frsales+`'</td><td>매입액</td><td>'`+each.frtel+`'</td><td>'`+each.frRepname+`'</td><td>'`+each.ename+`'</td><td class="frt_last_culmm"><span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span></td></tr>`
-			})
-			$("tbody").html(trtd);
-	    }).catch(function(err){console.log(err)})	
-	}
-	
-	$(document).ready(function(){
-		
-		search();
-		
-		//매장명,점주,담당자로 검색 & 날짜도 검색
-		$("button").on("click", function(event){
-			search();
-		});
-		$("input").on({
-			keyup:function(){
-				if(event.keyCode==13){
-					search();
-				}
-			}
-		});
-		
-		//날짜로 검색
-		$(".infoSch2").on({
-			change:function(){
-				search()
-			}
-		});
-	}
-
-</script>
 
 <head>
 
@@ -309,6 +264,8 @@
 </head>
 
 <body class="container">
+
+${sbslist }
 	<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
@@ -332,7 +289,7 @@
 				<div class="hdq_search">
 					<form method="post">
 						<input class="infoSch" name="frname" value="${sch.frname}"  type="text" placeholder=" 매장명 입력"/>
-						<input class="infoSch" name="frrepname" value="${sch.frrepname}"  type="text" placeholder=" 점주명 입력"/>
+						<input class="infoSch" name="frRepname" value="${sch.frRepname}"  type="text" placeholder=" 점주명 입력"/>
 						<input class="infoSch" name="ename"  value="${sch.ename}" type="text" placeholder=" 담당직원 입력"/>
 						<button class="frsalesSchBtn" type="submit">검색</button>
 					</form>
@@ -353,22 +310,12 @@
 					<div class="period">
 						<span>매출조회 기간</span>
 						<form method="post">
-							<input class="infoSch2" id="strperiod" name="strperiod" type="month"/>
+							<input class="infoSch2" id="strperiod" name="frSchOrderdt" value="${sch.frSchOrderdt}" type="month"/>
 							~
-							<input class="infoSch2" id="endperiod" name="endperiod" type="month"/>
+							<input class="infoSch2" id="endperiod" name="toSchOrderdt" value="${sch.toSchOrderdt}" type="month"/>
 						</form>
 					</div>
 				</div>
-				
-				<script>
-				
-					var today = new Date() 
-					today.setDate(today.getMonth()-1)
-					document.getElementById('strperiod').value=today.toISOString().slice(0,7); 
-					document.getElementById('endperiod').value=today.toISOString().slice(0,7);
-					//slice() 메소드를 이용하여 toISOString() 메소드로 받아온 현재 날짜 문자열의 7자리(앞에서부터)를 잘라옵니다.
-
-				</script>
 				<!-- 검색기준 끝 -->
 				
 				
@@ -395,5 +342,75 @@
 		</div>
 	</div>
 	
+
+	
 </body>
+<script>
+
+	//사이드바에 번호 매긴 것 
+	/*
+	localStorage.setItem("pageIdx","7501") //id값
+	localStorage.setItem("eqIdx","3")
+	*/
+	
+	//ajax fetch사용
+	function search(){
+		let url="${path}/salesInfoJson.do"
+		
+		/*
+		var strperiod = document.querySelector("[name=strperiod]")
+		var endperiod = document.querySelector("[name=endperiod]")
+		
+		one.function(){
+			var today = new Date() 
+			today.setDate(today.getMonth()-1)
+			document.getElementById('strperiod').value=today.toISOString().slice(0,7); 
+			document.getElementById('endperiod').value=today.toISOString().slice(0,7);
+			//slice() 메소드를 이용하여 toISOString() 메소드로 받아온 현재 날짜 문자열의 7자리(앞에서부터)를 잘라옵니다.
+			
+		}
+		
+		confirmButton.onclick = function(){
+			alert("원격줄서기 신청완료");
+			location.href="/ljw/pg3004_resCnt.jsp?resnum="+resnum+"&countResnum="+countResnum+"&resCnt=" + resCnt.value
+		}
+		*/
+		
+		fetch(url).then(function(response){return response.json()}).then(function(json){
+			let sbslist=json.sbslist;
+			let trtd='';
+		
+			sbslist.forEach(function(each){
+				trtd+=`<tr><td>'`+each.frname+`'</td><td>'`+each.frsales+`'</td><td>매입액</td><td>'`+each.frtel+`'</td><td>'`+each.frRepname+`'</td><td>'`+each.ename+`'</td><td class="frt_last_culmm"><span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span></td></tr>`
+			})
+			$("tbody").html(trtd);
+	   
+		}).catch(function(err){console.log(err)})	
+
+	}
+	
+	
+	
+	$(document).ready(function(){
+
+		//매장명,점주,담당자로 검색 & 날짜도 검색
+		$("button").on("click", function(event){
+			search();
+		});
+		$("input").on({
+			keyup:function(){
+				if(event.keyCode==13){
+					search();
+				}
+			}
+		});
+		
+		//날짜로 검색
+		$(".infoSch2").on({
+			change:function(){
+				search()
+			}
+		});
+	}
+</script>
 </html>
