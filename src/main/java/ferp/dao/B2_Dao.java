@@ -24,6 +24,9 @@ public interface B2_Dao {
 	// 해당 매장 정보 삭제
 	public void deleteStore(String frRegiNum);
 	
+	// 본사 직원 등록
+	public void insertEmp(HOemp ins);
+	
 	
 	public int totCntNotice(NoticeSch sch);
 	public int totCntQnA(NoticeSch sch);

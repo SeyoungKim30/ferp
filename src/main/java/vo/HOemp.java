@@ -1,17 +1,17 @@
 package vo;
 
 public class HOemp {
-	private int eno;
+	private String empNum;
 	private String pass;
 	private String ename;
 	private String dname;
 	
-	
-	public int getEno() {
-		return eno;
+
+	public String getEmpNum() {
+		return empNum;
 	}
-	public void setEno(int eno) {
-		this.eno = eno;
+	public void setEmpNum(String empNum) {
+		this.empNum = empNum;
 	}
 	public String getPass() {
 		return pass;

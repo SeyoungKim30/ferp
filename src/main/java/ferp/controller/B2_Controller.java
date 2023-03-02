@@ -100,6 +100,20 @@ public class B2_Controller {
 	}
 	
 	
+	// 본사 직원 등록
+	@GetMapping("/insertEmp.do")
+	public String insertEmp() {
+		return "WEB-INF\\view\\emp_insert.jsp";
+	}
+	@PostMapping("/insertEmp.do")
+	public String insertEmp(HOemp ins, RedirectAttributes redirect) {
+		if( service.insertEmp(ins)!=null ) {
+			redirect.addFlashAttribute("isgMsg", "등록 성공");
+		}
+		// 본사 메인페이지로 이동
+		return "WEB-INF\\view\\mainpage.jsp";
+	}
+	
 	// 공지사항 조회
 	// http://localhost:7080/ferp/noticeList.do
 	@RequestMapping("/noticeList.do")

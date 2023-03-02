@@ -89,6 +89,14 @@ public class B2_Service {
 	}
 	
 	
+	// 본사 직원 등록
+	public String insertEmp(HOemp ins) {
+		
+		dao.insertEmp(ins);
+		
+		return ins.getEmpNum();
+	}
+	
 	
 	// 공지사항 조회
 	public List<Notice> searchNotice(NoticeSch sch){
