@@ -53,7 +53,6 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 		And acntTitle LIKE '%'||#{acntTitle,jdbcType=VARCHAR}||'%'
 		And acntGroup LIKE '%'||#{acntGroup,jdbcType=VARCHAR}||'%'
 		and acntUsing = #{acntUsing}
-		AND FRREGINUM = #{frRegiNum}
 	</select>
 	
 	<update id="r7102updateAccountUsing" parameterType="account">
@@ -67,7 +66,8 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 
 	<insert id="r7210insertStatement" parameterType="acstmt">
 		INSERT INTO ACSTATEMENT VALUES(
-		#{statementNum}||(SELECT nvl(substr(MAX(statementNum),3,5),1000)<if test="lineNum==0">+1</if> FROM ACSTATEMENT a WHERE STMTDATE = TO_DATE(#{stmtDate},'YYYY-MM-DD')),
+		#{statementNum}||(SELECT nvl(substr(MAX(statementNum),3,5),1000)<if test="lineNum==0">+1</if> 
+		FROM ACSTATEMENT a WHERE STMTDATE = TO_DATE(#{stmtDate},'YYYY-MM-DD')),
 		#{frRegiNum},#{lineNum},TO_DATE(#{stmtDate},'YYYY-MM-DD'),
 		#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
 	</insert>
@@ -81,7 +81,8 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	</select>
 	
 	<update id="r7212updateACStatement" parameterType="acstmt">
-	UPDATE ACSTATEMENT SET acntnum= #{acntNum}, debit=#{debit}, credit=#{credit},STMTOPPOSITE =#{stmtOpposite,jdbcType=VARCHAR},REMARK =#{remark,jdbcType=VARCHAR}
+	UPDATE ACSTATEMENT SET acntnum= #{acntNum}, debit=#{debit}, 
+	credit=#{credit},STMTOPPOSITE =#{stmtOpposite,jdbcType=VARCHAR},REMARK =#{remark,jdbcType=VARCHAR}
 	WHERE STATEMENTNUM =#{statementNum} AND TO_CHAR(stmtdate,'YYYY-MM-DD') = #{stmtDate} AND lineNum=#{lineNum}
 	</update>
 	
@@ -98,8 +99,9 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	STMTOPPOSITE,TO_CHAR(STMTDATE,'YYYY-MM-DD') "STMTDATE", REMARK 
 	FROM ACSTATEMENT s , ACCOUNT a
 	WHERE s.ACNTNUM = a.ACNTNUM 
-	AND s.ACNTNUM = #{acntNum}
-	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
+	AND s.ACNTNUM = '%'||#{acntNum}||'%'
+	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> 
+	STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
 	AND STMTDATE BETWEEN TO_DATE(#{stmtDate},'YYYY-MM-DD') AND TO_DATE(#{stmtDate2},'YYYY-MM-DD')
 	AND FRREGINUM = #{frRegiNum}
 	</select>
@@ -111,8 +113,9 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 		ELSE CREDIT - debit END) AS DEBIT
 	FROM ACSTATEMENT s , ACCOUNT a
 	WHERE s.ACNTNUM = a.ACNTNUM 
-	AND s.ACNTNUM = #{acntNum}
-	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
+	AND s.ACNTNUM = '%'||#{acntNum}||'%'
+	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> 
+	STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
 	AND STMTDATE BETWEEN TO_DATE(#{stmtDate},'YYYY-MM-DD') AND TO_DATE(#{stmtDate2},'YYYY-MM-DD')
 	AND FRREGINUM = #{frRegiNum}
 	GROUP BY STMTDATE

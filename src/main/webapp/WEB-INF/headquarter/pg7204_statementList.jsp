@@ -26,7 +26,6 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-
 	<div class="toolbar">
 		<form action="${path }/statementList.do" method="post">
 		<div>
@@ -43,7 +42,7 @@
 					</label></div>
 		</div>
 		<div>
-		<input type="hidden" name="frRegiNum" value="${login }">
+
 		<button id="byDate" type="button">일자별 조회</button>
 		<button id="byEach">건별 조회</button>
 		<input type="hidden" name="howtosearch" value="1">
@@ -64,7 +63,6 @@
 </tbody>
 </table>
 
-		
 		</div>
 	</div>
 	
