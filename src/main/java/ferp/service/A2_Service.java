@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ferp.dao.A2_Dao;
+import vo.Rq_Product;
 import vo.SCPage;
 import vo.StoreClerk;
 
@@ -85,5 +86,10 @@ public class A2_Service {
 		sch.setEndBlock(endBlock);
 		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.storeClerkPayList(sch);
+	}
+	
+	public List<Rq_Product> availProd(Rq_Product plist){
+		if(plist.getProductName() == null) plist.setProductName("");
+		return dao.availProd(plist);
 	}
 }

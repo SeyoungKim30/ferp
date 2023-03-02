@@ -16,7 +16,7 @@
 	</select>
 	<insert id="insStoreclerk" parameterType="storeclerk">
 		INSERT INTO storeclerk 
-		values(clerkNum_seq.nextval,#{frRegiNum},#{clerkName},#{gender},#{residentNum},#{phoneNum},#{address},#{hourlyPay})
+		values('12345678901014',#{frRegiNum},#{clerkName},#{residentNum},#{phoneNum},#{address},#{hourlyPay},#{gender})
 	</insert>
 	<select id="totNum" parameterType="storeclerksch" resultType="int">
 		SELECT COUNT(*)
@@ -47,5 +47,12 @@
 				and clerkname LIKE '%'||#{clerkName}||'%'
 				)
 			where cnt between #{start} and #{end}
+	</select>
+	<!-- 자재 리스트 조회 -->
+	<select id="availProd" parameterType="rqproduct" resultType="rqproduct">
+		SELECT p.PRODUCTNUM, CATEGORY , PRODUCTNAME , OPPOSITE , PRICE , IMG , p.REMARK  , frreginum, stockdate, applyamount, remainamount
+		FROM PRODUCT p, STOCK s 
+		WHERE p.PRODUCTNUM = s.PRODUCTNUM 
+		AND PRODUCTNAME LIKE '%'||#{productName}||'%'
 	</select>
 </mapper>

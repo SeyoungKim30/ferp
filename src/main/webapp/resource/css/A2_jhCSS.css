@@ -5,14 +5,33 @@ button:hover, .selectedFunction:hover, .unselectedFunction:hover{
 .containerJ{
 	width:97%;	
 }
-.fstCon{
-	margin-top:41px; 
+.toolbox{ 
+	background-color:#f8f9fa;
+	border-radius: 0.25em;
+	border: 1px solid transparent;
+	margin-bottom: .5rem;
+}
+.toolbar label { 
+	margin-left: .5rem;
+}
+.h2Title{
+	border-bottom:1px solid black;
 }
 .row{
 	display: flex;
 }
+.col{
+	display: flex;
+	flex-direction: column;	
+}
 .center{
 	justify-content: center;
+}
+.left{
+	text-align: left;
+}
+.right{
+	text-align: right;
 }
 .border{
 	border:1px solid black;
@@ -21,30 +40,31 @@ button:hover, .selectedFunction:hover, .unselectedFunction:hover{
 	margin:20px;
 }
 .margin-tn{
-	margin:0 20px 20px 20px;
+	margin:0 20px 0 20px;
 }
-.padding-up{
-	padding-top:10px;
+.margin-tln{
+	margin:0 20px 5px 0;
 }
-.margin-s{
-	margin-top:20px;
+.margin-radio{
+	margin-top:10px;
 	margin-bottom:20px;
-	margin-left:20px;
+}
+label.margin-radio{
+	margin-left:10px;	
 }
 .regList{
 	padding-left:15px;
-	width:25%;
+	width:100%;
 	height:40px;
 	border:1px solid #a4a4a4;
 	border-radius:5px;
 }
 button.regList{
 	padding-left:15px;
-	width:25%;
+	width:100%;
 	height:40px;
-	border:1px solid #a4a4a4;
+	border:1px solid #DDD;
 	border-radius:5px;
-	margin-left: 20px;
 }
 input[type="text"].regList:read-only, input[type="date"].regList:read-only {
 	background-color: #efefef;
@@ -59,21 +79,24 @@ input[type="text"].listInput{
 input[type="text"].listInput:disabled{
 	background-color: white;
 }
+.w25{
+	width:25%;
+}
 .w100{
 	width:100%;
 }
 .regBtn{
-	width:10%;
+	width:15%;
 	height:40px;
 	font-size: large;
 	font-weight: 500;
 	color:white;
-	background-color: #a4a4a4;
-	border:1px solid #a4a4a4;
+	background-color: #DDD;
+	border:1px solid #DDD;
 	border-radius:5px;
 }
 .uptBtn, .uptCfm{
-	background-color:green;
+	background-color:#6c757d;
 	color:white;
 	border:none;
 	border-radius: 3px;
@@ -82,7 +105,7 @@ input[type="text"].listInput:disabled{
 	margin-top:7px;
 }
 .delBtn{
-	background-color:red;
+	background-color:#dc3545;
 	color:white;
 	border:none;
 	border-radius: 3px;
@@ -93,19 +116,18 @@ input[type="text"].listInput:disabled{
 	background-color:#efefef;
 	border:1px solid #e4e4e4;
 	border-radius: 3px;
-	width:40%;
 	padding:3px;
 	margin-top:7px;
 }
 .thDiv{
-	border:1px solid #a4a4a4;
-	background-color: #e4e4e4;
+	border-bottom:2px solid #e4e4e4;
+	background-color: #efefef;
 	font-size: large;
 	text-align: center;
 	padding:5px;
 }
 .tdDiv{
-	border:1px solid #a4a4a4;
+	border-bottom:1px solid #e4e4e4;
 	text-align: center;
 	font-size: large;
 	padding:5px;
@@ -113,14 +135,14 @@ input[type="text"].listInput:disabled{
 .pgBtnPrev{
 	border:1px solid #e4e4e4;
 	border-radius: 10px 0 0 10px;
-	width:5%;
+	width:2%;
 	padding:3px;
 	margin-top:7px;
 }
 .pgBtnNext{
 	border:1px solid #e4e4e4;
 	border-radius: 0 10px 10px 0;
-	width:5%;
+	width:2%;
 	padding:3px;
 	margin-top:7px;
 }
@@ -129,8 +151,27 @@ input[type="text"].listInput:disabled{
 	border-radius: 3px;
 	width:2%;
 	padding:3px;
-	margin-top:7px;
+	margin:7px 2px 0 2px;
+	
 }
 .hide{
 	display:none;
+}
+.schDiv{
+	text-align: right;
+	margin: 5px;
+	padding: 3px;
+}
+.schDiv > #frm01 > div > input[type="text"]{
+	width:100%;
+	height:30px;
+}
+.schDiv > #frm01 > div.left{
+	width:65%;
+}
+.schDiv > #frm01 > button{
+	width:25%;
+	height:30px;
+	background-color: #DDD;
+	border: none;
 }
