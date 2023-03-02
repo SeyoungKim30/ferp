@@ -165,7 +165,6 @@ public class B2_Controller {
 	
 	// 문의글 조회
 	// http://localhost:7080/ferp/qnaList.do
-	
 	@RequestMapping("/qnaList.do")
 	public String qnaList(@ModelAttribute("sch") NoticeSch sch, Model d) {
 		d.addAttribute("qna", service.searchQnA(sch));
@@ -179,12 +178,13 @@ public class B2_Controller {
 		
 		return "WEB-INF\\view\\qna_detail.jsp";
 	}
-	// 문의글 등록
+	// 문의글 등록폼
 	// http://localhost:7080/ferp/qnaInsert.do
 	@GetMapping("/qnaInsert.do")
 	public String qnaInsert() {
 		return "WEB-INF\\view\\qna_insert.jsp";
 	}
+	// 문의글 등록 & 답변
 	@PostMapping("/qnaInsert.do")
 	public String qnaInsert(Notice ins, RedirectAttributes redirect) {
 		if( service.insertQnA(ins)!=null ) {

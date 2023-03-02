@@ -193,7 +193,7 @@ public class B2_Service {
 		
 		return dao.detailQnA(noticeNum);
 	}
-	// 문의글 등록
+	// 문의글 등록 & 답변
 	public String insertQnA(Notice ins) {
 		if( ins.getMultipartfile() != null) {
 			String fname = upload(ins.getMultipartfile());
