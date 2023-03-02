@@ -47,7 +47,7 @@ body{
 </head>
 <body>
 	<div id="insform">
-		<h2>본사 자재 상세</h2>
+		<h2>매장 자재 상세</h2>
 		<div><img class="prodimg" src="${path}/resource/img/${product.img}"></div>
 		<div>
 			<label for="productNum">자재코드</label> 

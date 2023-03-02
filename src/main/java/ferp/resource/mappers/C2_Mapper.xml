@@ -67,4 +67,6 @@
 		WHERE productNum = #{productNum}
 	</update>
 	
+	
+	
 </mapper>
