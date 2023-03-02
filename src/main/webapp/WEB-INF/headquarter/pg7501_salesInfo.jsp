@@ -256,7 +256,9 @@
 
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <!--
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 -->
@@ -274,9 +276,7 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		
-				<h2>매장 정보 조회</h2>
-				<hr>
-				<br>
+				<h2>매장 정보 조회</h2><br><hr><br>
 				
 				<!-- 전체매장총매출출력칸 시작-->
 				<div class="hdq_totalSalesPrt">
@@ -296,7 +296,7 @@
 						<input class="infoSch" name="frRepname" value="${sch.frRepname}"  type="text" placeholder=" 점주명 입력"/>
 						<input class="infoSch" name="ename"  value="${sch.ename}" type="text" placeholder=" 담당직원 입력"/>
 						<button class="frsalesSchBtn" type="submit">검색</button>
-					</form>
+				
 				</div>
 				<!-- 검색칸 끝 -->
 					
@@ -313,10 +313,10 @@
 					</div>
 					<div class="period">
 						<span>매출조회 기간</span>
-						<form method="post">
-							<input class="infoSch2" id="strperiod" name="frSchOrderdt" value="${sch.frSchOrderdt}" type="month"/>
+						
+							<input id="strperiod" name="frSchOrderdt" value="${sch.frSchOrderdt}" type="month"/>
 							~
-							<input class="infoSch2" id="endperiod" name="toSchOrderdt" value="${sch.toSchOrderdt}" type="month"/>
+							<input id="endperiod" name="toSchOrderdt" value="${sch.toSchOrderdt}" type="month"/>
 						</form>
 					</div>
 				</div>
@@ -363,8 +363,8 @@
 	
 	//ajax fetch사용
 	function search(){
-		let url="${path}/salesInfoJson.do?frname="+frname+"&frRepname="+frRepname+"&ename="+ename+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt //검색값 넘기기
-		//console.log(url);
+		let url="${path}/salesInfoJson.do?frname="+frname+"&frRepname="+frRepname+"&ename="+ename+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt  //검색값 넘기기
+		console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
 			console.log(json);
@@ -372,11 +372,10 @@
 			var trtd='';
 		
 			sbslist.forEach(function(each){
-				trtd+="<tr><td>"+each.frname+"</td><td>"+each.frsales+"</td><td>매입액</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
+				trtd+="<tr><td>"+each.frname+"</td><td>"+each.frsales+"</td><td>"+each.frpurchase+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
 			})
 			$("table tbody").html(trtd);
-		
-	   
+			
 		}).catch(function(err){console.log(err)})	
 
 	}
@@ -385,10 +384,7 @@
 
 		search();
 	
-		//매장명,점주,담당자로 검색 & 날짜도 검색
-		$("button").on("click", function(event){
-			search();
-		});
+		//엔터검색
 		$("input").on({
 			keyup:function(){
 				if(event.keyCode==13){
@@ -397,12 +393,19 @@
 			}
 		});
 		
-		//날짜로 검색
-		$(".infoSch2").on({
-			change:function(){
+		//날짜를 검색
+		$("[type=month]").change(function(){
+			frSchOrderdt = $("[name=frSchOrderdt]").val();
+			toSchOrderdt = $("[name=toSchOrderdt]").val();
+			if(frSchOrderdt<=toSchOrderdt){
 				search();
+			}else{
+				alert("검색날짜에 유의하세요");
 			}
-		});
+		})
+		
+		
+		// https://goddino.tistory.com/81
 		
 	})
 	

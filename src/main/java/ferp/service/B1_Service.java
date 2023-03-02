@@ -22,8 +22,9 @@ public class B1_Service {
 	}
 	//본사:매장별매출 전체조회
 	public List<Orders> SalesByStoreList(Orders sbsl){
+		
 		if(sbsl.getFrSchOrderdt()==null) {
-			// 서비스에서 자바데이트로 넣기 if문써서
+			// 서비스에서 if문써서 자바데이트로 넣기 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
 		    Calendar cal = Calendar.getInstance();
 		    cal.add(Calendar.MONTH, -1);

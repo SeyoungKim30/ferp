@@ -14,6 +14,7 @@
 	</select>
 	
 	<!-- 본사:매장별매출 전체조회 -->
+	<!--
 	<select id="SalesByStoreList" parameterType="orders" resultType="orders">
 		SELECT frname, s.frreginum, frtel, frRepname, ename, nvl(frsalesum, 0) frsales
 		FROM store s, emp e, (  SELECT frreginum, sum(payprice) frsalesum
@@ -33,6 +34,35 @@
 		</if>
 		ORDER BY frname
 	</select>
-	
+	-->
+		<select id="SalesByStoreList" parameterType="orders" resultType="orders">
+		SELECT frname, s.frreginum, frtel, frRepname, ename, nvl(frsalesum, 0) frsales, nvl(mtotal, 0) frpurchase
+		FROM store s, emp e, 
+			( SELECT frreginum, sum(payprice) frsalesum
+			  FROM orders
+			  WHERE state='완료'
+			  AND TRUNC(orderdate,'month') BETWEEN to_date(#{frSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{toSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM')
+			  GROUP BY frreginum ) ord,
+			( SELECT DEMANDER, sum(mcnt*price) mtotal
+			  FROM PRODUCT prd, (SELECT DEMANDER, PRODUCTNUM,  sum(amount) mcnt
+								FROM PRODORDER d
+							  	WHERE PAYMENTSTATE='완료'
+								AND TRUNC(orderdate,'month') BETWEEN to_date(#{frSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{toSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM')
+								GROUP BY PRODUCTNUM, DEMANDER) prdord 
+			  WHERE prd.PRODUCTNUM=prdord.PRODUCTNUM
+			  GROUP BY DEMANDER) fprdord   
+		WHERE ord.frreginum(+)=s.frreginum AND s.empnum=e.empnum AND s.frreginum=fprdord.DEMANDER(+)
+		and s.FRREGINUM!='9999999999'
+		<if test="frname!=null and !frname.equals('')">
+		AND frname LIKE '%'||#{frname}||'%'
+		</if>
+		<if test="frRepname!=null and !frRepname.equals('')">
+		AND frRepname LIKE '%'||#{frRepname}||'%'
+		</if>
+		<if test="ename!=null and !ename.equals('')">
+		AND ename LIKE '%'||#{ename}||'%'
+		</if>
+		ORDER BY frname
+	</select>
 
 </mapper>
