@@ -350,10 +350,15 @@
 	localStorage.setItem("pageIdx","7501") //id값
 	localStorage.setItem("eqIdx","3")
 	*/
+	var frname = document.querySelector("[name=frname]").val()
+	var frRepname = document.querySelector("[name=frRepname]").val()
+	var ename = document.querySelector("[name=ename]").val()
+	var frSchOrderdt = document.querySelector("[name=frSchOrderdt]").val()
+	var toSchOrderdt = document.querySelector("[name=toSchOrderdt]").val()
 	
 	//ajax fetch사용
 	function search(){
-		let url="${path}/salesInfoJson.do?frname="+$('[name=frname]').val() //?
+		let url="${path}/salesInfoJson.do?frname="+$(frname)+"&frRepname="+$(frRepname)+"&ename=+"+$(ename)+"&frSchOrderdt=+"+$(frSchOrderdt)+"&toSchOrderdt=+"+$(toSchOrderdt) //검색값 넘기기
 				console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
@@ -374,7 +379,6 @@
 	$(document).ready(function(){
 
 		search();
-		
 	
 		//매장명,점주,담당자로 검색 & 날짜도 검색
 		$("button").on("click", function(event){
@@ -396,5 +400,6 @@
 		});
 		
 	})
+	
 </script>
 </html>
