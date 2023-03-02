@@ -84,4 +84,8 @@ public class C2_Controller {
 	public List<String> orderStateCom() {
 		return service.orderStateCom();
 	}
+	
+	// 본사 재고 매매 내역 조회
+	
+	
 }
