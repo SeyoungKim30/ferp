@@ -106,14 +106,14 @@
 					    			<c:forEach begin="2" end="${qna.level}">
 					    			&nbsp;&nbsp;&nbsp;
 					    			</c:forEach>
-				    				<img src="${path}/resource/img/re.png" width="5%" height="5%">
+				    				<img src="${path}/resource/img/rere.png" width="3%" height="5%">
 				    			</c:if>
 				    		${qna.title}</td>
 				    		<td><fmt:formatDate value="${qna.regdte}"/></td>
 				    		<td>${qna.readCnt}</td>
 				    	</tr>
 						</c:forEach>
-				    </tbody>   				
+				    </tbody>	
 				</table>
 				<div class="page_wrap">
 				   <div class="page_nation">

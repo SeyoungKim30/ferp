@@ -58,7 +58,6 @@ public class B2_Controller {
 		return "redirect:/mainpage.do";
 	}
 	
-	
 	// 매장정보등록 controller
 	// http://localhost:7080/ferp/storeInsert.do
 	@GetMapping("/storeInsert.do")
