@@ -94,36 +94,25 @@ public class B2_Service {
 	public List<Notice> searchNotice(NoticeSch sch){
 		if(sch.getTitle()==null) sch.setTitle("");
 		
-		// 1. 총 데이터 건수
 		sch.setCount(dao.totCntNotice(sch));
 		
-		// 2. 현재페이지 번호(클릭한) 
 		if(sch.getCurPage()==0) sch.setCurPage(1);
 		
-		// 3. 한페이지에 보일 데이터 갯수 - 초기화면 현재 페이지 번호 0 ==> default설정
 		if(sch.getPageSize()==0) sch.setPageSize(5);
 		
-		// 4. 총페이지 수(전체데이터 / 한페이지에 보일 데이터 건수)
 		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
 		
-		// 블럭의 [이후]에 대한 예외 처리.. 끝 페이지에서 [이후]를 눌렀을 경우
 		if(sch.getCurPage()>sch.getPageCount()) sch.setCurPage(sch.getPageCount());
 		
-		// 5. 시작번호&마지막 번호
 		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
 		sch.setEnd(sch.getPageSize()*sch.getCurPage());
-		
-		// 6. 블럭처리
-		// 	 1) 블럭 크기 지정
 		sch.setBlockSize(5);
-		//	 2) 블럭 번호 지정 : 현재페이지번호/블럭의 크기 - 올림
+		
 		int blocknum = (int)Math.ceil((double)sch.getCurPage()/sch.getBlockSize());
-		//	 3) 마지막 블럭번호
 		int endBlock = blocknum*sch.getBlockSize();
 		if(endBlock > sch.getPageCount()) endBlock = sch.getPageCount();
 		sch.setEndBlock(endBlock);
 
-		//	 4) 시작 블럭
 		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.searchNotice(sch);
 	}
@@ -182,36 +171,25 @@ public class B2_Service {
 	public List<Notice> searchQnA(NoticeSch sch){
 		if(sch.getTitle()==null) sch.setTitle("");
 		
-		// 1. 총 데이터 건수
 		sch.setCount(dao.totCntQnA(sch));
 		
-		// 2. 현재페이지 번호(클릭한) 
 		if(sch.getCurPage()==0) sch.setCurPage(1);
 		
-		// 3. 한페이지에 보일 데이터 갯수 - 초기화면 현재 페이지 번호 0 ==> default설정
 		if(sch.getPageSize()==0) sch.setPageSize(5);
 		
-		// 4. 총페이지 수(전체데이터 / 한페이지에 보일 데이터 건수)
 		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
 		
-		// 블럭의 [이후]에 대한 예외 처리.. 끝 페이지에서 [이후]를 눌렀을 경우
 		if(sch.getCurPage()>sch.getPageCount()) sch.setCurPage(sch.getPageCount());
 		
-		// 5. 시작번호&마지막 번호
 		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
 		sch.setEnd(sch.getPageSize()*sch.getCurPage());
 		
-		// 6. 블럭처리
-		// 	 1) 블럭 크기 지정
 		sch.setBlockSize(5);
-		//	 2) 블럭 번호 지정 : 현재페이지번호/블럭의 크기 - 올림
 		int blocknum = (int)Math.ceil((double)sch.getCurPage()/sch.getBlockSize());
-		//	 3) 마지막 블럭번호
 		int endBlock = blocknum*sch.getBlockSize();
 		if(endBlock > sch.getPageCount()) endBlock = sch.getPageCount();
 		sch.setEndBlock(endBlock);
 
-		//	 4) 시작 블럭
 		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		
 		return dao.searchQnA(sch);

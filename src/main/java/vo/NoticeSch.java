@@ -3,7 +3,6 @@ package vo;
 public class NoticeSch {
 	private String title;
 	
-	// 2. 페이징 처리 1단계
 	private int count; // 전체 데이터 건수
 	private int pageSize; // 한 페이지에 보여줄 데이터 건수
 	private int pageCount; // 총 페이지수 count/pageSize
@@ -11,8 +10,6 @@ public class NoticeSch {
 	private int start; // 현재 페이지 시작번호
 	private int end; // 현재 페이지 마지막번호
 	
-	
-	// 3. 페이징 처리 2단계(블럭)
 	public int blockSize; // 한번에 보여줄 block의 크기
 	public int startBlock; // block 시작번호
 	public int endBlock; // block 마지막번호
