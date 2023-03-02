@@ -40,4 +40,12 @@ public interface B2_Dao {
 	
 	// 직원 콤보
 	public List<HOemp> getHOemp();
+	
+	// 문의글 등록
+	public void insertQnA(Notice ins);
+	// 문의글 조회
+	public List<Notice> searchQnA(NoticeSch sch);
+	// 문의글 상세페이지
+	public Notice detailQnA(String noticeNum);
+	
 }

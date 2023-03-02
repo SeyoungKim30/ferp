@@ -144,4 +144,36 @@ public class B2_Service {
 	public List<HOemp> getHOemp(){
 		return dao.getHOemp();
 	}
+	
+	
+	
+	// 문의글 조회
+	public List<Notice> searchQnA(NoticeSch sch){
+		if(sch.getTitle()==null) sch.setTitle("");
+		
+		return dao.searchQnA(sch);
+	}
+	// 문의글 상세페이지
+	public Notice detailQnA(String noticeNum) {
+		dao.plusCnt(noticeNum);
+		
+		return dao.detailQnA(noticeNum);
+	}
+	// 문의글 등록
+	public String insertQnA(Notice ins) {
+		if( ins.getMultipartfile() != null) {
+			String fname = upload(ins.getMultipartfile());
+			
+			ins.setFname(fname);
+		}
+		if( ins.getMultipartfile() == null ) {
+			
+			ins.setFname("");
+		}
+		dao.insertQnA(ins);
+		
+		return ins.getTitle();
+	}
+	
 }
+

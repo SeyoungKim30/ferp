@@ -14,11 +14,13 @@
 		INSERT INTO menu VALUES('M'||menu_seq.nextval, #{menuName}, #{price}, #{info}, #{img}, #{necessary}, #{category})
 	</insert>
 	
+	
+	<!-- 매장정보 등록 -->
 	<insert id="insertStore" parameterType="store">
 		INSERT INTO store VALUES(#{frRegiNum}, #{eno}, #{frName}, #{frOpen}, 
 			#{frOperTime}, #{frClosedDte}, #{frRepName}, #{frTel}, #{frAddress}, #{frPass})
 	</insert>
-
+	<!-- 매장정보 수정 -->
 	<update id="updateStore" parameterType="store">
 		UPDATE store
 		SET eno = #{eno},
@@ -32,7 +34,7 @@
 			frPass = #{frPass}
 		WHERE FrRegiNum = #{frRegiNum}
 	</update>
-	
+	<!-- 수정시 매장정보 상세조회 -->
 	<select id="detailStore" resultType="store" parameterType="string">
 		SELECT *
 		FROM store
@@ -40,28 +42,32 @@
 	</select>
 	
 	
+	
+	<!-- 공지사항 조회 -->
 	<select id="searchNotice" resultType="notice" parameterType="noticeSch">
 		SELECT *
 		FROM notice
 		WHERE title LIKE '%'||#{title}||'%'
 		ORDER BY regdte DESC
 	</select>
-	
+	<!-- 공지사항 상세조회 -->
 	<select id="detailNotice" resultType="notice" parameterType="string">
 		SELECT *
 		FROM notice
 		WHERE noticeNum = #{noticeNum}
 	</select>
+	<!-- 조회수 증가-->
 	<update id="plusCnt" parameterType="string">
 		UPDATE notice
 			SET readcnt = readcnt+1
 		WHERE noticeNum = #{noticeNum}
 	</update>
+	<!-- 공지사항 등록 -->
 	<insert id="insertNotice" parameterType="notice">
-		INSERT INTO notice VALUES(notice_seq.nextval, #{title}, #{content}, 
-					#{writer}, 0, sysdate, sysdate, #{fname}, #{important})
+		INSERT INTO notice VALUES('N'||notice_seq.nextval, #{title}, #{content}, 
+					#{writer}, 0, sysdate, sysdate, #{fname}, #{important}, NULL, NULL, NULL)
 	</insert>
-	
+	<!-- 공지사항 수정 -->
 	<update id="updateNotice" parameterType="notice">
 		UPDATE notice
 		SET title = #{title},
@@ -70,14 +76,40 @@
 			important = #{important}
 		WHERE noticeNum = #{noticeNum}
 	</update>
-	
+	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice">
 		DELETE notice
 		WHERE noticeNum = #{noticeNum}
 	</delete>
 	
+	
+	<!-- 사원 combo -->
 	<select id="getHOemp" resultType="hoemp">
 		SELECT *
 		FROM HOemp
 	</select>
+	
+	
+	<!-- 문의글 조회 -->
+	<select id="searchQnA" resultType="notice" parameterType="noticeSch">
+		select rownum cnt, LEVEL, n.*
+		from notice n
+		where 1=1
+		and title like '%'||#{title}||'%'
+		and noticeNum LIKE '%'||'QN'||'%'
+		START WITH replynum = '0'
+		CONNECT BY PRIOR noticeNum = replyNum
+		ORDER siblings BY replyNum DESC
+	</select>
+	<!-- 문의글 상세 조회 -->
+	<select id="detailQnA" resultType="notice" parameterType="string">
+		SELECT *
+		FROM notice
+		WHERE noticeNum = #{noticeNum}
+	</select>
+	<!-- 문의글 등록 -->
+	<insert id="insertQnA" parameterType="notice">
+		INSERT INTO notice VALUES('QN'||notice_seq.nextval, #{title}, #{content}, 
+					#{writer}, 0, sysdate, sysdate, #{fname}, NULL, #{replyNum}, #{category}, NULL)
+	</insert>
 </mapper>

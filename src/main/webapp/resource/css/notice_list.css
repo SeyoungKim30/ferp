@@ -93,10 +93,7 @@ table td {
   border-collapse: collapse;
   text-align: center;
 }
-table img{
-	width: 100px;
-	height: 100px;
-}
+
 table tr:hover td {
   color: #004;
 }

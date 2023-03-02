@@ -2,8 +2,9 @@ package vo;
 
 public class NoticeSch {
 	private String title;
-
 	
+
+
 	public String getTitle() {
 		return title;
 	}

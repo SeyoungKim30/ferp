@@ -76,36 +76,43 @@
                 </ul>
             </div>
             <div class="contents">
-           		<h2 class="notice_main">메 뉴 조 회</h2>
+           		<h2 class="notice_main">문의글</h2>
            		<div class="sch_line">
            			<form method="post">
-		           		<input type="text" name="menuName" id="title" value="${sch.menuName}" placeholder="메뉴명 검색">
+		           		<input type="text" name="title" id="title" value="${sch.title}" placeholder="제목 검색">
 						<button type="button" class="schBtn">검 색</button>
 					</form>
            		</div>
 				<table>
 			   	<col width="15%">
-			   	<col width="50%">
+			   	<col width="60%">
 			   	<col width="15%">
-			   	<col width="20%">
+			   	<col width="10%">
 				    <thead>
 				      <tr>
-				        <th>메뉴명</th>
-				        <th>메뉴설명</th>
-				        <th>가격</th>
-				        <th>사진</th>
+				        <th>NO</th>
+				        <th>제목</th>
+				        <th>작성일</th>
+				        <th>조회수</th>
 				      </tr>
     				</thead>
 				    <tbody>
-				    	<c:forEach var="menu" items="${menu}">
+				    	<c:forEach var="qna" items="${qna}">
 				    	<tr>
-				    		<td>${menu.menuName}</td>
-				    		<td>${menu.info}</td>
-				    		<td><fmt:formatNumber value="${menu.price}"/></td>
-				    		<td><img style="width: 100px; height: 100px;" src="${path}/resource/img/${menu.img}"></td>
+				    		<td>${qna.cnt}</td>
+				    		<td class="tab_title" style="text-align: left;" onclick="goDetail('${qna.noticeNum}')">
+	    		    			<c:if test="${qna.level>1}">
+					    			<c:forEach begin="2" end="${qna.level}">
+					    			&nbsp;&nbsp;&nbsp;
+					    			</c:forEach>
+				    				<img src="${path}/resource/img/re.png" width="5%" height="5%">
+				    			</c:if>
+				    		${qna.title}</td>
+				    		<td><fmt:formatDate value="${qna.regdte}"/></td>
+				    		<td>${qna.readCnt}</td>
 				    	</tr>
 						</c:forEach>
-				    </tbody>	
+				    </tbody>   				
 				</table>
 				<div class="page_wrap">
 				   <div class="page_nation">
@@ -127,9 +134,53 @@ $(document).ready(function(){
 	<%-- 
 	
 	--%>
-
+    var insMsg = "${insMsg}"
+    if(insMsg != ""){
+		  Swal.fire({
+			  title: '문의글 등록 성공!',
+			  icon: 'success',
+			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			}).then((result) => {
+			  if (result.value) {
+				//"확인" 버튼을 눌렀을 때 작업할 내용
+			  }
+			})	
+    }
+    var uptMsg = "${uptMsg}"
+    if(uptMsg != ""){
+		  Swal.fire({
+			  title: '문의글 수정 성공!',
+			  icon: 'success',
+			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			}).then((result) => {
+			  if (result.value) {
+				//"확인" 버튼을 눌렀을 때 작업할 내용
+			  }
+			})	
+    }
+    var delMsg = "${delMsg}"
+    if(delMsg != ""){
+		  Swal.fire({
+			  title: '문의글 삭제 성공!',
+			  icon: 'success',
+			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			}).then((result) => {
+			  if (result.value) {
+				//"확인" 버튼을 눌렀을 때 작업할 내용
+			  }
+			})	
+    }
 });
-
+// 상세페이지로 이동
+function goDetail(noticeNum) {
+	  location.href="${path}/qnaDetail.do?noticeNum="+noticeNum;
+}
 
 $('.lnb > ul > li').click(function() {
     if ( $(this).hasClass('active') ) {
