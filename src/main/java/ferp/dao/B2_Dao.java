@@ -25,6 +25,8 @@ public interface B2_Dao {
 	public void deleteStore(String frRegiNum);
 	
 	
+	public int totCntNotice(NoticeSch sch);
+	public int totCntQnA(NoticeSch sch);
 	// 공지사항 조회
 	public List<Notice> searchNotice(NoticeSch sch);
 	// 공지사항 상세 페이지

@@ -42,14 +42,25 @@
 	</select>
 	
 	
-	
+
 	<!-- 공지사항 조회 -->
 	<select id="searchNotice" resultType="notice" parameterType="noticeSch">
-		SELECT *
-		FROM notice
-		WHERE title LIKE '%'||#{title}||'%'
+		select *
+		from (
+			SELECT *
+			FROM notice
+			WHERE title LIKE '%'||#{title}||'%'
+			and noticeNum LIKE '%'||'N'||'%'
+			ORDER BY regdte DESC )
+		where cnt between #{start} and #{end}	
+
+	</select>
+	<select id="totCntNotice" resultType="int" parameterType="noticeSch">
+		select count(*)
+		from notice
+		where 1=1
+		and title like '%'||#{title}||'%'
 		and noticeNum LIKE '%'||'N'||'%'
-		ORDER BY regdte DESC
 	</select>
 	<!-- 공지사항 상세조회 -->
 	<select id="detailNotice" resultType="notice" parameterType="string">
@@ -93,14 +104,26 @@
 	
 	<!-- 문의글 조회 -->
 	<select id="searchQnA" resultType="notice" parameterType="noticeSch">
-		select rownum cnt, LEVEL, n.*
-		from notice n
+		select *
+		from (
+			select rownum cnt, LEVEL, n.*
+			from notice n
+			where 1=1
+			and title like '%'||#{title}||'%'
+			and noticeNum LIKE '%'||'Q'||'%'
+			START WITH replynum = '0'
+			CONNECT BY PRIOR noticeNum = replyNum
+			ORDER siblings BY replyNum DESC )
+		where cnt between #{start} and #{end}	
+	
+
+	</select>
+	<select id="totCntQnA" resultType="int" parameterType="noticeSch">
+		select count(*)
+		from notice
 		where 1=1
 		and title like '%'||#{title}||'%'
 		and noticeNum LIKE '%'||'Q'||'%'
-		START WITH replynum = '0'
-		CONNECT BY PRIOR noticeNum = replyNum
-		ORDER siblings BY replyNum DESC
 	</select>
 	<!-- 문의글 상세 조회 -->
 	<select id="detailQnA" resultType="notice" parameterType="string">

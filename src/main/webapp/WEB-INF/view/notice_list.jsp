@@ -81,6 +81,7 @@
            			<form method="post">
 		           		<input type="text" name="title" id="title" value="${sch.title}" placeholder="제목 검색">
 						<button type="button" class="schBtn">검 색</button>
+						<input type="hidden" name="curPage" value="${sch.curPage}"/>
 					</form>
            		</div>
 				<table>
@@ -109,13 +110,11 @@
 				</table>
 				<div class="page_wrap">
 				   <div class="page_nation">
-				      <a class="arrow prev" href="#"></a>
-				      <a href="#" class="active">1</a>
-				      <a href="#">2</a>
-				      <a href="#">3</a>
-				      <a href="#">4</a>
-				      <a href="#">5</a>
-				      <a class="arrow next" href="#"></a>
+				      <a class="arrow prev" href="javascript:goPage(${sch.startBlock-1});"></a>
+				      <c:forEach var="cnt" begin="${sch.startBlock}" end="${sch.endBlock}">
+				      	<a href="#" class="${sch.curPage==cnt?'active':''}" onclick="goPage(${cnt})">${cnt}</a>
+				      </c:forEach>
+				      <a class="arrow next" href="javascript:goPage(${sch.endBlock+1});"></a>
 				   </div>
 				</div>
             </div>
@@ -169,7 +168,12 @@ $(document).ready(function(){
 			  }
 			})	
     }
+
 });
+function goPage(cnt) {
+	$("[name=curPage]").val(cnt);
+	$("form").submit()
+}
 // 상세페이지로 이동
 function goDetail(noticeNum) {
 	  location.href="${path}/noticeDetail.do?noticeNum="+noticeNum;
