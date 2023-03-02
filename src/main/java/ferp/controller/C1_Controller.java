@@ -90,6 +90,7 @@ public class C1_Controller {
 	@GetMapping("statementList.do")
 	public String r7204(Model model) {
 		model.addAttribute("accountList", service.r7100SelectAccount(new Account(true)));
+		
 		return "WEB-INF\\headquarter\\pg7204_statementList.jsp";	
 	}
 	

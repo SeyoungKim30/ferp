@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-<c:set var="login" value="fakeID1111" />
 <fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
 <html>
@@ -114,7 +113,7 @@ $(document).ready(function(){
 				<div>
 					<label>전표일자<input type="date" name="stmtDate" required="required" value="${fn:substring(stmtList[0].stmtDate,0,10) }"></label>
 					<label>전표번호<input name="statementNum" value="${stmtList[0].statementNum }" placeholder="검색할때만 입력하세요"></label>
-					<input name="frRegiNum" type="hidden" value="${login}">
+					<input name="frRegiNum" type="hidden" value="${login.frRegiNum }">
 					<button type="button" class="btn-secondary">검색</button>
 				</div>
 				<div><button type="button" class="btn-primary">등록</button></div>
