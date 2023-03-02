@@ -371,12 +371,12 @@
 								<label for="menu_opt_1">
 									<input type="radio" name="option_1" id="menu_opt_1" value="option_ice">
 									<span class="custom_checkbox"><i class="ri-check-line"></i></span>
-									<span class="menu_opt">아이스</span>
+									<span class="menu_opt radio01">아이스</span>
 								</label>
 								<label for="menu_opt_2">
 									<input type="radio" name="option_1" id="menu_opt_2" value="option_hot">
 									<span class="custom_checkbox"><i class="ri-check-line"></i></span>
-									<span class="menu_opt">따뜻하게</span>
+									<span class="menu_opt radio02">따뜻하게</span>
 								</label>
 							</div>
 							<div class="option_checkbox">
@@ -579,10 +579,28 @@ tabContent.click(function () {
 			$(".option_radio").css('display','none');
 			$(".delS").css('display','none');
 			$(".addS").css('display','none');
+			$(".sizeUp").css('display','flex');
+			$(".radio01").text("Ice");
+			$(".radio02").text("Hot");
 		}else if(MenuCategory == "coffee"){
 			$(".option_radio").css('display','flex');
 			$(".delS").css('display','flex');
 			$(".addS").css('display','flex');
+			$(".sizeUp").css('display','flex');
+		}else if(MenuCategory == "sandwich" || MenuCategory == "cake" ){
+			$(".option_radio").css('display','flex');
+			$(".delS").css('display','none');
+			$(".addS").css('display','none');
+			$(".sizeUp").css('display','none');
+			$(".radio01").text("매장");
+			$(".radio02").text("포장");
+		}else{
+			$(".option_radio").css('display','flex');
+			$(".delS").css('display','none');
+			$(".addS").css('display','none');
+			$(".sizeUp").css('display','flex');
+			$(".radio01").text("Ice");
+			$(".radio02").text("Hot");
 		}
 });
 
@@ -596,7 +614,6 @@ modalClose.click(function () {
 	dimmed.removeClass('on');
 	modalContainer.removeClass('on');
 	$(".product_number").val(1);
-	$("input:radio[id='menu_opt_3']").prop('checked',false);
 })
 
 // tab
@@ -624,6 +641,14 @@ $(".btn_minus").click(function () {
 		cnt--;
 	}
 	$(".product_number").val(cnt);
+});
+
+// 추가하기 버튼
+var modal_btn_add = $(".modal_btn_add");
+	modal_btn_add.click(function () {
+	var name = $(".modal_product_name").val();
+
+	
 });
 
 
