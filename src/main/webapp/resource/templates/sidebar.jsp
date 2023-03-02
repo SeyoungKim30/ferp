@@ -27,14 +27,7 @@
 </style>
  <div class="lnb">
                 <ul>
-                    <li>
-                        <a href="#">공지 및 문의</a>
-                        <ul>
-                            <li><a href="#">- 공지사항 조회</a></li>
-                            <li><a href="#">- 문의글 등록</a></li>
-                            <li><a href="#">- 1:1 채팅</a></li>
-                        </ul>
-                    </li>
+
                     <li>
                         <a href="#">직원 관리</a>
                         <ul>
@@ -67,9 +60,42 @@
                     <li>
                         <a href="#">매장 관리</a>
                         <ul>
-                            <li><a href="#">- 비밀번호 변경</a></li>
-                            <li><a href="#">- 매출 조회</a></li>
+                            <li><a href="#">- 매장 정보 등록</a></li>
+                            <li><a href="#">- 매장 정보 조회</a></li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="#">매장 점검</a>
+                        <ul>
+                            <li><a href="#">- 품질관리점검표</a></li>
+                            <li><a href="#">- 품질관리점검 결과 조회</a></li>   
+                            <li><a href="#">- 담당 매장 점검</a></li><!-- 담당자만 보이게 -->
+                            <li><a href="#">- 출근시간 점검</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">메뉴 관리</a>
+                        <ul>
+                            <li><a href="#">- 메뉴 등록</a></li>
+                            <li><a href="#">- 메뉴 조회</a></li>
+                        </ul>
+                    </li>
+                    
+                     <li>
+                        <a href="#">공지 및 문의</a>
+                        <ul>
+                            <li><a href="#">- 공지사항 등록</a></li>
+                            <li><a href="#">- 공지사항 조회</a></li>
+                            <li><a href="#">- 문의글 등록</a></li>
+                            <li><a href="#">- 문의글 조회</a></li>
+                            <li><a href="#">- 1:1 채팅</a></li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="#">정보수정</a>
+                        <ul>
+                            <li><a href="#">- 비밀번호변경</a></li>
+                   		</ul>
                     </li>
                 </ul>
             </div>
