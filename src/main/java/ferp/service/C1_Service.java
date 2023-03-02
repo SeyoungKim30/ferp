@@ -30,6 +30,7 @@ public class C1_Service {
 	}
 
 	public int r7210insertStatement(String statementNum,String stmtDate,String frRegiNum,List<ACStatement> stmtlist) {
+		if(statementNum==null||statementNum.equals("")) {statementNum="WR";}
 		int stmtcount=0;
 		for (ACStatement stmt : stmtlist) {
 			stmt.setStatementNum(statementNum);
@@ -67,9 +68,6 @@ public class C1_Service {
 		}
 		if(stmt.getStmtDate2()==null||stmt.getStmtDate2().equals("")) {
 			stmt.setStmtDate2(stmt.getStmtDate());
-		}
-		if(stmt.getAcntNum()==null||stmt.getAcntNum().equals("")) {
-			stmt.setAcntNum("10100");
 		}
 		if(howtosearch==1) {
 			return dao.r7204selectStatementList(stmt);

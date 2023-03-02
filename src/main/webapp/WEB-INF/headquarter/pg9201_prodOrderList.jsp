@@ -39,7 +39,7 @@
 	var empList=[];
 	
 	//상품리스트
-	var empList=[];
+	var prodList=[];
 
 $(document).ready(function(){
 	fetchStoreList();
@@ -56,6 +56,7 @@ $(document).ready(function(){
 	<br>
 	<div class="toolbox">
 	
+	<form action="${path }/productOrderListJson.do">
 	<h3>조회 기간 선택</h3>
 	<div class="toolbar" title="단일 주문일자,월별 조회, 발주번호 중 하나의 조건을 입력하세요">
 		<div><label>주문일자 <input type="date" name="orderDate" required></label><label>월별 조회 <input type="month" name="orderDateMonth" required></label>
@@ -68,11 +69,12 @@ $(document).ready(function(){
 		<label>주문지점<input name="demander" list="storeList"></label><datalist id="storeList"></datalist>
 		<label>담당자<input name="ename"></label>
 		<label>상품 선택<input name="productNum"></label>
-		<label>발주상태<select name="orderState"><option>전체 보기</option><option>요청</option><option>준비</option><option>배송</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
-		<label>결제상태<select name="paymentState"><option>전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
+		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>준비</option><option>배송</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
+		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
 	</div>
-	<input type="submit" class="btn-secondary" value="발주 조회">
+	<button class="btn-secondary" onclick="console.log($('form').serialize())">발주조회</button>
 	</div>
+	</form>
 	</div>
 
 <table>

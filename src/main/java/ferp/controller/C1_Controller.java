@@ -24,10 +24,13 @@ public class C1_Controller {
 	C1_Service service;
 
 	// http://localhost:6080/ferp/selectAccountJson.do
-	@RequestMapping("selectAccountJson.do")
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@GetMapping("selectAccountJson.do")
 	public String r7100SelectAccountJson(Account account, Model model) {
 		account.setAcntUsing(true);
 		model.addAttribute("accountList", service.r7100SelectAccount(account));
+		account.setAcntUsing(false);
+		model.addAttribute("accountListfalse", service.r7100SelectAccount(account));
 		return "pageJsonReport";
 	}
 	
@@ -114,8 +117,7 @@ public class C1_Controller {
 		model.addAttribute("list",service.r9201select(prodOrder));
 		return "pageJsonReport";
 	}
-	
-	
+
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@GetMapping("selectActiveStoreJson.do")
 	public String selectActiveStore(Model model) {

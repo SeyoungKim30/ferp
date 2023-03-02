@@ -9,15 +9,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>타이틀</title>
-<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<title>거래내역조회</title>
+
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","7204")
-	localStorage.setItem("eqIdx","2")
+	localStorage.setItem("eqIdx","1")
 </script>
 </head>
 
@@ -26,6 +24,8 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
+		<h2>거래내역 조회</h2>
+		<hr><br>
 	<div class="toolbar">
 		<form action="${path }/statementList.do" method="post">
 		<div>
@@ -34,6 +34,7 @@
 				<div><label>종료일자<input name="stmtDate2" type="date" value="${stmt.stmtDate2 }"></label></div>
 				<div><label>거래처<input name="stmtOpposite" value="${stmt.stmtOpposite }"></label></div>
 				<div><label>계정과목<select name="acntNum">
+				<option value="">전체</option>
 					<c:forEach items="${accountList }" var="ii">
 						<option <c:if test="${ii.acntNum==stmt.acntNum }">selected="selected"</c:if> 
 							value="${ii.acntNum }">${ii.acntTitle }</option>
@@ -51,12 +52,13 @@
 	</div>
 <table>
 <thead>
-<tr><th>일자</th><th>금액</th><th>거래처</th><th>적요</th></tr>
+<tr><th>일자</th><th>계정</th><th>금액</th><th>거래처</th><th>적요</th></tr>
 </thead>
 <tbody>
-<tr class="table-active"><td>전체 기간내</td><td class="totalPrice">전체금액</td><td></td><td></td></tr>
+<tr class="table-active"><td>전체 기간내</td><td class="totalPrice">전체금액</td><td></td><td></td><td></td></tr>
 <c:forEach items="${stmtList}" var="ii">
 	<tr><td>${ii.stmtDate }</td>
+	<td>${ii.acntNum }</td>
 	<td class="debit"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ii.debit}" /></td>
 	<td>${ii.stmtOpposite }</td><td>${ii.remark }</td></tr>
 </c:forEach>

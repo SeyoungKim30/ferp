@@ -9,84 +9,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전표관리</title>
+<title>전표입력</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 
+<script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
+	
 <script>
 localStorage.setItem("pageIdx","7210")
-localStorage.setItem("eqIdx","2")
-
-$(document).ready(function(){
-	//계정목록 가져오기
-	var accountList=[];
-	function fetchlist(){
-		let url="/ferp/selectAccountJson.do"
-	 	fetch(url).then(function(response){return response.json() }).then(function(json){
-	 		accountList=json.accountList;
-	 		let titlehtmls='';
-	 		let numhtmls='';
-	 		accountList.forEach(function(each){
-	 			console.log(each)
-	 			titlehtmls+=`<option value='`+each.acntTitle+`' label='`+each.acntNum+`'>`
-	 			numhtmls+=`<option value='`+each.acntNum+`' label='`+each.acntTitle+`'>`
-	 		})
-	 	$('#titleList').html(titlehtmls)
-	 	$('#numList').html(numhtmls)
-	 			
-	 	}).catch(function(err){console.log(err)})
-	}
-	
-	fetchlist();
-	$('.acntNum').each(function(){
-		var myinput = $(this).val();
-		var myresult = $(this).parents('tr').find(".acntTitle")
-		for(var i=0;i<accountList.length;i++){
-			if(accountList[i].acntNum==myinput){
-				myresult.val(accountList[i].acntTitle);
-				break;
-			}else{
-				myresult.val('');
-			}
-		}
-	})
-	
-	
-	//계정목록 가져온거 입력할때마다 적용되게 하기
-	$('.acntTitle').on("keyup",function(){
-		var myinput = $(this).val();
-		var myresult = $(this).parents('tr').find(".acntNum")
-		for(var i=0;i<accountList.length;i++){
-			if(accountList[i].acntTitle==myinput){
-				myresult.val(accountList[i].acntNum);
-				break;
-			}else{
-				myresult.val('');
-			}
-		}
-	})
-	
-	$('.acntNum').on("keyup",function(){
-		var myinput = $(this).val();
-		var myresult = $(this).parents('tr').find(".acntTitle")
-		for(var i=0;i<accountList.length;i++){
-			if(accountList[i].acntNum==myinput){
-				console.log('일치');
-				myresult.val(accountList[i].acntTitle);
-				break;
-			}else{
-				myresult.val('');
-			}
-		}
-	})	
-	
-	totalcalculator('.debit','.totaldebit');
-	totalcalculator('.credit','.totalcredit');
-})
+localStorage.setItem("eqIdx","1")
 </script>
+
 </head>
 
 <body class="container">
@@ -110,7 +44,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div class="toolbar">
-				<div>
+				<div title="전표번호가 비어있으면 새로운 전표로 입력하고, 그렇지 않으면 기존 전표가 수정됩니다.">
 					<label>전표일자<input type="date" name="stmtDate" required="required" value="${fn:substring(stmtList[0].stmtDate,0,10) }"></label>
 					<label>전표번호<input name="statementNum" value="${stmtList[0].statementNum }" placeholder="검색할때만 입력하세요"></label>
 					<input name="frRegiNum" type="hidden" value="${login.frRegiNum }">
@@ -177,20 +111,26 @@ $(document).ready(function(){
 			</form>
 		</div>
 	</div>
-	<script>
 	
-	function totalcalculator(whichone,whichtotal){
-		let totalsum=0;
-		let debitlist=document.querySelectorAll(whichone);
-		for(var i=0;i<debitlist.length;i++){
-			totalsum+=Number(debitlist[i].value);
-		}
-		$(whichtotal).text(totalsum);
-		
-		let tc = Number($('.totalcredit').text());
-		let td = Number($('.totaldebit').text());
-		$('#DCgap').text(tc-td)
+	
+<script>
+	
+function totalcalculator(whichone,whichtotal){
+	let totalsum=0;
+	let onelist=document.querySelectorAll(whichone);
+	for(var i=0;i<onelist.length;i++){
+		totalsum+=Number(onelist[i].value);
+	}	//차변or대변 합계구하기
+		$(whichtotal).text(totalsum);	//구한거 두번째변수에 넣음
+	let tc = Number($('.totalcredit').text());
+	let td = Number($('.totaldebit').text());
+	$('#DCgap').text(tc-td)		//차변-대변 값 넣기
 	}
+	
+totalcalculator('.debit','.totaldebit');	//로딩할때 합계계산
+totalcalculator('.credit','.totalcredit');
+	
+	//새로 입력할때마다 합계 계산
 	$('.credit').on('keyup',function(){
 		totalcalculator('.credit','.totalcredit');
 	})
@@ -199,16 +139,10 @@ $(document).ready(function(){
 		totalcalculator('.debit','.totaldebit');
 	})	
 	
-	function multipathSubmit(formId,realpath){
-			let formm=document.querySelector("#"+formId)
-			formm.action=realpath;
-			$('#real-submit-btn').click();
-		}
-
+	//제출 눌렀을때 전표번호가 비어있으면 WR채워서 real-submit-btn 누르기
 	document.querySelector('.btn-primary').addEventListener('click',function(){
 		let statementNum = $('[name=statementNum]').val();
 		if(statementNum==''){
-			$('[name=statementNum]').val('WR');
 			multipathSubmit('form1',"${path }/insertACstatement.do");
 			
 		}else{
@@ -216,18 +150,73 @@ $(document).ready(function(){
 		}
 	})
 	
+	//검색하기 눌렀을때는 쿼리스트링으로 제출
 	document.querySelector('.btn-secondary').addEventListener('click',function(){
 		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()
 	})
 	
+	//리셋누르면 다 없어지고 라인넘버 순서대로 채움, 사업자번호 채우기
 	document.querySelector('.btn-reset').addEventListener('click',function(){
 		$('input').val('');
 		$('.lineNum').each(function(i){
 			$(this).val(i);
-			$('[name=frRegiNum]').val('${login}');
+			$('[name=frRegiNum]').val('${login.frRegiNum}');
 		})
 	})
 
-	</script>
+
+	//fetch로 계정받아와서 데이터리스트 만들기
+	function fetchlist(){
+		let url="/ferp/selectAccountJson.do"
+	 	fetch(url).then(function(response){return response.json() }).then(function(json){
+	 		accountList=json.accountList;
+	 		makeAccountOption(accountList);
+	 		$('.acntNum').each(function(){	//불러와진 전표번호에 맞춰서 전표명 입력
+	 			var myinput = $(this).val();
+	 			var myresult = $(this).parents('tr').find(".acntTitle")
+	 			for(var i=0;i<accountList.length;i++){
+	 				if(accountList[i].acntNum==myinput){
+	 					myresult.val(accountList[i].acntTitle);
+	 					break;
+	 				}else{
+	 					myresult.val('');
+	 				}
+	 			}
+	 		})
+	 	}).catch(function(err){console.log(err)})
+	}
+	
+	fetchlist();
+	
+	
+	//계정목록 가져온거 입력할때마다 적용되게 하기
+	$('.acntTitle').on("keyup",function(){
+		var myinput = $(this).val();
+		var myresult = $(this).parents('tr').find(".acntNum")
+		for(var i=0;i<accountList.length;i++){
+			if(accountList[i].acntTitle==myinput){
+				myresult.val(accountList[i].acntNum);
+				break;
+			}else{
+				myresult.val('');
+			}
+		}
+	})
+	
+	$('.acntNum').on("keyup",function(){
+		var myinput = $(this).val();
+		var myresult = $(this).parents('tr').find(".acntTitle")
+		for(var i=0;i<accountList.length;i++){
+			if(accountList[i].acntNum==myinput){
+				console.log('일치');
+				myresult.val(accountList[i].acntTitle);
+				break;
+			}else{
+				myresult.val('');
+			}
+		}
+	})	
+</script>
+
 </body>
 </html>
