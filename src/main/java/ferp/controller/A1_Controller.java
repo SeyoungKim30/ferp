@@ -52,7 +52,6 @@ public class A1_Controller {
 	}
 	
 	
-	
 	@RequestMapping("/storeMainMenu.do")
 	public String pg1001storeMainMenu() {
 		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
@@ -97,6 +96,7 @@ public class A1_Controller {
 	@RequestMapping("/addOffTime.do")
 	public String addOffTime(ClerkSchedule uptcs, Model d, HttpSession session) {
 		Store st = (Store)session.getAttribute("login");
+//		Emp emp = (Emp)session.getAttribute("login");
 		uptcs.setFrRegiNum(st.getFrRegiNum());
 		service.addOffTime(uptcs);
 		d.addAttribute("msg","퇴근 등록이 완료되었습니다.");

@@ -40,6 +40,8 @@
         <header>  
             <div class="logo">
                 <h1><a href="#"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
+                <h2>${login.ename}</h2>
+                <h2>${login.frRegiNum}</h2>
             </div>
         </header>
         <div class="main_wrapper">
