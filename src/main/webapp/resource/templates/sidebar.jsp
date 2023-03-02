@@ -23,6 +23,7 @@
 		color: #007bff;
 	}
 	
+	
 </style>
  <div class="lnb">
                 <ul>
@@ -37,10 +38,10 @@
                     <li>
                         <a href="#">직원 관리</a>
                         <ul>
-                            <li><a href="#">- 직원 정보 조회</a></li>
+                            <li id="3100"><a href="${path }/storeClerkList.do">- 직원 정보 조회</a></li>
                             <li><a href="#">- 근태 조회</a></li>
                             <li><a href="#">- 스케쥴 관리</a></li>
-                            <li><a href="#">- 급여액 조회</a></li>
+                            <li id="3300"><a href="${path }/clerkPayList.do">- 급여액 조회</a></li>
                         </ul>
                     </li>
                     <li>
@@ -55,7 +56,7 @@
                     <li>
                         <a href="#">물류 관리</a>
                         <ul>
-                            <li><a href="#">- 발주 신청</a></li>
+                            <li id="9101"><a href="${path }/requestProd.do">- 발주 신청</a></li>
                             <li id="9201"><a href="${path }/productOrderList.do">- 발주 조회</a></li>
                             <li><a href="#">- 배송 불량 신청</a></li>
                             <li><a href="#">- 배송 불량 신청 현황</a></li>
