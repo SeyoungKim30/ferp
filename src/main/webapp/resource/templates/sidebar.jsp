@@ -27,11 +27,10 @@
 </style>
  <div class="lnb">
                 <ul>
-
                     <li>
                         <a href="#">직원 관리</a>
                         <ul>
-                            <li id="3100"><a href="${path }/storeClerkList.do">- 직원 정보 조회</a></li>
+	                        <li id="3100"><a href="${path }/storeClerkList.do">- 직원 정보 조회</a></li>
                             <li><a href="#">- 근태 조회</a></li>
                             <li><a href="#">- 스케쥴 관리</a></li>
                             <li id="3300"><a href="${path }/clerkPayList.do">- 급여액 조회</a></li>

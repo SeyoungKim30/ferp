@@ -45,52 +45,7 @@
             </div>
         </header>
         <div class="main_wrapper">
-            <div class="lnb">
-                <ul>
-                    <li>
-                        <a href="#">공지 및 문의</a>
-                        <ul>
-                            <li><a href="#">- 공지사항 조회</a></li>
-                            <li><a href="#">- 문의글 등록</a></li>
-                            <li><a href="#">- 1:1 채팅</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">직원 관리</a>
-                        <ul>
-                            <li><a href="#">- 직원 정보 조회</a></li>
-                            <li><a href="#">- 근태 조회</a></li>
-                            <li><a href="#">- 스케쥴 관리</a></li>
-                            <li><a href="#">- 급여액 조회</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">재무 관리</a>
-                        <ul>
-                            <li><a href="#">- 전표 수기 입력</a></li>
-                            <li><a href="#">- 거래 내역 조회</a></li>
-                            <li><a href="#">- 손익 계산서 조회</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">물류 관리</a>
-                        <ul>
-                            <li><a href="#">- 발주 신청</a></li>
-                            <li><a href="#">- 배송 불량 신청</a></li>
-                            <li><a href="#">- 배송 불량 신청 현황</a></li>
-                            <li><a href="#">- 발주 계산서 조회</a></li>
-                            <li><a href="#">- 재고 관리</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">매장 관리</a>
-                        <ul>
-                            <li><a href="#">- 비밀번호 변경</a></li>
-                            <li><a href="#">- 매출 조회</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+		<%@ include file="/resource/templates/sidebar.jsp"%>
             <div class="contents">
                 <div class="main_banner">메인 슬라이더 배너 영역</div>
                 <div class="btm_content">
