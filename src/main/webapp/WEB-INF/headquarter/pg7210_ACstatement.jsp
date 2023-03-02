@@ -42,7 +42,20 @@ $(document).ready(function(){
 	}
 	
 	fetchlist();
-
+	$('.acntNum').each(function(){
+		var myinput = $(this).val();
+		var myresult = $(this).parents('tr').find(".acntTitle")
+		for(var i=0;i<accountList.length;i++){
+			if(accountList[i].acntNum==myinput){
+				myresult.val(accountList[i].acntTitle);
+				break;
+			}else{
+				myresult.val('');
+			}
+		}
+	})
+	
+	
 	//계정목록 가져온거 입력할때마다 적용되게 하기
 	$('.acntTitle').on("keyup",function(){
 		var myinput = $(this).val();
@@ -89,8 +102,8 @@ $(document).ready(function(){
 		<div class="toolbox">
 			<div class="toolbar">
 				<div>
-					<button class="btn-dark">이전전표</button>
-					<button class="btn-dark">다음전표</button>
+					<button class="btn-dark" type="button">이전전표</button>
+					<button class="btn-dark" type="button">다음전표</button>
 				</div>
 				<div>
 					<button class="btn-reset" title="저장되지 않은 내용을 모두 삭제하고 새 전표를 입력합니다." type="button">새 전표</button>

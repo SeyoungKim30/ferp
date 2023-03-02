@@ -44,6 +44,7 @@
 					</label></div>
 		</div>
 		<div>
+		<input type="hidden" name="frRegiNum" value="${login }">
 		<button id="byDate" type="button">일자별 조회</button>
 		<button id="byEach">건별 조회</button>
 		<input type="hidden" name="howtosearch" value="1">
@@ -55,7 +56,7 @@
 <tr><th>일자</th><th>금액</th><th>거래처</th><th>적요</th></tr>
 </thead>
 <tbody>
-<tr class="table-active"><td>전체 기간내</td><td class="totalPrice">452,100</td><td></td><td></td></tr>
+<tr class="table-active"><td>전체 기간내</td><td class="totalPrice">전체금액</td><td></td><td></td></tr>
 <c:forEach items="${stmtList}" var="ii">
 	<tr><td>${ii.stmtDate }</td>
 	<td class="debit"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ii.debit}" /></td>
@@ -63,8 +64,7 @@
 </c:forEach>
 </tbody>
 </table>
-		
-		
+
 		
 		</div>
 	</div>
