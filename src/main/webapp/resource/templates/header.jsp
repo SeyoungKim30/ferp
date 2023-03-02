@@ -8,7 +8,12 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
-
+<script type="text/javascript">
+var login = '${login.frRegiNum}'
+	if(login==""){
+		location.href="${path}/storeLogin.do"
+	}
+</script>
  <header>  
       <div class="logo">
       <a href="#"><img src="${path }/resource/img/F.ERP.png" alt=""></a>

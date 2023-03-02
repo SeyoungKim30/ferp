@@ -25,7 +25,6 @@ public class B1_Controller {
 		d.addAttribute("sbslist", service.SalesByStoreList(ord));
 		return "WEB-INF\\headquarter\\pg7501_salesInfo.jsp";
 	}
-	
 	// 본사:지난달전체매장매출총액
 	@ModelAttribute("addAllsales")
 	public int r7501SalesInfo() {

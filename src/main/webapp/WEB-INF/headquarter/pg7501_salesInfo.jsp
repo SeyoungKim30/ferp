@@ -255,7 +255,11 @@
 </style>
 
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-
+<!--
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${path}/resource/css/reset.css"/>
+<link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
+-->
 <head>
 
 <meta charset="UTF-8">
@@ -332,7 +336,7 @@
 						<thead>
 							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
 						</thead>
-						<tbody class="infoTbody"></tbody>
+						<tbody></tbody>
 					</table>
 				</div>
 				<!-- 정보출력표 끝 -->
@@ -350,16 +354,17 @@
 	localStorage.setItem("pageIdx","7501") //id값
 	localStorage.setItem("eqIdx","3")
 	*/
-	var frname = document.querySelector("[name=frname]").val()
-	var frRepname = document.querySelector("[name=frRepname]").val()
-	var ename = document.querySelector("[name=ename]").val()
-	var frSchOrderdt = document.querySelector("[name=frSchOrderdt]").val()
-	var toSchOrderdt = document.querySelector("[name=toSchOrderdt]").val()
+	
+	var frname = $("[name=frname]").val();
+	var frRepname = $("[name=frRepname]").val();
+	var ename = $("[name=ename]").val();
+	var frSchOrderdt = $("[name=frSchOrderdt]").val();
+	var toSchOrderdt = $("[name=toSchOrderdt]").val();
 	
 	//ajax fetch사용
 	function search(){
-		let url="${path}/salesInfoJson.do?frname="+$(frname)+"&frRepname="+$(frRepname)+"&ename=+"+$(ename)+"&frSchOrderdt=+"+$(frSchOrderdt)+"&toSchOrderdt=+"+$(toSchOrderdt) //검색값 넘기기
-				console.log(url);
+		let url="${path}/salesInfoJson.do?frname="+frname+"&frRepname="+frRepname+"&ename="+ename+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt //검색값 넘기기
+		//console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
 			console.log(json);
@@ -395,7 +400,7 @@
 		//날짜로 검색
 		$(".infoSch2").on({
 			change:function(){
-				search()
+				search();
 			}
 		});
 		

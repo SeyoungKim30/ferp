@@ -5,22 +5,24 @@ public class Emp {
 	private String pass;
 	private String ename;
 	private String dname;
-	static String frRegiNum="9999999999";
+	String frRegiNum="9999999999";
 	
 	public Emp() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	
-	
-	public static String getFrRegiNum() {
+	public String getFrRegiNum() {
 		return frRegiNum;
 	}
 
-	public static void setFrRegiNum(String frRegiNum) {
-		Emp.frRegiNum = frRegiNum;
+
+
+	public void setFrRegiNum(String frRegiNum) {
+		this.frRegiNum = frRegiNum;
 	}
+
+
 
 	public String getEmpnum() {
 		return empnum;

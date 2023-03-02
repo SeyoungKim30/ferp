@@ -647,8 +647,6 @@ $(".btn_minus").click(function () {
 var modal_btn_add = $(".modal_btn_add");
 	modal_btn_add.click(function () {
 	var name = $(".modal_product_name").val();
-
-	
 });
 
 
