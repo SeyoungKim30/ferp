@@ -53,6 +53,7 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 		And acntTitle LIKE '%'||#{acntTitle,jdbcType=VARCHAR}||'%'
 		And acntGroup LIKE '%'||#{acntGroup,jdbcType=VARCHAR}||'%'
 		and acntUsing = #{acntUsing}
+		AND FRREGINUM = #{frRegiNum}
 	</select>
 	
 	<update id="r7102updateAccountUsing" parameterType="account">
