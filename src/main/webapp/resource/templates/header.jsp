@@ -13,7 +13,6 @@ var login = '${login.frRegiNum}'
 	if(login==""){
 		location.href="${path}/storeLogin.do"
 	}
-	
 </script>
  <header>  
       <div class="logo">
