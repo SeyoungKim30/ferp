@@ -34,7 +34,7 @@ public class B1_Controller {
 	// http://localhost:6080/ferp/salesInfoJson.do
 	// 본사:매장별매출 전체조회
 	@RequestMapping("salesInfoJson.do")
-	public String r7503SalesInfoJson(@ModelAttribute("sch") Orders ord, Model d){
+	public String r7503SalesInfoJson(Orders ord, Model d){
 		d.addAttribute("sbslist", service.SalesByStoreList(ord));
 		return "pageJsonReport";
 	}
