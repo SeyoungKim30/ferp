@@ -77,45 +77,26 @@
             </div>
             <div class="contents">
 	        	<div>
-	        	<form enctype="multipart/form-data" method="post">
-	     	        <h2 class="insert_product">문의글 등록</h2>
-	     	        <input type="hidden" name="writer" value="매장">
-	     	        <input type="hidden" name="replyNum" value="0"/>
+	        	<form method="post">
+	     	        <h2 class="insert_product">직원 등록</h2>
 	        	</div>
 		
 	        	<div class="content">
 					<div class="first_line">
-						<h3 class="qna_title">제목</h3>
-						<h3 class="qna_category">문의유형</h3>
+						<h3 class="qna_title">비밀번호</h3>
+						<h3 class="qna_category">사원명</h3>
 					</div>
 					<div class="second_line">
-						<input type="text" name="title" placeholder="제목 입력">
-						<select name="category">
-							<option disabled="disabled" selected="selected">문의유형 선택</option>
-							<option>로그인</option>
-							<option>매장관리</option>
-							<option>재고</option>
-						</select>
+						<input type="text" name="pass" placeholder="비밀번호 입력">
+						<input type="text" name="ename" placeholder="사원명 입력">
 					</div>
 					<div class="third_line">
-						<h3 class="menu_info">내용</h3>
+						<h3 class="menu_info">부서명</h3>
 					</div>
 					<div class="fourth_line">
-						<textarea name="content" rows="15" cols="70" placeholder="문의글 내용 입력"></textarea>
+						<input type="text" name="dname" placeholder="부서명 입력">
 					</div>
-					<div class="fifth_line">
-						<h3 class="menu_img">첨부파일</h3>
-					</div>
-					<div class="sixth_line">
-						<div class="block">
-							<div class="img_block">
-								<input class="upload-name" type="text" value="파일선택" disabled="disabled" style="width: 290px;">
-								
-				              	<label for="input_file">업로드</label> 
-	             				<input type="file" name="multipartfile" id="input_file" class="upload-hidden" > 
-							</div>
-						</div>
-					</div>
+
 					<div class="submit_line">
 						<button type="button" class="insBtn">등 록</button>
 					</div>	
@@ -152,9 +133,9 @@ $(document).ready(function(){
 			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
-				  if($("[name=title]").val() == ""){
+				  if($("[name=pass]").val() == ""){
 					  Swal.fire({
-						  title: '제목을 입력해주세요.',
+						  title: '비밀번호를 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
@@ -166,9 +147,9 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=category]").val() == ""){
+				  else if($("[name=ename]").val() == ""){
 					  Swal.fire({
-						  title: '카테고리를 선택해주세요.',
+						  title: '사원명을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
@@ -180,9 +161,9 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=content]").val() == ""){
+				  else if($("[name=dname]").val() == ""){
 					  Swal.fire({
-						  title: '내용을 입력해주세요.',
+						  title: '부서를 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',

@@ -41,7 +41,10 @@
 		WHERE FrRegiNum = #{frRegiNum}
 	</select>
 	
-	
+	<!-- 직원 등록 -->
+	<insert id="insertEmp" parameterType="hoemp">
+		INSERT INTO emp99 VALUES(to_char(sysdate,'yymm')||emp99_seq.nextval, #{pass}, #{ename}, #{dname})
+	</insert>
 
 	<!-- 공지사항 조회 -->
 	<select id="searchNotice" resultType="notice" parameterType="noticeSch">

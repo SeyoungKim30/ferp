@@ -101,6 +101,7 @@ public class B2_Controller {
 	
 	
 	// 본사 직원 등록
+	// http://localhost:7080/ferp/insertEmp.do
 	@GetMapping("/insertEmp.do")
 	public String insertEmp() {
 		return "WEB-INF\\view\\emp_insert.jsp";
