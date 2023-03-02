@@ -9,6 +9,8 @@ import vo.NoticeSch;
 import vo.Store;
 
 public interface B2_Dao {
+	// 메뉴 조회
+	public List<Menu> searchMenu(Menu sch);
 	// 메뉴 등록
 	public void insertMenu(Menu ins);
 	
@@ -23,6 +25,8 @@ public interface B2_Dao {
 	public void deleteStore(String frRegiNum);
 	
 	
+	public int totCntNotice(NoticeSch sch);
+	public int totCntQnA(NoticeSch sch);
 	// 공지사항 조회
 	public List<Notice> searchNotice(NoticeSch sch);
 	// 공지사항 상세 페이지
@@ -38,4 +42,12 @@ public interface B2_Dao {
 	
 	// 직원 콤보
 	public List<HOemp> getHOemp();
+	
+	// 문의글 등록
+	public void insertQnA(Notice ins);
+	// 문의글 조회
+	public List<Notice> searchQnA(NoticeSch sch);
+	// 문의글 상세페이지
+	public Notice detailQnA(String noticeNum);
+	
 }

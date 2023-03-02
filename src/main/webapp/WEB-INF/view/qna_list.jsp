@@ -76,7 +76,7 @@
                 </ul>
             </div>
             <div class="contents">
-           		<h2 class="notice_main">공 지 사 항</h2>
+           		<h2 class="notice_main">문의글</h2>
            		<div class="sch_line">
            			<form method="post">
 		           		<input type="text" name="title" id="title" value="${sch.title}" placeholder="제목 검색">
@@ -98,12 +98,19 @@
 				      </tr>
     				</thead>
 				    <tbody>
-				    	<c:forEach var="notice" items="${list}">
+				    	<c:forEach var="qna" items="${qna}">
 				    	<tr>
-				    		<td>${notice.noticeNum}</td>
-				    		<td class="tab_title" onclick="goDetail('${notice.noticeNum}')">${notice.title}</td>
-				    		<td><fmt:formatDate value="${notice.regdte}"/></td>
-				    		<td>${notice.readCnt}</td>
+				    		<td>${qna.cnt}</td>
+				    		<td class="tab_title" style="text-align: left;" onclick="goDetail('${qna.noticeNum}')">
+	    		    			<c:if test="${qna.level>1}">
+					    			<c:forEach begin="2" end="${qna.level}">
+					    			&nbsp;&nbsp;&nbsp;
+					    			</c:forEach>
+				    				<img src="${path}/resource/img/re.png" width="5%" height="5%">
+				    			</c:if>
+				    		${qna.title}</td>
+				    		<td><fmt:formatDate value="${qna.regdte}"/></td>
+				    		<td>${qna.readCnt}</td>
 				    	</tr>
 						</c:forEach>
 				    </tbody>   				
@@ -129,7 +136,7 @@ $(document).ready(function(){
     var insMsg = "${insMsg}"
     if(insMsg != ""){
 		  Swal.fire({
-			  title: '공지사항 등록 성공!',
+			  title: '문의글 등록 성공!',
 			  icon: 'success',
 			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
@@ -143,7 +150,7 @@ $(document).ready(function(){
     var uptMsg = "${uptMsg}"
     if(uptMsg != ""){
 		  Swal.fire({
-			  title: '공지사항 수정 성공!',
+			  title: '문의글 수정 성공!',
 			  icon: 'success',
 			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
@@ -157,7 +164,7 @@ $(document).ready(function(){
     var delMsg = "${delMsg}"
     if(delMsg != ""){
 		  Swal.fire({
-			  title: '공지사항 삭제 성공!',
+			  title: '문의글 삭제 성공!',
 			  icon: 'success',
 			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
@@ -168,7 +175,6 @@ $(document).ready(function(){
 			  }
 			})	
     }
-
 });
 function goPage(cnt) {
 	$("[name=curPage]").val(cnt);
@@ -176,7 +182,7 @@ function goPage(cnt) {
 }
 // 상세페이지로 이동
 function goDetail(noticeNum) {
-	  location.href="${path}/noticeDetail.do?noticeNum="+noticeNum;
+	  location.href="${path}/qnaDetail.do?noticeNum="+noticeNum;
 }
 
 $('.lnb > ul > li').click(function() {

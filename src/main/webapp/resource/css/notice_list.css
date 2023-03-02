@@ -93,6 +93,7 @@ table td {
   border-collapse: collapse;
   text-align: center;
 }
+
 table tr:hover td {
   color: #004;
 }

@@ -15,7 +15,7 @@
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="/ferp/resource/css/notice_list.css"/>
+<link rel="stylesheet" href="/ferp/resource/css/notice_detail.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 
@@ -76,47 +76,29 @@
                 </ul>
             </div>
             <div class="contents">
-           		<h2 class="notice_main">공 지 사 항</h2>
-           		<div class="sch_line">
-           			<form method="post">
-		           		<input type="text" name="title" id="title" value="${sch.title}" placeholder="제목 검색">
-						<button type="button" class="schBtn">검 색</button>
-						<input type="hidden" name="curPage" value="${sch.curPage}"/>
-					</form>
-           		</div>
-				<table>
-			   	<col width="15%">
-			   	<col width="60%">
-			   	<col width="15%">
-			   	<col width="10%">
-				    <thead>
-				      <tr>
-				        <th>NO</th>
-				        <th>제목</th>
-				        <th>작성일</th>
-				        <th>조회수</th>
-				      </tr>
-    				</thead>
-				    <tbody>
-				    	<c:forEach var="notice" items="${list}">
-				    	<tr>
-				    		<td>${notice.noticeNum}</td>
-				    		<td class="tab_title" onclick="goDetail('${notice.noticeNum}')">${notice.title}</td>
-				    		<td><fmt:formatDate value="${notice.regdte}"/></td>
-				    		<td>${notice.readCnt}</td>
-				    	</tr>
-						</c:forEach>
-				    </tbody>   				
-				</table>
-				<div class="page_wrap">
-				   <div class="page_nation">
-				      <a class="arrow prev" href="javascript:goPage(${sch.startBlock-1});"></a>
-				      <c:forEach var="cnt" begin="${sch.startBlock}" end="${sch.endBlock}">
-				      	<a href="#" class="${sch.curPage==cnt?'active':''}" onclick="goPage(${cnt})">${cnt}</a>
-				      </c:forEach>
-				      <a class="arrow next" href="javascript:goPage(${sch.endBlock+1});"></a>
-				   </div>
+           	<form method="post" enctype="multipart/form-data">
+           		<h2 class="notice_main">문 의 글</h2>
+           		<input type="hidden" name="noticeNum" value="${qna.noticeNum}">
+           		<input type="hidden" name="replyNum" value="${qna.replyNum}">
+           		
+           		<input type="hidden" name="title" value="${qna.title}">
+				<h3 class="notice_title">${qna.title}</h3>
+				
+				<div class="notice_content">
+					<input type="hidden" name="content" value="${qna.content}">
+					<pre>${qna.content}</pre>
 				</div>
+		        <div class="file_line">
+			        <label>첨 부 파 일</label>
+			        <input id="downFile" value="${qna.fname}" type="text" placeholder="등록된 파일이 없습니다." required readonly="readonly">
+				</div>
+				<div class="btn_line">
+				  <button id="goMain" type="button">목 록</button>
+				  <button id="replyBtn" type="button">답 변</button>
+		          <button id="uptBtn" type="button">수 정</button>
+		          <button id="delBtn" type="button">삭 제</button>
+				</div>
+			</form>
             </div>
         </div>
     </div>
@@ -125,59 +107,81 @@
 $(document).ready(function(){
 	<%-- 
 	
-	--%>
-    var insMsg = "${insMsg}"
-    if(insMsg != ""){
+	--%>	
+	console.log($("[name=noticeNum]").val())
+	console.log($("pre").text())
+	$("#downFile").click(function(){
 		  Swal.fire({
-			  title: '공지사항 등록 성공!',
-			  icon: 'success',
-			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+			  title: '파일을 다운로드\n 하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
 			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
 				//"확인" 버튼을 눌렀을 때 작업할 내용
+				location.href = "${path}/download.do?fname="+$(this).val()
 			  }
 			})	
-    }
-    var uptMsg = "${uptMsg}"
-    if(uptMsg != ""){
+	})
+	$("#goMain").click(function() {
 		  Swal.fire({
-			  title: '공지사항 수정 성공!',
-			  icon: 'success',
-			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+			  title: '조회페이지로 이동하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
 			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
 				//"확인" 버튼을 눌렀을 때 작업할 내용
+				location.href = "${path}/qnaList.do"
 			  }
 			})	
-    }
-    var delMsg = "${delMsg}"
-    if(delMsg != ""){
+	})
+	$("#replyBtn").click(function(){
+			$("[name=replyNum]").val($("[name=noticeNum]").val())
+			$("[name=title]").val("RE:"+$("[name=title]").val())
+			$("[name=content]").val("\n\n\n=== 이전 글 ===\n"+$("[name=content]").val())
+			$("form").attr("action","${path}/qnaReply.do");
+			$("form").submit()
+	})
+	$("#uptBtn").click(function(){
 		  Swal.fire({
-			  title: '공지사항 삭제 성공!',
-			  icon: 'success',
-			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+			  title: '수정페이지로\n 이동하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
 			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
 				//"확인" 버튼을 눌렀을 때 작업할 내용
+				location.href = "${path}/qnaUpdate.do?noticeNum="+${qna.noticeNum}
 			  }
 			})	
-    }
-
+	})
+	$("#delBtn").click(function(){
+		  Swal.fire({
+			  title: '해당 공지사항을\n 삭제하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+			}).then((result) => {
+			  if (result.value) {
+				//"확인" 버튼을 눌렀을 때 작업할 내용
+				location.href = "${path}/qnaDelete.do?noticeNum="+${qna.noticeNum}
+			  }
+			})	
+	})
 });
-function goPage(cnt) {
-	$("[name=curPage]").val(cnt);
-	$("form").submit()
-}
-// 상세페이지로 이동
-function goDetail(noticeNum) {
-	  location.href="${path}/noticeDetail.do?noticeNum="+noticeNum;
-}
 
 $('.lnb > ul > li').click(function() {
     if ( $(this).hasClass('active') ) {

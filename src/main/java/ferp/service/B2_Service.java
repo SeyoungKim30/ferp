@@ -25,6 +25,13 @@ public class B2_Service {
 	@Value("${upload}")
 	private String upload;
 	
+	// 메뉴 조회
+	public List<Menu> searchMenu(Menu sch){
+		if(sch.getMenuName()==null) sch.setMenuName("");
+		
+		return dao.searchMenu(sch);
+	}
+	
 	// 메뉴등록 시 사진 업로드
 	public String upload(MultipartFile multipartfile) {
 		String img = multipartfile.getOriginalFilename();
@@ -87,6 +94,26 @@ public class B2_Service {
 	public List<Notice> searchNotice(NoticeSch sch){
 		if(sch.getTitle()==null) sch.setTitle("");
 		
+		sch.setCount(dao.totCntNotice(sch));
+		
+		if(sch.getCurPage()==0) sch.setCurPage(1);
+		
+		if(sch.getPageSize()==0) sch.setPageSize(5);
+		
+		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
+		
+		if(sch.getCurPage()>sch.getPageCount()) sch.setCurPage(sch.getPageCount());
+		
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getPageSize()*sch.getCurPage());
+		sch.setBlockSize(5);
+		
+		int blocknum = (int)Math.ceil((double)sch.getCurPage()/sch.getBlockSize());
+		int endBlock = blocknum*sch.getBlockSize();
+		if(endBlock > sch.getPageCount()) endBlock = sch.getPageCount();
+		sch.setEndBlock(endBlock);
+
+		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.searchNotice(sch);
 	}
 	// 공지사항 상세 페이지
@@ -136,4 +163,57 @@ public class B2_Service {
 	public List<HOemp> getHOemp(){
 		return dao.getHOemp();
 	}
+	
+	
+	
+	// 문의글 조회
+	public List<Notice> searchQnA(NoticeSch sch){
+		if(sch.getTitle()==null) sch.setTitle("");
+		
+		sch.setCount(dao.totCntQnA(sch));
+		
+		if(sch.getCurPage()==0) sch.setCurPage(1);
+		
+		if(sch.getPageSize()==0) sch.setPageSize(5);
+		
+		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
+		
+		if(sch.getCurPage()>sch.getPageCount()) sch.setCurPage(sch.getPageCount());
+		
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getPageSize()*sch.getCurPage());
+		
+		sch.setBlockSize(5);
+		int blocknum = (int)Math.ceil((double)sch.getCurPage()/sch.getBlockSize());
+		int endBlock = blocknum*sch.getBlockSize();
+		if(endBlock > sch.getPageCount()) endBlock = sch.getPageCount();
+		sch.setEndBlock(endBlock);
+
+		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
+		
+		return dao.searchQnA(sch);
+	}
+	// 문의글 상세페이지
+	public Notice detailQnA(String noticeNum) {
+		dao.plusCnt(noticeNum);
+		
+		return dao.detailQnA(noticeNum);
+	}
+	// 문의글 등록
+	public String insertQnA(Notice ins) {
+		if( ins.getMultipartfile() != null) {
+			String fname = upload(ins.getMultipartfile());
+			
+			ins.setFname(fname);
+		}
+		if( ins.getMultipartfile() == null ) {
+			
+			ins.setFname("");
+		}
+		dao.insertQnA(ins);
+		
+		return ins.getTitle();
+	}
+	
 }
+

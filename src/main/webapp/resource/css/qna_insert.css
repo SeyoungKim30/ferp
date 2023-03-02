@@ -13,7 +13,7 @@
 h3{
 	letter-spacing: 3px;
 }
-input[type=text], input[type=file]{
+input[type=text], select, input[type=file]{
 	height: 40px;
 	border-radius: 7px;
 	border: 2px solid #dddddd;
@@ -21,11 +21,6 @@ input[type=text], input[type=file]{
 	padding-left: 10px;
 	font-size: 13px;
 	transition:.3s;
-}
-
-input::placeholder{
-	letter-spacing: 0.5px;
-	font-weight: bold;
 }
 textarea{
 	resize: none;
@@ -40,12 +35,17 @@ textarea{
 textarea::placeholder {
   font-weight: bold;
 }
+input::placeholder, select::placeholder{
+	letter-spacing: 0.5px;
+	font-weight: bold;
+}
 
-input:focus, textarea:focus{ 
+
+input:focus, select:focus, textarea:focus{ 
 	outline:none;  /* 테두리 없애기 */
 	border-color:dodgerBlue;
 	box-shadow:0 0 8px 0 dodgetBlue;
-}  
+} 
 
 
 
@@ -53,67 +53,64 @@ input:focus, textarea:focus{
 	margin-top: 20px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid black;
+	letter-spacing: 3px;
 }
 .content{
 	margin-bottom: 30px;
 }
 
-input[type=checkbox]{
-	float: right;
-}
-span{
-	float: right;
-    letter-spacing: 6px;
-        font-size: 19px;
-    font-weight: bold;
-}
-.top_line{
-	margin-top: 10px;
-}
-.top_line [type=checkbox]{
-	margin-top: 3px;
-    width: 20px;
-    height: 15px;
-}
+
+
 /* 1번째 라인*/
 .first_line{
 	display: flex;
 	margin-top: 45px;
 	margin-bottom: 10px;
 }
-
+.first_line .qna_title{
+	padding-right: 66%;
+}
 
 /* 2번째 라인*/
 .second_line{
 	display: flex;
+	justify-content: space-between;
 }
 [name=title]{
-	width: 99%;
+	width: 65.5%;
 }
 
+[name=category]{
+	width: 31%;
+}
 
 /* 3번째 라인*/
 .third_line{
 	display: flex;
-	margin-top: 30px;
+	margin-top: 40px;
 	margin-bottom: 10px;
 }
-
+.third_line .menu_info{
+	padding-right: 63%;
+}
 
 /* 4번째 라인*/
 .fourth_line{
 	display: flex;
 	justify-content: space-between;
 }
-[name=content]{
-	width: 99%;
+[name=info]{
+	width: 65.5%;
 }
 
+[name=category]{
+	width: 31%;
+}
 
 /* 5번째 라인*/
 .fifth_line{
 	display: flex;
-	margin-top: 30px;
+	margin-top: 40px;
 	margin-bottom: 10px;
 }
 .fifth_line .menu_img{
