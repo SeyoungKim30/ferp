@@ -57,9 +57,16 @@ public class A1_Controller {
 		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
 	}
 	
+	
 	@RequestMapping("/goEmpMainPage.do")
 	public String goEmpMainPage() {
 		return "\\WEB-INF\\headquarter\\hq_main_index.jsp";
+	}
+	
+	// http://localhost:6080/ferp/goOrderCheck.do
+	@RequestMapping("/goOrderCheck.do")
+	public String goOrderCheck() {
+		return "WEB-INF\\store\\pg2200_orderCheck.jsp";
 	}
 	
 	
