@@ -89,7 +89,7 @@
 						<h3 class="qna_category">문의유형</h3>
 					</div>
 					<div class="second_line">
-						<input type="text" value="${param.title}" name="title" placeholder="제목 입력">
+						<input type="text" value="${param.title}" name="title" placeholder="제목 입력" readonly="readonly">
 						<select name="category">
 							<option selected="selected">답변</option>
 						</select>

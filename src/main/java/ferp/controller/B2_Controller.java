@@ -165,6 +165,7 @@ public class B2_Controller {
 	
 	// 문의글 조회
 	// http://localhost:7080/ferp/qnaList.do
+	
 	@RequestMapping("/qnaList.do")
 	public String qnaList(@ModelAttribute("sch") NoticeSch sch, Model d) {
 		d.addAttribute("qna", service.searchQnA(sch));

@@ -113,10 +113,8 @@
 			and noticeNum LIKE '%'||'Q'||'%'
 			START WITH replynum = '0'
 			CONNECT BY PRIOR noticeNum = replyNum
-			ORDER siblings BY replyNum DESC )
+			ORDER siblings BY regdte DESC )
 		where cnt between #{start} and #{end}	
-	
-
 	</select>
 	<select id="totCntQnA" resultType="int" parameterType="noticeSch">
 		select count(*)

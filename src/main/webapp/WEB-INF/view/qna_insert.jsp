@@ -94,6 +94,7 @@
 							<option disabled="disabled" selected="selected">문의유형 선택</option>
 							<option>로그인</option>
 							<option>매장관리</option>
+							<option>재고</option>
 						</select>
 					</div>
 					<div class="third_line">
