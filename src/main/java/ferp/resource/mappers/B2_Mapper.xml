@@ -48,6 +48,7 @@
 		SELECT *
 		FROM notice
 		WHERE title LIKE '%'||#{title}||'%'
+		and noticeNum LIKE '%'||'N'||'%'
 		ORDER BY regdte DESC
 	</select>
 	<!-- 공지사항 상세조회 -->
@@ -96,7 +97,7 @@
 		from notice n
 		where 1=1
 		and title like '%'||#{title}||'%'
-		and noticeNum LIKE '%'||'QN'||'%'
+		and noticeNum LIKE '%'||'Q'||'%'
 		START WITH replynum = '0'
 		CONNECT BY PRIOR noticeNum = replyNum
 		ORDER siblings BY replyNum DESC
@@ -109,7 +110,7 @@
 	</select>
 	<!-- 문의글 등록 -->
 	<insert id="insertQnA" parameterType="notice">
-		INSERT INTO notice VALUES('QN'||notice_seq.nextval, #{title}, #{content}, 
+		INSERT INTO notice VALUES('Q'||notice_seq.nextval, #{title}, #{content}, 
 					#{writer}, 0, sysdate, sysdate, #{fname}, NULL, #{replyNum}, #{category}, NULL)
 	</insert>
 </mapper>
