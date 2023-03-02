@@ -57,6 +57,7 @@ public class A1_Controller {
 		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
 	}
 	
+	
 	@RequestMapping("/goEmpMainPage.do")
 	public String goEmpMainPage() {
 		return "\\WEB-INF\\headquarter\\hq_main_index.jsp";
