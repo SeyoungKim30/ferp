@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-<c:set var="login" value="fakeID1111" />
 <fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
 <html>
@@ -31,7 +30,7 @@
 	<div class="toolbar">
 		<form action="${path }/statementList.do" method="post">
 		<div>
-				<input type="hidden" name="frRegiNum" value="${login }">
+				<input type="hidden" name="frRegiNum" value="${login.frRegiNum }">
 				<div><label>시작일자<input name="stmtDate" type="date" value="${stmt.stmtDate }" required></label></div>
 				<div><label>종료일자<input name="stmtDate2" type="date" value="${stmt.stmtDate2 }"></label></div>
 				<div><label>거래처<input name="stmtOpposite" value="${stmt.stmtOpposite }"></label></div>
