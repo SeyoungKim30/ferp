@@ -5,6 +5,7 @@ import java.util.List;
 import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
+import vo.Onsale;
 import vo.Store;
 import vo.StoreClerk;
 
@@ -30,4 +31,9 @@ public interface A1_Dao {
 	public List<Menu> getMenuListSmoothie(String FrRegiNum);
 	public List<Menu> getMenuListSandwich(String FrRegiNum);
 	public List<Menu> getMenuListCake(String FrRegiNum);
+	
+	// 판매할 메뉴 등록
+	public void insOnsale(Onsale ins);
+	// 본사 제공 전체 메뉴
+	public List<Menu> getAllMenu();
 }

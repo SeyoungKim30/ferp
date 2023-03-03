@@ -30,7 +30,7 @@
                     <li>
                         <a href="#">직원 관리</a>
                         <ul>
-	                        <li id="3100"><a href="${path }/storeClerkList.do">- 직원 정보 조회</a></li>
+	                        <li id="3100"><a href="${path }/storeClerkList.do?frRegiNum=${login.frRegiNum}">- 직원 정보 조회</a></li>
                             <li><a href="#">- 근태 조회</a></li>
                             <li><a href="#">- 스케쥴 관리</a></li>
                             <li id="3300"><a href="${path }/clerkPayList.do">- 급여액 조회</a></li>
@@ -48,7 +48,7 @@
                     <li>
                         <a href="#">물류 관리</a>
                         <ul>
-                            <li id="9101"><a href="${path }/requestProd.do">- 발주 신청</a></li>
+                            <li id="9101"><a href="${path }/requestProd.do?demander=${login.frRegiNum} ">- 발주 신청</a></li>
                             <li id="9201"><a href="${path }/productOrderList.do">- 발주 조회</a></li>
                             <li><a href="#">- 배송 불량 신청</a></li>
                             <li><a href="#">- 배송 불량 신청 현황</a></li>
@@ -75,8 +75,8 @@
                     <li>
                         <a href="#">메뉴 관리</a>
                         <ul>
-                            <li><a href="#">- 메뉴 등록</a></li>
-                            <li><a href="#">- 메뉴 조회</a></li>
+                            <li id="2001"><a href="${path }/showMenu.do">- 판매 메뉴 등록</a></li>
+                            <li id="2001"><a href="${path }/showMenu.do">- 판매 메뉴 삭제</a></li>
                         </ul>
                     </li>
                     

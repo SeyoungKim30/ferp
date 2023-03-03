@@ -80,7 +80,11 @@
 
 <body>
     <div class="container">
-	<%@ include file="/resource/templates/header.jsp"%>
+        <header>  
+            <div class="logo">
+                <h1><a href="${path}/storeMainMenu.do"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
+            </div>
+        </header>
 		<div class="orderWrapper">
 		
 			<div class="orderBox">

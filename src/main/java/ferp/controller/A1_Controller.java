@@ -11,6 +11,7 @@ import ferp.service.A1_Service;
 import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
+import vo.Onsale;
 import vo.Store;
 
 
@@ -50,13 +51,32 @@ public class A1_Controller {
 			return "/goEmpMainPage.do";
 		}
 	}
-	
+	// 로그아웃(emp)
+   @RequestMapping("/logoutEmp.do")
+   public String logoutEmp(HttpSession session, Model d) {
+	  session.removeAttribute("login");
+	  d.addAttribute("logout","로그아웃");
+      return "forward:/empLogin.do";
+   }
+   
+   // 로그아웃(store)
+   @RequestMapping("/logoutStore.do")
+   public String logoutStore(HttpSession session, Model d) {
+	   session.removeAttribute("login");
+	   d.addAttribute("logout","로그아웃");
+	   return "forward:/storeLogin.do";
+   }
 	
 	@RequestMapping("/storeMainMenu.do")
 	public String pg1001storeMainMenu() {
 		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
 	}
 	
+	
+	@RequestMapping("/storeSet.do")
+	public String storeSet() {
+		return "WEB-INF\\store\\pg0001_store_main_index.jsp";
+	}
 	
 	@RequestMapping("/goEmpMainPage.do")
 	public String goEmpMainPage() {
@@ -103,11 +123,27 @@ public class A1_Controller {
 	@RequestMapping("/addOffTime.do")
 	public String addOffTime(ClerkSchedule uptcs, Model d, HttpSession session) {
 		Store st = (Store)session.getAttribute("login");
-//		Emp emp = (Emp)session.getAttribute("login");
 		uptcs.setFrRegiNum(st.getFrRegiNum());
 		service.addOffTime(uptcs);
 		d.addAttribute("msg","퇴근 등록이 완료되었습니다.");
 		return "pageJsonReport";
+	}
+	
+	// 전체 메뉴 조회 페이지
+	@RequestMapping("/showMenu.do")
+	public String pg2001showMenu(Model d){
+		d.addAttribute("showAllMenu", service.getAllMenu());
+		return "WEB-INF\\store\\pg2001_showAllMenu.jsp";
+	}
+	
+	// 판매할 메뉴 등록
+	@RequestMapping("/insOnsale.do")
+	public String insOnsale(Onsale ins, Model d, HttpSession session) {
+		Store st = (Store)session.getAttribute("login");
+		ins.setFrRegiNum(st.getFrRegiNum());
+		service.insOnsale(ins);
+		d.addAttribute("msg","판매 메뉴가 추가되었습니다.");
+		return "redirect:/showMenu.do";
 	}
 	
 }

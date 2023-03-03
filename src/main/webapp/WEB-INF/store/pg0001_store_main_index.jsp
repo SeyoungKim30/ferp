@@ -16,6 +16,15 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
+<script type="text/javascript">
+	localStorage.setItem("pageIdx","")
+	localStorage.setItem("eqIdx","0")
+
+	$(document).ready(function(){
+
+	});
+
+</script>
 <style type="text/css">
 	
 	.lnb>ul>li>a:after{

@@ -9,6 +9,7 @@ import ferp.dao.A1_Dao;
 import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
+import vo.Onsale;
 import vo.Store;
 import vo.StoreClerk;
 
@@ -62,5 +63,15 @@ public class A1_Service {
 	// 퇴근 등록
 	public void addOffTime(ClerkSchedule uptcs) {
 		dao.addOffTime(uptcs);
+	}
+	
+	// 판매할 메뉴 등록
+	public void insOnsale(Onsale ins) {
+		dao.insOnsale(ins);
+	}
+	
+	// 본사 제공 전체 메뉴
+	public List<Menu> getAllMenu(){
+		return dao.getAllMenu();
 	}
 }

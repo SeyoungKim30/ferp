@@ -100,4 +100,20 @@
 			AND category = 'cake'
 		</select>
 		
+		<!-- 본사 제공 전체 메뉴 가져오기 -->
+		<select id="getAllMenu" resultType="menu">
+			SELECT *
+			FROM MENU
+		</select>
+		
+		<!-- 판매할 메뉴 추가 -->
+		<insert id="insOnsale" parameterType="onsale">
+			INSERT INTO ONSALE VALUES(
+				#{menuNum},
+				#{frRegiNum}
+			)
+		</insert>
+		
+		<!-- 판매할 메뉴 삭제 -->
+		
     </mapper>
