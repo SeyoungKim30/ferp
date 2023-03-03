@@ -139,10 +139,11 @@ totalcalculator('.credit','.totalcredit');
 		totalcalculator('.debit','.totaldebit');
 	})	
 	
-	//제출 눌렀을때 전표번호가 비어있으면 WR채워서 real-submit-btn 누르기
+	//제출 눌렀을때 전표번호가 없으면 insert,있으면 update로 real-submit-btn 누르기
 	document.querySelector('.btn-primary').addEventListener('click',function(){
 		let statementNum = $('[name=statementNum]').val();
 		if(statementNum==''){
+			$('[name=statementNum]').val('WR');
 			multipathSubmit('form1',"${path }/insertACstatement.do");
 			
 		}else{
@@ -152,7 +153,7 @@ totalcalculator('.credit','.totalcredit');
 	
 	//검색하기 눌렀을때는 쿼리스트링으로 제출
 	document.querySelector('.btn-secondary').addEventListener('click',function(){
-		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()
+		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
 	})
 	
 	//리셋누르면 다 없어지고 라인넘버 순서대로 채움, 사업자번호 채우기

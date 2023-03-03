@@ -33,15 +33,15 @@
 		<h3>계정과목 검색</h3>
 			<form class="toolbar" action="${path}/selectAccount.do" method="post">
 			<div>
-				<label>계정코드<input name="acntNum"></label>
+				<label>계정코드<input name="acntNum" value="${account.acntNum}"></label>
 				<label>구분<select name="acntGroup">
-						<option value="">전체</option>
-						<option>자산</option>
-						<option>자본</option>
-						<option>부채</option>
-						<option>비용</option>
-						<option>수익</option></select></label>
-				<label>계정명<input name="acntTitle"></label>
+						<option <c:if test="${account.acntGroup == '' }">selected="selected"</c:if> value="">전체</option>
+						<option <c:if test="${account.acntGroup == '자산' }">selected="selected"</c:if> >자산</option>
+						<option <c:if test="${account.acntGroup == '자본' }">selected="selected"</c:if> >자본</option>
+						<option <c:if test="${account.acntGroup == '부채' }">selected="selected"</c:if> >부채</option>
+						<option <c:if test="${account.acntGroup == '비용' }">selected="selected"</c:if> >비용</option>
+						<option <c:if test="${account.acntGroup == '수익' }">selected="selected"</c:if> >수익</option></select></label>
+				<label>계정명<input name="acntTitle" value="${account.acntTitle }"></label>
 			</div>
 				<button class="btn-secondary">계정검색</button>
 			</form>

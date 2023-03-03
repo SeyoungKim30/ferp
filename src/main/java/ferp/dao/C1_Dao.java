@@ -16,6 +16,7 @@ public interface C1_Dao {
 	
 	public int r7210insertStatement(ACStatement stmt);
 	public List<ACStatement> r7211selectACStatement(ACStatement stmt);
+	public List<ACStatement> r7211selectPrevNext(ACStatement stmt);
 	public int r7212updateACStatement(ACStatement acstmt);
 	public int r7213deleteACStatement(ACStatement acstmt);
 	
