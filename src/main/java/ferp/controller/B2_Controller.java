@@ -35,6 +35,14 @@ public class B2_Controller {
 		return "WEB-INF\\view\\mainpage.jsp";
 	}
 	
+	// 메뉴 조회 controller
+	// http://localhost:7080/ferp/menuList.do
+	@RequestMapping("/menuList.do")
+	public String menuList(@ModelAttribute("sch") Menu sch, Model d) {
+		d.addAttribute("menu", service.searchMenu(sch));
+		
+		return "WEB-INF\\view\\menu_list.jsp";
+	}
 	// 메뉴 등록 controller
 	// http://localhost:7080/ferp/menuInsert.do
 	@GetMapping("/menuInsert.do")
@@ -153,5 +161,41 @@ public class B2_Controller {
 		}
 		
 		return "redirect:/noticeList.do";
+	}
+	
+	
+	// 문의글 조회
+	// http://localhost:7080/ferp/qnaList.do
+	@RequestMapping("/qnaList.do")
+	public String qnaList(@ModelAttribute("sch") NoticeSch sch, Model d) {
+		d.addAttribute("qna", service.searchQnA(sch));
+		
+		return "WEB-INF\\view\\qna_list.jsp";
+	}
+	// 문의글 상세페이지
+	@RequestMapping("/qnaDetail.do")
+	public String qnaDetail(@RequestParam String noticeNum, Model d) {
+		d.addAttribute("qna", service.detailQnA(noticeNum));
+		
+		return "WEB-INF\\view\\qna_detail.jsp";
+	}
+	// 문의글 등록
+	// http://localhost:7080/ferp/qnaInsert.do
+	@GetMapping("/qnaInsert.do")
+	public String qnaInsert() {
+		return "WEB-INF\\view\\qna_insert.jsp";
+	}
+	@PostMapping("/qnaInsert.do")
+	public String qnaInsert(Notice ins, RedirectAttributes redirect) {
+		if( service.insertQnA(ins)!=null ) {
+			redirect.addFlashAttribute("insMsg", "등록 성공");
+		}
+		
+		return "redirect:/qnaList.do";
+	}
+	// 답글 등록 페이지
+	@RequestMapping("/qnaReply.do")
+	public String qnaReply() {
+		return "WEB-INF\\view\\qna_reply.jsp";
 	}
 }

@@ -1,8 +1,8 @@
-DROP TABLE store CASCADE CONSTRAINT;
+--DROP TABLE store CASCADE CONSTRAINT;
 
 CREATE TABLE store (
 	FrRegiNum	varchar2(50)		NOT NULL,
-	empNum	number		NOT NULL,
+	empNum	varchar2(10)		NOT NULL,
 	frName	varchar2(50)		NULL,
 	frOpen	date		NULL,
 	frOperTime	varchar2(50)		NULL,
@@ -13,7 +13,7 @@ CREATE TABLE store (
 	frPass	varchar2(20)		NULL
 );
 
-DROP TABLE menu;
+--DROP TABLE menu;
 
 CREATE TABLE menu (
 	menuNum	varchar2(50)		NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE menu (
 	category	varchar2(50)		NULL
 );
 
-DROP TABLE orders;
+--DROP TABLE orders;
 
 CREATE TABLE orders (
 	orderNum	varchar2(50)		NOT NULL,
@@ -38,14 +38,14 @@ CREATE TABLE orders (
 	orderOption	varchar2(500)		NULL
 );
 
-DROP TABLE onSale;
+--DROP TABLE onSale;
 
 CREATE TABLE onSale (
 	menuNum	varchar2(50)		NOT NULL,
 	FrRegiNum	varchar2(50)		NOT NULL
 );
 
-DROP TABLE storeClerk;
+--DROP TABLE storeClerk;
 
 CREATE TABLE storeClerk (
 	clerkNum	varchar2(50)		NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE storeClerk (
 	hourlyPay	number		NULL
 );
 
-DROP TABLE clerkSchedule;
+--DROP TABLE clerkSchedule;
 
 CREATE TABLE clerkSchedule (
 	onDay	date		NULL,
@@ -66,7 +66,7 @@ CREATE TABLE clerkSchedule (
 	FrRegiNum	varchar2(50)		NOT NULL
 );
 
-DROP TABLE empCheckIn;
+--DROP TABLE empCheckIn;
 
 CREATE TABLE empCheckIn (
 	FrRegiNum	varchar2(50)		NOT NULL,
@@ -75,13 +75,13 @@ CREATE TABLE empCheckIn (
 	offTime	date		NULL
 );
 
-DROP TABLE notice;
+--DROP TABLE notice;
 
 CREATE TABLE notice (
 	noticeNum	varchar2(50)		NOT NULL,
 	title	varchar2(300)		NULL,
 	content	varchar2(1000)		NULL,
-	empNum	varchar2(30)		NULL,
+	empNum	varchar2(10)		NULL,
 	readcnt	number		NULL,
 	regdte	date		NULL,
 	uptdte	date		NULL,
@@ -92,29 +92,29 @@ CREATE TABLE notice (
 	state	varchar2(50)		NULL
 );
 
-DROP TABLE emp;
+--DROP TABLE emp;
 
 CREATE TABLE emp (
-	empNum	number		NOT NULL,
+	empNum	varchar2(10)		NOT NULL,
 	pass	varchar2(20)		NULL,
 	ename	varchar2(20)		NULL,
 	dname	varchar2(30)		NULL
 );
 
-DROP TABLE QA;
+--DROP TABLE QA;
 
 CREATE TABLE QA (
 	inspectionNum	varchar2(50)		NOT NULL,
 	FrRegiNum	varchar2(50)		NOT NULL,
 	QANum	varchar2(50)		NOT NULL,
 	results	varchar2(50)		NULL,
-	empNum	number		NOT NULL,
+	empNum	varchar2(10)		NOT NULL,
 	inspectdte	date		NULL,
 	regdte	date		NULL,
 	comments	varchar2(100)		NULL
 );
 
-DROP TABLE prodOrder;
+--DROP TABLE prodOrder;
 
 CREATE TABLE prodOrder (
 	orderNum	varchar2(50)		NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE prodOrder (
 	orderState	varchar2(50)		NULL
 );
 
-DROP TABLE QAcheckList;
+--DROP TABLE QAcheckList;
 
 CREATE TABLE QAcheckList (
 	QANum	varchar2(50)		NOT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE QAcheckList (
 	usable	varchar2(50)		NULL
 );
 
-DROP TABLE defectOrder;
+--DROP TABLE defectOrder;
 
 CREATE TABLE defectOrder (
 	defNum	varchar2(50)		NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE defectOrder (
 	methods	varchar2(50)		NOT NULL
 );
 
-DROP TABLE stock;
+--DROP TABLE stock;
 
 CREATE TABLE stock (
 	productNum	varchar2(50)		NOT NULL,
@@ -158,7 +158,7 @@ CREATE TABLE stock (
 	remark	varchar2(1000)		NULL
 );
 
-DROP TABLE Product;
+--DROP TABLE Product;
 
 CREATE TABLE Product (
 	productNum	varchar2(50)		NOT NULL,
@@ -179,7 +179,7 @@ CREATE TABLE Account (
 	acntUsing	number		NULL
 );
 */
-DROP TABLE clerkFile;
+--DROP TABLE clerkFile;
 
 CREATE TABLE clerkFile (
 	fname	varchar2(300)		NULL,
@@ -189,7 +189,7 @@ CREATE TABLE clerkFile (
 	FrRegiNum	varchar2(50)		NOT NULL
 );
 
-DROP TABLE ACStatement;
+--DROP TABLE ACStatement;
 
 CREATE TABLE ACStatement (
 	statementNum	varchar2(50)		NULL,
@@ -254,17 +254,21 @@ ALTER TABLE defectOrder ADD CONSTRAINT PK_DEFECTORDER PRIMARY KEY (
 
 ALTER TABLE stock ADD CONSTRAINT PK_STOCK PRIMARY KEY (
 	productNum,
-	FrRegiNum
+	FrRegiNum,
+	stockDate
 );
+
+ALTER TABLE FERD.stock DROP CONSTRAINT PK_STOCK;
+
 
 ALTER TABLE Product ADD CONSTRAINT PK_PRODUCT PRIMARY KEY (
 	productNum
 );
-
+/*
 ALTER TABLE Account ADD CONSTRAINT PK_ACCOUNT PRIMARY KEY (
 	acntNum
 );
-
+*/
 ALTER TABLE ACStatement ADD CONSTRAINT PK_ACSTATEMENT PRIMARY KEY (
 	statementNum,
 	FrRegiNum,
@@ -365,12 +369,28 @@ ALTER TABLE prodOrder ADD CONSTRAINT FK_store_TO_prodOrder_1 FOREIGN KEY (
 REFERENCES store (
 	FrRegiNum
 );
+--수정한거
+ALTER TABLE FERD.PRODORDER
+ADD CONSTRAINT PRODORDER_PK PRIMARY KEY (ORDERNUM,PRODUCTNUM,ORDERDATE)
+ENABLE;
+
+ALTER TABLE FERD.PRODORDER DROP CONSTRAINT PRODORDER_PK;
+ALTER TABLE FERD.PRODORDER DROP CONSTRAINT FK_store_TO_prodOrder_1;
+ALTER TABLE FERD.PRODORDER DROP CONSTRAINT FK_Product_TO_prodOrder_1;
+ALTER TABLE FERD.defectOrder DROP CONSTRAINT FK_prodOrder_TO_defectOrder_1;
+ALTER TABLE FERD.defectOrder DROP CONSTRAINT PK_DEFECTORDER;
+
 
 ALTER TABLE defectOrder ADD CONSTRAINT PK_DEFECTORDER PRIMARY KEY (
 	defNum,
 	orderNum,
-	productNum
+	productNum,
+	orderDate
 );
+--orderDate 추가
+
+ALTER TABLE DEFECTORDER ADD orderDate DATE;
+
 
 ALTER TABLE defectOrder ADD CONSTRAINT FK_prodOrder_TO_defectOrder_1 FOREIGN KEY (
 	orderNum,
@@ -380,6 +400,11 @@ REFERENCES prodOrder (
 	orderNum,
 	productNum
 );
+
+--재고 
+ALTER TABLE FERD.stock DROP CONSTRAINT FK_Product_TO_stock_1;
+ALTER TABLE FERD.stock DROP CONSTRAINT FK_store_TO_stock_1;
+
 
 ALTER TABLE stock ADD CONSTRAINT FK_Product_TO_stock_1 FOREIGN KEY (
 	productNum

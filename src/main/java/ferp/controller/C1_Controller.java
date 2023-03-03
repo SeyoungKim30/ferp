@@ -1,19 +1,21 @@
 package ferp.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ferp.service.C1_Service;
 import vo.ACStatement;
 import vo.Account;
+import vo.ProdOrder;
+import vo.Prod_order_stock_emp_store;
 
 @Controller
 public class C1_Controller {
@@ -22,10 +24,13 @@ public class C1_Controller {
 	C1_Service service;
 
 	// http://localhost:6080/ferp/selectAccountJson.do
-	@RequestMapping("selectAccountJson.do")
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@GetMapping("selectAccountJson.do")
 	public String r7100SelectAccountJson(Account account, Model model) {
 		account.setAcntUsing(true);
 		model.addAttribute("accountList", service.r7100SelectAccount(account));
+		account.setAcntUsing(false);
+		model.addAttribute("accountListfalse", service.r7100SelectAccount(account));
 		return "pageJsonReport";
 	}
 	
@@ -37,6 +42,13 @@ public class C1_Controller {
 		account.setAcntUsing(true);
 		model.addAttribute("accountListtrue", service.r7100SelectAccount(account));
 		return "WEB-INF\\headquarter\\pg7201_addAccount.jsp";
+	}
+	
+	@RequestMapping("updateAccountUsing.do")
+	@ResponseBody
+	public String r7102updateAccountUsing(Account account){
+		int done=service.r7102updateAccountUsing(account);
+		return done+"";
 	}
 
 	@RequestMapping("insertAccount.do")
@@ -81,6 +93,7 @@ public class C1_Controller {
 	@GetMapping("statementList.do")
 	public String r7204(Model model) {
 		model.addAttribute("accountList", service.r7100SelectAccount(new Account(true)));
+		
 		return "WEB-INF\\headquarter\\pg7204_statementList.jsp";	
 	}
 	
@@ -98,9 +111,18 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg9201_prodOrderList.jsp";
 	}
 	
-	@PostMapping("productOrderList.do")
-	public String r9201selectProdOrder(Model model) {
-		return "WEB-INF\\headquarter\\pg9201_prodOrderList.jsp";
+	// http://localhost:6080/ferp/productOrderListJson.do
+	@GetMapping("productOrderListJson.do")
+	public String r9201selectProdOrder(Model model,ProdOrder prodOrder) {
+		model.addAttribute("list",service.r9201select(prodOrder));
+		return "pageJsonReport";
+	}
+
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@GetMapping("selectActiveStoreJson.do")
+	public String selectActiveStore(Model model) {
+		model.addAttribute("storeList",service.selectActiveStore());
+		return "pageJsonReport";
 	}
 
 }

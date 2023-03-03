@@ -9,6 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>계정과목 생성</title>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
@@ -25,20 +27,23 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		
+		<h2>계정과목 관리</h2>
+		<hr><br>
 		<div class="toolbox">
 		<h3>계정과목 검색</h3>
-			<form class="toolbar">
+			<form class="toolbar" action="${path}/selectAccount.do" method="post">
 			<div>
-				<label>계정코드<input placeholder="계정코드 필수입력"></label>
-				<label>구분<select><option>자산</option>
-							<option>자본</option>
-							<option>부채</option>
-							<option>비용</option>
-							<option>수익</option></select></label>
-				<label>계정명<input placeholder="계정명 필수입력"></label>
+				<label>계정코드<input name="acntNum" value="${account.acntNum}"></label>
+				<label>구분<select name="acntGroup">
+						<option <c:if test="${account.acntGroup == '' }">selected="selected"</c:if> value="">전체</option>
+						<option <c:if test="${account.acntGroup == '자산' }">selected="selected"</c:if> >자산</option>
+						<option <c:if test="${account.acntGroup == '자본' }">selected="selected"</c:if> >자본</option>
+						<option <c:if test="${account.acntGroup == '부채' }">selected="selected"</c:if> >부채</option>
+						<option <c:if test="${account.acntGroup == '비용' }">selected="selected"</c:if> >비용</option>
+						<option <c:if test="${account.acntGroup == '수익' }">selected="selected"</c:if> >수익</option></select></label>
+				<label>계정명<input name="acntTitle" value="${account.acntTitle }"></label>
 			</div>
-				<button class="btn-search">계정검색</button>
+				<button class="btn-secondary">계정검색</button>
 			</form>
 		</div>
 			<table>
@@ -52,17 +57,17 @@
 				</thead>
 				<tbody>
 					<tr>
-					<form action="${path }/insertAccount.do">
-						<td><input name="acntNum" placeholder="새로운 계정을 등록합니다"></td>
-						<td><select name="acntGroup">
+					<form action="${path }/insertAccount.do" id='insertForm'>
+						<td><input id="insertNum" name="acntNum" placeholder="새로운 계정을 등록합니다" required="required"><div id="insertNumValid" class="valid-feedback">이미 사용중인 계정번호입니다.</div></td>
+						<td><select name="acntGroup" required>
 							<option>자산</option>
 							<option>자본</option>
 							<option>부채</option>
 							<option>비용</option>
 							<option>수익</option>
 							</select></td>
-						<td><input name="acntTitle" placeholder="새로운 계정을 등록합니다"></td>
-						<td><input value="1" type="hidden" name="acntUsing"><button class="btn-submit">계정등록</button></td>
+						<td><input name="acntTitle" placeholder="새로운 계정을 등록합니다" required></td>
+						<td><input value="1" type="hidden" name="acntUsing" required><button class="btn-primary">계정등록</button></td>
 					</form>
 					</tr>
 					<c:forEach items="${accountListtrue }" var="each">
@@ -70,7 +75,7 @@
 							<td>${each.acntNum }</td>
 							<td>${each.acntGroup }</td>
 							<td>${each.acntTitle }</td>
-							<td><input type="checkbox" checked="${each.acntUsing }"></td>
+							<td><input name="acntUsing" value="${each.acntNum }" type="checkbox" checked="${each.acntUsing }"></td>
 						</tr>
 					</c:forEach>
 					<c:forEach items="${accountListfalse }" var="each">
@@ -78,19 +83,52 @@
 							<td>${each.acntNum }</td>
 							<td>${each.acntGroup }</td>
 							<td>${each.acntTitle }</td>
-							<td><input type="checkbox"></td>
+							<td><input name="acntUsing" value="${each.acntNum }" type="checkbox"></td>
 						</tr>
 					</c:forEach>
-					<tr>
-						<td>testing</td>
-						<td>자산</td>
-						<td>testing</td>
-						<td><input type="checkbox"></td>
-					</tr>
+					
 				</tbody>
 			</table>
 		</div>
 	</div>
+	<script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 	
+	<script>
+	fetchAccountList('');
+
+	$('#insertNum').on('keyup',function(){
+		let myinput=$('#insertNum').val();
+		for(var i=0;i<accountListBoth.length;i++){
+			if(accountListBoth[i].acntNum==myinput){
+				$('#insertNumValid').removeClass('valid-feedback');
+				$('#insertNumValid').addClass('invalid-feedback');
+				$('#insertNum').addClass('is-invalid');
+				$('.btn-primary').attr('disabled',true);
+				$('.btn-primary').addClass('btn-danger');
+				break;
+			}else{
+				$('#insertNumValid').addClass('valid-feedback');
+				$('#insertNumValid').removeClass('invalid-feedback');
+				$('#insertNum').removeClass('is-invalid');
+				$('.btn-primary').attr('disabled',false);
+				$('.btn-primary').removeClass('btn-danger');
+			}
+		}
+	})
+	
+	$('[name=acntUsing]').on('click',function(){
+		let acntNumVal = $(this).val()
+		let acntUsingChecked = $(this).is(':checked')
+		let url="${path}/updateAccountUsing.do?acntNum="+acntNumVal+"&acntUsing="+acntUsingChecked;
+		console.log(url)
+			fetch(url).then(function(response){return response.text() }).then(function(text){
+				if(text==1){
+					alert('사용여부가 변경되었습니다.')
+				}
+		 	}).catch(function(err){console.log(err)})
+		
+	})
+
+	</script>
 </body>
 </html>

@@ -40,7 +40,7 @@ public class Menu {
 		return img;
 	}
 	public void setImg(String img) {
-		this.img = img;
+		this.img = img; 
 	}
 	public String getNecessary() {
 		return necessary;

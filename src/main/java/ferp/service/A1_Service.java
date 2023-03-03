@@ -9,6 +9,7 @@ import ferp.dao.A1_Dao;
 import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
+import vo.Onsale;
 import vo.Store;
 import vo.StoreClerk;
 
@@ -25,7 +26,7 @@ public class A1_Service {
 	}
 	
 	public Emp empLogin(Emp emp) {
-		if(emp.getEmpnum()==0) emp.setEmpnum(0);
+		if(emp.getEmpnum()==null) emp.setEmpnum("");
 		if(emp.getPass()==null) emp.setPass("");
 		return dao.empLogin(emp);
 	}
@@ -35,8 +36,23 @@ public class A1_Service {
 	}
 	
 	//메뉴 불러오기
-	public List<Menu> getMenuList(String FrRegiNum, String category){
-		return dao.getMenuList(FrRegiNum, category);
+	public List<Menu> getMenuList(String FrRegiNum){
+		return dao.getMenuList(FrRegiNum);
+	}
+	public List<Menu> getMenuListCoffee(String FrRegiNum){
+		return dao.getMenuListCoffee(FrRegiNum);
+	}
+	public List<Menu> getMenuListSmoothie(String FrRegiNum){
+		return dao.getMenuListSmoothie(FrRegiNum);
+	}
+	public List<Menu> getMenuListEtc(String FrRegiNum){
+		return dao.getMenuListEtc(FrRegiNum);
+	}
+	public List<Menu> getMenuListCake(String FrRegiNum){
+		return dao.getMenuListCake(FrRegiNum);
+	}
+	public List<Menu> getMenuListSandwich(String FrRegiNum){
+		return dao.getMenuListSandwich(FrRegiNum);
 	}
 	
 	// 출근 등록
@@ -47,5 +63,15 @@ public class A1_Service {
 	// 퇴근 등록
 	public void addOffTime(ClerkSchedule uptcs) {
 		dao.addOffTime(uptcs);
+	}
+	
+	// 판매할 메뉴 등록
+	public void insOnsale(Onsale ins) {
+		dao.insOnsale(ins);
+	}
+	
+	// 본사 제공 전체 메뉴
+	public List<Menu> getAllMenu(){
+		return dao.getAllMenu();
 	}
 }

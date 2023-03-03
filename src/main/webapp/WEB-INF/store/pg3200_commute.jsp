@@ -65,6 +65,11 @@
 	    font-size: 20px;
 	    font-family: inherit;
     }
+    
+    #commuteFm{
+    	padding: 50px;
+    	margin: auto;
+    }
 	
 </style>
 <script type="text/javascript">
@@ -74,30 +79,25 @@
 
 <body>
     <div class="container">
-        <header>  
-            <div class="logo">
-                <h1><a href="${path}/storeMainMenu.do"><img src="${path}/resource/img/F.ERP.png" alt=""></a></h1>
-            </div>
-           	<h2>프랜차이즈 매장 관리 시스템</h2>
-           	<h2>${login.frName}</h2>
-        </header>
+	<%@ include file="/resource/templates/header.jsp"%>
         <div class="main_wrapper">
         <form method="post" id="commuteFm">
-        	<div class="btns">
-        		<div class="btn start_btn">출근</div>
-        		<div class="btn end_btn">퇴근</div>
-        	</div>
         		<select name="clerkNum">
         		<option value="" selected>직원명 선택</option>
         		<c:forEach var="mc" items="${myClerk}">
         			<option value="${mc.clerkNum}">${mc.clerkName}</option>
         		</c:forEach>
         		</select>
+        	<div class="btns">
+        		<div class="btn start_btn">출근</div>
+        		<div class="btn end_btn">퇴근</div>
+        	</div>
         </form>
 		</div>
     </div>
 </body>
 <script type="text/javascript">
+
 $(document).ready(function() {
 	$(".start_btn").click(function () {
 		  Swal.fire({

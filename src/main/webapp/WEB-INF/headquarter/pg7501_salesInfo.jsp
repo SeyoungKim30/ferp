@@ -254,7 +254,14 @@
 	
 </style>
 
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<!--
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
+
+<link rel="stylesheet" href="${path}/resource/css/reset.css"/>
+<link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
+-->
 <head>
 
 <meta charset="UTF-8">
@@ -263,17 +270,19 @@
 </head>
 
 <body class="container">
+
 	<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		
-				<h2></h2>
+				<h2>매장 정보 조회</h2><br><hr><br>
+				
 				<!-- 전체매장총매출출력칸 시작-->
 				<div class="hdq_totalSalesPrt">
 					<div>
 					<h2>투썸플레이스 지난 달 총 매출&nbsp;&nbsp;&nbsp;&nbsp;
-						<span>9@@@@@@00</span>&nbsp;원
+						<span>${addAllsales}</span>&nbsp;원
 					</h2>
 					</div>
 				</div>
@@ -282,12 +291,12 @@
 				
 				<!-- 검색 시작 -->
 				<div class="hdq_search">
-					<form>
-						<input id="storeSch" name=""  type="text" placeholder=" 매장명 입력"/>
-						<input id="ownerSch" name=""  type="text" placeholder=" 점주명 입력"/>
-						<input id="hdqmngSch" name=""  type="text" placeholder=" 담당직원 입력"/>
+					<form method="post">
+						<input class="infoSch" name="frname" value="${sch.frname}"  type="text" placeholder=" 매장명 입력"/>
+						<input class="infoSch" name="frRepname" value="${sch.frRepname}"  type="text" placeholder=" 점주명 입력"/>
+						<input class="infoSch" name="ename"  value="${sch.ename}" type="text" placeholder=" 담당직원 입력"/>
 						<button class="frsalesSchBtn" type="submit">검색</button>
-					</form>
+				
 				</div>
 				<!-- 검색칸 끝 -->
 					
@@ -304,25 +313,13 @@
 					</div>
 					<div class="period">
 						<span>매출조회 기간</span>
-						<form>
-							<input id="strperiod" name="strperiod" type="month"/>
+						
+							<input id="strperiod" name="frSchOrderdt" value="${sch.frSchOrderdt}" type="month"/>
 							~
-							<input id="endperiod" name="endperiod" type="month"/>
-					   <!-- <button value="hidden"></button> -->
-							
+							<input id="endperiod" name="toSchOrderdt" value="${sch.toSchOrderdt}" type="month"/>
 						</form>
 					</div>
 				</div>
-				
-				<script>
-				
-					var today = new Date() 
-					today.setDate(today.getMonth()-1)
-					document.getElementById('strperiod').value=today.toISOString().slice(0,7); 
-					document.getElementById('endperiod').value=today.toISOString().slice(0,7);
-					//slice() 메소드를 이용하여 toISOString() 메소드로 받아온 현재 날짜 문자열의 7자리(앞에서부터)를 잘라옵니다.
-
-				</script>
 				<!-- 검색기준 끝 -->
 				
 				
@@ -339,24 +336,78 @@
 						<thead>
 							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
 						</thead>
-						<tbody>
-							<c:forEach var="strinfo" items="${sbslist}">
-							<tr>
-								<td>${strinfo.frname }</td><td>300000000</td><td>100000000</td><td>02)123-1234</td><td>김세영</td><td>허소솜</td>
-								<td class="frt_last_culmm">
-									<span class="fr_uptBtn">수정</span><span class="fr_delBtn">삭제</span>
-								</td>
-							</tr>
-							</c:forEach>
-						</tbody>
+						<tbody></tbody>
 					</table>
 				</div>
 				<!-- 정보출력표 끝 -->
 			
 
-		
 		</div>
 	</div>
 	
+
 </body>
+<script>
+
+	//사이드바에 번호 매긴 것 
+	/*
+	localStorage.setItem("pageIdx","7501") //id값
+	localStorage.setItem("eqIdx","3")
+	*/
+	
+	var frname = $("[name=frname]").val();
+	var frRepname = $("[name=frRepname]").val();
+	var ename = $("[name=ename]").val();
+	var frSchOrderdt = $("[name=frSchOrderdt]").val();
+	var toSchOrderdt = $("[name=toSchOrderdt]").val();
+	
+	//ajax fetch사용
+	function search(){
+		let url="${path}/salesInfoJson.do?frname="+frname+"&frRepname="+frRepname+"&ename="+ename+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt  //검색값 넘기기
+		console.log(url);
+		
+		fetch(url).then(function(response){return response.json()}).then(function(json){
+			console.log(json);
+			var sbslist=json.sbslist;
+			var trtd='';
+		
+			sbslist.forEach(function(each){
+				trtd+="<tr><td>"+each.frname+"</td><td>"+each.frsales+"</td><td>"+each.frpurchase+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
+			})
+			$("table tbody").html(trtd);
+			
+		}).catch(function(err){console.log(err)})	
+
+	}
+
+	$(document).ready(function(){
+
+		search();
+	
+		//엔터검색
+		$("input").on({
+			keyup:function(){
+				if(event.keyCode==13){
+					search();
+				}
+			}
+		});
+		
+		//날짜를 검색
+		$("[type=month]").change(function(){
+			frSchOrderdt = $("[name=frSchOrderdt]").val();
+			toSchOrderdt = $("[name=toSchOrderdt]").val();
+			if(frSchOrderdt<=toSchOrderdt){
+				search();
+			}else{
+				alert("검색날짜에 유의하세요");
+			}
+		})
+		
+		
+		// https://goddino.tistory.com/81
+		
+	})
+	
+</script>
 </html>

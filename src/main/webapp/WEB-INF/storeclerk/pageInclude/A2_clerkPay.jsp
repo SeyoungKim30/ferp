@@ -24,36 +24,25 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		if($(".fourthOp").hasClass("selectedFunction")){
-			$(".fourthOp").css("z-index",999)
-		}
-		$(".firstOp").click(function(){
-			location.href="${path}/storeClerkList.do"
-		})
-		$(".secondOp").click(function(){
-			
-		})
-		$(".thirdOp").click(function(){
-			
-		})
-		$(".fourthOp").click(function(){
-			location.href="${path}/clerkPayList.do"
-		})
-	});
+	
 </script>
 </head>
 
 <body>
 	<div class="containerJ">
-		<div class="row">
-			<div class="unselectedFunction firstOp">정보 조회</div>
-			<div class="unselectedFunction secondOp">근태 조회</div>
-			<div class="unselectedFunction thirdOp">스케쥴 관리</div>
-			<div class="selectedFunction fourthOp">급여액 조회</div>
-		</div>
-		<div class="border fstCon">
-			<div class="margin">
+		<h2 class="h2Title">급여액 조회</h2>
+		<br>
+		<div>
+			<div>
+				<div>
+					<div class="schDiv toolbox" style="margin-left: 85%;">
+						<form id="frm01" method="post">
+							<input type="text" name="clerkName" value="${SCsch.clerkName}"/>
+							<input type="hidden" name="curPage" value="${SCsch.curPage}" />
+							<button type="submit" class="schBtn">조회</button>
+						</form>
+					</div>
+				</div>
 				<div class="row">
 					<div class="thDiv" style="width:15%;">직원번호</div>
 					<div class="thDiv" style="width:15%;">직원명</div>
@@ -86,7 +75,7 @@
 				</c:forEach>
 				<div class="row center">
 					<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${SCpsch.startBlock-1});'">
-						이전
+						&lt;
 					</button>
 					<c:forEach var="cnt" begin="${SCpsch.startBlock }" end="${SCpsch.endBlock}">
 				  		<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
@@ -94,7 +83,7 @@
 						</button>
 				  	</c:forEach>
 				  	<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${SCpsch.startBlock+1});'">
-						다음
+						&gt;
 					</button>
 				</div>
 				<form id="pageFrm">

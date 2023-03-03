@@ -1,21 +1,34 @@
 package vo;
 
 public class Emp {
-	private int empnum;
+	private String empnum;
 	private String pass;
 	private String ename;
 	private String dname;
+	String frRegiNum="9999999999";
 	
 	public Emp() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getFrRegiNum() {
+		return frRegiNum;
+	}
 
-	public int getEmpnum() {
+
+
+	public void setFrRegiNum(String frRegiNum) {
+		this.frRegiNum = frRegiNum;
+	}
+
+
+
+	public String getEmpnum() {
 		return empnum;
 	}
 
-	public void setEmpnum(int empnum) {
+	public void setEmpnum(String empnum) {
 		this.empnum = empnum;
 	}
 

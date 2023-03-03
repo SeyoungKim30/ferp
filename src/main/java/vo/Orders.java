@@ -20,6 +20,7 @@ public class Orders {
 	private String frRepname;
 	private String ename;
 	private int frsales;
+	private int frpurchase;
 	private String frSchOrderdt;
 	private String toSchOrderdt;
 	
@@ -130,6 +131,13 @@ public class Orders {
 
 	public void setToSchOrderdt(String toSchOrderdt) {
 		this.toSchOrderdt = toSchOrderdt;
+	}
+
+	public int getFrpurchase() {
+		return frpurchase;
+	}
+	public void setFrpurchase(int frpurchase) {
+		this.frpurchase = frpurchase;
 	} 
 	
 

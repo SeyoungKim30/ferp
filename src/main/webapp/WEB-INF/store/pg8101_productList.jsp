@@ -10,7 +10,11 @@
 <head>
 <meta charset="UTF-8">
 <title>매장 재고 조회</title>
+<!-- 제이쿼리 CDN -->
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
+<link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
 .inputbox{
 	width: 200px;
@@ -21,6 +25,10 @@
 }
 </style>
 <script type="text/javascript">
+	localStorage.setItem("pageIdx","8101")
+	localStorage.setItem("eqIdx","3")
+</script>
+<script type="text/javascript">
 	$(document).ready(function(){
 		$("[name=stockDate]").val("${sch.stockDate}");
 		$("[name=productNum]").val("${sch.productNum}");
@@ -29,7 +37,10 @@
 		$("[name=opposite]").val("${sch.opposite}");
 		$("[name=orderState]").val("${sch.orderState}");	
 	});
-	
+	// 상세페이지로 이동
+	function goDetail(productNum) {
+		location.href="${path}/sproductInfo.do?productNum="+productNum;
+	}
 </script>
 </head>
 <body class="container">
@@ -37,8 +48,9 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-			<h2>매장 재고 조회</h2>
-			<form method="post">
+		<h2>매장 재고 조회</h2><br><hr><br>
+			<div class="toolbox">
+			<form class="toolbar" method="post">
 				<input class="inputbox" type="date" name="stockDate" value="<fmt:formatDate value="${now}" pattern = "yyyy-MM-dd"/>"/>
 				<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
 				<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
@@ -52,6 +64,7 @@
 				    </select>
 				<button class="btn-secondary" type="submit">검색</button>
 			</form>
+			</div>
 			<div class="searchtab">
 				<table>
 				<thead>
@@ -60,7 +73,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
-			    	    <tr ondblclick="goDetail(${prod.productNum})">
+			    	    <tr onclick="goDetail('${prod.productNum}')">
 			    	    	<td>${prod.stockDate}</td>
 			    	    	<td>${prod.productNum}</td><td>${prod.category}</td>
 			    	    	<td>${prod.productName}</td><td>${prod.opposite}</td>

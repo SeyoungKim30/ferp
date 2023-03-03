@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import ferp.dao.C1_Dao;
 import vo.ACStatement;
 import vo.Account;
+import vo.ProdOrder;
+import vo.Prod_order_stock_emp_store;
+import vo.Store;
 
 @Service
 public class C1_Service {
@@ -27,6 +30,7 @@ public class C1_Service {
 	}
 
 	public int r7210insertStatement(String statementNum,String stmtDate,String frRegiNum,List<ACStatement> stmtlist) {
+		if(statementNum==null||statementNum.equals("")) {statementNum="WR";}
 		int stmtcount=0;
 		for (ACStatement stmt : stmtlist) {
 			stmt.setStatementNum(statementNum);
@@ -37,8 +41,17 @@ public class C1_Service {
 		return stmtcount;
 	}
 	
+	public int r7102updateAccountUsing(Account ac) {
+		return dao.r7102updateAccountUsing(ac);
+	}
+	
+	
 	public List<ACStatement> r7211selectACStatement(ACStatement stmt) {
-		return dao.r7211selectACStatement(stmt);
+		if(stmt.getRronum()==null||stmt.getRronum().equals("")) {
+			return dao.r7211selectACStatement(stmt);
+		}else {
+			return dao.r7211selectPrevNext(stmt);
+		}
 	}
 	
 	public int r7212updateACStatement(String statementNum,String stmtDate,String frRegiNum,List<ACStatement> stmtlist) {
@@ -60,9 +73,6 @@ public class C1_Service {
 		if(stmt.getStmtDate2()==null||stmt.getStmtDate2().equals("")) {
 			stmt.setStmtDate2(stmt.getStmtDate());
 		}
-		if(stmt.getAcntNum()==null||stmt.getAcntNum().equals("")) {
-			stmt.setAcntNum("10100");
-		}
 		if(howtosearch==1) {
 			return dao.r7204selectStatementList(stmt);
 		}else {
@@ -70,4 +80,17 @@ public class C1_Service {
 		}
 	}
 
+	public List<Prod_order_stock_emp_store>r9201select(ProdOrder prodOrder){
+		return dao.r9201select(prodOrder);
+	}
+	
+	
+	
+	
+	public List<Store> selectActiveStore(){
+		return dao.selectActiveStore();
+	}
+
+	
+	
 }

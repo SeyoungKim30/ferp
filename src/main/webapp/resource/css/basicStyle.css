@@ -341,7 +341,7 @@ input::-ms-expand {
 	border: 0
 }
 
-input:focus:not([type=radio]) {
+input:focus:not([type=radio]),select:focus {
 	color: #495057;
 	background-color: #fff;
 	border-color: #80bdff;
