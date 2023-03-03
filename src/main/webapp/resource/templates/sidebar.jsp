@@ -48,7 +48,7 @@
                     <li>
                         <a href="#">물류 관리</a>
                         <ul>
-                            <li id="9101"><a href="${path }/requestProd.do?demander=${login.frRegiNum}">- 발주 신청</a></li>
+                            <li id="9101"><a href="${path }/requestProd.do?demander=${login.frRegiNum} ">- 발주 신청</a></li>
                             <li id="9201"><a href="${path }/productOrderList.do">- 발주 조회</a></li>
                             <li><a href="#">- 배송 불량 신청</a></li>
                             <li><a href="#">- 배송 불량 신청 현황</a></li>
