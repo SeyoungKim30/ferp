@@ -51,7 +51,21 @@ public class A1_Controller {
 			return "/goEmpMainPage.do";
 		}
 	}
-	
+	// 로그아웃(emp)
+   @RequestMapping("/logoutEmp.do")
+   public String logoutEmp(HttpSession session, Model d) {
+	  session.removeAttribute("login");
+	  d.addAttribute("logout","로그아웃");
+      return "forward:/empLogin.do";
+   }
+   
+   // 로그아웃(store)
+   @RequestMapping("/logoutStore.do")
+   public String logoutStore(HttpSession session, Model d) {
+	   session.removeAttribute("login");
+	   d.addAttribute("logout","로그아웃");
+	   return "forward:/storeLogin.do";
+   }
 	
 	@RequestMapping("/storeMainMenu.do")
 	public String pg1001storeMainMenu() {
