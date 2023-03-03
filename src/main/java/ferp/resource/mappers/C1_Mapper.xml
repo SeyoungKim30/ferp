@@ -74,30 +74,32 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	</insert>
 
 	<select id="r7211selectACStatement" parameterType="acstmt" resultType="acstmt">
-	SELECT * FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate}
-	AND FRREGINUM =#{frRegiNum}
-	AND STATEMENTNUM =
-		<if test="statementNum==null or statementNum==''">
+	SELECT a.* ,CASE WHEN ii2.maxrn=ii.rronum THEN (ii.rronum*-1) ELSE ii.rronum END as rronum
+	FROM ACSTATEMENT a ,
+		(SELECT rownum AS rronum, a.statementNum FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate} AND FRREGINUM =#{frRegiNum} AND LINENUM =1 ORDER BY STATEMENTNUM	) ii,
+		(SELECT max(rn) AS maxrn from(SELECT rownum AS rn, STATEMENTNUM FROM ACSTATEMENT WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate} AND FRREGINUM =#{frRegiNum} AND LINENUM =1 ORDER BY STATEMENTNUM) )ii2
+		WHERE ii.statementNum=a.STATEMENTNUM 
+		AND TO_CHAR(a.stmtdate,'YYYY-MM-DD') =#{stmtDate}
+		AND a.FRREGINUM =#{frRegiNum}
+		AND a.STATEMENTNUM =
+	<if test="statementNum==null or statementNum==''">
 		(SELECT max(STATEMENTNUM) FROM ACSTATEMENT a2 
 		WHERE FRREGINUM=#{frRegiNum} AND TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate})
-		</if>
+	</if>
 	<if test="statementNum!=null and statementNum!=''">#{statementNum}</if>
 	
 	</select>
 	
 	
 	<select id="r7211selectPrevNext" parameterType="acstmt" resultType="acstmt">
-	SELECT * FROM 
-		(SELECT rownum AS rrrnnn, aa.*,rrnn  
-		FROM ACSTATEMENT aa,(
-			SELECT DISTINCT rrnn, aaa.* FROM ACSTATEMENT aaa, 
-				(SELECT rownum AS rrnn, a.STATEMENTNUM FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') ='2023-03-03' AND FRREGINUM ='9999999999' AND LINENUM =1 ORDER BY STATEMENTNUM) ii
-				WHERE aaa.STATEMENTNUM = ii.statementNum
-				AND TO_CHAR(aaa.stmtdate,'YYYY-MM-DD') ='2023-03-03' AND aaa.FRREGINUM ='9999999999'
-				AND aaa.STATEMENTNUM ='AA1005' AND aaa.LINENUM =1
-				) iii
-	WHERE TO_CHAR(aa.stmtdate,'YYYY-MM-DD') ='2023-03-03' AND aa.FRREGINUM ='9999999999') fin
-	WHERE CEIL(rrrnnn/2)=rrnn+1
+	SELECT a2.*,CASE WHEN ii2.maxrn=ii.rronum THEN (ii.rronum*-1) ELSE ii.rronum END as rronum FROM ACSTATEMENT a2, (
+	SELECT rownum AS rronum, a.* 
+	FROM ACSTATEMENT a 
+	WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate} AND FRREGINUM =#{frRegiNum} AND LINENUM =1 ORDER BY STATEMENTNUM) ii ,
+	(SELECT max(rn) AS maxrn from(SELECT rownum AS rn, STATEMENTNUM FROM ACSTATEMENT WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate} AND FRREGINUM =#{frRegiNum} AND LINENUM =1 ORDER BY STATEMENTNUM) )ii2
+	WHERE a2.STATEMENTNUM =ii.statementNum 
+	AND rronum= #{rronum}
+	AND TO_CHAR(a2.stmtdate,'YYYY-MM-DD') = #{stmtDate} AND a2.FRREGINUM =#{frRegiNum}
 	</select>
 	
 	

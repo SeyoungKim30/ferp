@@ -35,8 +35,11 @@ localStorage.setItem("eqIdx","1")
 		<div class="toolbox">
 			<div class="toolbar">
 				<div>
-					<button class="btn-dark" type="button">이전전표</button>
-					<button class="btn-dark" type="button">다음전표</button>
+				<c:set var="rronum" value="${stmtList[0].rronum }" scope="page" />
+				<c:if test="${stmtList[0].rronum < 1 }"> <c:set var="rronum" value="${stmtList[0].rronum *-1}" /></c:if>
+				<c:if test="${rronum != 1 }"><button class="btn-dark" type="button" id="prevStmt" value="${rronum-1 }">이전전표</button>	</c:if>
+				<c:if test="${stmtList[0].rronum > 0 }"><button class="btn-dark" type="button" id="nextStmt" value="${stmtList[0].rronum+1 }">다음전표</button>	</c:if>
+				<c:remove var="rronum" scope="page"/>
 				</div>
 				<div>
 					<button class="btn-reset" title="저장되지 않은 내용을 모두 삭제하고 새 전표를 입력합니다." type="button">새 전표</button>
@@ -154,6 +157,14 @@ totalcalculator('.credit','.totalcredit');
 	//검색하기 눌렀을때는 쿼리스트링으로 제출
 	document.querySelector('.btn-secondary').addEventListener('click',function(){
 		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
+	})
+	
+	//앞뒤로 가기: 라인넘버에다 앞으로 갈지+1 뒤로갈지 -1 넣어서 전달 
+	document.querySelector('#prevStmt').addEventListener('click',function(){
+		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&rronum="+$('#prevStmt').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
+	})
+	document.querySelector('#nextStmt').addEventListener('click',function(){
+		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&rronum="+$('#nextStmt').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
 	})
 	
 	//리셋누르면 다 없어지고 라인넘버 순서대로 채움, 사업자번호 채우기

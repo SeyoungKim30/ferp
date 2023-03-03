@@ -12,9 +12,10 @@ public class ACStatement {
 	private int credit ;
 	private String stmtOpposite;
 	private String stmtDate;
-	private String stmtDate2;
+	private String stmtDate2;		//기간 검색할때 사용
 	private String remark;
 	
+	private String rronum;	//결과는 지금 몇번인지,마지막이면 음수, 검색할땐 +1할지 -1할지
 	private List<ACStatement> stmtlist;
 	
 	
@@ -40,6 +41,14 @@ public class ACStatement {
 	}
 
 	
+	public String getRronum() {
+		return rronum;
+	}
+
+	public void setRronum(String rronum) {
+		this.rronum = rronum;
+	}
+
 	public String getStmtDate2() {
 		return stmtDate2;
 	}

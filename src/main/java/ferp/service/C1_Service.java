@@ -47,7 +47,11 @@ public class C1_Service {
 	
 	
 	public List<ACStatement> r7211selectACStatement(ACStatement stmt) {
-		return dao.r7211selectACStatement(stmt);
+		if(stmt.getRronum()==null||stmt.getRronum().equals("")) {
+			return dao.r7211selectACStatement(stmt);
+		}else {
+			return dao.r7211selectPrevNext(stmt);
+		}
 	}
 	
 	public int r7212updateACStatement(String statementNum,String stmtDate,String frRegiNum,List<ACStatement> stmtlist) {
