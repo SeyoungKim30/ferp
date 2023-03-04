@@ -13,6 +13,7 @@
 			<result column="orderNum" property="orderNum"/>
 			<result column="productNum" property="productNum"/>
 			<result column="supplier" property="supplier"/>
+			<result column="demander" property="demander"/>
 			<result column="orderDate" property="orderDate"/>
 			<result column="amount" property="amount"/>
 			<result column="paymentState" property="paymentState"/>
@@ -23,7 +24,7 @@
 		<result column="frName" property="frName"/>
 		</association>
 		<association property="emp" javaType="vo.Emp">
-		<result column="empnum" property="empNum"/>
+		<result column="empnum" property="empnum"/>
 		<result column="ename" property="ename"/>
 		</association>
 		<association property="stock" javaType="vo.Stock">
@@ -33,7 +34,7 @@
 
 	
 <select id="r9201select" resultMap="posesRS" parameterType="prodOrder">
-SELECT po.*,se.ename,se.frname,stck.remainamount FROM PRODORDER po, product pd, 
+SELECT po.*,se.ename,se.empnum,se.frname,stck.remainamount,pd.productName FROM PRODORDER po, product pd, 
 		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se,
 		(SELECT * FROM STOCK s WHERE STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)) stck
 WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.productNum = po.PRODUCTNUM 
