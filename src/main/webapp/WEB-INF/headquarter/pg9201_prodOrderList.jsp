@@ -96,7 +96,10 @@ $(document).ready(function(){
 	
 	
 <script>
+//오늘 날짜 기본 입력
 $('[type=date]').val(new Date().toISOString().slice(0, 10));
+
+//셋 중 하나만 입력할 수 있게
 $('.toolbar').first().find('label').each(function(){
 	$(this).on('click',function(){
 		$('.toolbar').first().find('label').each(function(){

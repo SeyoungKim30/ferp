@@ -218,3 +218,5 @@ SELECT * FROM emp  ;
 INSERT INTO store(frreginum) values('9999999999',); 
 INSERT INTO stock VALUES ('PD10001','9999999999',sysdate,100,100,null);*/
 INSERT INTO stock VALUES ('PD10001','9999999999',sysdate,10,110,null);
+
+SELECT * FROM emp;

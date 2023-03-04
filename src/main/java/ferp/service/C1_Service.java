@@ -30,7 +30,6 @@ public class C1_Service {
 	}
 
 	public int r7210insertStatement(String statementNum,String stmtDate,String frRegiNum,List<ACStatement> stmtlist) {
-		if(statementNum==null||statementNum.equals("")) {statementNum="WR";}
 		int stmtcount=0;
 		for (ACStatement stmt : stmtlist) {
 			stmt.setStatementNum(statementNum);
@@ -78,6 +77,10 @@ public class C1_Service {
 		}else {
 			return dao.r7204selectStatementListByDate(stmt);
 		}
+	}
+	
+	public int r7213deleteACStatement(ACStatement acstmt) {
+		return dao.r7213deleteACStatement(acstmt);
 	}
 
 	public List<Prod_order_stock_emp_store>r9201select(ProdOrder prodOrder){

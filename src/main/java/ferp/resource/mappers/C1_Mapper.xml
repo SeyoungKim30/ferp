@@ -113,7 +113,7 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	</update>
 	
 	<delete id="r7213deleteACStatement" parameterType="acstmt">
-	DELETE FROM ACSTATEMENT WHERE STATEMENTNUM =#{statementNum} AND TO_CHAR(stmtdate,'YYYY-MM-DD') = #{stmtDate}
+	DELETE FROM ACSTATEMENT WHERE STATEMENTNUM =#{statementNum} AND TO_CHAR(stmtdate,'YYYY-MM-DD') = #{stmtDate} AND FRREGINUM =#{frRegiNum}
 	</delete>
 	
 	

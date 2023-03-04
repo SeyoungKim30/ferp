@@ -69,7 +69,7 @@ public class C1_Controller {
 	@PostMapping("insertACstatement.do")
 	public String r7210insertStatement(ACStatement acstmt) {
 		service.r7210insertStatement(acstmt.getStatementNum(), acstmt.getStmtDate(),acstmt.getFrRegiNum(), acstmt.getStmtlist());
-		return "redirect:/selectACstatement.do?stmtDate="+acstmt.getStmtDate();	//날짜만 적용.
+		return "redirect:/selectACstatement.do?stmtDate="+acstmt.getStmtDate()+"&frRegiNum="+acstmt.getFrRegiNum();	//날짜만 적용.
 	}
 
 	@RequestMapping("selectACstatement.do")
@@ -81,13 +81,13 @@ public class C1_Controller {
 	@RequestMapping("updateACstatement.do")
 	public String r7212updateACStatement(ACStatement acstmt) {
 		service.r7212updateACStatement(acstmt.getStatementNum(), acstmt.getStmtDate(),acstmt.getFrRegiNum(), acstmt.getStmtlist());
-		return "redirect:/selectACstatement.do?stmtDate="+acstmt.getStmtDate()+"&statementNum="+acstmt.getStatementNum();	
+		return "redirect:/selectACstatement.do?stmtDate="+acstmt.getStmtDate()+"&statementNum="+acstmt.getStatementNum()+"&frRegiNum="+acstmt.getFrRegiNum();	
 	}
 	
 	@RequestMapping("deleteACstatement.do")
 	public String r7213deleteACStatement(ACStatement acstmt) {
-		
-		return "WEB-INF\\headquarter\\pg7210_ACstatement.jsp";
+		service.r7213deleteACStatement(acstmt);
+		return "redirect:/selectACstatement.do?stmtDate="+acstmt.getStmtDate()+"&frRegiNum="+acstmt.getFrRegiNum();	//날짜만 적용.
 	}
 	
 	@GetMapping("statementList.do")
