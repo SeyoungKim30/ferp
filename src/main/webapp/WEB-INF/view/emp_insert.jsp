@@ -15,7 +15,7 @@
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="/ferp/resource/css/qna_insert.css"/>
+<link rel="stylesheet" href="/ferp/resource/css/emp_insert.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 
@@ -78,28 +78,33 @@
             <div class="contents">
 	        	<div>
 	        	<form method="post">
-	     	        <h2 class="insert_product">직원 등록</h2>
+	     	        <h2 class="insert_emp">직원 등록</h2>
 	        	</div>
 		
 	        	<div class="content">
 					<div class="first_line">
-						<h3 class="qna_title">비밀번호</h3>
-						<h3 class="qna_category">사원명</h3>
+						<h3 class="emp_ename">사원명</h3>
 					</div>
 					<div class="second_line">
-						<input type="text" name="pass" placeholder="비밀번호 입력">
-						<input type="text" name="ename" placeholder="사원명 입력">
+						<input class="check" type="text" name="ename" placeholder="사원명 입력">
 					</div>
 					<div class="third_line">
-						<h3 class="menu_info">부서명</h3>
+						<h3 class="emp_pass">비밀번호</h3>
 					</div>
 					<div class="fourth_line">
-						<input type="text" name="dname" placeholder="부서명 입력">
+						<input class="check" type="text" name="pass" placeholder="비밀번호 입력">
 					</div>
+					<div class="fifth_line">
+						<h3 class="emp_dname">부서명</h3>
+					</div>
+					<div class="sixth_line">
+						<input class="check" type="text" name="dname" placeholder="부서명 입력">				
+					</div>					
 
 					<div class="submit_line">
 						<button type="button" class="insBtn">등 록</button>
 					</div>	
+					
 				</form>		
 				</div>
             </div>
@@ -133,102 +138,31 @@ $(document).ready(function(){
 			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
-				  if($("[name=pass]").val() == ""){
-					  Swal.fire({
-						  title: '비밀번호를 입력해주세요.',
-						  icon: 'warning',
-						  showCancelButton: false,
-						  confirmButtonColor: '#3085d6',
-						  confirmButtonText: '확인'
-						}).then((result) => {
-						  if (result.value) {
-							  $("[name=menuName]").focus()
-						      return;
-						  }
-					  })
-				  }
-				  else if($("[name=ename]").val() == ""){
-					  Swal.fire({
-						  title: '사원명을 입력해주세요.',
-						  icon: 'warning',
-						  showCancelButton: false,
-						  confirmButtonColor: '#3085d6',
-						  confirmButtonText: '확인'
-						}).then((result) => {
-						  if (result.value) {
-							  $("[name=price]").focus()
-						      return;
-						  }
-					  })
-				  }
-				  else if($("[name=dname]").val() == ""){
-					  Swal.fire({
-						  title: '부서를 입력해주세요.',
-						  icon: 'warning',
-						  showCancelButton: false,
-						  confirmButtonColor: '#3085d6',
-						  confirmButtonText: '확인'
-						}).then((result) => {
-						  if (result.value) {
-							  $("[name=info]").focus()
-						      return;
-						  }
-					  })
-				  }
+				  $('.check').each(function(idx, item){
+					  if($(this).val() == ''){
+						  Swal.fire({
+							  title: '미입력한 내용이 있습니다.\n입력해주세요.',
+							  icon: 'warning',
+							  showCancelButton: false,
+							  confirmButtonColor: '#3085d6',
+							  confirmButtonText: '확인'
+							}).then((result) => {
+							  if (result.value) {
+								  $(this).focus()
+							      return;
+							  }
+						  })
+					  }
+					  else{
+						  $("form").submit();
+					  }
 
-				  else{
-					  $("form").submit();
-				  }
+				  })
 				  
 			  }
 			})	    	
   	})
 
-   var fileTarget = $('.img_block .upload-hidden');
-
-    fileTarget.on('change', function(){
-        if(window.FileReader){
-            // 파일명 추출
-            var filename = $(this)[0].files[0].name;
-        } 
-
-        else {
-            // Old IE 파일명 추출
-            var filename = $(this).val().split('/').pop().split('\\').pop();
-        };
-
-        $(this).siblings('.upload-name').val(filename);
-    });
-
-    //preview image 
-    var imgTarget = $('.img_block .upload-hidden');
-
-    imgTarget.on('change', function(){
-        var parent = $(this).parent();
-        parent.children('.upload-display').remove();
-
-        if(window.FileReader){
-            //image 파일만
-            if (!$(this)[0].files[0].type.match(/image\//)) return;
-            
-            var reader = new FileReader();
-            reader.onload = function(e){
-                var src = e.target.result;
-                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-            }
-            reader.readAsDataURL($(this)[0].files[0]);
-        }
-
-        else {
-            $(this)[0].select();
-            $(this)[0].blur();
-            var imgSrc = document.selection.createRange().text;
-            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-
-            var img = $(this).siblings('.upload-display').find('img');
-            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
-        }
-    });
     
     
 
