@@ -32,7 +32,8 @@ function invalidClass(inputid,feedbackid) {
 	$(inputid).addClass('is-invalid');
 }
 function validClass(inputid,feedbackid) {
-	$(inputid).addClass('valid-feedback');
-	$(inputid).removeClass('invalid-feedback');
-	$(feedbackid).removeClass('is-invalid');
+	$(feedbackid).addClass('valid-feedback');
+	$(feedbackid).removeClass('invalid-feedback');
+	$(inputid).removeClass('is-invalid');
+	console.log('밸리드 실행')
 }

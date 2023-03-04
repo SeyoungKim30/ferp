@@ -29,3 +29,13 @@ var accountListBoth=[];
 	 	$('#titleList').html(acntTitlehtmls)
 	 	$('#numList').html(acntNumhtmls)
 	}
+	
+	//,리스트, 밸류, 레이블, 출력할 타켓 넣어서 데이터리스트 들어갈 옵션 만들기
+	function makeAccountOption(jsonlist,valueName,labelName,target){
+		let htmls='';
+		jsonlist.forEach(function(each){
+		 	htmls+=`<option value='`+each[valueName]+`' label='`+each[labelName]+`'>`
+		 })
+	 	$(target).html(htmls)
+	}
+	

@@ -62,7 +62,7 @@ localStorage.setItem("eqIdx","1")
 				<div title="전표번호가 비어있으면 새로운 전표로 입력하고, 그렇지 않으면 기존 전표가 수정됩니다.">
 					<label>전표일자<span id="stmtDateVFD" class="valid-feedback">날짜를 입력하세요</span><input type="date" name="stmtDate" required="required" value="${fn:substring(stmtList[0].stmtDate,0,10) }">
 					</label>
-					<label>전표번호<input name="statementNum" value="${stmtList[0].statementNum }" placeholder="검색할때만 입력하세요" min="2" maxlength="6" required></label>
+					<label>전표번호<span id="stmtNumVFD" class="valid-feedback">전표번호를 입력하세요</span><input name="statementNum" value="${stmtList[0].statementNum }" placeholder="검색할때만 입력하세요" min="2" maxlength="6" required></label>
 					<input name="frRegiNum" type="hidden" value="${login.frRegiNum }">
 					<button type="button" class="btn-secondary">검색</button>
 				</div>
@@ -180,8 +180,16 @@ totalcalculator('.credit','.totalcredit');
 	
 	//삭제
 	document.querySelector('.btn-danger').addEventListener('click',function(){
-		location.href="${path }/deleteACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
+		if(!document.querySelector('[name=stmtDate]').checkValidity()){
+			invalidClass('[name=stmtDate]','#stmtDateVFD')
+		}else if(!document.querySelector('[name=statementNum]').value.length!=6){
+			invalidClass('[name=statementNum]','#stmtNumVFD')
+			setTimeout(validClass,5000,'[name=statementNum]','#stmtNumVFD');
+		}else{
+			location.href="${path }/deleteACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
+		}
 	})
+	
 	//리셋누르면 다 없어지고 라인넘버 순서대로 채움, 사업자번호 채우기
 	document.querySelector('.btn-reset').addEventListener('click',function(){
 		$('input').val('');
