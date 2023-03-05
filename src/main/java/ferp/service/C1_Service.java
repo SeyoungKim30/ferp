@@ -87,6 +87,9 @@ public class C1_Service {
 		return dao.r9201select(prodOrder);
 	}
 	
+	public int r9203updateOrderState(ProdOrder prodOrder) {
+		return dao.r9203updateOrderState(prodOrder);
+	}
 	
 	
 	

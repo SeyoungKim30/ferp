@@ -1,6 +1,7 @@
 SELECT * FROM account ;
 SELECT * FROM STORE s ;
 SELECT * FROM emp;
+SELECT * FROM ACSTATEMENT;
 
 INSERT INTO ACCOUNT values('10100','자산','현금');
 ALTER TABLE statement RENAME TO ACStatement;
@@ -165,15 +166,15 @@ CYCLE;*/
 SELECT * FROM product;
 --INSERT INTO Product values('PD'||pdSeq.nextval,'유제품','매일우유 바리스타 1L*5','매일우유 서부통판센터',7200,'/resource/img/PD10001.jpg',null);
 --INSERT INTO Product values('PD'||pdSeq.nextval,'유제품','매일우유 1% 저지방우유 1.5L','매일우유 서부통판센터',4980,'/resource/img/PD10002.PNG',null);
-SELECT * FROM PRODORDER p ;
-INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567892' FROM dual),'PD10001','1234567892','9999999999',to_date('2023-03-01','YYYY-MM-DD'),3,'정산전','완료');
-INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567892' FROM dual),'PD10002','1234567892','9999999999',to_date('2023-03-01','YYYY-MM-DD'),1,'정산전','완료');
-
-INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10001','1234567890','9999999999',to_date('2023-02-25','YYYY-MM-DD'),32,'정산전','완료');
-INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10002','1234567890','9999999999',to_date('2023-02-25','YYYY-MM-DD'),8,'정산전','완료');
+DELETE FROM PRODORDER p WHERE ORDERNUM LIKE '230305'||'%';
+INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567892' FROM dual),'PD10001','1234567892','9999999999',sysdate,3,'정산전','완료');
+INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567892' FROM dual),'PD10002','1234567892','9999999999',sysdate,1,'정산전','완료');
+INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567891' FROM dual),'PD10001','1234567891','9999999999',sysdate,23,'요청','완료');
+INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567891' FROM dual),'PD10002','1234567891','9999999999',sysdate,12,'요청','완료');
+INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567890' FROM dual),'PD10001','1234567890','9999999999',sysdate,32,'배송','완료');
+INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567890' FROM dual),'PD10002','1234567890','9999999999',sysdate,8,'배송','완료');
 --INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10001','1234567892','9999999999',SYSdate,3,'정산전','요청');
 --INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10002','1234567892','9999999999',SYSdate,1,'정산전','요청');
-
 
 --물류관리 발주 조회 메뉴
 --주문지점, 발주번호, 날짜로 검색 + 월별 조회
@@ -200,12 +201,25 @@ SELECT po.*, se.empnum,se.ename,se.frreginum,se.frname,stck.remainamount FROM PR
 WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.productNum = po.PRODUCTNUM 
 	AND (TRUNC(orderdate) = to_date('','YYYY-MM-DD')	--일별일때
 			OR TRUNC(orderdate,'month') = TRUNC(to_date('','YYYY-MM-DD'),'month')--월별일때
-			OR ORDERNUM LIKE '%'||'2023021234567890'||'%')	--발주번호
+			OR ORDERNUM LIKE '%'||'2302281234567890'||'%')	--발주번호
 	AND (po.DEMANDER LIKE '%'||'디맨더로 받아온 변수'||'%' OR se.frname LIKE '%'||'독산'||'%')	--주문지점
 	AND (se.ename LIKE '%'||''||'%' OR se.empNum LIKE '%'||''||'%')	--담당자
 	AND (pd.PRODUCTNUM LIKE '%'||''||'%' OR pd.PRODUCTNAME LIKE '%'||''||'%') --상품번호 또는 이름
 	AND po.PAYMENTSTATE LIKE '%'||''||'%' AND po.ORDERSTATE LIKE '%'||''||'%'
+ORDER BY po.ORDERDATE asc ;
 ;
+--발주상태 변경
+UPDATE PRODORDER SET ORDERSTATE ='완료' WHERE (ORDERNUM,PRODUCTNUM) IN (SELECT po.ORDERNUM,po.PRODUCTNUM  FROM PRODORDER po, product pd, 
+		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se,
+		(SELECT * FROM STOCK s WHERE STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)) stck
+WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.productNum = po.PRODUCTNUM 
+	AND (TRUNC(orderdate) = to_date('','YYYY-MM-DD')	--일별일때
+			OR TRUNC(orderdate,'month') = TRUNC(to_date('','YYYY-MM-DD'),'month')--월별일때
+			OR ORDERNUM LIKE '%'||'2302281234567890'||'%')	--발주번호
+	AND (po.DEMANDER LIKE '%'||'디맨더로 받아온 변수'||'%' OR se.frname LIKE '%'||'독산'||'%')	--주문지점
+	AND (se.ename LIKE '%'||''||'%' OR se.empNum LIKE '%'||''||'%')	--담당자
+	AND (pd.PRODUCTNUM LIKE '%'||'PD10002'||'%' OR pd.PRODUCTNAME LIKE '%'||''||'%') --상품번호 또는 이름
+	AND po.PAYMENTSTATE LIKE '%'||''||'%' AND po.ORDERSTATE LIKE '%'||''||'%');
 
 --서브테이블
 SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM;
