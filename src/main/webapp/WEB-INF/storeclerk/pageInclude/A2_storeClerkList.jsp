@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
@@ -22,10 +23,6 @@
 <script type="text/javascript">
 //	localStorage.setItem("empPage","empList")
 	$(document).ready(function() {
-		var login = '${login.frRegiNum}'
-		if(login==""){
-			location.href="${path}/storeLogin.do"
-		}
 		$(".regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
 				//localStorage.setItem("pageLoc","inDiv")
@@ -40,6 +37,7 @@
 				dataType : "json",
 				success : function(data) {
 					alert(data.msg)
+					location.reload()
 				},
 				error : function(err) {
 					console.log(err)
@@ -47,6 +45,9 @@
 			})
 		}
 	});
+	console.log(${clerkTot})
+	console.log(${login.frRegiNum}${clerkTot})
+	
 </script>
 </head>
 <body>
@@ -58,6 +59,8 @@
 				<h3>직원 등록</h3>
 				<br>
 				<div class="row">
+					
+					<input type="hidden" name="clerkNum" value="${login.frRegiNum}${clerkTot}" readOnly required /> 
 					<input type="hidden" name="frRegiNum" value="${login.frRegiNum}" readOnly required /> 
 					<div class="col margin-tn w25">
 						<label>직원명</label>
@@ -102,24 +105,25 @@
 		</div>
 		<div>
 			<div>
-				<div class=" row schDiv toolbox" style="margin-left: 80%;">
-					<form id="frm01" method="post">
+				<form id="frm01" method="post">
+					<div class=" row schDiv toolbox" style="margin-left: 80%;">
 						<div class="col left" >
 							<label>직원명</label>
 							<input type="text" name="clerkName" value="${SCsch.clerkName}"/>							 
 						</div>
 						<input type="hidden" name="curPage" value="${SCsch.curPage}" />
+						<input type="hidden" name="frRegiNum" value="${login.frRegiNum}" />
 						<button type="submit" class="schBtn">조회</button>
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
 			<div class="row">
 				<div class="thDiv" style="width: 13%;">직원명</div>
 				<div class="thDiv" style="width: 5%;">성별</div>
 				<div class="thDiv" style="width: 15%;">전화번호</div>
 				<div class="thDiv" style="width: 15%;">주민등록번호</div>
-				<div class="thDiv" style="width: 28%;">주소</div>
-				<div class="thDiv" style="width: 7%;">시급</div>
+				<div class="thDiv" style="width: 26%;">주소</div>
+				<div class="thDiv" style="width: 9%;">시급</div>
 				<div class="thDiv" style="width: 7%;">파일</div>
 				<div class="thDiv" style="width: 10%;">수정/삭제</div>
 			</div>
@@ -130,22 +134,22 @@
 							<input type="text" name="clerkNum" value="${sc.clerkNum }" />
 						</div>
 						<div class="tdDiv" style="width: 13%;">
-							<input type="text" class="listInput i${sc.clerkNum }" name="clerkName" value="${sc.clerkName }" disabled />
+							<input type="text" class="listInput i${sc.clerkNum } center" name="clerkName" value="${sc.clerkName }" disabled />
 						</div>
 						<div class="tdDiv" style="width: 5%;">
-							<input type="text" class="listInput i${sc.clerkNum }" name="gender" style="width: 100%;" value="${sc.gender }" disabled />
+							<input type="text" class="listInput i${sc.clerkNum } center" name="gender" style="width: 100%;" value="${sc.gender }" disabled />
 						</div>
 						<div class="tdDiv" style="width: 15%;">
-							<input type="text" class="listInput i${sc.clerkNum }" name="phoneNum" style="width: 100%;" value="${sc.phoneNum }" disabled />
+							<input type="text" class="listInput i${sc.clerkNum } center" name="phoneNum" style="width: 100%;" value="${sc.phoneNum }" disabled />
 						</div>
 						<div class="tdDiv" style="width: 15%;">
-							<input type="text" class="listInput i${sc.clerkNum }" name="residentNum" style="width: 100%;" value="${sc.residentNum }" disabled />
+							<input type="text" class="listInput i${sc.clerkNum } center" name="residentNum" style="width: 100%;" value="${sc.residentNum }" disabled />
 						</div>
-						<div class="tdDiv" style="width: 28%;">
-							<input type="text" class="listInput i${sc.clerkNum }" name="address" style="width: 100%;" value="${sc.address }" disabled />
+						<div class="tdDiv left" style="width: 26%;">
+							<input type="text" class="listInput i${sc.clerkNum } left" name="address" style="width: 100%;" value="${sc.address }" disabled />
 						</div>
-						<div class="tdDiv" style="width: 7%;">
-							<input type="text" class="listInput i${sc.clerkNum }" name="hourlyPay" style="width: 100%;" value="${sc.hourlyPay }" disabled />
+						<div class="tdDiv right" style="width: 9%;">
+							<input type="text" class="listInput i${sc.clerkNum } right" name="hourlyPay" style="width: 100%;" value="<fmt:formatNumber value='${sc.hourlyPay }' type='currency'/>" disabled />
 						</div>
 						<div class="tdDiv" style="width: 7%;">
 							<button class="fileBtn">파일</button>
@@ -158,7 +162,7 @@
 					</div>
 				</form>
 			</c:forEach>
-			<div class="row center">
+			<div class="row pBtn_center">
 				<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${SCsch.startBlock-1});'">
 					&lt;
 				</button>
@@ -184,10 +188,12 @@
 					if(${SCsch.curPage==SCsch.endBlock}){
 						$("[name=next]").attr("disabled",true)
 					}
-					if(${SCsch.curPage}==localStorage.getItem("sclistPg")){
-						$(".pg"+localStorage.getItem("sclistPg")).css("backgroundColor","#a4a4a4")
-						$(".pg"+localStorage.getItem("sclistPg")).css("color","white")
-					}
+					
+					$(".pg"+${SCsch.curPage}).css({
+						'background' : '#a4a4a4',
+						'color' : 'white'
+					})
+					
 					function activateInput(i){
 						if(confirm("수정하시겠습니까?")){
 							$(".i"+i).attr("disabled",false)
@@ -196,7 +202,6 @@
 						}
 						$(".uptCfm").click(function(){
 							if(confirm("변경사항을 저장하시겠습니까?")){
-								//localStorage.setItem("pageLoc","inDiv")
 								uptAjax("uptStoreClerk.do",i)				
 							}
 						})
@@ -212,8 +217,6 @@
 								location.reload()
 							},
 							error : function(err) {
-							console.log($("#uptForm"+i).serialize())
-							console.log($("#uptForm"+i).serialize())
 								console.log(err)
 							}
 						})
@@ -221,7 +224,6 @@
 					
 					function delInfo(i){
 						if(confirm("직원정보를 삭제하시겠습니까?")){
-							//localStorage.setItem("pageLoc","inDiv")
 							delAjax("delStoreClerk.do",i)				
 						}
 					}
@@ -237,8 +239,7 @@
 								location.reload()
 							},
 							error : function(err) {
-							console.log($("#uptForm"+i).serialize())
-							console.log($("#uptForm"+i).serialize())
+								console.log($("#uptForm"+i).serialize())
 								console.log(err)
 							}
 						})

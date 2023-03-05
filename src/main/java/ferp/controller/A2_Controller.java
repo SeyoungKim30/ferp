@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ferp.service.A2_Service;
+import vo.ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
 import vo.StoreClerk;
@@ -26,8 +27,10 @@ public class A2_Controller {
 	@RequestMapping("/storeClerkList.do")
 	public String pg3100(@ModelAttribute("SCsch") SCPage SCsch, Model d) {
 		d.addAttribute("scList", service.storeClerkList(SCsch));
+		d.addAttribute("clerkTot", service.clerkTot());
 		return "/WEB-INF/storeclerk/A2_storeClerkListCon.jsp";
 	}
+	
 	@PostMapping("/storeClerkListSch.do")
 	public String pg3100_1(@ModelAttribute("SCsch") SCPage SCsch, Model d) {
 		d.addAttribute("scList", service.storeClerkList(SCsch));
@@ -49,7 +52,7 @@ public class A2_Controller {
 	}
 //	직원 정보 삭제
 	@PostMapping("/delStoreClerk.do")
-	public String pg3103(@RequestParam("clerkNum") int clerkNum, Model d) {
+	public String pg3103(@RequestParam("clerkNum") String clerkNum, Model d) {
 		service.delStoreClerk(clerkNum);
 		d.addAttribute("msg", "삭제완료");
 		return "pageJsonReport";
@@ -69,5 +72,24 @@ public class A2_Controller {
 	@ModelAttribute("plist")
 	public List<Rq_Product> pg9101_1(Rq_Product pname){
 		return service.availProd(pname);
+	}
+//	발주 신청서 등록
+	@PostMapping("/requestFrm.do")
+	public String pg9101_2(ProdOrder ins, Model d) {
+		service.prodOrderReq(ins);
+		d.addAttribute("msg", "등록완료");
+		return "pageJsonReport";
+	}
+//	발주 신청서 조회
+	@ModelAttribute("reqlist")
+	public List<ProdOrder> requestList(ProdOrder sch){
+		return service.reqList(sch);
+	}
+//	발주 신청서 수정
+	@PostMapping("/uptReqList.do")
+	public String pg9103(ProdOrder upt, Model d) {
+		service.uptReqList(upt);
+		d.addAttribute("msg", "수정완료");
+		return "pageJsonReport";
 	}
 }

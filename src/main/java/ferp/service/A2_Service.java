@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ferp.dao.A2_Dao;
+import vo.ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
 import vo.StoreClerk;
@@ -16,14 +17,10 @@ public class A2_Service {
 	@Autowired(required=false)
 	private A2_Dao dao;
 	
-	public List<StoreClerk> storeClerkList(SCPage sch){
-		if(sch.getClerkName() == null) sch.setClerkName("");
+	private void pagination(SCPage sch) {
 		sch.setCount(dao.totNum(sch));
 		if(sch.getCurPage()==0) {
 			sch.setCurPage(1);
-		}
-		if(sch.getPageSize()==0) {
-			sch.setPageSize(5);
 		}
 		sch.setPageCount(
 				(int)Math.ceil(
@@ -43,6 +40,15 @@ public class A2_Service {
 		}
 		sch.setEndBlock(endBlock);
 		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
+	}
+	
+	public List<StoreClerk> storeClerkList(SCPage sch){
+		if(sch.getClerkName() == null) sch.setClerkName("");
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
+		if(sch.getPageSize()==0) {
+			sch.setPageSize(5);
+		}
+		pagination(sch);
 		return dao.storeClerkList(sch);
 	}
 	
@@ -54,42 +60,37 @@ public class A2_Service {
 		dao.uptStoreClerk(upt);
 	}
 	
-	public void delStoreClerk(int clerkNum) {
+	public void delStoreClerk(String clerkNum) {
 		dao.delStoreClerk(clerkNum);
 	}
 	
 	public List<StoreClerk> storeClerkPayList(SCPage sch){
 		if(sch.getClerkName() == null) sch.setClerkName("");
 		sch.setCount(dao.totNum(sch));
-		if(sch.getCurPage()==0) {
-			sch.setCurPage(1);
-		}
 		if(sch.getPageSize()==0) {
 			sch.setPageSize(10);
 		}
-		sch.setPageCount(
-				(int)Math.ceil(
-				sch.getCount()/(double)sch.getPageSize())
-				);
-		if(sch.getCurPage()>sch.getPageCount()) {
-			sch.setCurPage(sch.getPageCount());
-		}
-		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
-		sch.setEnd(sch.getCurPage()*sch.getPageSize());
-		sch.setBlockSize(5);
-		int blocknum = (int)Math.ceil(sch.getCurPage()/
-					(double)sch.getBlockSize());
-		int endBlock = blocknum*sch.getBlockSize();
-		if(endBlock>sch.getPageCount()) {
-			endBlock = sch.getPageCount();
-		}
-		sch.setEndBlock(endBlock);
-		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
+		pagination(sch);
 		return dao.storeClerkPayList(sch);
 	}
 	
 	public List<Rq_Product> availProd(Rq_Product plist){
 		if(plist.getProductName() == null) plist.setProductName("");
+		if(plist.getFrRegiNum() == null) plist.setFrRegiNum("9999999999");
 		return dao.availProd(plist);
+	}
+	public int clerkTot() {
+		return dao.clerkTot();
+	}
+	public void prodOrderReq(ProdOrder ins) {
+		dao.prodOrderReq(ins);
+	}
+	public List<ProdOrder> reqList(ProdOrder sch){
+		if(sch.getOrderNum() == null) sch.setOrderNum("");
+		if(sch.getDemander() == null) sch.setDemander("");
+		return dao.reqList(sch);
+	}
+	public void uptReqList(ProdOrder upt) {
+		dao.uptReqList(upt);
 	}
 }

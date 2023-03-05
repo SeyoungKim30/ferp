@@ -50,16 +50,18 @@
 					<div class="tdDiv" style="width: 19%;">
 						<input type="hidden" class="opposite${p.productNum }" value="${p.opposite }"> ${p.opposite }
 					</div>
+					<input type="hidden" class="productNum${p.productNum }" value="${p.productNum }">
+					<input type="hidden" class="frRegiNum${p.productNum }" value="${p.frRegiNum }">
 					<div class="tdDiv" style="width: 14%;">
 						₩ ${p.price }
 					</div>
 					<div class="tdDiv" style="width: 14%;">
-						${p.remainAmoumt }
+						${p.remainAmount }
 					</div>
 					<div class="tdDiv" style="width: 9%;">
 						<div class="row center">
 							<button type="button" class="adjustAmountBtn minus${p.productNum }"> - </button>
-							<input class="adjustAmountText a${p.productNum }" type="text" value="0">
+							<input class="adjustAmountText a${p.productNum }" type="text" value="0" pattern="[0-9]+">
 							<button type="button" class="adjustAmountBtn plus${p.productNum }"> + </button>
 						</div>
 					</div>
@@ -99,9 +101,11 @@
 		$(".a${p.productNum }").val(i${p.productNum })
 	})
 	$(".regB${p.productNum }").click(function(){
-		$("[name=opposite]").val($(".opposite${p.productNum }").val())
-		$("[name=productName]").val($(".productName${p.productNum }").val())
+		$(".supplierName").val($(".opposite${p.productNum }").val())
+		$(".productName").val($(".productName${p.productNum }").val())
 		$("[name=amount]").val($(".a${p.productNum }").val())	
+		$("[name=productNum]").val($(".productNum${p.productNum }").val())	
+		$("[name=supplier]").val($(".frRegiNum${p.productNum }").val())	
 		$("#modal").attr("style", "display:none");
 	})
 </script>

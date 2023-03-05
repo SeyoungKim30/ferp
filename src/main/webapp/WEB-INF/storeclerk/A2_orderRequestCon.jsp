@@ -25,6 +25,8 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 			<%@ include file="/WEB-INF/storeclerk/pageInclude/A2_orderRequest.jsp"%>
+			<%@ include file="/WEB-INF/storeclerk/pageInclude/A2_orderRequestTable.jsp"%>
+			<%@ include file="/WEB-INF/storeclerk/pageInclude/A2_orderRequestProdInfo.jsp"%>
 		</div>
 	</div>
 </body>

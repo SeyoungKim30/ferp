@@ -20,10 +20,30 @@
 <script src="${path}/a00_com/jquery-ui.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script
-	src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api"
-	type="text/javascript"></script>
-
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".regBtn").click(function(){
+			if(confirm("신청하시겠습니까?")){
+				$.ajax({
+					type : "post",
+					url : "/ferp/requestFrm.do",
+					data : $("#regForm").serialize(),
+					dataType : "json",
+					success : function(data) {
+						console.log(data)
+						alert(data.msg)
+						location.reload()
+					},
+					error : function(err) {						
+						console.log($("#regForm").serialize())
+						console.log(err)
+					}
+				})
+			}
+		})
+	})
+</script>
 </head>
 <body>
 	<h2 class="h2Title">발주 신청</h2>
@@ -44,33 +64,32 @@
 			<form id="regForm" method="post">
 				<div class="row">
 					<div class="col margin-tn w25">
-						<label>매장번호</label> <input type="text" name="frRegiNum"
-							class="margin-tln regList" value="${login.frRegiNum }" readOnly
-							required />
+						<label>매장번호</label> 
+						<input type="text" name="demander" class="margin-tln regList" value="${login.frRegiNum }" readOnly required />
 					</div>
 					<div class="col margin-tn w25">
-						<label>신청 날짜</label> <input type="date" name="orderDate"
-							value="<fmt:formatDate value="${now}" pattern = "yyyy-MM-dd"/>"
-							class="margin-tln regList" readOnly required />
+						<label>신청 날짜</label> 
+						<input type="date" name="orderDate" value="<fmt:formatDate value='${now}' pattern = 'yyyy-MM-dd'/>" class="margin-tln regList" readOnly required />
 					</div>
 					<div class="col margin-tn w25" id="openBtn1">
-						<label>거래처</label> <input type="text" name="opposite"
-							class="margin-tln regList" placeholder="거래처" required />
+						<label>거래처</label> 
+						<input type="text" class="margin-tln regList supplierName" placeholder="거래처" required />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col margin-tn w25" id="openBtn2">
-						<label>자재명</label> <input type="text" name="productName"
-							class="margin-tln regList" placeholder="자재명" required />
+						<label>자재명</label> 
+						<input type="text" class="margin-tln regList productName" placeholder="자재명" required />
 					</div>
 					<div class="col margin-tn w25" id="openBtn3">
-						<label>수량</label> <input type="text" name="amount"
-							class="margin-tln regList" placeholder="수량" required />
+						<label>수량</label> 
+						<input type="text" name="amount" class="margin-tln regList" placeholder="수량" required />
 					</div>
+					<input type="hidden" name="productNum" required />
+					<input type="hidden" name="supplier" required />
 					<div class="col margin-tn w25">
-						<button type="button" class="regBtn regList"
-							style="margin-top: 19.5px;">등록</button>
-					</div>
+						<button type="button" class="regBtn regList" style="margin-top: 19.5px;">등록</button>
+					</div>			
 				</div>
 			</form>
 			<br>
