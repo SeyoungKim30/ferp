@@ -71,7 +71,9 @@ public class A1_Service {
 	}
 	
 	// 본사 제공 전체 메뉴
-	public List<Menu> getAllMenu(){
-		return dao.getAllMenu();
+	public List<Menu> getAllMenu(Menu sch){
+		if(sch.getMenuName()==null) sch.setMenuName("");
+		return dao.getAllMenu(sch);
 	}
+	
 }

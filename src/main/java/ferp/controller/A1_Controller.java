@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ferp.service.A1_Service;
@@ -130,9 +131,17 @@ public class A1_Controller {
 	}
 	
 	// 전체 메뉴 조회 페이지
+	@RequestMapping("/onsaleList.do")
+	public String pg2002onsaleList(Model d, HttpSession session){
+		Store st = (Store)session.getAttribute("login");
+		d.addAttribute("showOnSale", service.getMenuList(st.getFrRegiNum()));
+		return "WEB-INF\\store\\pg2002_onsaleList.jsp";
+	}
+	
+	// 전체 메뉴 조회 페이지
 	@RequestMapping("/showMenu.do")
-	public String pg2001showMenu(Model d){
-		d.addAttribute("showAllMenu", service.getAllMenu());
+	public String pg2001showMenu(@ModelAttribute("sch") Menu sch, Model d){
+		d.addAttribute("showAllMenu", service.getAllMenu(sch));
 		return "WEB-INF\\store\\pg2001_showAllMenu.jsp";
 	}
 	
@@ -143,7 +152,7 @@ public class A1_Controller {
 		ins.setFrRegiNum(st.getFrRegiNum());
 		service.insOnsale(ins);
 		d.addAttribute("msg","판매 메뉴가 추가되었습니다.");
-		return "redirect:/showMenu.do";
+		return "pageJsonReport";
 	}
 	
 }

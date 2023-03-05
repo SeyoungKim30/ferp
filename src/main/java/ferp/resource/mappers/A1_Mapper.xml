@@ -53,6 +53,7 @@
 			FROM MENU m, ONSALE o 
 			WHERE m.MENUNUM = o.MENUNUM
 			AND FrRegiNum = #{FrRegiNum}
+			ORDER BY MENUNAME
 		</select>
 		
 		<!-- 로그인한 매장의 판매 메뉴 불러오기(커피) -->
@@ -62,6 +63,7 @@
 			WHERE m.MENUNUM = o.MENUNUM
 			AND FrRegiNum = #{FrRegiNum}
 			AND category = 'coffee'
+			ORDER BY MENUNAME
 		</select>
 		
 		<!-- 로그인한 매장의 판매 메뉴 불러오기(스무디) -->
@@ -71,6 +73,7 @@
 			WHERE m.MENUNUM = o.MENUNUM
 			AND FrRegiNum = #{FrRegiNum}
 			AND category = 'smoothie'
+			ORDER BY MENUNAME
 		</select>
 		
 		<!-- 로그인한 매장의 판매 메뉴 불러오기(기타음료) -->
@@ -80,6 +83,7 @@
 			WHERE m.MENUNUM = o.MENUNUM
 			AND FrRegiNum = #{FrRegiNum}
 			AND category = 'etc'
+			ORDER BY MENUNAME
 		</select>
 		
 		<!-- 로그인한 매장의 판매 메뉴 불러오기(샌드위치) -->
@@ -89,6 +93,7 @@
 			WHERE m.MENUNUM = o.MENUNUM
 			AND FrRegiNum = #{FrRegiNum}
 			AND category = 'sandwich'
+			ORDER BY MENUNAME
 		</select>
 		
 		<!-- 로그인한 매장의 판매 메뉴 불러오기(케이크) -->
@@ -98,12 +103,15 @@
 			WHERE m.MENUNUM = o.MENUNUM
 			AND FrRegiNum = #{FrRegiNum}
 			AND category = 'cake'
+			ORDER BY MENUNAME
 		</select>
 		
 		<!-- 본사 제공 전체 메뉴 가져오기 -->
-		<select id="getAllMenu" resultType="menu">
+		<select id="getAllMenu" parameterType="menu" resultType="menu">
 			SELECT *
 			FROM MENU
+			WHERE MENUNAME LIKE '%'||#{menuName}||'%'
+			ORDER BY MENUNAME
 		</select>
 		
 		<!-- 판매할 메뉴 추가 -->

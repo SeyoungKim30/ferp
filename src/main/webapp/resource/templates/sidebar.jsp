@@ -76,7 +76,7 @@
                         <a href="#">메뉴 관리</a>
                         <ul>
                             <li id="2001"><a href="${path }/showMenu.do">- 판매 메뉴 등록</a></li>
-                            <li id="2001"><a href="${path }/showMenu.do">- 판매 메뉴 삭제</a></li>
+                            <li id="2002"><a href="${path }/onsaleList.do">- 판매 메뉴 삭제</a></li>
                         </ul>
                     </li>
                     

@@ -26,7 +26,7 @@
 	}
 </style>
 <script type="text/javascript">
-	localStorage.setItem("pageIdx","2001")
+	localStorage.setItem("pageIdx","2002")
 	localStorage.setItem("eqIdx","5")
 
 	$(document).ready(function(){
@@ -40,11 +40,7 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		<h2>판매 메뉴 등록</h2><br><hr><br>
-           <form class="menuSchForm">
-            	<input type="text" placeholder="메뉴명을 입력하세요." name="menuName" value="${sch.menuName}">
-            	<button class="menuSch" type="submit">검색</button>
-            </form>
+		<h2>판매 메뉴 삭제</h2><br><hr><br>
 			<table>
 				<thead>
 					<tr>
@@ -52,13 +48,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="mn" items="${showAllMenu}">
+					<c:forEach var="mn" items="${showOnSale}">
 						<tr>
-							<!-- 
-							<form class="menuaddFm">
-							<input name="menuNum" type="hidden" value="${mn.menuNum}">
-							</form>
-							 -->
 								<td>${mn.menuName}</td>
 								<td>
 									<fmt:formatNumber value="${mn.price }" pattern="#,###" />￦
@@ -66,7 +57,7 @@
 								<td>${mn.info}</td>
 								<td>
 									<c:if test="${mn.necessary == 'N'}">
-									<button class="btn-primary">등록</button>
+									<button class="btn-primary">삭제</button>
 									</c:if>
 									<c:if test="${mn.necessary == 'Y'}">
 									<span class="necessarySpan">필수 판매 메뉴입니다.</span>

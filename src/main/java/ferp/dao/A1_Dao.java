@@ -34,6 +34,7 @@ public interface A1_Dao {
 	
 	// 판매할 메뉴 등록
 	public void insOnsale(Onsale ins);
+	
 	// 본사 제공 전체 메뉴
-	public List<Menu> getAllMenu();
+	public List<Menu> getAllMenu(Menu sch);
 }
