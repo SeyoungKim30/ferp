@@ -15,7 +15,7 @@
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="/ferp/resource/css/emp_insert.css"/>
+<link rel="stylesheet" href="/ferp/resource/css/qna_insert.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 
@@ -77,34 +77,52 @@
             </div>
             <div class="contents">
 	        	<div>
-	        	<form method="post">
-	     	        <h2 class="insert_emp">직원 등록</h2>
+	        	<form enctype="multipart/form-data" method="post">
+	     	        <h2 class="insert_product">문의글 수정</h2>
+	     	        <input type="hidden" name="noticeNum" value="${qna.noticeNum}">
 	        	</div>
 		
 	        	<div class="content">
 					<div class="first_line">
-						<h3 class="emp_ename">사원명</h3>
+						<h3 class="qna_title">제목</h3>
+						<h3 class="qna_category">문의유형</h3>
 					</div>
 					<div class="second_line">
-						<input type="text" name="ename" placeholder="사원명 입력">
+						<input type="text" name="title" value="${qna.title}" placeholder="제목 입력">
+						<input type="hidden" name="categoryHidden" value="${qna.category}">
+						<select name="category">
+						<c:if test="${qna.replyNum eq '0'}">
+							<c:forEach var="category" items="${noticeCategoryCombo}">
+								<option>${category}</option>
+							</c:forEach>
+						</c:if>
+						<c:if test="${qna.replyNum ne '0'}">
+							<option>${qna.category}</option>
+						</c:if>
+						</select>
 					</div>
 					<div class="third_line">
-						<h3 class="emp_pass">비밀번호</h3>
+						<h3 class="menu_info">내용</h3>
 					</div>
 					<div class="fourth_line">
-						<input type="text" name="pass" placeholder="비밀번호 입력">
+						<textarea name="content" rows="15" cols="70" placeholder="문의글 내용 입력">${qna.content}</textarea>
 					</div>
 					<div class="fifth_line">
-						<h3 class="emp_dname">부서명</h3>
+						<h3 class="menu_img">첨부파일</h3>
 					</div>
 					<div class="sixth_line">
-						<input type="text" name="dname" placeholder="부서명 입력">				
-					</div>					
-
+						<div class="block">
+							<div class="img_block">
+								<input class="upload-name" type="text" value="${notice.fname}" readonly="readonly" style="width: 290px;">
+								
+				              	<label for="input_file">업로드</label> 
+	             				<input type="file" name="multipartfile" id="input_file" class="upload-hidden" > 
+							</div>
+						</div>
+					</div>
 					<div class="submit_line">
-						<button type="button" class="insBtn">등 록</button>
+						<button type="button" class="uptBtn">수 정</button>
 					</div>	
-					
 				</form>		
 				</div>
             </div>
@@ -126,10 +144,18 @@ $('.lnb > ul > li').click(function() {
 $('.lnb > ul > li').eq(0).trigger("click");
 
 $(document).ready(function(){
+	var replyNum = '${qna.replyNum}'
+	if(replyNum == '0'){
+		$("[name=category] option").each(function(idx, opt){
+			if( $("[name=categoryHidden]").val() == $(this).val() ){
+				$(this).attr("selected", "selected");
+			}
+		})
+	}
 
-    $(".insBtn").click(function(){
+    $(".uptBtn").click(function(){
 		  Swal.fire({
-			  title: '등록하시겠습니까?',
+			  title: '수정하시겠습니까?',
 			  icon: 'question',
 			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
@@ -138,48 +164,49 @@ $(document).ready(function(){
 			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
-				  if($("[name=ename]").val() == ""){
+				  if($("[name=title]").val() == ""){
 					  Swal.fire({
-						  title: '사원명을 입력해주세요.',
+						  title: '제목을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=ename]").focus()
+							  $("[name=title]").focus()
 						      return;
 						  }
 					  })
 				  }
-				  else if($("[name=pass]").val() == ""){
+				  else if($("[name=category]").val() == ""){
 					  Swal.fire({
-						  title: '비밀번호를 입력해주세요.',
+						  title: '카테고리를 선택해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=pass]").focus()
+							  $("[name=category]").focus()
 						      return;
 						  }
 					  })
 				  }
-				  else if($("[name=dname]").val() == ""){
+				  else if($("[name=content]").val() == ""){
 					  Swal.fire({
-						  title: '부서명을 입력해주세요.',
+						  title: '내용을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=dname]").focus()
+							  $("[name=content]").focus()
 						      return;
 						  }
 					  })
 				  }
+
 				  else{
 					  $("form").submit();
 				  }
@@ -188,6 +215,51 @@ $(document).ready(function(){
 			})	    	
   	})
 
+   var fileTarget = $('.img_block .upload-hidden');
+
+    fileTarget.on('change', function(){
+        if(window.FileReader){
+            // 파일명 추출
+            var filename = $(this)[0].files[0].name;
+        } 
+
+        else {
+            // Old IE 파일명 추출
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+        };
+
+        $(this).siblings('.upload-name').val(filename);
+    });
+
+    //preview image 
+    var imgTarget = $('.img_block .upload-hidden');
+
+    imgTarget.on('change', function(){
+        var parent = $(this).parent();
+        parent.children('.upload-display').remove();
+
+        if(window.FileReader){
+            //image 파일만
+            if (!$(this)[0].files[0].type.match(/image\//)) return;
+            
+            var reader = new FileReader();
+            reader.onload = function(e){
+                var src = e.target.result;
+                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        }
+
+        else {
+            $(this)[0].select();
+            $(this)[0].blur();
+            var imgSrc = document.selection.createRange().text;
+            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+            var img = $(this).siblings('.upload-display').find('img');
+            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+        }
+    });
     
     
 

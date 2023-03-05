@@ -96,6 +96,12 @@ public class B2_Service {
 		
 		return ins.getEmpNum();
 	}
+	// 본사 직원 비밀번호 변경
+	public String updateEmpPass(HOemp upt) {
+		dao.updateEmpPass(upt);
+		
+		return upt.getEmpNum();
+	}
 	
 	
 	// 공지사항 조회
@@ -172,7 +178,10 @@ public class B2_Service {
 	public List<HOemp> getHOemp(){
 		return dao.getHOemp();
 	}
-	
+	// 문의글 카테고리 콤보
+	public List<String> getNoticeCategory(){
+		return dao.getNoticeCategory();
+	}
 	
 	
 	// 문의글 조회
@@ -214,6 +223,23 @@ public class B2_Service {
 		
 		return ins.getTitle();
 	}
-	
+	// 문의글 수정
+	public String updateQnA(Notice upt) {
+		if( upload(upt.getMultipartfile())!=null && !upload(upt.getMultipartfile()).equals("")){
+			String fname = upload(upt.getMultipartfile());
+			upt.setFname(fname);
+		}
+		if(upt.getFname()==null) upt.setFname("");
+		
+		dao.updateQnA(upt);
+		
+		return upt.getNoticeNum();
+	}
+	// 문의글 삭제
+	public String deleteQnA(String noticeNum) {
+		dao.deleteQnA(noticeNum);
+		
+		return noticeNum;
+	}
 }
 

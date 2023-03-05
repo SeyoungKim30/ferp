@@ -13,7 +13,7 @@
 h3{
 	letter-spacing: 3px;
 }
-input[type=text], select{
+input, select{
 	height: 40px;
 	border-radius: 7px;
 	border: 2px solid #dddddd;
@@ -58,8 +58,14 @@ input:focus, select:focus{
 
 
 /* 2번째 라인*/
-.second_line{
-	display: flex;
+.second_line input{
+	margin-bottom: 7px;
+}
+.second_line p{
+	color: red;
+}
+[name=nowPass]{
+	width: 99%;
 }
 [name=ename]{
 	width: 99%;
@@ -76,8 +82,11 @@ input:focus, select:focus{
 
 
 /* 4번째 라인*/
-.fourth_line{
-	display: flex;
+.fourth_line input{
+	margin-bottom: 7px;
+}
+.fourth_line p{
+	color: red;
 }
 [name=pass]{
 	width: 99%;
@@ -93,14 +102,25 @@ input:focus, select:focus{
 
 
 /* 6번째 라인*/
-.sixth_line{
-	display: flex;
+.sixth_line input{
+	margin-bottom: 7px;
+}
+.sixth_line p{
+	color: red;
+}
+[name=passChk]{
+	width: 99%;
 }
 [name=dname]{
 	width: 99%;
 }
 
-
+.isPass{
+	border: 2px solid dodgerBlue !important;
+}
+.isNotPass{
+	border: 2px solid red !important;
+}
 
 
 

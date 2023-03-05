@@ -28,6 +28,10 @@ public class B2_Controller {
 	public List<HOemp> getHOemp(){
 		return service.getHOemp();
 	}
+	@ModelAttribute("noticeCategoryCombo")
+	public List<String> getNoticeCategory(){
+		return service.getNoticeCategory();
+	}
 	
 	// 본사 홈페이지 controller
 	@RequestMapping("/mainpage.do")
@@ -89,11 +93,11 @@ public class B2_Controller {
 		// 매장 정보 조회 페이지로 redirect
 		return "";
 	}
-	// 매장 정보 삭제
+	// 매장 정보 비활성화
 	@RequestMapping("/storeDelete.do")
 	public String storeDelete(@RequestParam String frRegiNum, RedirectAttributes redirect) {
 		if( service.deleteStore(frRegiNum) != null ) {
-			redirect.addFlashAttribute("delMsg", "매장 정보 삭제 완료");
+			redirect.addFlashAttribute("delMsg", "매장 정보 비활성화 완료");
 		}
 		// 매장 정보 조회 페이지로 redirect
 		return "";
@@ -111,6 +115,22 @@ public class B2_Controller {
 		if( service.insertEmp(ins)!=null ) {
 			redirect.addFlashAttribute("isgMsg", "등록 성공");
 		}
+		// 본사 메인페이지로 이동
+		return "WEB-INF\\view\\mainpage.jsp";
+	}
+	// 직원 비밀번호 변경
+	// http://localhost:7080/ferp/updateEmpPass.do
+	@GetMapping("/updateEmpPass.do")
+	public String updateEmpPass() {
+		
+		return "WEB-INF\\view\\emp_passUpdate.jsp";
+	}
+	@PostMapping("/updateEmpPass.do")
+	public String updateEmpPass(HOemp upt, RedirectAttributes redirect) {
+		if( service.updateEmpPass(upt)!= null) {
+			redirect.addFlashAttribute("uptMsg", "수정 완료");
+		}
+		
 		// 본사 메인페이지로 이동
 		return "WEB-INF\\view\\mainpage.jsp";
 	}
@@ -212,4 +232,28 @@ public class B2_Controller {
 	public String qnaReply() {
 		return "WEB-INF\\view\\qna_reply.jsp";
 	}
+	// 문의글 수정
+	@GetMapping("/qnaUpdate.do")
+	public String qnaUpdate(@RequestParam String noticeNum, Model d) {
+		d.addAttribute("qna", service.detailQnA(noticeNum));
+		
+		return "WEB-INF\\view\\qna_update.jsp";
+	}
+	@PostMapping("/qnaUpdate.do")
+	public String qnaUpdate(Notice upt, RedirectAttributes redirect) {
+		if( service.updateQnA(upt)!=null ) {
+			redirect.addFlashAttribute("uptMsg", "수정 성공");
+		}
+		return "redirect:/qnaList.do";
+	}
+	// 문의글 삭제
+	// 공지사항 삭제
+	@RequestMapping("/qnaDelete.do")
+	public String qnaDelete(@RequestParam String noticeNum, RedirectAttributes redirect) {
+		if( service.deleteNotice(noticeNum) != null ) {
+			redirect.addFlashAttribute("delMsg", "공지사항 삭제 완료");
+		}
+		
+		return "redirect:/qnaList.do";
+	}	
 }

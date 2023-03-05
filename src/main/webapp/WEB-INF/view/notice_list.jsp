@@ -100,7 +100,7 @@
 				    <tbody>
 				    	<c:forEach var="notice" items="${list}">
 				    	<tr>
-				    		<td>${notice.noticeNum}</td>
+				    		<td>${notice.cnt}</td>
 				    		<td class="tab_title" onclick="goDetail('${notice.noticeNum}')">${notice.title}</td>
 				    		<td><fmt:formatDate value="${notice.regdte}"/></td>
 				    		<td>${notice.readCnt}</td>

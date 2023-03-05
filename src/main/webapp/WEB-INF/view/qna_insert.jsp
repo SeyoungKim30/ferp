@@ -92,9 +92,9 @@
 						<input type="text" name="title" placeholder="제목 입력">
 						<select name="category">
 							<option disabled="disabled" selected="selected">문의유형 선택</option>
-							<option>로그인</option>
-							<option>매장관리</option>
-							<option>재고</option>
+							<c:forEach var="category" items="${noticeCategoryCombo}">
+								<option>${category}</option>
+							</c:forEach>
 						</select>
 					</div>
 					<div class="third_line">

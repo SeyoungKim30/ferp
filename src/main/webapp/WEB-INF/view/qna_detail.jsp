@@ -82,7 +82,11 @@
            		<input type="hidden" name="replyNum" value="${qna.replyNum}">
            		
            		<input type="hidden" name="title" value="${qna.title}">
-				<h3 class="notice_title">${qna.title}</h3>
+           		<div class="title_line">
+           			<h3 class="notice_title">${qna.title}</h3>
+           			<span style="position: absolute; right: 335px;">등록일 : <fmt:formatDate value="${qna.regdte}" pattern="yyyy-MM-dd"/></span>
+           			<span style="position: absolute; right: 250px;">조회수 : ${qna.readCnt}</span>
+           		</div>
 				
 				<div class="notice_content">
 					<input type="hidden" name="content" value="${qna.content}">
@@ -149,6 +153,7 @@ $(document).ready(function(){
 			$("form").attr("action","${path}/qnaReply.do");
 			$("form").submit()
 	})
+
 	$("#uptBtn").click(function(){
 		  Swal.fire({
 			  title: '수정페이지로\n 이동하시겠습니까?',
@@ -161,13 +166,13 @@ $(document).ready(function(){
 			}).then((result) => {
 			  if (result.value) {
 				//"확인" 버튼을 눌렀을 때 작업할 내용
-				location.href = "${path}/qnaUpdate.do?noticeNum="+${qna.noticeNum}
+				  location.href = "${path}/qnaUpdate.do?noticeNum="+'${qna.noticeNum}'
 			  }
-			})	
+			})		
 	})
 	$("#delBtn").click(function(){
 		  Swal.fire({
-			  title: '해당 공지사항을\n 삭제하시겠습니까?',
+			  title: '해당 문의글을\n 삭제하시겠습니까?',
 			  icon: 'question',
 			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
@@ -177,11 +182,12 @@ $(document).ready(function(){
 			}).then((result) => {
 			  if (result.value) {
 				//"확인" 버튼을 눌렀을 때 작업할 내용
-				location.href = "${path}/qnaDelete.do?noticeNum="+${qna.noticeNum}
+				location.href = "${path}/qnaDelete.do?noticeNum="+'${qna.noticeNum}'
 			  }
 			})	
 	})
 });
+
 
 $('.lnb > ul > li').click(function() {
     if ( $(this).hasClass('active') ) {

@@ -43,8 +43,13 @@ input:focus{
 	padding-bottom: 20px;
 	border-bottom: 3px solid black;
 }
-.notice_title{
+
+.title_line{
+	display: flex;
+    align-items: center;
     border-bottom: 3px solid black;
+}
+.notice_title{
 	margin-top: 10px;
     padding-bottom: 10px;
 }

@@ -40,18 +40,37 @@
 		FROM store
 		WHERE FrRegiNum = #{frRegiNum}
 	</select>
+	<!-- 매장 비활성화 -->
+	<update id="deleteStore" parameterType="string">
+		UPDATE store
+		SET empNum = '0',
+			frOpen = '',
+			frOperTime = '',
+			frClosedDte = '',
+			frTel = '',
+			frPass = ''
+		WHERE frRegiNum = #{frRegiNum}
+	</update>
+	
 	
 	<!-- 직원 등록 -->
 	<insert id="insertEmp" parameterType="hoemp">
 		INSERT INTO emp99 VALUES(to_char(sysdate,'yymm')||emp99_seq.nextval, #{pass}, #{ename}, #{dname})
 	</insert>
+	<!-- 직원 비밀번호 변경 -->
+	<update id="updateEmpPass" parameterType="hoemp">
+		UPDATE EMP99
+			SET pass = #{pass}
+		WHERE empNum = #{empNum}	
+	</update>
+	
 
 	<!-- 공지사항 조회 -->
 	<select id="searchNotice" resultType="notice" parameterType="noticeSch">
 		select *
 		from (
-			SELECT *
-			FROM notice
+			SELECT rownum cnt, n.*
+			FROM notice n
 			WHERE title LIKE '%'||#{title}||'%'
 			and noticeNum LIKE '%'||'N'||'%'
 			ORDER BY regdte DESC )
@@ -91,7 +110,7 @@
 			important = #{important}
 		WHERE noticeNum = #{noticeNum}
 	</update>
-	<!-- 공지사항 삭제 -->
+	<!-- 공지사항, 문의글 삭제 -->
 	<delete id="deleteNotice">
 		DELETE notice
 		WHERE noticeNum = #{noticeNum}
@@ -103,6 +122,13 @@
 		SELECT *
 		FROM HOemp
 	</select>
+	<!-- 문의글 카테고리 combo -->
+	<select id="getNoticeCategory" resultType="string">
+		SELECT *
+		FROM noticeCategory
+		ORDER BY name DESC
+	</select>
+	
 	
 	
 	<!-- 문의글 조회 -->
@@ -137,4 +163,14 @@
 		INSERT INTO notice VALUES('Q'||notice_seq.nextval, #{title}, #{content}, 
 					#{writer}, 0, sysdate, sysdate, #{fname}, NULL, #{replyNum}, #{category}, NULL)
 	</insert>
+	<!-- 문의글 수정 -->
+	<update id="updateQnA" parameterType="notice">
+		UPDATE notice
+		SET title = #{title},
+			content = #{content},
+			uptdte = sysdate,
+			fname = #{fname},
+			category = #{category}
+		WHERE noticeNum = #{noticeNum}
+	</update>
 </mapper>

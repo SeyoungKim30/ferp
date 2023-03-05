@@ -14,6 +14,7 @@
 
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="/ferp/resource/css/emp_insert.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
@@ -76,37 +77,39 @@
                 </ul>
             </div>
             <div class="contents">
-	        	<div>
 	        	<form method="post">
-	     	        <h2 class="insert_emp">직원 등록</h2>
-	        	</div>
+	     	        <h2 class="insert_emp">비밀번호 변경</h2>
+	     	        <input type="hidden" name="empNum" value="23031002">
 		
 	        	<div class="content">
 					<div class="first_line">
-						<h3 class="emp_ename">사원명</h3>
+						<h3 class="emp_ename">현재 비밀번호</h3>
 					</div>
 					<div class="second_line">
-						<input type="text" name="ename" placeholder="사원명 입력">
+						<input type="password" name="nowPass" placeholder="현재 비밀번호 입력">
+						<p class="nowPass"></p>
 					</div>
 					<div class="third_line">
-						<h3 class="emp_pass">비밀번호</h3>
+						<h3 class="emp_pass">변경할 비밀번호</h3>
 					</div>
 					<div class="fourth_line">
-						<input type="text" name="pass" placeholder="비밀번호 입력">
+						<input type="password" name="pass" placeholder="비밀번호 입력">
+						<p class="comment"></p>
 					</div>
 					<div class="fifth_line">
-						<h3 class="emp_dname">부서명</h3>
+						<h3 class="emp_dname">비밀번호 확인</h3>
 					</div>
 					<div class="sixth_line">
-						<input type="text" name="dname" placeholder="부서명 입력">				
+						<input type="password" name="passChk" placeholder="비밀번호 재입력">	
+						<p class="commentChk"></p>			
 					</div>					
 
 					<div class="submit_line">
-						<button type="button" class="insBtn">등 록</button>
+						<button type="button" class="uptBtn">변 경</button>
 					</div>	
 					
-				</form>		
 				</div>
+				</form>	
             </div>
         </div>
     </div>
@@ -126,10 +129,72 @@ $('.lnb > ul > li').click(function() {
 $('.lnb > ul > li').eq(0).trigger("click");
 
 $(document).ready(function(){
+	$("[name=nowPass]").keyup(function(){
+		if($(this).val() != '1234'){
+			$(this).addClass("isNotPass")
+			$(".nowPass").text("비밀번호가 다릅니다.")
+		}else{
+			$(this).removeClass("isNotPass")
+			$(".nowPass").text("")
+			$(this).addClass("isPass")
+		}
+	})
+	
+	var isPass1 = false;
+	var isPass2 = false;
+	$("[name=pass]").keyup(function chPW(){
+		var pw = $(this).val();
+		var number = pw.search(/[0-9]/g);
+		var english = pw.search(/[a-z]/ig);
+		var spece = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+		var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
-    $(".insBtn").click(function(){
+        if (pw.length < 8 || pw.length > 20) {
+        	$(this).addClass("isNotPass")
+            $(".comment").text("8자리 ~ 20자리 이내로 입력해주세요.")
+
+        } else if (pw.search(/\s/) != -1) {
+        	$(this).removeClass("isNotPass")
+        	$(".comment").text("비밀번호는 공백 없이 입력해주세요.")
+        	$(this).addClass("isNotPass")
+
+        } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
+        	$(this).removeClass("isNotPass")
+        	$(".comment").text("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.")
+        	$(this).addClass("isNotPass")        	
+
+        } else if (/(\w)\1\1\1/.test(pw)) {
+        	$(this).removeClass("isNotPass")
+        	$(".comment").text("같은 문자를 4번 이상 사용하실 수 없습니다.")
+        	$(this).addClass("isNotPass")       	
+
+        }else {
+        	$(this).removeClass("isNotPass")
+        	$(".comment").text("");
+        	$(this).addClass("isPass") 
+        	isPass1 = true;
+        }		
+	})
+	
+	$("[name=passChk]").keyup(function(){
+		var pass = $("[name=pass]").val()
+		var passChk = $(this).val()
+		
+		if(pass != passChk){
+        	$(this).addClass("isNotPass")
+        	$(".commentChk").text("비밀번호가 다릅니다.");
+		}else{
+			$(this).removeClass("isNotPass")
+			$(".commentChk").text("");
+			$(this).addClass("isPass")
+			isPass2 = true;
+		}
+	})
+	
+	
+    $(".uptBtn").click(function(){
 		  Swal.fire({
-			  title: '등록하시겠습니까?',
+			  title: '변경하시겠습니까?',
 			  icon: 'question',
 			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
@@ -138,51 +203,22 @@ $(document).ready(function(){
 			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
-				  if($("[name=ename]").val() == ""){
+				  if(!isPass1 || !isPass2){
 					  Swal.fire({
-						  title: '사원명을 입력해주세요.',
+						  title: '비밀번호를 다시 확인해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=ename]").focus()
 						      return;
 						  }
 					  })
-				  }
-				  else if($("[name=pass]").val() == ""){
-					  Swal.fire({
-						  title: '비밀번호를 입력해주세요.',
-						  icon: 'warning',
-						  showCancelButton: false,
-						  confirmButtonColor: '#3085d6',
-						  confirmButtonText: '확인'
-						}).then((result) => {
-						  if (result.value) {
-							  $("[name=pass]").focus()
-						      return;
-						  }
-					  })
-				  }
-				  else if($("[name=dname]").val() == ""){
-					  Swal.fire({
-						  title: '부서명을 입력해주세요.',
-						  icon: 'warning',
-						  showCancelButton: false,
-						  confirmButtonColor: '#3085d6',
-						  confirmButtonText: '확인'
-						}).then((result) => {
-						  if (result.value) {
-							  $("[name=dname]").focus()
-						      return;
-						  }
-					  })
-				  }
-				  else{
+				  }else{
 					  $("form").submit();
 				  }
+
 				  
 			  }
 			})	    	

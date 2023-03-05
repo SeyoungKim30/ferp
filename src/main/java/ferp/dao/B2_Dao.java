@@ -26,6 +26,8 @@ public interface B2_Dao {
 	
 	// 본사 직원 등록
 	public void insertEmp(HOemp ins);
+	// 본사 직원 비밀번호 변경
+	public void updateEmpPass(HOemp upt);
 	
 	
 	public int totCntNotice(NoticeSch sch);
@@ -45,6 +47,8 @@ public interface B2_Dao {
 	
 	// 직원 콤보
 	public List<HOemp> getHOemp();
+	// 문의글 카테고리 콤보
+	public List<String> getNoticeCategory();
 	
 	// 문의글 등록
 	public void insertQnA(Notice ins);
@@ -52,5 +56,9 @@ public interface B2_Dao {
 	public List<Notice> searchQnA(NoticeSch sch);
 	// 문의글 상세페이지
 	public Notice detailQnA(String noticeNum);
+	// 문의글 수정
+	public void updateQnA(Notice upt);
+	// 문의글 삭제
+	public void deleteQnA(String noticeNum);
 	
 }
