@@ -79,8 +79,8 @@
            		<h2 class="notice_main">공 지 사 항</h2>
            		<div class="title_line">
            			<h3 class="notice_title">${notice.title}</h3>
-           			<span style="position: absolute; right: 335px;">등록일 : <fmt:formatDate value="${notice.regdte}" pattern="yyyy-MM-dd"/></span>
-           			<span style="position: absolute; right: 250px;">조회수 : ${notice.readCnt}</span>
+           			<span style="position: absolute; right: 21%;">등록일 : <fmt:formatDate value="${notice.regdte}" pattern="yyyy-MM-dd"/></span>
+           			<span style="position: absolute; right: 17%;">조회수 : ${notice.readCnt}</span>
            		</div>
 				
 				

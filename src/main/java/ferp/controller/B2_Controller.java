@@ -247,11 +247,10 @@ public class B2_Controller {
 		return "redirect:/qnaList.do";
 	}
 	// 문의글 삭제
-	// 공지사항 삭제
 	@RequestMapping("/qnaDelete.do")
 	public String qnaDelete(@RequestParam String noticeNum, RedirectAttributes redirect) {
-		if( service.deleteNotice(noticeNum) != null ) {
-			redirect.addFlashAttribute("delMsg", "공지사항 삭제 완료");
+		if( service.deleteQnA(noticeNum) != null ) {
+			redirect.addFlashAttribute("delMsg", "문의글 삭제 완료");
 		}
 		
 		return "redirect:/qnaList.do";
