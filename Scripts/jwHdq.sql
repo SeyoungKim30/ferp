@@ -154,7 +154,7 @@ FROM menu m,(SELECT menunum, sum(amount) mcnt
 WHERE m.MENUNUM=o.MENUNUM(+)
 ORDER BY mcnt desc, msales desc;
 
-
+--매장번호, 조회날짜
 
 --본사:오픈시간매장전체조회
 SELECT frname, s.frreginum, substr(fropertime,1,5) fropertime, frtel, frrepname, ename

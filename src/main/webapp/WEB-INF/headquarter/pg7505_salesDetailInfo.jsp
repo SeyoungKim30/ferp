@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>타이틀</title>
+<title>매장 상세 조회</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
@@ -38,11 +38,18 @@
 	}
 	.storePrint>div{
 	    margin: 10px 3px;
-	    font-size: 20px;
+	    font-size: 18px;
 	    font-weight: 500;
 	    display:flex;
+	    gap: 10px;
 	}
-	
+	span.strifo_header {
+    	font-weight: 600;
+    	width:87px;
+	}	
+	span.strifo_rslt{
+		width:400px;
+	}
 	
 	.period{
 		display: flex;
@@ -94,17 +101,18 @@
 			 &lt; 전체조회페이지
 			</div>
 			
-			<!-- 매장정보출력 시작-->
+			<!-- 그냥 불러오기 -->
+			<!-- 매장정보출력 시작 -->
 			<div class="storePrint">
 				<h1>매장이름</h1>
-				<div><span class="strifo_header">사업자번호</span><span>0000</span></div>
-				<div><span class="strifo_header">개업일자</span><span>0000.00.00</span></div>
-				<div><span class="strifo_header">매장주소</span><span>더랮더도아;ㅏ일ㄷㅈㄹㄷㄹㄷㅈㄷㅈㅁㄹㄹ</span>&nbsp;<span class="strifo_header">전화번호</span><span>00)0000-0004</span></div>
-				<div><span class="strifo_header">점주</span><span>ㄷㄹㅈㄷㄹㄷ</span>&nbsp;<span class="strifo_header">담당직원</span><span>ㅈㄷㄹㅈㄷㄹㄹ</span></div>
+				<div><span class="strifo_header">사업자번호</span><span>${dinfo.frRegiNum }</span></div>
+				<div><span class="strifo_header">개업일자</span><span>${dinfo.frOpen }</span></div>
+				<div><span class="strifo_header">매장주소</span><span class="strifo_rslt">${dinfo.frAddress }</span>&nbsp;<span class="strifo_header">전화번호</span><span>${dinfo.frtel }</span></div>
+				<div><span class="strifo_header">점주</span><span class="strifo_rslt">${dinfo.frRepname }</span>&nbsp;<span class="strifo_header">담당직원</span><span>${dinfo.ename }</span></div>
 			</div>
 			<!-- 매장정보출력 끝-->
 			
-			
+			<!-- json으로 불러오기 -->
 			<!-- 매출조회 시작 -->
 			<div class="period">
 				<h2>매매액 조회 기간</h2>
@@ -155,4 +163,29 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+
+// https://wouldyou.tistory.com/21
+/*
+	//ajax fetch사용
+	function print(){
+		let url="${path}/salesInfoJson.do?frRegiNum="+frRegiNum+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt  //검색값 넘기기
+		console.log(url);
+		
+		fetch(url).then(function(response){return response.json()}).then(function(json){
+			
+			console.log(json);
+			var dinfoList=json.sbslist;
+			var trtd='';
+		
+			sbslist.forEach(function(each){
+				trtd+="<tr><td>"+each.frname+"</td><td>"+each.frsales+"</td><td>"+each.frpurchase+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
+			})
+			$("table tbody").html(trtd);
+			
+		}).catch(function(err){console.log(err)})	
+	
+	}
+*/
+</script>
 </html>

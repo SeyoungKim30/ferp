@@ -364,18 +364,18 @@
 	//ajax fetch사용
 	function search(){
 		let url="${path}/salesInfoJson.do?frname="+frname+"&frRepname="+frRepname+"&ename="+ename+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt  //검색값 넘기기
-		console.log(url);
+		//console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
-			console.log(json);
+			//console.log(json);
 			var sbslist=json.sbslist;
 			var trtd='';
 		
 			sbslist.forEach(function(each){
-				trtd+="<tr><td>"+each.frname+"</td><td>"+each.frsales+"</td><td>"+each.frpurchase+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
+				trtd+="<tr><td ondblclick='goDetail("+each.frRegiNum+")'>"+each.frname+"</td><td>"+each.frsales+"</td><td>"+each.frpurchase+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
 			})
 			$("table tbody").html(trtd);
-			
+			//console.log(trtd);
 		}).catch(function(err){console.log(err)})	
 
 	}
@@ -403,11 +403,15 @@
 				alert("검색날짜에 유의하세요");
 			}
 		})
-		
-		
-		// https://goddino.tistory.com/81
-		
+
 	})
+	
+			
+	function goDetail(frRegiNum){
+		location.href="${path}/salesDetail.do?frRegiNum="+frRegiNum
+	}
+
+	
 	
 </script>
 </html>

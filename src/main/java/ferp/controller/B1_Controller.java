@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ferp.service.B1_Service;
 import vo.Orders;
@@ -39,16 +41,21 @@ public class B1_Controller {
 	}
 	
 	
-	// 본사:특정매장 정보전체조회 가는 컨트롤러
+	// 본사:특정매장정보조회&페이지이동
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@RequestMapping("salesDetail.do")
-	public String r7505storeDetail(){
+	public String r7505storeDetail(@RequestParam("frRegiNum") String frRegiNum, Model d ){
+		d.addAttribute("dinfo", service.StoreDetailInfo(frRegiNum));
 		return "WEB-INF\\headquarter\\pg7505_salesDetailInfo.jsp";
 	}
 	// 본사:특정매장정보조회JSON
+	/*
 	@RequestMapping("detailInfoJson.do")
-	public String r7505detailInfoJson() {
+	public String r7505detailInfoJson(Orders ord, Model d) {
+		d.addAttribute("dinfoList", );
 		return "pageJsonReport";
 	}
+	*/
 	// 본사:특정매장매출조회JSON
 	//@RequestMapping("detailSalesJson.do")
 	

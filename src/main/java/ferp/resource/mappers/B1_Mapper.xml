@@ -14,28 +14,7 @@
 	</select>
 	
 	<!-- 본사:매장별매출 전체조회 -->
-	<!--
 	<select id="SalesByStoreList" parameterType="orders" resultType="orders">
-		SELECT frname, s.frreginum, frtel, frRepname, ename, nvl(frsalesum, 0) frsales
-		FROM store s, emp e, (  SELECT frreginum, sum(payprice) frsalesum
-								FROM orders
-								WHERE state='완료'
-								AND TRUNC(orderdate,'month') BETWEEN to_date(#{frSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{toSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM')
-								GROUP BY frreginum ) ord
-		WHERE ord.frreginum(+)=s.frreginum AND s.empnum=e.empnum
-		<if test="frname!=null and !frname.equals('')">
-		AND frname LIKE '%'||#{frname}||'%'
-		</if>
-		<if test="frRepname!=null and !frRepname.equals('')">
-		AND frRepname LIKE '%'||#{frRepname}||'%'
-		</if>
-		<if test="ename!=null and !ename.equals('')">
-		AND ename LIKE '%'||#{ename}||'%'
-		</if>
-		ORDER BY frname
-	</select>
-	-->
-		<select id="SalesByStoreList" parameterType="orders" resultType="orders">
 		SELECT frname, s.frreginum, frtel, frRepname, ename, nvl(frsalesum, 0) frsales, nvl(mtotal, 0) frpurchase
 		FROM store s, emp e, 
 			( SELECT frreginum, sum(payprice) frsalesum
@@ -63,6 +42,54 @@
 		AND ename LIKE '%'||#{ename}||'%'
 		</if>
 		ORDER BY frname
+	</select>
+	
+	
+	<!-- 본사:매장정보상세조회 -->
+	<select id="StoreDetailInfo" parameterType="String" resultType="orders">
+		SELECT frname, s.frreginum, TO_char(FROPEN,'YYYY.MM.DD') AS fropen, 
+		fraddress, frtel, frrepname, ename
+		FROM store s, emp e
+		WHERE s.empnum=e.empnum
+		AND frRegiNum=#{frRegiNum}
+	</select>
+	
+	<!-- 본사:매장정보상세조회-매매액 -->
+	<select id="DetailInfoList" parameterType="orders" resultType="orders">
+		{CALL
+			DECLARE
+				BEGIN
+						
+		SELECT o.orderdate, nvl(frsales,0) frsales, nvl(frpurchase,0) frpurchase,  nvl(frsales-frpurchase,0) profit
+		FROM (  SELECT orderdate, nvl(sum(mcnt*price),0) frpurchase
+				FROM PRODUCT p ,(SELECT to_char(orderdate, 'YYYY.MM') orderdate, PRODUCTNUM, nvl(sum(amount),0) mcnt
+								FROM PRODORDER
+								WHERE DEMANDER=#{frRegiNum}
+								AND PAYMENTSTATE='완료'
+								GROUP BY PRODUCTNUM, to_char(orderdate, 'YYYY.MM'))po
+				WHERE p.PRODUCTNUM=po.productnum
+				GROUP BY orderdate ) po,
+			(	SELECT to_char(orderdate,'YYYY.MM') orderdate, nvl(sum(payprice),0) frsales
+				FROM ORDERS o
+				where state='완료'
+				AND frreginum=#{frRegiNum}
+				GROUP BY to_char(orderdate,'YYYY.MM'))o
+		WHERE po.orderdate(+)=o.orderdate
+		AND to_date(o.orderdate,'YYYY-MM') BETWEEN to_date(#{frSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{toSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM')
+		ORDER BY o.orderdate desc
+		;
+		
+		SELECT MENUNAME, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales 
+		FROM menu m,(SELECT menunum, sum(amount) mcnt
+					FROM orders
+					WHERE FRREGINUM=#{frRegiNum}
+					AND TRUNC(orderdate,'month') BETWEEN to_date(#{frSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{toSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM')
+					group BY menunum) o
+		WHERE m.MENUNUM=o.MENUNUM(+)
+		ORDER BY mcnt desc, msales desc
+		;
+		
+		END}
 	</select>
 
 </mapper>

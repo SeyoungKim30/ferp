@@ -36,7 +36,9 @@ public class B1_Service {
 	
 	
 	//본사:특정매장정보
-	//public List<>
+	public Orders StoreDetailInfo(String frRegiNum){
+		return dao.StoreDetailInfo(frRegiNum);
+	}
 	
 	
 	
