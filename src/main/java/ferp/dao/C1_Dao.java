@@ -19,6 +19,7 @@ public interface C1_Dao {
 	public List<ACStatement> r7211selectPrevNext(ACStatement stmt);
 	public int r7212updateACStatement(ACStatement acstmt);
 	public int r7213deleteACStatement(ACStatement acstmt);
+
 	
 	//거래내역,계정별 목록 조회
 	//건별(모든내용)
@@ -26,6 +27,7 @@ public interface C1_Dao {
 	public List<ACStatement> r7204selectStatementListByDate(ACStatement stmt);
 	
 	public List<Prod_order_stock_emp_store>r9201select(ProdOrder prodOrder);
+	public int r9203updateOrderState(ProdOrder prodOrder);
 	
 	//모든 store 리스트
 	public List<Store> selectActiveStore();

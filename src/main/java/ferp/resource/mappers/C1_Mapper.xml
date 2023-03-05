@@ -46,8 +46,26 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')	-- 담당자
 	AND (pd.PRODUCTNUM LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%' OR pd.PRODUCTNAME LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%') --상품번호 또는 이름
 	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%' AND po.ORDERSTATE LIKE '%'||#{orderState,jdbcType=VARCHAR}||'%'
+ORDER BY po.ORDERDATE asc
 </select>
 
+<update id="r9203updateOrderState" parameterType="prodOrder">
+UPDATE PRODORDER SET ORDERSTATE = #{} WHERE (ORDERNUM,PRODUCTNUM) IN
+(
+SELECT po.ORDERNUM,po.PRODUCTNUM FROM PRODORDER po, product pd, 
+		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se,
+		(SELECT * FROM STOCK s WHERE STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)) stck
+	WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.productNum = po.PRODUCTNUM 
+	AND 
+	<if test="orderDate!='' and orderDate!=null">TRUNC(orderdate) = to_date(#{orderDate,jdbcType=VARCHAR},'YYYY-MM-DD')</if>
+	<if test="orderDateMonth!='' and orderDateMonth!=null"> TRUNC(orderdate,'month') = TRUNC(to_date(#{orderDateMonth,jdbcType=VARCHAR},'YYYY-MM'),'month')</if>
+	<if test="orderNum!='' and orderNum!=null">ORDERNUM LIKE '%'||#{orderNum,jdbcType=VARCHAR}||'%'	</if>
+	AND (po.DEMANDER LIKE '%'||#{demander,jdbcType=VARCHAR}||'%' OR se.frname LIKE '%'||#{demander,jdbcType=VARCHAR}||'%')
+	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')
+	AND (pd.PRODUCTNUM LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%' OR pd.PRODUCTNAME LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%')
+	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%' AND po.ORDERSTATE LIKE '%'||#{orderState,jdbcType=VARCHAR}||'%'
+)
+</update>
 
 	<select id="r7100SelectAccount" resultType="account" parameterType="account">
 		SELECT * FROM Account 

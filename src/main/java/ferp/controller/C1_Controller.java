@@ -15,7 +15,6 @@ import ferp.service.C1_Service;
 import vo.ACStatement;
 import vo.Account;
 import vo.ProdOrder;
-import vo.Prod_order_stock_emp_store;
 
 @Controller
 public class C1_Controller {
@@ -117,6 +116,13 @@ public class C1_Controller {
 		model.addAttribute("list",service.r9201select(prodOrder));
 		return "pageJsonReport";
 	}
+	
+	@RequestMapping("updateOrderState.do")
+	@ResponseBody
+	public int r9203updateOrderState(Model model,ProdOrder prodOrder) {
+		return service.r9203updateOrderState(prodOrder);
+	}
+	
 
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@GetMapping("selectActiveStoreJson.do")
