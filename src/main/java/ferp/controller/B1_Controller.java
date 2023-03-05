@@ -42,9 +42,17 @@ public class B1_Controller {
 	// 본사:특정매장 정보전체조회 가는 컨트롤러
 	@RequestMapping("salesDetail.do")
 	public String r7505storeDetail(){
-		//d.addAttribute("sbslist", service.SalesByStoreList(ord));
 		return "WEB-INF\\headquarter\\pg7505_salesDetailInfo.jsp";
 	}
+	// 본사:특정매장정보조회JSON
+	@RequestMapping("detailInfoJson.do")
+	public String r7505detailInfoJson() {
+		return "pageJsonReport";
+	}
+	// 본사:특정매장매출조회JSON
+	//@RequestMapping("detailSalesJson.do")
 	
+	// 본사:특정매장메뉴매출조회JSON
+	//@RequestMapping("detailMenuJson.do")
 
 }

@@ -34,7 +34,7 @@
 
 
 	.storePrint{
-		margin:30px 5px;
+		margin:30px 0px 40px 5px;
 	}
 	.storePrint>div{
 	    margin: 10px 3px;
@@ -43,7 +43,39 @@
 	    display:flex;
 	}
 	
-
+	
+	.period{
+		display: flex;
+	    margin: 0px 0px 15px 5px;
+	    align-items: center;
+	    gap: 30px;
+	}
+	#detail{
+		margin: 40px 0px 15px 5px;
+	}
+	
+	
+	.salesResult{
+		text-align: end;
+    	display: inline-block;
+    	font-size: 22px;
+    	font-weight: 600;
+    	float: right;
+    	margin-top:20px;
+		
+	}
+	.salesResult>div{
+		display: flex;
+		justify-content: space-between;
+		margin: 2px 5px 2px 20px;
+		gap:30px;
+	}
+	.salesResult>div>hr{
+		margin: 2px 0px;
+	}
+	#lastResult{
+		justify-content: end;
+	}
 	
 </style>
 
@@ -96,7 +128,7 @@
 			
 			
 			<!-- 매출상세내역 시작 -->
-			<h2>조회기간 상세판매내역</h2>
+			<h2 id="detail">조회기간 상세판매내역</h2>
 			<table class="storeDetailSales_table">
 				<thead>
 					<tr><th>판매메뉴</th><th>가격</th><th>판매개수</th><th>총 판매액</th></tr>
@@ -116,7 +148,7 @@
 				<div><span>총 매출액</span><span>100000 원</span></div>
 				<div><span>총 매입액</span><span>40000 원</span></div>
 				<hr>
-				<div><span>총 수익 &nbsp;60000 원</span></div>
+				<div id="lastResult"><span>총 수익 &nbsp;60000 원</span></div>
 			</div>
 			<!-- 결과값출력 끝 -->
 			
