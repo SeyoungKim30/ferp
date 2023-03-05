@@ -11,5 +11,6 @@ public interface B1_Dao {
 	public List<Orders> SalesByStoreList(Orders sbsl);	//본사:매장별매출 전체조회
 	
 	public Orders StoreDetailInfo(String frRegiNum); //본사:매장정보상세조회
-	public  List<Orders> DetailInfoList(Orders dinfo); //본사:매장정보상세조회-매매액
+	public  List<Orders> DetailSalesList(Orders dinfo); //본사:매장정보상세조회-매매액
+	public  List<Orders> DetailMenuList(Orders dinfo); //본사:매장정보상세조회-메뉴
 }

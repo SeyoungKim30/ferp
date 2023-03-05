@@ -2,7 +2,9 @@ package ferp.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,17 @@ public class B1_Service {
 	//본사:특정매장정보
 	public Orders StoreDetailInfo(String frRegiNum){
 		return dao.StoreDetailInfo(frRegiNum);
+	}
+	//본사:특정매장정보조회JSON
+	public Map<String, Object> multipleJson(Orders dlist){
+		
+		Map<String, Object> jsonMap = new HashMap<>();		
+		//본사:특정매장매출조회JSON
+		jsonMap.put("detailSales", dao.DetailSalesList(dlist));
+		// 본사:특정매장메뉴매출조회JSON
+		jsonMap.put("detailMenu", dao.DetailMenuList(dlist));
+		
+		return jsonMap;
 	}
 	
 	

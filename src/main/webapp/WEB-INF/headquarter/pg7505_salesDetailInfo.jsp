@@ -104,7 +104,7 @@
 			<!-- 그냥 불러오기 -->
 			<!-- 매장정보출력 시작 -->
 			<div class="storePrint">
-				<h1>매장이름</h1>
+				<h1>${dinfo.frname }</h1>
 				<div><span class="strifo_header">사업자번호</span><span>${dinfo.frRegiNum }</span></div>
 				<div><span class="strifo_header">개업일자</span><span>${dinfo.frOpen }</span></div>
 				<div><span class="strifo_header">매장주소</span><span class="strifo_rslt">${dinfo.frAddress }</span>&nbsp;<span class="strifo_header">전화번호</span><span>${dinfo.frtel }</span></div>
@@ -127,9 +127,6 @@
 					<tr><th>날짜</th><th>매장 매출액</th><th>매장 매입액</th><th>순수익</th></tr>
 				</thead>
 				<tbody>
-					<tr><td>날짜</td><td>100000</td><td>100000</td><td>1000</td></tr>
-					<tr><td>날짜</td><td>100000</td><td>100000</td><td>1000</td></tr>
-					<tr><td>날짜</td><td>100000</td><td>100000</td><td>1000</td></tr>
 				</tbody>
 			</table>
 			<!-- 매출조회 끝 -->
@@ -142,10 +139,6 @@
 					<tr><th>판매메뉴</th><th>가격</th><th>판매개수</th><th>총 판매액</th></tr>
 				</thead>
 				<tbody>
-					<tr><td>아메리카노</td><td>40000</td><td>100000</td><td>4000000</td></tr>
-					<tr><td>아메리카노</td><td>40000</td><td>100000</td><td>4000000</td></tr>
-					<tr><td>아메리카노</td><td>40000</td><td>100000</td><td>4000000</td></tr>
-					<tr><td>아메리카노</td><td>40000</td><td>100000</td><td>4000000</td></tr>
 				</tbody>
 			</table>
 			<!-- 매출상세내역 끝 -->
@@ -153,10 +146,10 @@
 			
 			<!-- 결과값출력 시작 -->
 			<div class="salesResult">
-				<div><span>총 매출액</span><span>100000 원</span></div>
-				<div><span>총 매입액</span><span>40000 원</span></div>
+				<div><span>총 매출액</span><span id="fsales"> </span></div>
+				<div><span>총 매입액</span><span id="fpurchase"> </span></div>
 				<hr>
-				<div id="lastResult"><span>총 수익 &nbsp;60000 원</span></div>
+				<div id="lastResult"><span></span></div>
 			</div>
 			<!-- 결과값출력 끝 -->
 			
@@ -165,27 +158,71 @@
 </body>
 <script type="text/javascript">
 
-// https://wouldyou.tistory.com/21
-/*
+	/*
+	 -해야할것
+	 숫자정렬
+	 날짜초기값전페이지에서 넘어오기
+	 상단버튼누르면 이전페이지로 가기
+	 전매장출력페이지 공통css 맞추기
+	*/
+	frSchOrderdt = $("[name=frSchOrderdt]").val();
+	toSchOrderdt = $("[name=toSchOrderdt]").val();
+
 	//ajax fetch사용
 	function print(){
-		let url="${path}/salesInfoJson.do?frRegiNum="+frRegiNum+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt  //검색값 넘기기
+		let url="${path}/detailInfoJson.do?frRegiNum="+${dinfo.frRegiNum}+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt  //검색값 넘기기
+		
 		console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
-			
 			console.log(json);
-			var dinfoList=json.sbslist;
-			var trtd='';
-		
-			sbslist.forEach(function(each){
-				trtd+="<tr><td>"+each.frname+"</td><td>"+each.frsales+"</td><td>"+each.frpurchase+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
-			})
-			$("table tbody").html(trtd);
 			
+			var dInfoList=json.dInfoList;
+			var trtdst='';
+			var trtdnd='';
+			var sumfrsales=0;
+			var sumfrpurchase=0;
+		
+			dInfoList.detailSales.forEach(function(seach){
+				trtdst+="<tr><td>"+seach.orderDate+"</td><td>"+seach.frsales+"</td><td>"+seach.frpurchase+"</td><td>"+seach.profit+"</td></tr>"
+				
+				sumfrsales+=seach.frsales;
+				sumfrpurchase+=seach.frpurchase;
+				console.log(trtdst);
+				console.log(sumfrsales);
+				console.log(sumfrpurchase);
+			})
+			dInfoList.detailMenu.forEach(function(meach){
+				trtdnd+="<tr><td>"+meach.menuName+"</td><td>"+meach.price+"</td><td>"+meach.mcnt+"</td><td>"+meach.msales+"</td></tr>"
+			})
+			
+			$(".storeSales_table tbody").html(trtdst);
+			$(".storeDetailSales_table tbody").html(trtdnd);
+			$("#fsales").html(sumfrsales+"&nbsp;원");
+			$("#fpurchase").html(sumfrpurchase+"&nbsp;원");
+			$("#lastResult span").html("총 수익&nbsp;&nbsp;"+(sumfrsales-sumfrpurchase)+"&nbsp;원");
+					
 		}).catch(function(err){console.log(err)})	
 	
 	}
-*/
+	
+	
+	$(document).ready(function(){
+
+		print();
+		
+		//날짜를 검색
+		$("[type=month]").change(function(){
+			frSchOrderdt = $("[name=frSchOrderdt]").val();
+			toSchOrderdt = $("[name=toSchOrderdt]").val();
+			if(frSchOrderdt<=toSchOrderdt){
+				print();
+			}else{
+				alert("검색날짜에 유의하세요");
+			}
+		})
+
+	})
+
 </script>
 </html>
