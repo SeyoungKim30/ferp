@@ -10,27 +10,22 @@
 <head>
 <meta charset="UTF-8">
 <title>FERP</title>
-<link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
-<link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
-<script>
-localStorage.setItem("pageIdx","0")
-localStorage.setItem("eqIdx","1")
-</script>
 </head>
 
 <body class="container">
-	<%@ include file="/resource/templates/header.jsp"%>
-	<div class="main_wrapper">
-		<%@ include file="/resource/templates/sidebar.jsp"%>
-		<div class="contents">
-			
+<c:if test="${login == null }">
+fhrmdlswjdqh djqtdma
+</c:if>
+<c:if test="${login != null }">
+<c:if test="${login.frRegiNum == '9999999999' }">
+본사메인으로 이동
+<c:redirect url="p0001.jsp"/>
 
-index.jsp
-
-		</div>
-	</div>
-
+</c:if>
+<c:if test="${login.frRegiNum == '9999999999' }">
+<c:redirect url="p0002.jsp" />
+</c:if>
+</c:if>
 </body>
 </html>

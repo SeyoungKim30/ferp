@@ -121,6 +121,13 @@ $.each($('.lnb ul li ul li'),function(){
 
 <!-- eq(n) 열려 있는 사이드바 n 숫자로 조정하세요.  -->
 $('.lnb > ul > li').eq(localStorage.getItem("eqIdx")).trigger("click");
+$('.lnb > ul > li').forEach(each){
+	if(each.attr('id')==localStorage.getItem("eqIdx")){
+		//클릭하기
+	}
+}
+
+
 
 })
 </script>         
