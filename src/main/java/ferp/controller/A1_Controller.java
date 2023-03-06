@@ -70,7 +70,7 @@ public class A1_Controller {
 	
 	@RequestMapping("/storeMainMenu.do")
 	public String pg1001storeMainMenu() {
-		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
+		return "/index.jsp";
 	}
 	
 	
@@ -81,7 +81,7 @@ public class A1_Controller {
 	
 	@RequestMapping("/goEmpMainPage.do")
 	public String goEmpMainPage() {
-		return "\\WEB-INF\\headquarter\\hq_main_index.jsp";
+		return "/index.jsp";
 	}
 	
 	// http://localhost:6080/ferp/goOrderCheck.do
