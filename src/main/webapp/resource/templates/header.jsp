@@ -16,9 +16,7 @@
 </script>
 <style>
 .headerTop {
-	display: flex;
 	justify-content: space-between;
-	width: 90%;
 	margin: auto;
 	padding-bottom: 20px;
 }
@@ -80,6 +78,10 @@
 	transition: color .15s ease-in-out, background-color .15s ease-in-out,
 		border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
+header{
+	display: flex;
+}
+
 </style>
 <header>
 	<div class="logo">

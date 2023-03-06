@@ -93,4 +93,7 @@ public class A2_Service {
 	public void uptReqList(ProdOrder upt) {
 		dao.uptReqList(upt);
 	}
+	public void delReqList(ProdOrder del) {
+		dao.delReqList(del);
+	}
 }

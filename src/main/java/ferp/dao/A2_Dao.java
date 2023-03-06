@@ -19,4 +19,5 @@ public interface A2_Dao {
 	public void prodOrderReq(ProdOrder ins);
 	public List<ProdOrder> reqList(ProdOrder sch);
 	public void uptReqList(ProdOrder upt);
+	public void delReqList(ProdOrder del);
 }

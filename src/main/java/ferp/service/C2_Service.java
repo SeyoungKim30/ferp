@@ -45,7 +45,6 @@ public class C2_Service {
 		if(sch.getCategory()==null) sch.setCategory("");
 		if(sch.getProductName()==null) sch.setProductName("");
 		if(sch.getOpposite()==null) sch.setOpposite("");
-		if(sch.getOrderState()==null) sch.setOrderState("");
 		return dao.r8101ProductList(sch);
 	}
 	// 매장 재고 상세 페이지 

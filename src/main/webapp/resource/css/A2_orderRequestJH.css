@@ -26,10 +26,12 @@
 .orderDate{
 	font-size: medium;
     padding: 10px;
-    margin-left: 70px;
+    margin-left: 230px;
+}
+.amount{
+	margin:0 15px 0 15px;
 }
 .listCon{
-	width:75%;
 	border-radius: 10px;
 }
 .listform > div > div.col > div > label,
@@ -50,10 +52,18 @@
 	margin-left: 102px;
 }
 .listform > div.row > div.os2{
-	margin-left: 215px;
+	margin-right: 192px;
 }
 .listform > div.row{
     margin-bottom: 10px;
+}
+.listform > div.row > div.col > div > div.row > button{
+    padding: 0 5px 0 5px;
+    margin: 9px 3px 0 3px;
+    height:25px;
+    background-color:white;
+    border-color:#DDD;
+    border-collapse:collapse; 
 }
 .uBtn {
 	color: #fff;

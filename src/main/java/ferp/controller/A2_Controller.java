@@ -2,6 +2,8 @@ package ferp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import vo.ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
 import vo.StoreClerk;
+import vo.Store;
 
 @Controller
 public class A2_Controller {
@@ -25,7 +28,9 @@ public class A2_Controller {
 	
 //	직원 정보 리스트 조회
 	@RequestMapping("/storeClerkList.do")
-	public String pg3100(@ModelAttribute("SCsch") SCPage SCsch, Model d) {
+	public String pg3100(@ModelAttribute("SCsch") SCPage SCsch, Model d, HttpSession session) {
+		Store s=(Store)session.getAttribute("login");
+		SCsch.setFrRegiNum(s.getFrRegiNum());
 		d.addAttribute("scList", service.storeClerkList(SCsch));
 		d.addAttribute("clerkTot", service.clerkTot());
 		return "/WEB-INF/storeclerk/A2_storeClerkListCon.jsp";
@@ -59,7 +64,9 @@ public class A2_Controller {
 	}
 //	직원 급여액 조회
 	@GetMapping("/clerkPayList.do")
-	public String pg3300(@ModelAttribute("SCpsch") SCPage SCpsch, Model d) {
+	public String pg3300(@ModelAttribute("SCpsch") SCPage SCpsch, Model d, HttpSession session) {
+		Store s=(Store)session.getAttribute("login");
+		SCpsch.setFrRegiNum(s.getFrRegiNum());
 		d.addAttribute("scList", service.storeClerkPayList(SCpsch));
 		return "/WEB-INF/storeclerk/A2_clerkPayCon.jsp";
 	}
@@ -90,6 +97,13 @@ public class A2_Controller {
 	public String pg9103(ProdOrder upt, Model d) {
 		service.uptReqList(upt);
 		d.addAttribute("msg", "수정완료");
+		return "pageJsonReport";
+	}
+//	발주 신청서 삭제
+	@PostMapping("/delReqList.do")
+	public String pg9102(ProdOrder del, Model d) {
+		service.delReqList(del);
+		d.addAttribute("msg", "삭제완료");
 		return "pageJsonReport";
 	}
 }

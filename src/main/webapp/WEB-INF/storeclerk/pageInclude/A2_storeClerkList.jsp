@@ -21,11 +21,9 @@
 	src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api"
 	type="text/javascript"></script>
 <script type="text/javascript">
-//	localStorage.setItem("empPage","empList")
 	$(document).ready(function() {
 		$(".regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
-				//localStorage.setItem("pageLoc","inDiv")
 				regAjax("insStoreclerk.do")
 			}
 		})
@@ -45,9 +43,6 @@
 			})
 		}
 	});
-	console.log(${clerkTot})
-	console.log(${login.frRegiNum}${clerkTot})
-	
 </script>
 </head>
 <body>

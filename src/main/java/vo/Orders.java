@@ -25,7 +25,13 @@ public class Orders {
 	private String toSchOrderdt;
 	
 	//본사:특정매장의 매출조회
-	
+	private String frOpen;
+	private String frAddress;
+	private int profit;
+	private int price;
+	private int mcnt;
+	private int msales;
+	private String menuName;
 	
 	public Orders() {
 		// TODO Auto-generated constructor stub
@@ -36,7 +42,6 @@ public class Orders {
 		this.frSchOrderdt = frSchOrderdt;
 		this.toSchOrderdt = toSchOrderdt;
 	}
-
 
 	public String getOrderNum() {
 		return orderNum;
@@ -138,7 +143,50 @@ public class Orders {
 	}
 	public void setFrpurchase(int frpurchase) {
 		this.frpurchase = frpurchase;
+	}
+	public String getFrOpen() {
+		return frOpen;
+	}
+	public void setFrOpen(String frOpen) {
+		this.frOpen = frOpen;
+	}
+	public String getFrAddress() {
+		return frAddress;
+	}
+	public void setFrAddress(String frAddress) {
+		this.frAddress = frAddress;
+	}
+	public int getProfit() {
+		return profit;
+	}
+	public void setProfit(int profit) {
+		this.profit = profit;
+	}
+	public int getMcnt() {
+		return mcnt;
+	}
+	public void setMcnt(int mcnt) {
+		this.mcnt = mcnt;
+	}
+	public int getMsales() {
+		return msales;
+	}
+	public void setMsales(int msales) {
+		this.msales = msales;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getMenuName() {
+		return menuName;
+	}
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
 	} 
+	
 	
 
 	

@@ -30,70 +30,70 @@
                     <li>
                         <a href="#">직원 관리</a>
                         <ul>
-	                        <li id="3100"><a href="${path }/storeClerkList.do?frRegiNum=${login.frRegiNum}">- 직원 정보 조회</a></li>
-                            <li><a href="#">- 근태 조회</a></li>
-                            <li><a href="#">- 스케쥴 관리</a></li>
-                            <li id="3300"><a href="${path }/clerkPayList.do">- 급여액 조회</a></li>
+	                        <li id="3100" onclick="location.href='${path }/storeClerkList.do'"><a>- 직원 정보 조회</a></li>
+                            <li><a>- 근태 조회</a></li>
+                            <li><a>- 스케쥴 관리</a></li>
+                            <li id="3300" onclick="location.href='${path }/clerkPayList.do'"><a>- 급여액 조회</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#">재무 관리</a>
                         <ul>
-                            <li id="7201"><a href="${path }/selectAccount.do">- 계정 과목 관리</a></li>
-                            <li id="7210"><a href="${path }/ACstatement.do">- 전표 입력</a></li>
-                            <li id="7204"><a href="${path }/statementList.do">- 거래 내역 조회</a></li>
-                            <li><a href="#">- 손익 계산서 조회</a></li>
+                            <li id="7201" onclick="location.href='${path }/selectAccount.do'"><a>- 계정 과목 관리</a></li>
+                            <li id="7210" onclick="location.href='${path }/ACstatement.do'"><a>- 전표 입력</a></li>
+                            <li id="7204" onclick="location.href='${path }/statementList.do'"><a>- 거래 내역 조회</a></li>
+                            <li><a>- 손익 계산서 조회</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#">물류 관리</a>
                         <ul>
-                            <li id="9101"><a href="${path }/requestProd.do?demander=${login.frRegiNum} ">- 발주 신청</a></li>
-                            <li id="9201"><a href="${path }/productOrderList.do">- 발주 조회</a></li>
-                            <li><a href="#">- 배송 불량 신청</a></li>
-                            <li><a href="#">- 배송 불량 신청 현황</a></li>
-                            <li><a href="#">- 발주 계산서 조회</a></li>
-                            <li><a href="#">- 재고 관리</a></li>
+                            <li id="9101" onclick="location.href='${path }/requestProd.do'"><a>- 발주 신청</a></li>
+                            <li id="9201" onclick="location.href='${path }/productOrderList.do'"><a>- 발주 조회</a></li>
+                            <li><a>- 배송 불량 신청</a></li>
+                            <li><a>- 배송 불량 신청 현황</a></li>
+                            <li><a>- 발주 계산서 조회</a></li>
+                            <li><a>- 재고 관리</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#">매장 관리</a>
                         <ul>
-                            <li><a href="#">- 매장 정보 등록</a></li>
-                            <li><a href="#">- 매장 정보 조회</a></li>
+                            <li><a>- 매장 정보 등록</a></li>
+                            <li><a>- 매장 정보 조회</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#">매장 점검</a>
                         <ul>
-                            <li><a href="#">- 품질관리점검표</a></li>
-                            <li><a href="#">- 품질관리점검 결과 조회</a></li>   
-                            <li><a href="#">- 담당 매장 점검</a></li><!-- 담당자만 보이게 -->
-                            <li><a href="#">- 출근시간 점검</a></li>
+                            <li><a>- 품질관리점검표</a></li>
+                            <li><a>- 품질관리점검 결과 조회</a></li>   
+                            <li><a>- 담당 매장 점검</a></li><!-- 담당자만 보이게 -->
+                            <li><a>- 출근시간 점검</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#">메뉴 관리</a>
                         <ul>
-                            <li id="2001"><a href="${path }/showMenu.do">- 판매 메뉴 등록</a></li>
-                            <li id="2002"><a href="${path }/onsaleList.do">- 판매 메뉴 삭제</a></li>
+                            <li id="2001" onclick="location.href='${path }/showMenu.do'"><a>- 판매 메뉴 등록</a></li>
+                            <li id="2002" onclick="location.href='${path }/onsaleList.do'"><a>- 판매 메뉴 삭제</a></li>
                         </ul>
                     </li>
                     
                      <li>
                         <a href="#">공지 및 문의</a>
                         <ul>
-                            <li><a href="#">- 공지사항 등록</a></li>
-                            <li><a href="#">- 공지사항 조회</a></li>
-                            <li><a href="#">- 문의글 등록</a></li>
-                            <li><a href="#">- 문의글 조회</a></li>
-                            <li><a href="#">- 1:1 채팅</a></li>
+                            <li><a>- 공지사항 등록</a></li>
+                            <li><a>- 공지사항 조회</a></li>
+                            <li><a>- 문의글 등록</a></li>
+                            <li><a>- 문의글 조회</a></li>
+                            <li><a>- 1:1 채팅</a></li>
                         </ul>
                     </li>
                      <li>
                         <a href="#">정보수정</a>
                         <ul>
-                            <li><a href="#">- 비밀번호변경</a></li>
+                            <li><a>- 비밀번호변경</a></li>
                    		</ul>
                     </li>
                 </ul>
