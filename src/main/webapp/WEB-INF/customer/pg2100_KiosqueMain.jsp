@@ -262,9 +262,9 @@
 			font-weight: 700;
 		}
 		.modal_container .modal_product_infoText{
-		    border-bottom: 1px solid #999;
 		    line-height: 30px;
 		    font-size: 20px;
+		    border-bottom: 1px solid #999;
 		    padding-bottom: 10px;
 		    color: #999;
 		}
@@ -342,6 +342,10 @@
 			background-color: #2262f3;
 			color: #fff;
 		}
+		
+		.modal_product_price{
+		    display: none;
+		}
 </style>
 </head>
 
@@ -398,7 +402,9 @@
 							</div>
 						</form>
 					</div>
+					
 					<div class="modal_btn_wrap">
+						<p class="modal_product_price">음료 가격</p>
 						<a href="#" class="modal_btn_add">추가하기</a>
 					</div>
 				</div>
@@ -522,7 +528,7 @@
 			<div class="small_con">
 				<div class="result_btn_wrap">
 					<button class="result_btn">취소하기</button>
-					<button class="result_btn">주문하기</button>
+					<button class="result_btn addOrderBtn">주문하기</button>
 				</div>
 				<ul class="result_list_wrap">
 					<li>주문하실 음료를 선택해주세요.</li>
@@ -574,6 +580,8 @@ tabContent.click(function () {
 		$(".product_img").html(MenuImg);
 		var MenuInfoText = $(this).find(".con_infoText").text();
 		$(".modal_product_infoText").text(MenuInfoText);
+		var MenuPrice = $(this).find(".con_price").text();
+		$(".modal_product_price").text(MenuPrice);
 		var MenuCategory = $(this).find(".con_category").text();
 		if(MenuCategory == "smoothie"){
 			$(".option_radio").css('display','none');
@@ -646,7 +654,25 @@ $(".btn_minus").click(function () {
 // 추가하기 버튼
 var modal_btn_add = $(".modal_btn_add");
 	modal_btn_add.click(function () {
-	var name = $(".modal_product_name").val();
+	var name = $(".modal_product_name").text();
+	var cnt = $(".product_number").val();
+	var price = $(".modal_product_price").text();
+	var option="";
+	price = price.replace("￦", "");
+	price = Number(price.replace(",", ""));
+	
+	if ($("#menu_opt_3").is(":checked")) {
+		price+=500;
+		option+="ㄴ샷추가"
+	}
+	
+	if ($("#menu_opt_4").is(":checked")) {
+		price+=500;
+		option+="ㄴ연하게"
+	}
+	
+	console.log(price);
+	console.log(option);
 });
 
 
