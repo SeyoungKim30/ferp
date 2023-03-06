@@ -63,6 +63,7 @@
 			border-bottom: 2px solid transparent;
 			color: #2262f3;
 		}
+		
 		.tab_content_wrap{
 			display: none;
 			gap: 30px;
