@@ -108,7 +108,7 @@ public class B2_Controller {
 	// http://localhost:7080/ferp/insertEmp.do
 	@GetMapping("/insertEmp.do")
 	public String insertEmp() {
-		return "WEB-INF\\view\\emp_insert1.jsp";
+		return "WEB-INF\\view\\emp_insert.jsp";
 	}
 	@PostMapping("/insertEmp.do")
 	public String insertEmp(Emp ins, RedirectAttributes redirect) {
