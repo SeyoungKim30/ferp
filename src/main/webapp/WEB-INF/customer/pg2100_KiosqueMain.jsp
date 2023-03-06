@@ -349,6 +349,8 @@
 		
 		.listdefalut{
 		    font-size: 29px;
+		    text-align: center;
+		    padding: 20px;
 		}
 </style>
 </head>
@@ -531,11 +533,11 @@
 			</div>
 			<div class="small_con">
 				<div class="result_btn_wrap">
-					<button class="result_btn">취소하기</button>
+					<button class="result_btn delOrderBtn">취소하기</button>
 					<button class="result_btn addOrderBtn">주문하기</button>
 				</div>
 				<ul class="result_list_wrap">
-					<li class="listdefalut">주문하실 음료를 선택해주세요.</li>
+					<li class="listdefalut">주문하실 음료를<br> 선택해주세요.</li>
 				</ul>
 			</div>
 		</div>
@@ -575,6 +577,8 @@ tabContent.click(function () {
 			$(".delS").css('display','flex');
 			$(".addS").css('display','flex');
 			$(".sizeUp").css('display','flex');
+			$(".radio01").text("Ice");
+			$(".radio02").text("Hot");
 		}else if(MenuCategory == "sandwich" || MenuCategory == "cake" ){
 			$(".option_radio").css('display','flex');
 			$(".delS").css('display','none');
@@ -602,6 +606,7 @@ modalClose.click(function () {
 	dimmed.removeClass('on');
 	modalContainer.removeClass('on');
 	$(".product_number").val(1);
+	$('.modal_product_option input[type="checkbox"], .modal_product_option input[type="radio"]').prop('checked', false);
 })
 
 
@@ -674,10 +679,6 @@ var modal_btn_add = $(".modal_btn_add");
 	price = price.toLocaleString();
 	price += "￦";
 	
-	console.log(price);
-	$(".listdefalut").css("display","none");
-
-	
 	resultAddString += "<li class='list_item'><p class='list_item_info'><span class='list_item_name'><span>"+name+"</span>x<span>"+cnt+"</span>"
 	+"</span><span class='list_item_option'>"+option+"</span></p><p class='list_item_price'>"+price+"</p></li>";
 	
@@ -687,6 +688,11 @@ var modal_btn_add = $(".modal_btn_add");
 	
 });
 
+$(".delOrderBtn").click(function () {
+	var insHtml = "<li class='listdefalut'>주문하실 음료를<br> 선택해주세요.</li>"
+	$(".result_list_wrap").html(insHtml);
+	resultAddString = "";
+});
 
 </script>
 </html>
