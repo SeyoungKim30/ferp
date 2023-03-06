@@ -77,18 +77,20 @@
 			<div class="searchtab">
 				<table>
 				<thead>
-					<tr><th>자재코드</th><th>카테고리명</th><th>자재명</th><th>거래처</th>
-						<th>단가</th><th>수량</th><th>발주상태</th><th>비고</th><th>자재정보수정</th></tr>
+					<tr><th>입고일자</th><th>자재코드</th><th>카테고리명</th><th>자재명</th>
+						<th>거래처</th><th>단가</th><th>수량</th><th>비고</th></tr>
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
-			    	    <tr>
-			    	    	<td onclick="goDetail('${prod.productNum}')">${prod.productNum}</td><td>${prod.category}</td>
-			    	    	<td>${prod.productName}</td><td>${prod.opposite}</td>
-			    	    	<td>${prod.price}</td><td>${prod.amount}</td>
-			    	    	<td>${prod.orderState}</td><td>${prod.remark}</td>
-			    	    	<td><button id="uptBtn" class="btn-secondary" type="button" 
-								onclick="goUpdate('${prod.productNum}')">수정</button></td>
+			    	    <tr onclick="goDetail('${prod.productNum}')">
+			    	    	<td>${prod.stockDate}</td>
+			    	    	<td>${prod.productNum}</td>
+			    	    	<td>${prod.category}</td>
+			    	    	<td>${prod.productName}</td>
+			    	    	<td>${prod.opposite}</td>
+			    	    	<td><fmt:formatNumber value="${prod.price}" type='currency'/></td>
+			    	    	<td>${prod.amount}</td>
+			    	    	<td>${prod.remark}</td>
 			    	    </tr>
 			    	</c:forEach>
 				</tbody>
