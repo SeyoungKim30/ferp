@@ -63,7 +63,7 @@ body{
 				action="${path}/hproductUpt.do" novalidate>
 				<div>
 					<label for="productNum">자재코드</label> 
-					<input name="productNum" type="text" value="${product.productNum}" 
+					<input name="productNum" type="text" value="${product.productNum}" readOnly
 						class="ckValid" id="productNum" placeholder="자재코드 입력" required>
 				</div>
 				<div>

@@ -6,18 +6,16 @@
 <mapper namespace="ferp.dao.C2_Dao">
 
 	<select id="r8101ProductList" resultType="productProdOrder" parameterType="productProdOrder">
-		SELECT TO_CHAR(s.stockDate,'YYYY-MM-DD') stockDate
-		,p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAME ,p.OPPOSITE ,p.PRICE
-		,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK
-		FROM PRODUCT p , STOCK s , PRODORDER p2
+		SELECT p.*, s.stockDate, s.REMAINAMOUNT 
+		FROM PRODUCT p, STOCK s
 		WHERE p.PRODUCTNUM = s.PRODUCTNUM
-		AND p.PRODUCTNUM = p2.PRODUCTNUM
-		AND s.stockDate LIKE '%'|| to_date(#{stockDate},'YYYY-MM-DD')||'%'
-		AND p.productNum LIKE '%'||#{productNum}||'%'
-		AND category LIKE '%'||#{category}||'%'
-		AND productName LIKE '%'||#{productName}||'%'
-		AND opposite LIKE '%'||#{opposite}||'%' 
-		AND orderState LIKE '%'||#{orderState}||'%'
+		AND s.STOCKDATE = (SELECT MAX(STOCKDATE) FROM STOCK s2 WHERE s2.PRODUCTNUM = p.PRODUCTNUM)
+		AND stockDate LIKE '%'|| to_date(#{stockDate},'YYYY-MM-DD')||'%'
+		AND p.productNum LIKE '%'||upper(#{productNum})||'%'
+		AND category LIKE '%'||upper(#{category})||'%'
+		AND productName LIKE '%'||upper(#{productName})||'%'
+		AND opposite LIKE '%'||upper(#{opposite})||'%'
+		
 	</select>
 
 	<select id="r8201ProductList" resultType="productProdOrder" parameterType="productProdOrder">
@@ -51,7 +49,7 @@
 	
 	<insert id="r8202ProductIns" parameterType="product">
 		INSERT INTO PRODUCT
-		values(#{productNum},#{category},
+		values('PD'||pdSeq.nextval,#{category},
 		#{productName},#{opposite},#{price},#{img},#{remark})
 	</insert>
 	

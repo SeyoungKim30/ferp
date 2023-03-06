@@ -30,7 +30,7 @@ public class C2_Controller {
 		return "WEB-INF\\store\\pg8101_productList.jsp";
 	}
 	
-	// 매장 재고 상세 페이지
+	// 재고 상세 페이지
 	@RequestMapping("/sproductInfo.do")
 	public String r8101ProductInfo(@RequestParam String productNum, Model d){
 		d.addAttribute("product",service.r8101ProductInfo(productNum));
@@ -86,6 +86,23 @@ public class C2_Controller {
 	}
 	
 	// 본사 재고 매매 내역 조회
+	
+	/////////////////////////////////////////
+//	본사/매장 재고 조회(자재코드별로 최근일자의 자재수량 조회)
+	
+//	매장 재고 매매내역조회
+	
+//	매장 재고 매출내역등록
+	
+//	매장 재고 매출내역수정
+	
+//	매장 재고 매출내역삭제
+	
+//	본사 재고 등록
+	
+//	본사 재고 수정
+	
+//	본사 재고 매매내역조회
 	
 	
 }
