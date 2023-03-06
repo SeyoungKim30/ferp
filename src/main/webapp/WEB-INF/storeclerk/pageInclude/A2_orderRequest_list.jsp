@@ -18,10 +18,11 @@
 <script src="${path}/a00_com/popper.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script
+	src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api"
+	type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-
 	})
 </script>
 </head>
@@ -41,37 +42,30 @@
 		<div>
 			<c:forEach var="p" items="${plist }">
 				<div class="row p${p.productNum }">
-					<div class="tdDiv" style="width: 14%;">
-						${p.category }
-					</div>
+					<div class="tdDiv" style="width: 14%;">${p.category }</div>
 					<div class="tdDiv" style="width: 19%;">
 						<input type="hidden" class="productName${p.productNum }" value="${p.productName }"> ${p.productName }
 					</div>
 					<div class="tdDiv" style="width: 19%;">
 						<input type="hidden" class="opposite${p.productNum }" value="${p.opposite }"> ${p.opposite }
 					</div>
-					<input type="hidden" class="productNum${p.productNum }" value="${p.productNum }">
-					<input type="hidden" class="frRegiNum${p.productNum }" value="${p.frRegiNum }">
-					<div class="tdDiv" style="width: 14%;">
-						₩ ${p.price }
-					</div>
-					<div class="tdDiv" style="width: 14%;">
-						${p.remainAmount }
-					</div>
+					<input type="hidden" class="productNum${p.productNum }" value="${p.productNum }"> <input type="hidden" class="frRegiNum${p.productNum }" value="${p.frRegiNum }">
+					<div class="tdDiv" style="width: 14%;">₩ ${p.price }</div>
+					<div class="tdDiv" style="width: 14%;">${p.remainAmount }</div>
 					<div class="tdDiv" style="width: 9%;">
 						<div class="row center">
-							<button type="button" class="adjustAmountBtn minus${p.productNum }"> - </button>
-							<input class="adjustAmountText a${p.productNum }" type="text" value="0" pattern="[0-9]+">
-							<button type="button" class="adjustAmountBtn plus${p.productNum }"> + </button>
+							<button type="button" class="adjustAmountBtn minus${p.productNum }">-</button>
+							<input class="adjustAmountText a${p.productNum }" type="text" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<button type="button" class="adjustAmountBtn plus${p.productNum }">+</button>
 						</div>
 					</div>
 					<div class="tdDiv" style="width: 9%;">
 						<button type="button" class="regB${p.productNum } rB">신청</button>
 					</div>
 				</div>
-				<img src="${path }/resource/img/${p.img}" width="200px" height="200px" class="p preview${p.productNum }"/>
+				<img src="${path }/resource/img/${p.img}" width="200px" height="200px" class="p preview${p.productNum }" />
 <style>
-.p${p.productNum }:hover ~ .preview${p.productNum }{
+.p${p .productNum}:hover ~ .preview${p .productNum}{
 	position:absolute;
 	display:block;
 }

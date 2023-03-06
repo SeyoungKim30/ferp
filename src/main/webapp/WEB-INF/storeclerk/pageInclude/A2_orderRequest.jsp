@@ -83,7 +83,7 @@
 					</div>
 					<div class="col margin-tn w25" id="openBtn3">
 						<label>수량</label> 
-						<input type="text" name="amount" class="margin-tln regList" placeholder="수량" required />
+						<input type="text" name="amount" class="margin-tln regList" placeholder="수량" pattern="[0-9]+" required />
 					</div>
 					<input type="hidden" name="productNum" required />
 					<input type="hidden" name="supplier" required />

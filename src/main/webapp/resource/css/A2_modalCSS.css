@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#modal {
+#modal{
 	display: none;
 	position : absolute;
 	width: 75%;
@@ -8,7 +8,16 @@
 	z-index: 1;
 }
 
-#modal h2 {
+#modal2 {
+	display: none;
+	position : absolute;
+	margin:-40% 0 0 0;
+	width: 60%;
+	height: 100%;
+	z-index: 1;
+}
+
+#modal h2, #modal2 h2 {
 	margin: 0;
 }
 #closeBtn{
@@ -17,7 +26,7 @@
 	height:20px;
 	border:none;
 }
-#modal .modal_content {
+#modal .modal_content, #modal2 .modal_content {
 	width: 100%;
 	margin: auto;
 	padding: 20px 10px;
@@ -26,7 +35,7 @@
 	border-radius: 10px;
 }
 
-#modal .modal_layer {
+#modal .modal_layer, #modal2 .modal_layer {
 	position: fixed;
 	top: 0;
 	left: 0;

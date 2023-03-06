@@ -92,4 +92,11 @@ public class A2_Controller {
 		d.addAttribute("msg", "수정완료");
 		return "pageJsonReport";
 	}
+//	발주 신청서 삭제
+	@PostMapping("/delReqList.do")
+	public String pg9102(ProdOrder del, Model d) {
+		service.delReqList(del);
+		d.addAttribute("msg", "삭제완료");
+		return "pageJsonReport";
+	}
 }
