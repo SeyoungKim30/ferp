@@ -25,6 +25,7 @@
 		<typeAlias alias="noticeSch" type="vo.NoticeSch"/>
 		<typeAlias alias="hoemp" type="vo.HOemp"/>
 		<typeAlias alias="scheduleCalender" type="vo.ScheduleCalender"/>
+		<typeAlias alias="onsale" type="vo.Onsale"/>
 	</typeAliases>
 			
 <mappers>

@@ -89,7 +89,9 @@ public class A2_Controller {
 	}
 //	발주 신청서 조회
 	@ModelAttribute("reqlist")
-	public List<ProdOrder> requestList(ProdOrder sch){
+	public List<ProdOrder> requestList(ProdOrder sch, HttpSession session){
+		Store s = (Store)session.getAttribute("login");
+		sch.setDemander(s.getFrRegiNum());
 		return service.reqList(sch);
 	}
 //	발주 신청서 수정
