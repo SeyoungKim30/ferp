@@ -2,6 +2,7 @@ package vo;
 
 public class SCPage {
 	private String clerkName;
+	private String frRegiNum;
 	private int count; // 전체 데이터 건수
 	private int pageSize; // 한페이지에 보여줄 데이터 크기
 	private int pageCount; // 총 페이지 수 count/pageSize
@@ -12,6 +13,12 @@ public class SCPage {
 	private int blockSize; // 한번에 보여줄 block의 크기
 	private int startBlock; // block 시작번호
 	private int endBlock; // block 마지막번호
+	public String getFrRegiNum() {
+		return frRegiNum;
+	}
+	public void setFrRegiNum(String frRegiNum) {
+		this.frRegiNum = frRegiNum;
+	}
 	public String getClerkName() {
 		return clerkName;
 	}
