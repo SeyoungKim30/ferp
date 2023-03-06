@@ -128,7 +128,11 @@
 		FROM noticeCategory
 		ORDER BY name DESC
 	</select>
-	
+	<!-- 메뉴 카테고리 combo -->
+	<select id="getMenuCategory" resultType="string">
+		SELECT *
+		FROM menuCategory
+	</select>
 	
 	
 	<!-- 문의글 조회 -->

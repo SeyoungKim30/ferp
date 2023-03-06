@@ -182,6 +182,10 @@ public class B2_Service {
 	public List<String> getNoticeCategory(){
 		return dao.getNoticeCategory();
 	}
+	// 메뉴 카테고리 콤보
+	public List<String> getMenuCategory(){
+		return dao.getMenuCategory();
+	}
 	
 	
 	// 문의글 조회

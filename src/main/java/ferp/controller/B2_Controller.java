@@ -32,6 +32,10 @@ public class B2_Controller {
 	public List<String> getNoticeCategory(){
 		return service.getNoticeCategory();
 	}
+	@ModelAttribute("menuCategoryCombo")
+	public List<String> getMenuCategory(){
+		return service.getMenuCategory();
+	}
 	
 	// 본사 홈페이지 controller
 	@RequestMapping("/mainpage.do")

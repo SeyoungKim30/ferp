@@ -49,6 +49,8 @@ public interface B2_Dao {
 	public List<Emp> getHOemp();
 	// 문의글 카테고리 콤보
 	public List<String> getNoticeCategory();
+	// 메뉴 카테고리 콤보
+	public List<String> getMenuCategory();
 	
 	// 문의글 등록
 	public void insertQnA(Notice ins);

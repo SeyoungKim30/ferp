@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>타이틀</title>
+<title>메뉴등록</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -50,7 +50,12 @@
 				</div>
 				<div class="fourth_line">
 					<input type="text" name="info" placeholder="메뉴설명 입력">
-					<input type="text" name="category" placeholder="카테고리 입력">
+					<select name="category">
+						<option disabled="disabled" selected="selected">카테고리 선택</option>
+						<c:forEach var="category" items="${menuCategoryCombo}">
+							<option>${category}</option>
+						</c:forEach>
+					</select>
 				</div>
 				<div class="fifth_line">
 					<h3 class="menu_img">메뉴사진</h3>
