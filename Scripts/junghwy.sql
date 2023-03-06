@@ -1,12 +1,3 @@
-SELECT * FROM HOemp;
-CREATE TABLE HOemp (
-	eno	number	NOT NULL,
-	pass	varchar2(20)	NULL,
-	ename	varchar2(20)	NULL,
-	dname	varchar2(30)	NULL
-);
-INSERT INTO HOemp values(0001,'1234','홍길동','관리');
-
 SELECT  * FROM store;
 CREATE TABLE store (
 	FrRegiNum	varchar2(50)	NOT NULL,
@@ -33,7 +24,8 @@ select *
 	select rownum cnt, s.*
 		from storeclerk s
 		where 1=1
-		and clerkname LIKE '%'||''||'%')
+		and clerkname LIKE '%'||''||'%'
+		AND frreginum = '1234567891')
 where cnt between 1 and 5;
 	
 CREATE TABLE storeClerk (
@@ -45,19 +37,54 @@ CREATE TABLE storeClerk (
 	phoneNum	varchar2(20)	NULL,
 	address	varchar2(300)	NULL
 );
-INSERT INTO storeclerk values('0','123456789','김세영','여','940101','010-1100-0011','서울',12000);
-INSERT INTO storeclerk values('1','123456789','김중휘','남','960101','010-1111-1111','구의',9800);
-INSERT INTO storeclerk values('2','123456789','신아령','여','950202','010-2222-2222','한국');
-INSERT INTO storeclerk values('3','123456789','이지원','여','960303','010-3333-3333','한국');
-INSERT INTO storeclerk values('4','123456789','이희준','남','970404','010-4444-4444','한국');
-INSERT INTO storeclerk values('5','123456789','허다솜','여','970505','010-5555-5555','한국');
-INSERT INTO storeclerk values('6','123456789','김재윤','남','960606','010-1111-4444','한국');
-INSERT INTO storeclerk values('7','123456789','김다솜','여','960707','010-2312-1111','한국');
-INSERT INTO storeclerk values('8','123456789','이준형','남','970808','010-5252-1324','한국');
-INSERT INTO storeclerk values(clerkNum_seq.nextval,'fr01','김석준','남','960909','010-5211-1324','한국');
+INSERT INTO storeclerk values('12345678901004','1234567890','김세영','940101','010-1100-0011','서울',12000,'여');
+INSERT INTO storeclerk values('12345678901005','1234567890','김중휘','960101','010-1111-1111','구의',9100,'남');
+INSERT INTO storeclerk values('12345678901006','1234567890','신아령','950202','010-2222-2222','한국',9200,'여');
+INSERT INTO storeclerk values('12345678901007','1234567890','이지원','960303','010-3333-3333','한국',9300,'여');
+INSERT INTO storeclerk values('12345678901008','1234567890','이희준','970404','010-4444-4444','한국',9400,'남');
+INSERT INTO storeclerk values('12345678901009','1234567890','허다솜','970505','010-5555-5555','한국',9500,'여');
+INSERT INTO storeclerk values('12345678901010','1234567890','김재윤','960606','010-1111-4444','한국',9600,'남');
+INSERT INTO storeclerk values('12345678901011','1234567890','김다솜','960707','010-2312-1111','한국',9700,'여');
+INSERT INTO storeclerk values('12345678901012','1234567890','이준형','970808','010-5252-1324','한국',9800,'남');
+INSERT INTO storeclerk values('12345678901013','1234567890','김석준','960909','010-5211-1324','한국',9000,'남');
+INSERT INTO storeclerk values('12345678901013','1234567890','김석준','960909','010-5211-1324','한국',9000,'남');
+INSERT INTO storeclerk values((SELECT DISTINCT frreginum FROM STORECLERK WHERE FRREGINUM = '1234567890')||(SELECT count(*)+1001 FROM STORECLERK WHERE FRREGINUM = '1234567890'),'1234567890','김석준','960909','010-5211-1324','한국',9000,'남');
+INSERT INTO storeclerk values((SELECT DISTINCT frreginum FROM STORECLERK WHERE FRREGINUM = '1234567892')||(SELECT count(*)+1001 FROM STORECLERK WHERE FRREGINUM = '1234567892'),'1234567892','백승호','910909','010-3151-9102','한국',10000,'남');
+select *
+	from (
+	select rownum cnt, s.*
+		from storeclerk s
+		where 1=1
+		and clerkname LIKE '%'||''||'%'
+		AND frreginum = '1234567892')
+where cnt between 1 and 5;
+SELECT count(*)+1001
+FROM STORECLERK
+WHERE FRREGINUM = '1234567890'; 
+
+SELECT * FROM STORECLERK s ;
+
+DELETE FROM STORECLERK s WHERE CLERKNUM ='12345678901016';
+
+SELECT DISTINCT frreginum
+FROM STORECLERK 
+WHERE FRREGINUM = '1234567890';
+
+--사업자번호||count(*)+1001
+
+-- SELECT fr FROM dual;
 
 ALTER TABLE storeclerk ADD hourlyPay NUMBER;
+ALTER TABLE storeclerk ADD gender varchar2(10);
 
+UPDATE storeclerk
+SET 
+	--clerkName = '김준형',
+	gender = '여'
+	--residentNum = '970808',
+	--phoneNum = '010-5252-1324',
+	--address = '한국'
+WHERE clerkNum = '12345678901003';
 UPDATE storeclerk
 SET clerkName = '김준형',
 	gender = '남',
@@ -135,7 +162,7 @@ ALTER TABLE orders MODIFY orderdate DATE;
 
 DELETE FROM orders WHERE orderdate LIKE '%'||''||'%'; 
 
-SELECT * FROM store;
+SELECT * FROM store;	
 
 SELECT to_char(s.STOCKDATE,'YYYY-MM-dd') ,p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAME ,p.OPPOSITE ,p.PRICE ,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK 
       FROM PRODUCT p , STOCK s , PRODORDER p2 
@@ -147,3 +174,100 @@ SELECT to_char(s.STOCKDATE,'YYYY-MM-dd') ,p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAM
       AND productName LIKE '%'||''||'%'
       AND opposite LIKE '%'||''||'%'
       AND orderState LIKE '%'||''||'%';
+
+SELECT p.PRODUCTNUM, CATEGORY , PRODUCTNAME , OPPOSITE , PRICE , IMG , p.REMARK  , frreginum, stockdate, applyamount, remainamount
+FROM PRODUCT p, STOCK s 
+WHERE p.PRODUCTNUM = s.PRODUCTNUM 
+AND PRODUCTNAME LIKE '%'||''||'%';
+
+SELECT p.PRODUCTNUM, CATEGORY , PRODUCTNAME , OPPOSITE , PRICE , IMG , p.REMARK  , frreginum, stockdate, applyamount, remainamount 
+FROM STOCK s , PRODUCT p 
+WHERE STOCKDATE IN 
+	(SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)
+AND p.PRODUCTNUM = s.PRODUCTNUM 
+AND PRODUCTNAME LIKE '%'||''||'%'
+AND FRREGINUM = '9999999999';
+
+-- 발주번호, 발주신청일, 자재코드, 공급받는사업자번호, 공급자사업자번호, 자재 수량, 결재 상태, 발주상태
+-- (orderNum, orderDate, productNum, demander, supplier, amount, paymentState, orderState)
+SELECT * FROM PRODORDER;
+
+--INSERT INTO PRODORDER values(#{orderNum}, #{productNum}, #{demander}, #{supplier}, #{orderDate}, #{amount}, #{paymentState}, #{orderState});
+INSERT INTO PRODORDER VALUES
+(
+	--to_char(sysdate,'yyyymm')||(SELECT DISTINCT demander FROM prodorder WHERE demander = '1234567890'),
+	to_char(sysdate,'yymmdd')||(SELECT DISTINCT demander FROM prodorder WHERE demander = '1234567890'), 
+	'PD10001',
+	'1234567890', 
+	'9999999999', 
+	sysdate,
+	6, 
+	'정산전', 
+	'요청'
+);
+DELETE FROM PRODORDER WHERE ORDERNUM = '2023031234567890';
+DELETE FROM PRODORDER WHERE ORDERNUM = 'ㅁㄴㅇ';
+DELETE FROM PRODORDER WHERE ORDERNUM = '1234567890';
+SELECT to_char(sysdate,'yyyymm')||(SELECT DISTINCT demander FROM prodorder WHERE demander = '1234567890') FROM dual;
+-- to_char(sysdate,'yyyymmdd')||(SELECT DISTINCT demander FROM prodorder WHERE demander = '1234567890') 발주번호
+SELECT to_char(SYSDATE,'yyyymm') FROM dual;
+SELECT to_char(to_date('2023-03-02','yyyy-mm-dd'),'yyyymm') FROM dual;
+-- to_char(sysdate,'yyyymmdd') 신청날짜
+
+/*
+INSERT INTO PRODORDER VALUES
+(
+	to_char(#{orderDate},'yyyymmdd')||(SELECT DISTINCT demander FROM prodorder WHERE demander = #{demander}), 
+	#{productNum},
+	#{demander}, 
+	#{supplier}, 
+	to_char(#{orderDate},'yyyymmdd'), 
+	#{amount}, 
+	'정산전', 
+	'요청'
+)
+*/
+
+SELECT * FROM PRODORDER WHERE ORDERNUM LIKE '%'||''||'%' AND DEMANDER = '1234567890';
+
+SELECT * FROM product;
+SELECT * FROM PRODORDER ;
+
+SELECT po.*, p.img, p.PRODUCTNAME
+FROM PRODUCT p, PRODORDER po
+WHERE p.PRODUCTNUM = po.PRODUCTNUM
+AND ORDERNUM LIKE '%'||''||'%' 
+AND DEMANDER = '1234567890'
+ORDER BY to_char(orderdate, 'YYMMDD HH24:MI:SS') DESC;
+
+UPDATE (SELECT po.*, p.img, p.PRODUCTNAME
+		FROM PRODUCT p, PRODORDER po
+		WHERE p.PRODUCTNUM = po.PRODUCTNUM)
+	SET amount = 711
+WHERE ordernum = '202303021234567890'
+AND productnum = 'PD10001'
+AND orderdate = to_date('2023-03-02 00:00:00','YYYY-MM-DD HH24:MI:SS');
+
+UPDATE (SELECT po.*, p.img, p.PRODUCTNAME
+		FROM PRODUCT p, PRODORDER po
+		WHERE p.PRODUCTNUM = po.PRODUCTNUM)
+	SET ordernum = '2303021234567890'
+WHERE productnum = 'PD10001'
+AND ordernum = '202303021234567890'
+AND orderdate = to_date('2023-03-02 00:00:00','YYYY-MM-DD HH24:MI:SS');
+
+SELECT to_date('2023-03-02 00:00:00','YYYY-MM-DD HH24:MI:SS') FROM dual;
+
+SELECT * FROM PRODORDER WHERE ORDERNUM LIKE '%'||''||'%' AND DEMANDER = '1234567890';
+
+DELETE FROM PRODORDER
+WHERE ordernum = '2303051234567890'
+AND productnum = 'PD10001'
+AND orderdate = to_date('2023-03-05 22:27:11','YYYY-MM-DD HH24:MI:SS');
+
+-- product(productName, category, img)
+-- prodOrder(orderNum, orderDate)
+-- defectOrder(method, state, applyDate)
+SELECT * FROM defectorder;
+
+SELECT * FROM STORE;
