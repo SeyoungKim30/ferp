@@ -41,7 +41,7 @@ public class C2_Controller {
 	// http://localhost:6080/ferp/hproductList.do
 	@RequestMapping("/hproductList.do")
 	public String r8201ProductList(@ModelAttribute("sch") ProductProdOrder sch, Model d) {
-		d.addAttribute("plist", service.r8201ProductList(sch));
+		d.addAttribute("plist", service.r8101ProductList(sch));
 		return "WEB-INF\\headquarter\\pg8201_productList.jsp";
 	}
 		
