@@ -14,5 +14,6 @@ public interface B1_Dao {
 	public List<Orders> DetailSalesList(Orders dinfo); //본사:매장정보상세조회-매매액
 	public List<Orders> DetailMenuList(Orders dinfo); //본사:매장정보상세조회-메뉴
 	
-	public List<Store> StoreOpenList(); //본사:전매장오픈시간조회
+	public List<Store> StoreOpenList(Store otl); //본사:전매장오픈시간조회
+	public Store StoreDetailOpenTime(String frRegiNum); //본사:매장오픈상세조회
 }

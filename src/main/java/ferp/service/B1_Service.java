@@ -56,8 +56,11 @@ public class B1_Service {
 	
 	
 	//본사:전매장오픈시간조회
-	public List<Store> StoreOpenList() {
-		return dao.StoreOpenList();
+	public List<Store> StoreOpenList(Store otl) {
+		return dao.StoreOpenList(otl);
+	}
+	public Store StoreDetailOpenTime(String frRegiNum){
+		return dao.StoreDetailOpenTime(frRegiNum);
 	}
 	
 	

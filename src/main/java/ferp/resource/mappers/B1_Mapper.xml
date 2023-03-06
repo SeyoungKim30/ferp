@@ -91,12 +91,31 @@
 		ORDER BY mcnt desc, msales desc
 	</select>
 	
+	
 	<!-- 본사:전매장오픈시간조회 -->
-	<select id="StoreOpenList" resultType="store">
+	<select id="StoreOpenList" parameterType="store" resultType="store">
 		SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
 		FROM store s, emp e
 		WHERE s.empnum=e.EMPNUM
 		AND frreginum!='9999999999'
+		<if test="frName!=null and !frName.equals('')">
+		AND frName LIKE '%'||#{frName}||'%'
+		</if>
+		<if test="frRepName!=null and !frRepName.equals('')">
+		AND frRepName LIKE '%'||#{frRepName}||'%'
+		</if>
+		<if test="ename!=null and !ename.equals('')">
+		AND ename LIKE '%'||#{ename}||'%'
+		</if>
+		ORDER BY frname
+	</select>
+	
+	<!-- 본사:매장오픈상세조회 -->
+	<select id="StoreDetailOpenTime" parameterType="String" resultType="store">
+		SELECT frname, fropertime, frrepname, ename
+		FROM store s, emp e
+		WHERE s.empnum=e.EMPNUM
+		AND frRegiNum=#{frRegiNum}
 	</select>
 
 </mapper>

@@ -173,8 +173,14 @@ SELECT * FROM STORECLERK s ;
 SELECT * FROM emp;
 SELECT * FROM store;
 
+--본사:전매장오픈시간조회
 SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
 FROM store s, emp e
 WHERE s.empnum=e.EMPNUM
 AND frreginum!='9999999999';
 
+--본사:특정매장오픈시간상세조회
+SELECT frname, fropertime, frrepname, ename
+FROM store s, emp e
+WHERE s.empnum=e.EMPNUM
+AND frreginum='1234567891';
