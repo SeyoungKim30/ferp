@@ -7,32 +7,31 @@
 <!DOCTYPE html>
 <html>
 
-<!--
-<link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
--->
+<link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
+<link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
+
 
 <style type="text/css">
 
 	.hdq_totalSalesPrt{
 	    display: inline-flex;
-	    background-color: rgba( 204, 204, 204);
+	    width: 100%;
+	    background-color: rgba( 204, 204, 204, 0.5);
 	    height: 90px;
-	    width: 80%;
 	    text-align: center;
 	    border-radius: 5px;
 	    justify-content: center; 
 	    align-items: center; /* 수직정렬 */
 	}
 	.hdq_totalSalesPrt>h2>span{
-		font-size: 30px;
+		font-size: 35px;
 	}
 	
 	
 	.hdq_search{
 		display:flex;
-	 	background-color: rgba( 204, 204, 204, 0.5 );
+	 	background-color: rgba( 204, 204, 204, 0.2 );
 	 	height:50px;
-	    width: 80%;
 	    border-radius: 5px;
 	    align-items: center; 
 	    margin-top: 5px;
@@ -50,7 +49,7 @@
 	}
 	.hdq_searchStandard{
 		display:inline-flex;
-		width: 80%;
+		width: 100%;
 		align-items: center; 
 	    justify-content: space-between;
 	    margin: 20px 0px;
@@ -91,80 +90,22 @@
 		font-weight: 600;
     	font-size: 18px;
 	}
-	input[type=month]{
-		height: 30px;
-		width: 120px;
-   		padding: 0 10px;
-		border-radius: 25px;
-		border: white;
-   		background: rgba( 204, 204, 204, 0.5 );
-   		text-align: center;
-   		color:#666666;
+	
+	.numdata{
+		text-align: end;
 	}
 	
 	/*검색버튼*/
 	.frsalesSchBtn {
-		color: #fff;
 		font-size: 15px;
     	font-weight: 500;
-		background-color: #007bff;
 		margin-left: 10px;
    		width: 65px;
    	 	border-radius: 5px;
    	 	border:0px;
 	}
 	
-	.frsalesSchBtn:hover {
-		color: #fff;
-		background-color: #0069d9;
-		border-color: #0062cc
-	}
 	
-	.frsalesSchBtn.focus, .frsalesSchBtn:focus {
-		box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
-	}
-	
-	.frsalesSchBtn.disabled, .frsalesSchBtn:disabled {
-		color: #fff;
-		background-color: #007bff;
-		border-color: #007bff
-	}
-	
-	
-	.frsalesSchBtn:not(:disabled):not(.disabled).active, .frsalesSchBtn:not(:disabled):not(.disabled):active,
-		.show>.frsalesSchBtn.dropdown-toggle {
-		color: #fff;
-		background-color: #0062cc;
-		border-color: #005cbf
-	}
-	
-	.frsalesSchBtn:not(:disabled):not(.disabled).active:focus, .frsalesSchBtn:not(:disabled):not(.disabled):active:focus,
-		.show>.frsalesSchBtn.dropdown-toggle:focus {
-		box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
-	}
-	
-	
-	/* 테이블 */
-	#frs_salesInfo_table{
-		width:80%;
-	}
-	table{
-		width:100%;
-		border:1px solid rgba( 204, 204, 204);
-		border-collapse:collapse;
-	}
-	thead{
-		background: rgba( 204, 204, 204, 0.5 );
-		text-align: center;
-    	font-weight: 600;
-	}
-	thead>tr>td{
-		padding: 8px 0px;
-	}
-	tr,td{
-		border:1px solid rgb( 204, 204, 204);
-		padding: 5px 0px 5px 10px;
-	}
 	.frt_last_culmm{
 		padding: 5px 10px;
 		display:flex;
@@ -180,88 +121,18 @@
 	}
 
 	/* 수정버튼 */
-	.fr_uptBtn {
-		color: #fff;
-		background-color: #28a745;
-		border-color: #28a745;
+	.btn-primary{
 		border-radius: 5px;
-   	 	border:0px;
 	}
-	
-	.fr_uptBtn:hover {
-		color: #fff;
-		background-color: #218838;
-		border-color: #1e7e34
-	}
-	
-	.fr_uptBtn.focus, .fr_uptBtn:focus {
-		box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .5)
-	}
-	
-	.fr_uptBtn.disabled, .fr_uptBtn:disabled {
-		color: #fff;
-		background-color: #28a745;
-		border-color: #28a745
-	}
-	
-	.fr_uptBtn:not(:disabled):not(.disabled).active, .fr_uptBtn:not(:disabled):not(.disabled):active,
-		.show>.fr_uptBtn.dropdown-toggle {
-		color: #fff;
-		background-color: #1e7e34;
-		border-color: #1c7430
-	}
-	
-	.fr_uptBtn:not(:disabled):not(.disabled).active:focus, .fr_uptBtn:not(:disabled):not(.disabled):active:focus,
-		.show>.fr_uptBtn.dropdown-toggle:focus {
-		box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .5)
-	}
-	
 	/* 삭제버튼 */
-	.fr_delBtn {
-		color: #fff;
-		background-color: #dc3545;
-		border-color: #dc3545;
+	.btn-danger {
 		border-radius: 5px;
-   	 	border:0px;
-	}
-	.fr_delBtn:hover {
-		color: #fff;
-		background-color: #c82333;
-		border-color: #bd2130
-	}
-	
-	.fr_delBtn.focus, .fr_delBtn:focus {
-		box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5)
-	}
-	
-	.fr_delBtn.disabled, .fr_delBtn:disabled {
-		color: #fff;
-		background-color: #dc3545;
-		border-color: #dc3545
-	}
-	
-	.fr_delBtn:not(:disabled):not(.disabled).active, .fr_delBtn:not(:disabled):not(.disabled):active,
-		.show>.fr_delBtn.dropdown-toggle {
-		color: #fff;
-		background-color: #bd2130;
-		border-color: #b21f2d
-	}
-	
-	.fr_delBtn:not(:disabled):not(.disabled).active:focus, .fr_delBtn:not(:disabled):not(.disabled):active:focus,
-		.show>.fr_delBtn.dropdown-toggle:focus {
-		box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5)
 	}
 	
 </style>
 
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-<!--
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-
-<link rel="stylesheet" href="${path}/resource/css/reset.css"/>
-<link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
--->
 <head>
 
 <meta charset="UTF-8">
@@ -282,7 +153,9 @@
 				<div class="hdq_totalSalesPrt">
 					<div>
 					<h2>투썸플레이스 지난 달 총 매출&nbsp;&nbsp;&nbsp;&nbsp;
-						<span>${addAllsales}</span>&nbsp;원
+						<span>
+							<fmt:formatNumber type="number" maxFractionDigits="3" value="${addAllsales}" />
+						</span>&nbsp;원
 					</h2>
 					</div>
 				</div>
@@ -326,15 +199,15 @@
 				<!-- 정보출력표 시작-->
 				<div id="frs_salesInfo_table">
 					<table>
-						<col width="30%">
-						<col width="14%">
-						<col width="14%">
-						<col width="13%">
-						<col width="7%">
-						<col width="7%">
+						<col width="20%">
+						<col width="15%">
+						<col width="15%">
+						<col width="15%">
+						<col width="10%">
+						<col width="10%">
 						<col width="15%">
 						<thead>
-							<tr><td>매장명</td><td>매장매출액</td><td>매장매입액</td><td>매장전화번호</td><td>점주명</td><td>담당직원</td><td>매장정보수정</td></tr>
+							<tr><th>매장명</th><th>매장매출액</th><th>매장매입액</th><th>매장전화번호</th><th>점주명</th><th>담당직원</th><th>매장정보수정</th></tr>
 						</thead>
 						<tbody></tbody>
 					</table>
@@ -364,18 +237,18 @@
 	//ajax fetch사용
 	function search(){
 		let url="${path}/salesInfoJson.do?frname="+frname+"&frRepname="+frRepname+"&ename="+ename+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt  //검색값 넘기기
-		console.log(url);
+		//console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
-			console.log(json);
+			//console.log(json);
 			var sbslist=json.sbslist;
 			var trtd='';
 		
 			sbslist.forEach(function(each){
-				trtd+="<tr><td>"+each.frname+"</td><td>"+each.frsales+"</td><td>"+each.frpurchase+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='fr_uptBtn'>수정</span><span class='fr_delBtn'>삭제</span></td></tr>"
+				trtd+="<tr><td ondblclick='goDetail("+each.frRegiNum+")'>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
 			})
 			$("table tbody").html(trtd);
-			
+			//console.log(trtd);
 		}).catch(function(err){console.log(err)})	
 
 	}
@@ -403,11 +276,15 @@
 				alert("검색날짜에 유의하세요");
 			}
 		})
-		
-		
-		// https://goddino.tistory.com/81
-		
+
 	})
+	
+			
+	function goDetail(frRegiNum){
+		location.href="${path}/salesDetail.do?frRegiNum="+frRegiNum+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt
+	}
+
+	
 	
 </script>
 </html>

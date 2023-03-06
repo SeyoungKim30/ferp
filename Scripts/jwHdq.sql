@@ -44,7 +44,7 @@ FROM PRODUCT prd, ( SELECT DEMANDER, PRODUCTNUM,  sum(amount) mcnt
 WHERE prd.PRODUCTNUM=prdord.PRODUCTNUM
 GROUP BY DEMANDER;
 */
-SELECT * FROM store WHERE FRREGINUM!='9999999999';
+SELECT * FROM store;
 
 
 ----본사:전체매장의 개별매매액조회(매출,매입 모두 출력)
@@ -70,29 +70,122 @@ AND ename LIKE '%'||''||'%'
 ORDER BY frname;
 
 
+--본사:특정매장 정보 조회
+--1
+SELECT frname, s.frreginum, TO_char(FROPEN,'YYYY.MM.DD') AS fropen, 
+fraddress, frtel, frrepname, ename
+FROM store s, emp e
+WHERE s.empnum=e.empnum
+AND frreginum='1234567891';
+--2 매출
+SELECT to_char(orderdate,'YYYY.MM') orderdate, sum(payprice) frsales
+FROM ORDERS o
+where state='완료'
+AND frreginum='1234567891'
+GROUP BY to_char(orderdate,'YYYY.MM') ;
+--2 매입
+SELECT orderdate, sum(mcnt*price)
+FROM PRODUCT p ,(SELECT PRODUCTNUM, to_char(orderdate, 'YYYY.MM') orderdate, nvl(sum(amount),0) mcnt
+				FROM PRODORDER
+				WHERE DEMANDER='1234567891'
+				AND PAYMENTSTATE='완료'
+				GROUP BY PRODUCTNUM, orderdate )po
+WHERE p.PRODUCTNUM=po.productnum
+GROUP BY orderdate;
+--2 완.
+SELECT o.orderdate, nvl(frsales,0) frsales, nvl(frpurchase,0) frpurchase,  nvl(frsales-frpurchase,0) profit
+FROM (  SELECT orderdate, nvl(sum(mcnt*price),0) frpurchase
+		FROM PRODUCT p ,(SELECT to_char(orderdate, 'YYYY.MM') orderdate, PRODUCTNUM, nvl(sum(amount),0) mcnt
+						FROM PRODORDER
+						WHERE DEMANDER='1234567891'
+						AND PAYMENTSTATE='완료'
+						GROUP BY PRODUCTNUM, to_char(orderdate, 'YYYY.MM'))po
+		WHERE p.PRODUCTNUM=po.productnum
+		GROUP BY orderdate ) po,
+	(	SELECT to_char(orderdate,'YYYY.MM') orderdate, nvl(sum(payprice),0) frsales
+		FROM ORDERS o
+		where state='완료'
+		AND frreginum='1234567891'
+		GROUP BY to_char(orderdate,'YYYY.MM'))o
+WHERE po.orderdate(+)=o.orderdate
+AND to_date(o.orderdate,'YYYY-MM') BETWEEN to_date('2023-02', 'YYYY-MM') AND to_date('2023/02', 'YYYY-MM')
+ORDER BY o.orderdate desc;
+--3.메뉴
+SELECT MENUNAME, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales 
+FROM menu m,(SELECT menunum, sum(amount) mcnt
+			FROM orders
+			WHERE FRREGINUM='1234567891'
+			AND state='완료'
+			AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/02', 'YYYY-MM')
+			group BY menunum) o
+WHERE m.MENUNUM=o.MENUNUM(+)
+ORDER BY mcnt desc, msales desc;
 
---본사:특정매장의 매입액조회
-SELECT sum(price*mcnt) AS mtotal
-FROM product prd, (SELECT PRODUCTNUM, sum(amount) mcnt
-					FROM PRODORDER
-					WHERE DEMANDER='1234567891'
-					AND PAYMENTSTATE='완료'
-					AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/01', 'YYYY-MM')
-					GROUP BY PRODUCTNUM ) ord
-WHERE prd.PRODUCTNUM = ord.PRODUCTNUM;
+SELECT * FROM orders;
 
-SELECT PRODUCTNUM, sum(amount) 
+--
+SELECT to_char(orderdate, 'YYYY/MM'), PRODUCTNUM, nvl(sum(amount),0) mcnt
 FROM PRODORDER
-WHERE DEMANDER='1234567891' --querystring으로 받아서
+WHERE DEMANDER='1234567891'
 AND PAYMENTSTATE='완료'
-AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/01', 'YYYY-MM') --querystring으로 받아서
-GROUP BY PRODUCTNUM ;
+GROUP BY PRODUCTNUM, to_char(orderdate, 'YYYY/MM');
+--
+SELECT od, p.PRODUCTNUM, mcnt*price
+FROM PRODUCT p ,(SELECT to_char(orderdate, 'YYYY/MM') od, PRODUCTNUM, nvl(sum(amount),0) mcnt
+				FROM PRODORDER
+				WHERE DEMANDER='1234567891'
+				AND PAYMENTSTATE='완료'
+				GROUP BY PRODUCTNUM, to_char(orderdate, 'YYYY/MM'))po
+WHERE p.PRODUCTNUM=po.productnum;
+--특정매장의 매달 매입액완성
+SELECT orderdate, sum(mcnt*price)
+FROM PRODUCT p ,(SELECT to_char(orderdate, 'YYYY/MM') orderdate, PRODUCTNUM, nvl(sum(amount),0) mcnt
+				FROM PRODORDER
+				WHERE DEMANDER='1234567891'
+				AND PAYMENTSTATE='완료'
+				GROUP BY PRODUCTNUM, to_char(orderdate, 'YYYY/MM'))po
+WHERE p.PRODUCTNUM=po.productnum
+GROUP BY orderdate;
+--정해진 기간동안 어떤메뉴가 얼만큼 많이 팔렸는지.완
+SELECT MENUNAME, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales 
+FROM menu m,(SELECT menunum, sum(amount) mcnt
+			FROM orders
+			WHERE FRREGINUM='1234567891'
+			AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/02', 'YYYY-MM')
+			group BY menunum) o
+WHERE m.MENUNUM=o.MENUNUM(+)
+ORDER BY mcnt desc, msales desc;
+
+--매장번호, 조회날짜
+
+--본사:오픈시간매장전체조회
+SELECT frname, s.frreginum, substr(fropertime,1,5) fropertime, frtel, frrepname, ename
+FROM store s, emp e
+WHERE s.empnum=e.empnum
+AND FRREGINUM !='9999999999'
+ORDER BY frname;
 
 
-
+SELECT * FROM EMPCHECKIN;--직원출퇴근시간
+SELECT * FROM STORECLERK ;--12345678901006
+SELECT * FROM emp;
 SELECT * FROM store;
 SELECT * FROM product;
+SELECT * FROM ORDERS;
 SELECT * FROM PRODORDER;
+
+UPDATE emp AS e, store AS s
+	SET e.empnum='22051001', s.empnum='22051001'
+	WHERE e.empnum='2205251001'
+	and s.empnum='2205251001';
+
+
+--1234567891 frreginum   // gwanghwa
+--22051002 empnum   // a1234
+
+
+
+
 
 --INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567892' FROM dual),'PD10002','1234567892','9999999999',to_date('2023-02-25','YYYY-MM-DD'),1,'정산전','완료');
 /*
@@ -107,24 +200,20 @@ INSERT INTO PRODORDER values('2301131234567891','PD10001','1234567891','99999999
 INSERT INTO PRODORDER values('2301131234567891','PD10002','1234567891','9999999999',to_date('2023-01-13','YYYY-MM-DD'),1,'완료','완료');
 INSERT INTO PRODORDER values('2301201234567891','PD10001','1234567891','9999999999',to_date('2023-01-20','YYYY-MM-DD'),4,'완료','완료');
 INSERT INTO PRODORDER values('2301201234567891','PD10002','1234567891','9999999999',to_date('2023-01-20','YYYY-MM-DD'),2,'완료','완료');
+
+INSERT INTO PRODORDER values('2302071234567891','PD10001','1234567891','9999999999',to_date('2023-02-07','YYYY-MM-DD'),5,'완료','완료');
+INSERT INTO PRODORDER values('2302121234567891','PD10002','1234567891','9999999999',to_date('2023-02-12','YYYY-MM-DD'),7,'완료','완료');
+INSERT INTO PRODORDER values('2302131234567891','PD10001','1234567891','9999999999',to_date('2023-02-13','YYYY-MM-DD'),2,'완료','완료');
+INSERT INTO PRODORDER values('2302131234567891','PD10002','1234567891','9999999999',to_date('2023-02-13','YYYY-MM-DD'),1,'완료','완료');
+INSERT INTO PRODORDER values('2302201234567891','PD10001','1234567891','9999999999',to_date('2023-02-20','YYYY-MM-DD'),4,'완료','완료');
+INSERT INTO PRODORDER values('2302201234567891','PD10002','1234567891','9999999999',to_date('2023-02-20','YYYY-MM-DD'),2,'완료','완료');
 */
-
-
-SELECT * FROM PRODORDER;
-
-
-SELECT * FROM store;
-SELECT * FROM emp;
 
 
 SELECT * FROM orders; 
 SELECT * FROM PRODORDER;
 --where SUBSTR(orderdate, 1, 5) BETWEEN '23/01' AND '23/02'; <<절대 BETWEEN '2023/01'형태XXXXX
 --AND orderdate BETWEEN to_Date('화면에서 받아오는 시작날짜','YYYY/MM') AND to_Date('화면에서 받아오는 끝날짜','YYYY/MM')
-
-
---본사:특정매장의 매출조회(사용자지정기간-月기준)
-
 
  
 SELECT * FROM store; -- frreginum 1234567891   1234567892
