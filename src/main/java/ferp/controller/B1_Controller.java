@@ -1,7 +1,5 @@
 package ferp.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ferp.service.B1_Service;
 import vo.Orders;
@@ -36,12 +33,13 @@ public class B1_Controller {
 		return service.lastmonthAllSales();
 	}
 	// http://localhost:6080/ferp/salesInfoJson.do
-	// 본사:매장별매출 전체조회
+	// 본사:전매장매출 전체조회
 	@RequestMapping("salesInfoJson.do")
 	public String r7503SalesInfoJson(Orders ord, Model d){
 		d.addAttribute("sbslist", service.SalesByStoreList(ord));
 		return "pageJsonReport";
 	}
+	
 	
 	
 	// 본사:특정매장정보조회&페이지이동
@@ -51,17 +49,22 @@ public class B1_Controller {
 		d.addAttribute("dinfo", service.StoreDetailInfo(frRegiNum));
 		return "WEB-INF\\headquarter\\pg7505_salesDetailInfo.jsp";
 	}
-
+	
 	// http://localhost:6080/ferp/detailInfoJson.do
 	// 본사:특정매장정보JSON
 	@RequestMapping("detailInfoJson.do")
-	public String r7505detailSalesJson(Orders ord, Model d) {
-		
-		d.addAttribute("dInfoList",service.multipleJson(ord) );
-		
+	public String r7505detailSalesJson(Orders ord, Model d) {	
+		d.addAttribute("dInfoList",service.multipleJson(ord) );	
 		return "pageJsonReport";
 	}
 	
+	
+	// 본사:전매장 오픈시간조회
+	@RequestMapping("storeOpen.do")
+	public String r6202StoreOpen(@ModelAttribute("sch") Orders ord, Model d){
+		//d.addAttribute("sbslist", service.SalesByStoreList(ord));
+		return "WEB-INF\\headquarter\\pg6202_storeOpen.jsp";
+	}
 
 	
 

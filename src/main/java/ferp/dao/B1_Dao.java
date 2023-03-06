@@ -13,4 +13,6 @@ public interface B1_Dao {
 	public Orders StoreDetailInfo(String frRegiNum); //본사:매장정보상세조회
 	public List<Orders> DetailSalesList(Orders dinfo); //본사:매장정보상세조회-매매액
 	public List<Orders> DetailMenuList(Orders dinfo); //본사:매장정보상세조회-메뉴
+	
+	public List<Store> StoreOpenList(); //본사:매장오픈시간조회
 }

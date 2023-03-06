@@ -174,8 +174,7 @@
 						<input class="infoSch" name="frname" value="${sch.frname}"  type="text" placeholder=" 매장명 입력"/>
 						<input class="infoSch" name="frRepname" value="${sch.frRepname}"  type="text" placeholder=" 점주명 입력"/>
 						<input class="infoSch" name="ename"  value="${sch.ename}" type="text" placeholder=" 담당직원 입력"/>
-						<button class="frsalesSchBtn" type="submit">검색</button>
-				
+						<button class="frsalesSchBtn" type="submit">검색</button>			
 				</div>
 				<!-- 검색칸 끝 -->
 					

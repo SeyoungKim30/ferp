@@ -143,6 +143,15 @@
 			</table>
 			<!-- 매출조회 끝 -->
 			
+			<!-- 결과값출력 시작 -->
+			<div class="salesResult">
+				<div><span>총 매출액</span><span id="fsales"> </span></div>
+				<div><span>총 매입액</span><span id="fpurchase"> </span></div>
+				<hr>
+				<div id="lastResult"><span></span></div>
+			</div>
+			<!-- 결과값출력 끝 -->
+			
 			
 			<!-- 매출상세내역 시작 -->
 			<h2 id="detail">조회기간 상세판매내역</h2>
@@ -156,14 +165,7 @@
 			<!-- 매출상세내역 끝 -->
 			
 			
-			<!-- 결과값출력 시작 -->
-			<div class="salesResult">
-				<div><span>총 매출액</span><span id="fsales"> </span></div>
-				<div><span>총 매입액</span><span id="fpurchase"> </span></div>
-				<hr>
-				<div id="lastResult"><span></span></div>
-			</div>
-			<!-- 결과값출력 끝 -->
+
 			
 		</div>
 	</div>
