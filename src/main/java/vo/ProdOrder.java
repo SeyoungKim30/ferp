@@ -10,8 +10,14 @@ public class ProdOrder {
 	private String paymentState;
 	private String orderState;
 	private String orderDateMonth;
+	private String productOrder;
 	
-	
+	public String getProductOrder() {
+		return productOrder;
+	}
+	public void setProductOrder(String productOrder) {
+		this.productOrder = productOrder;
+	}
 	public String getOrderDateMonth() {
 		return orderDateMonth;
 	}
