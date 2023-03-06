@@ -20,11 +20,11 @@ fhrmdlswjdqh djqtdma
 <c:if test="${login != null }">
 <c:if test="${login.frRegiNum == '9999999999' }">
 본사메인으로 이동
-<c:redirect url="url경로" context="컨텍스트 경로"/>
+<c:redirect url="p0001.jsp"/>
 
 </c:if>
 <c:if test="${login.frRegiNum == '9999999999' }">
-가맹점 메인으로 이동
+<c:redirect url="p0002.jsp" />
 </c:if>
 </c:if>
 </body>
