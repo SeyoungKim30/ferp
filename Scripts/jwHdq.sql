@@ -148,13 +148,36 @@ WHERE p.PRODUCTNUM=po.productnum
 GROUP BY orderdate;
 --정해진 기간동안 어떤메뉴가 얼만큼 많이 팔렸는지.완
 SELECT MENUNAME, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales 
-FROM menu m,(SELECT menunum, sum(amount) mcnt
+FROM menu m, (SELECT menunum, sum(amount) mcnt
 			FROM orders
 			WHERE FRREGINUM='1234567891'
+			AND state='완료'
 			AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/02', 'YYYY-MM')
-			group BY menunum) o
-WHERE m.MENUNUM=o.MENUNUM(+)
-ORDER BY mcnt desc, msales desc;
+			group BY menunum) o,
+			(SELECT menunum
+			FROM ONSALE
+			WHERE FRREGINUM='1234567891') os
+WHERE m.menunum=o.menunum(+) AND os.menunum=m.menunum
+ORDER BY mcnt desc, msales desc;	
+
+	
+
+SELECT * FROM ONSALE ; --1035
+SELECT * FROM MENU m  ;
+
+/*
+INSERT INTO ONSALE VALUES ('1021', '1234567891');
+INSERT INTO ONSALE VALUES ('1022', '1234567891');
+INSERT INTO ONSALE VALUES ('1023', '1234567891');
+INSERT INTO ONSALE VALUES ('1024', '1234567891');
+INSERT INTO ONSALE VALUES ('1025', '1234567891');
+INSERT INTO ONSALE VALUES ('1029', '1234567891');
+INSERT INTO ONSALE VALUES ('1030', '1234567891');
+INSERT INTO ONSALE VALUES ('1031', '1234567891');
+INSERT INTO ONSALE VALUES ('1033', '1234567891');
+INSERT INTO ONSALE VALUES ('1034', '1234567891');
+*/
+
 
 --매장번호, 조회날짜
 
@@ -175,9 +198,9 @@ SELECT * FROM ORDERS;
 SELECT * FROM PRODORDER;
 
 UPDATE emp AS e, store AS s
-	SET e.empnum='22051001', s.empnum='22051001'
-	WHERE e.empnum='2205251001'
-	and s.empnum='2205251001';
+SET e.empnum='22051001', s.empnum='22051001'
+WHERE e.empnum='2205251001'
+and s.empnum='2205251001';
 
 
 --1234567891 frreginum   // gwanghwa
