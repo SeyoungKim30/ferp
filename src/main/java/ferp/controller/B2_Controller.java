@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ferp.service.B2_Service;
-import vo.HOemp;
+import vo.Emp;
 import vo.Menu;
 import vo.Notice;
 import vo.NoticeSch;
@@ -25,7 +25,7 @@ public class B2_Controller {
 	private B2_Service service;
 	
 	@ModelAttribute("empCombo")
-	public List<HOemp> getHOemp(){
+	public List<Emp> getHOemp(){
 		return service.getHOemp();
 	}
 	@ModelAttribute("noticeCategoryCombo")
@@ -108,10 +108,10 @@ public class B2_Controller {
 	// http://localhost:7080/ferp/insertEmp.do
 	@GetMapping("/insertEmp.do")
 	public String insertEmp() {
-		return "WEB-INF\\view\\emp_insert.jsp";
+		return "WEB-INF\\view\\emp_insert1.jsp";
 	}
 	@PostMapping("/insertEmp.do")
-	public String insertEmp(HOemp ins, RedirectAttributes redirect) {
+	public String insertEmp(Emp ins, RedirectAttributes redirect) {
 		if( service.insertEmp(ins)!=null ) {
 			redirect.addFlashAttribute("isgMsg", "등록 성공");
 		}
@@ -126,7 +126,7 @@ public class B2_Controller {
 		return "WEB-INF\\view\\emp_passUpdate.jsp";
 	}
 	@PostMapping("/updateEmpPass.do")
-	public String updateEmpPass(HOemp upt, RedirectAttributes redirect) {
+	public String updateEmpPass(Emp upt, RedirectAttributes redirect) {
 		if( service.updateEmpPass(upt)!= null) {
 			redirect.addFlashAttribute("uptMsg", "수정 완료");
 		}

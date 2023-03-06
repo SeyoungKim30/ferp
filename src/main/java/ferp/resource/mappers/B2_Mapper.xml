@@ -54,11 +54,11 @@
 	
 	
 	<!-- 직원 등록 -->
-	<insert id="insertEmp" parameterType="hoemp">
+	<insert id="insertEmp" parameterType="emp">
 		INSERT INTO emp99 VALUES(to_char(sysdate,'yymm')||emp99_seq.nextval, #{pass}, #{ename}, #{dname})
 	</insert>
 	<!-- 직원 비밀번호 변경 -->
-	<update id="updateEmpPass" parameterType="hoemp">
+	<update id="updateEmpPass" parameterType="emp">
 		UPDATE EMP99
 			SET pass = #{pass}
 		WHERE empNum = #{empNum}	
@@ -118,9 +118,9 @@
 	
 	
 	<!-- 사원 combo -->
-	<select id="getHOemp" resultType="hoemp">
+	<select id="getHOemp" resultType="emp">
 		SELECT *
-		FROM HOemp
+		FROM emp99
 	</select>
 	<!-- 문의글 카테고리 combo -->
 	<select id="getNoticeCategory" resultType="string">

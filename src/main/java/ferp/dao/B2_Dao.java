@@ -2,7 +2,7 @@ package ferp.dao;
 
 import java.util.List;
 
-import vo.HOemp;
+import vo.Emp;
 import vo.Menu;
 import vo.Notice;
 import vo.NoticeSch;
@@ -25,9 +25,9 @@ public interface B2_Dao {
 	public void deleteStore(String frRegiNum);
 	
 	// 본사 직원 등록
-	public void insertEmp(HOemp ins);
+	public void insertEmp(Emp ins);
 	// 본사 직원 비밀번호 변경
-	public void updateEmpPass(HOemp upt);
+	public void updateEmpPass(Emp upt);
 	
 	
 	public int totCntNotice(NoticeSch sch);
@@ -46,7 +46,7 @@ public interface B2_Dao {
 	public void deleteNotice(String noticeNum);
 	
 	// 직원 콤보
-	public List<HOemp> getHOemp();
+	public List<Emp> getHOemp();
 	// 문의글 카테고리 콤보
 	public List<String> getNoticeCategory();
 	

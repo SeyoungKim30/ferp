@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import ferp.dao.B2_Dao;
-import vo.HOemp;
+import vo.Emp;
 import vo.Menu;
 import vo.Notice;
 import vo.NoticeSch;
@@ -90,17 +90,17 @@ public class B2_Service {
 	
 	
 	// 본사 직원 등록
-	public String insertEmp(HOemp ins) {
+	public String insertEmp(Emp ins) {
 		
 		dao.insertEmp(ins);
 		
-		return ins.getEmpNum();
+		return ins.getEmpnum();
 	}
 	// 본사 직원 비밀번호 변경
-	public String updateEmpPass(HOemp upt) {
+	public String updateEmpPass(Emp upt) {
 		dao.updateEmpPass(upt);
 		
-		return upt.getEmpNum();
+		return upt.getEmpnum();
 	}
 	
 	
@@ -175,7 +175,7 @@ public class B2_Service {
 	}
 	
 	// 직원 콤보박스
-	public List<HOemp> getHOemp(){
+	public List<Emp> getHOemp(){
 		return dao.getHOemp();
 	}
 	// 문의글 카테고리 콤보

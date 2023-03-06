@@ -126,7 +126,6 @@
 							<c:forEach var="emp" items="${empCombo}">
 								<option value="${emp.eno}">${emp.ename}</option>
 							</c:forEach>
-							
 						</select>				
 						<input type="text" name="frAddress" placeholder="주소 입력">
 					</div>					

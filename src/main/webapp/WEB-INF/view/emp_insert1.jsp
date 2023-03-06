@@ -21,7 +21,10 @@
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 
 </head>
-
+<script type="text/javascript">
+	localStorage.setItem("pageIdx","3300")
+	localStorage.setItem("eqIdx","1")
+</script>
 <body class="container">
 	<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">

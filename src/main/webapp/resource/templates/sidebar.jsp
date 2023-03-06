@@ -91,8 +91,9 @@
                         </ul>
                     </li>
                      <li>
-                        <a href="#">정보수정</a>
+                        <a href="#">본사 직원 관리</a>
                         <ul>
+                            <li id="4101"><a href="${path}/insertEmp.do">- 아이디 발급</a></li>
                             <li id="4104"><a href="${path}/updateEmpPass.do">- 비밀번호변경</a></li>
                    		</ul>
                     </li>
