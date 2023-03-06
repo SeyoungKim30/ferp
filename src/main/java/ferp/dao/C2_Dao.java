@@ -4,6 +4,7 @@ import java.util.List;
 
 import vo.Product;
 import vo.ProductProdOrder;
+import vo.ScheduleCalender;
 
 public interface C2_Dao {
 	
@@ -23,4 +24,7 @@ public interface C2_Dao {
 	
 	// 발주 상태 콤보
 	public List<String> orderStateCom();
+	
+	// 캘린더
+	public List<ScheduleCalender> sclerkschd(String writer);
 }

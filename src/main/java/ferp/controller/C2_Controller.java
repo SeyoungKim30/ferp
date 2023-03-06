@@ -104,5 +104,15 @@ public class C2_Controller {
 	
 //	본사 재고 매매내역조회
 	
-	
+	// http://localhost:6080/ferp/sclerkschd.do
+	// 직원스케줄 캘린더
+	@GetMapping("/sclerkschd.do")
+	public String sclerkschd() {
+		return "WEB-INF\\store\\clerkschd.jsp";
+	}
+	@RequestMapping("schdajax.do")
+	public String schdajax(Model d){
+		d.addAttribute("list",service.sclerkschd("1234567891"));
+		return "pageJsonReport";
+	}
 }
