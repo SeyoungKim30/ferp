@@ -23,7 +23,7 @@
 
 <body>
     <div class="container">
-        <header>  
+        <header>
             <div class="logo">
                 <h1><a href="#"><img src="/ferp/resource/img/F.ERP.png" alt=""></a></h1>
             </div>
@@ -86,13 +86,15 @@
            		</div>
 				<table>
 			   	<col width="15%">
-			   	<col width="60%">
+			   	<col width="50%">
 			   	<col width="15%">
+			   	<col width="10%">
 			   	<col width="10%">
 				    <thead>
 				      <tr>
 				        <th>NO</th>
 				        <th>제목</th>
+				        <th>작성자</th>
 				        <th>작성일</th>
 				        <th>조회수</th>
 				      </tr>
@@ -109,8 +111,9 @@
 				    				<img src="${path}/resource/img/rere.png" width="3%" height="5%">
 				    			</c:if>
 				    		${qna.title}</td>
+				    		<td>${qna.writer}</td>
 				    		<td><fmt:formatDate value="${qna.regdte}"/></td>
-				    		<td>${qna.readCnt}</td>
+				    		<td class="readCnt">${qna.readCnt}</td>
 				    	</tr>
 						</c:forEach>
 				    </tbody>	

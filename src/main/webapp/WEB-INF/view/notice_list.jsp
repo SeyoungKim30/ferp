@@ -103,7 +103,7 @@
 				    		<td>${notice.cnt}</td>
 				    		<td class="tab_title" style="text-align: left;" onclick="goDetail('${notice.noticeNum}')">${notice.title}</td>
 				    		<td><fmt:formatDate value="${notice.regdte}"/></td>
-				    		<td style="text-align: right;">${notice.readCnt}</td>
+				    		<td class="readCnt">${notice.readCnt}</td>
 				    	</tr>
 						</c:forEach>
 				    </tbody>   				

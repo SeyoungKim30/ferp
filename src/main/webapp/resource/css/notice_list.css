@@ -93,7 +93,7 @@ table td {
   border-collapse: collapse;
   text-align: center;
 }
-table td:nth-child(4) {
+.readCnt {
   text-align: right;
   padding-right: 50px;
 }
