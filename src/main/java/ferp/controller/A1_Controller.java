@@ -130,7 +130,6 @@ public class A1_Controller {
 		return "pageJsonReport";
 	}
 	
-	
 	// 전체 메뉴 조회 페이지
 	@RequestMapping("/onsaleList.do")
 	public String pg2002onsaleList(Model d, HttpSession session){
