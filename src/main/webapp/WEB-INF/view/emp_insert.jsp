@@ -76,10 +76,8 @@
                 </ul>
             </div>
             <div class="contents">
-	        	<div>
 	        	<form method="post">
 	     	        <h2 class="insert_emp">직원 등록</h2>
-	        	</div>
 		
 	        	<div class="content">
 					<div class="first_line">
@@ -104,9 +102,8 @@
 					<div class="submit_line">
 						<button type="button" class="insBtn">등 록</button>
 					</div>	
-					
-				</form>		
 				</div>
+				</form>
             </div>
         </div>
     </div>
