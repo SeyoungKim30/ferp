@@ -119,8 +119,9 @@ public class C1_Controller {
 	
 	@RequestMapping("updateOrderState.do")
 	@ResponseBody
-	public int r9203updateOrderState(Model model,ProdOrder prodOrder) {
-		return service.r9203updateOrderState(prodOrder);
+	public String r9203updateOrderState(Model model,ProdOrder prodOrder) {
+		int a=service.r9203updateOrderState(prodOrder);
+		return a+"";
 	}
 	
 

@@ -9,9 +9,16 @@ public class ProdOrder {
 	private int amount;
 	private String paymentState;
 	private String orderState;
+	private String orderStateUpdate;
 	private String orderDateMonth;
 	
 	
+	public String getOrderStateUpdate() {
+		return orderStateUpdate;
+	}
+	public void setOrderStateUpdate(String orderStateUpdate) {
+		this.orderStateUpdate = orderStateUpdate;
+	}
 	public String getOrderDateMonth() {
 		return orderDateMonth;
 	}
