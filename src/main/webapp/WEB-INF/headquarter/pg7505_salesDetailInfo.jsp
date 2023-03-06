@@ -27,6 +27,7 @@
 	}
 	#backBtn:hover {
 		background-color: #0069d9;
+		cursor:pointer;
 	}
 	#backBtn.focus, #backBtn:focus {
 		box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
@@ -62,6 +63,7 @@
 	#detail{
 		margin: 40px 0px 15px 5px;
 	}
+
 	
 	
 	.salesResult{
@@ -81,6 +83,7 @@
 	.salesResult>div>hr{
 		margin: 3px 0px;
 	}
+
 	.numdata{
 		text-align: end;
 	}
@@ -101,7 +104,7 @@
 			<h2>매장 상세 조회</h2><br><hr><br>
 			
 			<!-- 이전페이지가기 버튼-->
-			<div id="backBtn">
+			<div onclick="back()" id="backBtn">
 			 &lt; 전체조회페이지
 			</div>
 			
@@ -222,8 +225,12 @@
 				alert("검색날짜에 유의하세요");
 			}
 		})
-
 	})
+	
+	//이전페이지가기 클릭
+	function back(){
+		history.back();
+	}
 
 </script>
 </html>

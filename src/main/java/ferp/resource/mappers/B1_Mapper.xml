@@ -76,17 +76,19 @@
 	</select>
 	
 	<!-- 본사:매장정보상세조회-메뉴 -->
-	<select id="DetailMenuList" parameterType="orders" resultType="orders">		
-		<!-- 현재매장에서 판매중인 메뉴 -->
+	<select id="DetailMenuList" parameterType="orders" resultType="orders">			
 		SELECT MENUNAME, price, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales 
-		FROM menu m,(SELECT menunum, sum(amount) mcnt
+		FROM menu m, (SELECT menunum, sum(amount) mcnt
 					FROM orders
-					WHERE FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
+					WHERE FRREGINUM=#{frRegiNum, jdbcType=VARCHAR, index=1}
 					AND state='완료'
 					AND TRUNC(orderdate,'month') BETWEEN to_date(#{frSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{toSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM')
-					group BY menunum) o
-		WHERE m.MENUNUM=o.MENUNUM(+)
-		ORDER BY mcnt desc, msales desc	
+					group BY menunum) o,
+					(SELECT menunum
+					FROM ONSALE
+					WHERE FRREGINUM=#{frRegiNum, jdbcType=VARCHAR, index=1}) os
+		WHERE m.menunum=o.menunum(+) AND os.menunum=m.menunum
+		ORDER BY mcnt desc, msales desc
 	</select>
 
 </mapper>

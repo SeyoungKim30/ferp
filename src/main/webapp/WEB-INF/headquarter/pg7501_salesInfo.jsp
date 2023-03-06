@@ -47,6 +47,7 @@
 		height:30px;
 		width: 25%;
 	}
+	
 	.hdq_searchStandard{
 		display:inline-flex;
 		width: 100%;
@@ -90,11 +91,16 @@
 		font-weight: 600;
     	font-size: 18px;
 	}
+	input[type=month]{
+		cursor:pointer;
+	}
 	
 	.numdata{
 		text-align: end;
 	}
-	
+	tbody tr{
+		cursor:pointer;
+	}
 	/*검색버튼*/
 	.frsalesSchBtn {
 		font-size: 15px;
@@ -107,7 +113,6 @@
 	
 	
 	.frt_last_culmm{
-		padding: 5px 10px;
 		display:flex;
 		text-align:center;
 		justify-content: space-between;
@@ -116,12 +121,13 @@
 	}
 	.frt_last_culmm>span{
 		height: 25px;
-	    width:47%;
+	    width:46%;
 	    line-height:25px;/*세로정렬*/
 	}
 
+	
 	/* 수정버튼 */
-	.btn-primary{
+	.btn-secondary{
 		border-radius: 5px;
 	}
 	/* 삭제버튼 */
@@ -245,7 +251,7 @@
 			var trtd='';
 		
 			sbslist.forEach(function(each){
-				trtd+="<tr><td ondblclick='goDetail("+each.frRegiNum+")'>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
+				trtd+="<tr ondblclick='goDetail("+each.frRegiNum+")'><td>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
 			})
 			$("table tbody").html(trtd);
 			//console.log(trtd);

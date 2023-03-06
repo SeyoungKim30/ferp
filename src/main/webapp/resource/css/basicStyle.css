@@ -17,7 +17,8 @@ button {
 	line-height: 1.5;
 	border-radius: 10px;
 	transition: color .15s ease-in-out, background-color .15s ease-in-out,
-		border-color .15s ease-in-out, box-shadow .15s ease-in-out
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	cursor:pointer;	
 }
 
 @media screen and (prefers-reduced-motion:reduce) {
@@ -54,13 +55,14 @@ button:not(:disabled):not(.disabled) {
 .btn-primary {
 	color: #fff;
 	background-color: #007bff;
-	border-color: #007bff
+	border-color: #007bff;
+	cursor:pointer;
 }
 
 .btn-primary:hover {
 	color: #fff;
 	background-color: #0069d9;
-	border-color: #0062cc
+	border-color: #0062cc;
 }
 
 .btn-primary.focus, .btn-primary:focus {
@@ -88,13 +90,15 @@ button:not(:disabled):not(.disabled) {
 .btn-secondary {
 	color: #fff;
 	background-color: #6c757d;
-	border-color: #6c757d
+	border-color: #6c757d;
+	cursor:pointer;
 }
 
 .btn-secondary:hover {
 	color: #fff;
 	background-color: #5a6268;
-	border-color: #545b62
+	border-color: #545b62;
+	cursor:pointer;
 }
 
 .btn-secondary.focus, .btn-secondary:focus {
@@ -123,13 +127,14 @@ button:not(:disabled):not(.disabled) {
 .btn-success {
 	color: #fff;
 	background-color: #28a745;
-	border-color: #28a745
+	border-color: #28a745;
+	cursor:pointer;
 }
 
 .btn-success:hover {
 	color: #fff;
 	background-color: #218838;
-	border-color: #1e7e34
+	border-color: #1e7e34;
 }
 
 .btn-success.focus, .btn-success:focus {
@@ -157,7 +162,8 @@ button:not(:disabled):not(.disabled) {
 .btn-info {
 	color: #fff;
 	background-color: #17a2b8;
-	border-color: #17a2b8
+	border-color: #17a2b8;
+	cursor:pointer;
 }
 
 .btn-info:hover {
@@ -191,7 +197,8 @@ button:not(:disabled):not(.disabled) {
 .btn-warning {
 	color: #212529;
 	background-color: #ffc107;
-	border-color: #ffc107
+	border-color: #ffc107;
+	cursor:pointer;
 }
 
 .btn-warning:hover {
@@ -225,7 +232,8 @@ button:not(:disabled):not(.disabled) {
 .btn-danger {
 	color: #fff;
 	background-color: #dc3545;
-	border-color: #dc3545
+	border-color: #dc3545;
+	cursor:pointer;
 }
 
 .btn-danger:hover {
@@ -259,7 +267,8 @@ button:not(:disabled):not(.disabled) {
 .btn-light {
 	color: #212529;
 	background-color: #f8f9fa;
-	border-color: #f8f9fa
+	border-color: #f8f9fa;
+	cursor:pointer;
 }
 
 .btn-light:hover {
@@ -293,13 +302,15 @@ button:not(:disabled):not(.disabled) {
 .btn-dark {
 	color: #fff;
 	background-color: #343a40;
-	border-color: #343a40
+	border-color: #343a40;
+	cursor:pointer;
 }
 
 .btn-dark:hover {
 	color: #fff;
 	background-color: #23272b;
-	border-color: #1d2124
+	border-color: #1d2124;
+	cursor:pointer;
 }
 
 .btn-dark.focus, .btn-dark:focus {
@@ -379,7 +390,7 @@ table tbody+tbody {
 }
 
 tbody tr:hover {
-	background-color: rgba(0, 0, 0, .075)
+	background-color: rgba(0, 0, 0, .075);
 }
 
 .table-sm td, .table-sm th {
