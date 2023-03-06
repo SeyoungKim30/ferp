@@ -15,7 +15,7 @@
 		AND category LIKE '%'||upper(#{category})||'%'
 		AND productName LIKE '%'||upper(#{productName})||'%'
 		AND opposite LIKE '%'||upper(#{opposite})||'%'
-		
+		AND s.frRegiNum = #{frRegiNum,jdbcType=VARCHAR}
 	</select>
 
 	<select id="r8201ProductList" resultType="productProdOrder" parameterType="productProdOrder">
@@ -33,7 +33,7 @@
 	<select id="r8101ProductInfo" resultType="product" parameterType="string">
 		SELECT *
 		FROM PRODUCT
-		WHERE productNum = #{productNum}
+		WHERE productNum like '%'||#{productNum,jdbcType=VARCHAR}||'%'
 	</select>
 	
 	<select id="r8201ProductInfo" resultType="product" parameterType="string">
