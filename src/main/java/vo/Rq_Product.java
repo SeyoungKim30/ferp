@@ -11,7 +11,7 @@ public class Rq_Product {
 	private String frRegiNum;
 	private String stockDate;
 	private int applyAmount;
-	private int remainAmoumt;
+	private int remainAmount;
 	public String getProductNum() {
 		return productNum;
 	}
@@ -72,10 +72,10 @@ public class Rq_Product {
 	public void setApplyAmount(int applyAmount) {
 		this.applyAmount = applyAmount;
 	}
-	public int getRemainAmoumt() {
-		return remainAmoumt;
+	public int getRemainAmount() {
+		return remainAmount;
 	}
-	public void setRemainAmoumt(int remainAmoumt) {
-		this.remainAmoumt = remainAmoumt;
+	public void setRemainAmount(int remainAmount) {
+		this.remainAmount = remainAmount;
 	}
 }
