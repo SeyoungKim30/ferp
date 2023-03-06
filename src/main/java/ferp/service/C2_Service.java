@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ferp.dao.C2_Dao;
 import vo.Product;
 import vo.ProductProdOrder;
+import vo.ScheduleCalender;
 
 @Service
 public class C2_Service {
@@ -91,5 +92,10 @@ public class C2_Service {
 	// 발주 상태 콤보
 	public List<String> orderStateCom(){
 		return dao.orderStateCom();
+	}
+	
+	// 캘린더
+	public List<ScheduleCalender> sclerkschd(String writer){
+		return dao.sclerkschd(writer);
 	}
 }

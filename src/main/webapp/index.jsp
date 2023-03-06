@@ -15,7 +15,7 @@
 
 <body class="container">
 <c:if test="${login == null }">
-fhrmdlswjdqh djqtdma
+로그인 세션 없음
 </c:if>
 <c:if test="${login != null }">
 <c:if test="${login.frRegiNum == '9999999999' }">
