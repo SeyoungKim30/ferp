@@ -113,7 +113,7 @@
 						</div>
 					</div>
 					<div class="submit_line">
-						<button type="button" class="insBtn">수 정</button>
+						<button type="button" class="uptBtn">수 정</button>
 					</div>	
 				</div>
 			</form>
@@ -126,7 +126,7 @@ $(document).ready(function(){
 	if($("input[name=important]").val() == 'o'){
 		$("#important").attr("checked", "checked")
 	}
-    $(".insBtn").click(function(){
+    $(".uptBtn").click(function(){
 		if($('#important').is(':checked')){
 			$("input[name=important]").attr('value','o');
 		}

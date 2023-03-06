@@ -84,8 +84,8 @@
            		<input type="hidden" name="title" value="${qna.title}">
            		<div class="title_line">
            			<h3 class="notice_title">${qna.title}</h3>
-           			<span style="position: absolute; right: 21%;">등록일 : <fmt:formatDate value="${qna.regdte}" pattern="yyyy-MM-dd"/></span>
-           			<span style="position: absolute; right: 17%;">조회수 : ${qna.readCnt}</span>
+           			<span style="position: absolute; right: 19%;">등록일 : <fmt:formatDate value="${qna.regdte}" pattern="yyyy-MM-dd"/></span>
+           			<span style="position: absolute; right: 14%;">조회수 : ${qna.readCnt}</span>
            		</div>
 				
 				<div class="notice_content">

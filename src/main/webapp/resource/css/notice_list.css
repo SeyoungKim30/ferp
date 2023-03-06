@@ -61,13 +61,13 @@ input{
 	font-size: 13px;
 	transition:.3s;
 }
-button{
+.schBtn{
     width: 90px;
     height: 40px;
     text-align: center;
     border-radius: 10px;
     color: white;
-    background: rgb(52, 152, 219);
+    background: #DDD;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
@@ -92,6 +92,10 @@ table td {
   border-bottom: 1px solid #ddd;
   border-collapse: collapse;
   text-align: center;
+}
+table td:nth-child(4) {
+  text-align: right;
+  padding-right: 50px;
 }
 
 table tr:hover td {

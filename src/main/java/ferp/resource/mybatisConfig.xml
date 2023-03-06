@@ -9,6 +9,7 @@
 		<typeAlias alias="noticeSch" type="vo.NoticeSch"/>
 		<typeAlias alias="store" type="vo.Store"/>
 		<typeAlias alias="hoemp" type="vo.HOemp"/>
+		<typeAlias alias="emp" type="vo.Emp"/>
 	</typeAliases>
 			
 

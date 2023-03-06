@@ -182,13 +182,25 @@ span{
 	margin-bottom: 40px;
 	float: right;
 }
-.submit_line > button{
+.insBtn{
     width: 90px;
     height: 40px;
     text-align: center;
     border-radius: 10px;
     color: white;
-    background: rgb(52, 152, 219);
+    background: #007bff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+}
+.uptBtn{
+    width: 90px;
+    height: 40px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    background: #6c757d;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;

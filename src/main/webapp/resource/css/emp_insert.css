@@ -65,10 +65,10 @@ input:focus, select:focus{
 	color: red;
 }
 [name=nowPass]{
-	width: 99%;
+	width: 100%;
 }
 [name=ename]{
-	width: 99%;
+	width: 100%;
 }
 
 
@@ -89,7 +89,7 @@ input:focus, select:focus{
 	color: red;
 }
 [name=pass]{
-	width: 99%;
+	width: 100%;
 }
 
 
@@ -109,10 +109,10 @@ input:focus, select:focus{
 	color: red;
 }
 [name=passChk]{
-	width: 99%;
+	width: 100%;
 }
 [name=dname]{
-	width: 99%;
+	width: 100%;
 }
 
 .isPass{
@@ -131,13 +131,25 @@ input:focus, select:focus{
 	margin-bottom: 40px;
 	float: right;
 }
-.submit_line > button{
+.submit_line > .insBtn{
     width: 90px;
     height: 40px;
     text-align: center;
     border-radius: 10px;
     color: white;
     background: rgb(52, 152, 219);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+}
+.submit_line > .uptBtn{
+    width: 90px;
+    height: 40px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    background: #6c757d;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;

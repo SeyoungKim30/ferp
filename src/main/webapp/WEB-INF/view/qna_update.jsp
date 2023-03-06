@@ -76,11 +76,9 @@
                 </ul>
             </div>
             <div class="contents">
-	        	<div>
 	        	<form enctype="multipart/form-data" method="post">
 	     	        <h2 class="insert_product">문의글 수정</h2>
 	     	        <input type="hidden" name="noticeNum" value="${qna.noticeNum}">
-	        	</div>
 		
 	        	<div class="content">
 					<div class="first_line">
@@ -123,8 +121,8 @@
 					<div class="submit_line">
 						<button type="button" class="uptBtn">수 정</button>
 					</div>	
-				</form>		
 				</div>
+				</form>	
             </div>
         </div>
     </div>
