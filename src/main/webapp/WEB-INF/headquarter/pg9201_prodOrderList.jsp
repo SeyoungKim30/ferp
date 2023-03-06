@@ -21,7 +21,7 @@
 
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","9201")
-	localStorage.setItem("eqIdx","2")
+	localStorage.setItem("eqIdx","9000")
 
 	//지점 리스트(본사일때만??)
 	function fetchStoreList(){

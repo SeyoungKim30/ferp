@@ -36,7 +36,7 @@
                             <li id="3300" onclick="location.href='${path }/clerkPayList.do'"><a>- 급여액 조회</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="9000">
                         <a href="#">재무 관리</a>
                         <ul>
                             <li id="7201" onclick="location.href='${path }/selectAccount.do'"><a>- 계정 과목 관리</a></li>
@@ -116,17 +116,17 @@ let pageIdx = localStorage.getItem("pageIdx")
 $.each($('.lnb ul li ul li'),function(){
 	if($(this).attr('id')==pageIdx){
 		$(this).find('a').addClass('pagetitleActive');
-	}
+	}	
 })
 
 <!-- eq(n) 열려 있는 사이드바 n 숫자로 조정하세요.  -->
-$('.lnb > ul > li').eq(localStorage.getItem("eqIdx")).trigger("click");
-$('.lnb > ul > li').forEach(each){
-	if(each.attr('id')==localStorage.getItem("eqIdx")){
-		//클릭하기
-	}
-}
+//$('.lnb > ul > li').eq(localStorage.getItem("eqIdx")).trigger("click");
 
+$.each($('.lnb > ul > li'),function(){
+	if($(this).attr('id')==localStorage.getItem("eqIdx")){
+		$(this).trigger('click');
+	}
+})
 
 
 })
