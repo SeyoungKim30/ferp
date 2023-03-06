@@ -16,6 +16,20 @@ public class ProductProdOrder {
 	private String paymentState;
 	private String orderState;
 	private String stockDate;
+	private int remainAmount;
+	private String frRegiNum;
+	public int getRemainAmount() {
+		return remainAmount;
+	}
+	public void setRemainAmount(int remainAmount) {
+		this.remainAmount = remainAmount;
+	}
+	public String getFrRegiNum() {
+		return frRegiNum;
+	}
+	public void setFrRegiNum(String frRegiNum) {
+		this.frRegiNum = frRegiNum;
+	}
 	public ProductProdOrder() {
 		super();
 		// TODO Auto-generated constructor stub
