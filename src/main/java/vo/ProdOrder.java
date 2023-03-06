@@ -11,8 +11,21 @@ public class ProdOrder {
 	private String orderState;
 	private String orderStateUpdate;
 	private String orderDateMonth;
+	private String productName;
+	private String img;
 	
-	
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
 	public String getOrderStateUpdate() {
 		return orderStateUpdate;
 	}
