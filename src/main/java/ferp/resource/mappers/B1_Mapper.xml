@@ -90,5 +90,13 @@
 		WHERE m.menunum=o.menunum(+) AND os.menunum=m.menunum
 		ORDER BY mcnt desc, msales desc
 	</select>
+	
+	<!-- 본사:전매장오픈시간조회 -->
+	<select id="StoreOpenList" resultType="store">
+		SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
+		FROM store s, emp e
+		WHERE s.empnum=e.EMPNUM
+		AND frreginum!='9999999999'
+	</select>
 
 </mapper>

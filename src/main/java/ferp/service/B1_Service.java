@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import ferp.dao.B1_Dao;
 import vo.Orders;
+import vo.Store;
 
 @Service
 public class B1_Service {
@@ -51,6 +52,12 @@ public class B1_Service {
 		jsonMap.put("detailMenu", dao.DetailMenuList(dlist));
 		
 		return jsonMap;
+	}
+	
+	
+	//본사:전매장오픈시간조회
+	public List<Store> StoreOpenList() {
+		return dao.StoreOpenList();
 	}
 	
 	

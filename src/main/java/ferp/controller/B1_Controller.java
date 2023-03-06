@@ -63,6 +63,12 @@ public class B1_Controller {
 	}
 	
 
+	@RequestMapping("StoreOpenInfo.do")
+	public String r6202StoreOpenInfo(Model d){
+		d.addAttribute("optimelist", service.StoreOpenList());
+		return "WEB-INF\\headquarter\\pg6202_storeOpenInf.jsp";
+	} 
+	
 	
 
 }
