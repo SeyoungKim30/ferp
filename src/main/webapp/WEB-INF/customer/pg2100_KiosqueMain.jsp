@@ -346,6 +346,10 @@
 		.modal_product_price{
 		    display: none;
 		}
+		
+		.listdefalut{
+		    font-size: 29px;
+		}
 </style>
 </head>
 
@@ -415,7 +419,7 @@
 		<ul class="tab_wrap">
 			<li name="tab_list_1" class="tab_list list_1 on">전체</li>
 			<li name="tab_list_2" class="tab_list list_2">커피</li>
-			<li name="tab_list_3" class="tab_list list_3">스무디</li>
+			<li name="tab_list_3" class="tab_list list_3">only Ice</li>
 			<li name="tab_list_4" class="tab_list list_4">음료</li>
 			<li name="tab_list_5" class="tab_list list_5">샌드위치</li>
 			<li name="tab_list_6" class="tab_list list_6">케이크</li>
@@ -531,31 +535,7 @@
 					<button class="result_btn addOrderBtn">주문하기</button>
 				</div>
 				<ul class="result_list_wrap">
-					<li>주문하실 음료를 선택해주세요.</li>
-					<li class="list_item">
-						<p class="list_item_info">
-							<span class="list_item_name">스패니쉬 연유 라떼</span>
-							<span class="list_item_option">ㄴ 아이스</span>
-							<span class="list_item_option">ㄴ 사이즈업</span>
-						</p>
-						<p class="list_item_price">6,300￦</p>
-					</li>
-					<li class="list_item">
-						<p class="list_item_info">
-							<span class="list_item_name">스패니쉬 연유 라떼</span>
-							<span class="list_item_option">ㄴ 아이스</span>
-							<span class="list_item_option">ㄴ 사이즈업</span>
-						</p>
-						<p class="list_item_price">6,300￦</p>
-					</li>
-					<li class="list_item">
-						<p class="list_item_info">
-							<span class="list_item_name">스패니쉬 연유 라떼</span>
-							<span class="list_item_option">ㄴ 아이스</span>
-							<span class="list_item_option">ㄴ 사이즈업</span>
-						</p>
-						<p class="list_item_price">6,300￦</p>
-					</li>
+					<li class="listdefalut">주문하실 음료를 선택해주세요.</li>
 				</ul>
 			</div>
 		</div>
@@ -583,7 +563,7 @@ tabContent.click(function () {
 		var MenuPrice = $(this).find(".con_price").text();
 		$(".modal_product_price").text(MenuPrice);
 		var MenuCategory = $(this).find(".con_category").text();
-		if(MenuCategory == "smoothie"){
+		if(MenuCategory == "onlyIce"){
 			$(".option_radio").css('display','none');
 			$(".delS").css('display','none');
 			$(".addS").css('display','none');
@@ -624,6 +604,7 @@ modalClose.click(function () {
 	$(".product_number").val(1);
 })
 
+
 // tab
 var tabList = $('.tab_wrap > .tab_list');
 var tabCon = $('.tab_content_wrap');
@@ -652,6 +633,7 @@ $(".btn_minus").click(function () {
 });
 
 // 추가하기 버튼
+var resultAddString = "";
 var modal_btn_add = $(".modal_btn_add");
 	modal_btn_add.click(function () {
 	var name = $(".modal_product_name").text();
@@ -663,16 +645,46 @@ var modal_btn_add = $(".modal_btn_add");
 	
 	if ($("#menu_opt_3").is(":checked")) {
 		price+=500;
-		option+="ㄴ샷추가"
+		option+="/샷추가";
 	}
 	
 	if ($("#menu_opt_4").is(":checked")) {
 		price+=500;
-		option+="ㄴ연하게"
+		option+="/사이즈업";
 	}
 	
+	if ($("#menu_opt_5").is(":checked")) {
+		option+="/연하게";
+	}
+	
+	if ($("#menu_opt_1").is(":checked") || $("#menu_opt_2").is(":checked") ) {
+
+	// 선택된 라디오 버튼 요소를 식별
+	const selectedRadioButton = $('input[name="option_1"]:checked');
+	// 선택된 라디오 버튼의 value 속성 값
+	const selectedValue = selectedRadioButton.val();
+	// 선택된 라디오 버튼의 label 요소의 text 값
+	const selectedText = selectedRadioButton.parent().text().trim();
+
+		option+="/"+selectedText;
+	}
+	
+	price = price*cnt;
+	
+	price = price.toLocaleString();
+	price += "￦";
+	
 	console.log(price);
-	console.log(option);
+	$(".listdefalut").css("display","none");
+
+	
+	resultAddString += "<li class='list_item'><p class='list_item_info'><span class='list_item_name'><span>"+name+"</span>x<span>"+cnt+"</span>"
+	+"</span><span class='list_item_option'>"+option+"</span></p><p class='list_item_price'>"+price+"</p></li>";
+	
+	$(".result_list_wrap").html(resultAddString);
+	
+	modalClose.trigger('click');
+	
 });
 
 
