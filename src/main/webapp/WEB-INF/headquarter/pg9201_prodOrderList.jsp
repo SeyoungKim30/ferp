@@ -27,7 +27,7 @@
 	function fetchStoreList(){
 		let url ="${path}/selectActiveStoreJson.do"
 		fetch(url).then(function(response){return response.json() }).then(function(json){
-			makeAccountOption(json.storeList,'frName','frRegiNum','#storeList')
+			makeOptions(json.storeList,'frName','frRegiNum','#storeList')
 	 	}).catch(function(err){console.log(err)})
 	}
 
@@ -103,18 +103,21 @@ $(document).ready(function(){
 		</button>
       </div>
  <div class="modal-body">
-<form id="orderStateForm" action="${path }/updateOrderState.do">
+<form id="orderStateForm">
 <input name="orderNum">
 <input name="orderDate">
 <input name="demander">
 <input name="supplier">담당자
-<input name="productNum">
+<input name="productNum" placeholder="productNum">
 <input name="orderState">
 <input name="paymentState">
+<input name="orderStateUpdate" placeholder="orderStateUpdate">
 	<table><thead><th>자재코드</th><th>자재명</th><th>총 수량</th><th>상태 일괄 변경</th></thead>
 	<tbody></tbody>
 	</table>
 </form>
+
+
 </div>
 </div>
 </div>
@@ -215,12 +218,37 @@ function printTotalAmountbyProd(resultlist,isDaily){
 	let htmls='';
 	jsonprodAmount.forEach(function(each){
 		if(isDaily){
-			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td title="조회한 조건에 따라 발주 상태가 변경됩니다."><button class="btn-primary btn-sm" id="`+each.num+`">배송중</button> <button class="btn-success btn-sm" id="`+each.num+`">배송완료</button></td></tr>`
+			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td title="조회한 조건에 따라 발주 상태가 변경됩니다."><button type="button" class="btn-primary btn-sm" id="`+each.num+`">배송중</button> <button type="button" class="btn-success btn-sm" id="`+each.num+`">배송완료</button></td></tr>`
 		}else{
 			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td>일자별 조회시 일괄변경 가능</td></tr>`
 		}
 	})
 	$('#modalByProd tbody').html(htmls)
+	$('#orderStateForm .btn-sm').on('click',function(){
+		//fetchUpdate('#orderStateForm','${path}/updateOrderState.do?')
+var _promise = function (param) {
+  return new Promise(function (resolve, reject) {
+    fetchUpdate('#orderStateForm', '${path}/updateOrderState.do?')
+      .then(function(result) {
+        resolve(result);
+      })
+      .catch(function(error) {
+        reject(error);
+      });
+  });
+};
+
+_promise(true)
+.then(function(result) {
+  alert(`배송상태 변경 `+result);
+})
+.catch(function(error) {
+  console.error(error);
+});
+		//alert(`배송상태 변경 `+fetchUpdateReturn)
+		
+		
+	})
 }
 
 
@@ -237,6 +265,7 @@ $(function(){
 	}
 	//로딩하자마자 오늘거 리스트
 	selectProdOrderListJson();
+	
 });
 </script>
 </body>

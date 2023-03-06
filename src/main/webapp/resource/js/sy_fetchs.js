@@ -17,6 +17,37 @@ var accountListBoth=[];
 	 	}).catch(function(err){console.log(err)})
 	}
 	
+var fetchUpdateReturn='';
+/*	function fetchUpdate(formid,pathurl){
+		let url=pathurl+$(formid).serialize()
+		fetch(url).then(function(response){return response.text()}).then(function(text){
+			if(text=='1'){
+				fetchUpdateReturn='성공';
+			}else{
+				fetchUpdateReturn='실패';
+			}
+		return fetchUpdateReturn;
+		}).catch(function(err){console.log(err)})
+	}*/
+	
+	function fetchUpdate(formid, pathurl) {
+	  return new Promise((resolve, reject) => {
+	    let url = pathurl + $(formid).serialize();
+	    fetch(url)
+	      .then(response => response.text())
+	      .then(text => {
+	        if (text == '1') {
+	          resolve('성공');
+	        } else {
+	          reject('실패');
+	        }
+	      })
+	      .catch(error => {
+	        reject(error);
+	      });
+	  });
+	}
+
 
 	function makeAccountOption(acntList){
 		let acntTitlehtmls='';
@@ -31,7 +62,7 @@ var accountListBoth=[];
 	}
 	
 	//,리스트, 밸류, 레이블, 출력할 타켓 넣어서 데이터리스트 들어갈 옵션 만들기
-	function makeAccountOption(jsonlist,valueName,labelName,target){
+	function makeOptions(jsonlist,valueName,labelName,target){
 		let htmls='';
 		jsonlist.forEach(function(each){
 		 	htmls+=`<option value='`+each[valueName]+`' label='`+each[labelName]+`'>`
