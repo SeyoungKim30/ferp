@@ -77,7 +77,7 @@
 	
 	<!-- 본사:매장정보상세조회-메뉴 -->
 	<select id="DetailMenuList" parameterType="orders" resultType="orders">		
-		SELECT MENUNAME, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales 
+		SELECT MENUNAME, price, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales 
 		FROM menu m,(SELECT menunum, sum(amount) mcnt
 					FROM orders
 					WHERE FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}

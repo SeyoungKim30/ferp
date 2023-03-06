@@ -44,7 +44,7 @@ FROM PRODUCT prd, ( SELECT DEMANDER, PRODUCTNUM,  sum(amount) mcnt
 WHERE prd.PRODUCTNUM=prdord.PRODUCTNUM
 GROUP BY DEMANDER;
 */
-SELECT * FROM store WHERE FRREGINUM!='9999999999';
+SELECT * FROM store;
 
 
 ----본사:전체매장의 개별매매액조회(매출,매입 모두 출력)

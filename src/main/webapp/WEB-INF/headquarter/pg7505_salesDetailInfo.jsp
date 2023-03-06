@@ -42,6 +42,8 @@
 	    font-weight: 500;
 	    display:flex;
 	    gap: 10px;
+	}.storePrint>h1{
+		margin-bottom:15px;
 	}
 	span.strifo_header {
     	font-weight: 600;
@@ -69,7 +71,6 @@
     	font-weight: 600;
     	float: right;
     	margin-top:20px;
-		
 	}
 	.salesResult>div{
 		display: flex;
@@ -78,7 +79,10 @@
 		gap:30px;
 	}
 	.salesResult>div>hr{
-		margin: 2px 0px;
+		margin: 3px 0px;
+	}
+	.numdata{
+		text-align: end;
 	}
 	#lastResult{
 		justify-content: end;
@@ -114,12 +118,17 @@
 			
 			<!-- json으로 불러오기 -->
 			<!-- 매출조회 시작 -->
+			<% 
+			request.setCharacterEncoding("UTF-8");
+			String frSchOrderdt =request.getParameter("frSchOrderdt");
+			String toSchOrderdt =request.getParameter("toSchOrderdt");
+			%>
 			<div class="period">
 				<h2>매매액 조회 기간</h2>
 				<form method="post">
-					<input id="strperiod" name="frSchOrderdt" value="${sch.frSchOrderdt}" type="month"/>
+					<input id="strperiod" name="frSchOrderdt" value="<%=frSchOrderdt %>" type="month"/>
 					~
-					<input id="endperiod" name="toSchOrderdt" value="${sch.toSchOrderdt}" type="month"/>
+					<input id="endperiod" name="toSchOrderdt" value="<%=toSchOrderdt %>" type="month"/>
 				</form>
 			</div>
 			<table class="storeSales_table">
@@ -156,18 +165,13 @@
 		</div>
 	</div>
 </body>
+
 <script type="text/javascript">
 
-	/*
-	 -해야할것
-	 숫자정렬
-	 날짜초기값전페이지에서 넘어오기
-	 상단버튼누르면 이전페이지로 가기
-	 전매장출력페이지 공통css 맞추기
-	*/
+	
 	frSchOrderdt = $("[name=frSchOrderdt]").val();
 	toSchOrderdt = $("[name=toSchOrderdt]").val();
-
+	console.log("1"+"<%=frSchOrderdt %>")
 	//ajax fetch사용
 	function print(){
 		let url="${path}/detailInfoJson.do?frRegiNum="+${dinfo.frRegiNum}+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt  //검색값 넘기기
@@ -184,23 +188,20 @@
 			var sumfrpurchase=0;
 		
 			dInfoList.detailSales.forEach(function(seach){
-				trtdst+="<tr><td>"+seach.orderDate+"</td><td>"+seach.frsales+"</td><td>"+seach.frpurchase+"</td><td>"+seach.profit+"</td></tr>"
+				trtdst+="<tr><td>"+seach.orderDate+"</td><td class='numdata'>"+seach.frsales.toLocaleString()+"</td><td class='numdata'>"+seach.frpurchase.toLocaleString()+"</td><td class='numdata'>"+seach.profit.toLocaleString()+"</td></tr>"
 				
 				sumfrsales+=seach.frsales;
 				sumfrpurchase+=seach.frpurchase;
-				console.log(trtdst);
-				console.log(sumfrsales);
-				console.log(sumfrpurchase);
 			})
 			dInfoList.detailMenu.forEach(function(meach){
-				trtdnd+="<tr><td>"+meach.menuName+"</td><td>"+meach.price+"</td><td>"+meach.mcnt+"</td><td>"+meach.msales+"</td></tr>"
+				trtdnd+="<tr><td>"+meach.menuName+"</td><td class='numdata'>"+meach.price.toLocaleString()+"</td><td class='numdata'>"+meach.mcnt.toLocaleString()+"</td><td class='numdata'>"+meach.msales.toLocaleString()+"</td></tr>"
 			})
 			
 			$(".storeSales_table tbody").html(trtdst);
 			$(".storeDetailSales_table tbody").html(trtdnd);
-			$("#fsales").html(sumfrsales+"&nbsp;원");
-			$("#fpurchase").html(sumfrpurchase+"&nbsp;원");
-			$("#lastResult span").html("총 수익&nbsp;&nbsp;"+(sumfrsales-sumfrpurchase)+"&nbsp;원");
+			$("#fsales").html(sumfrsales.toLocaleString()+"&nbsp;원");
+			$("#fpurchase").html(sumfrpurchase.toLocaleString()+"&nbsp;원");
+			$("#lastResult span").html("총 수익&nbsp;&nbsp;"+(sumfrsales-sumfrpurchase).toLocaleString()+"&nbsp;원");
 					
 		}).catch(function(err){console.log(err)})	
 	
@@ -208,7 +209,6 @@
 	
 	
 	$(document).ready(function(){
-
 		print();
 		
 		//날짜를 검색
