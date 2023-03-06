@@ -26,6 +26,7 @@
 		FROM storeclerk
 		WHERE 1=1
 		AND clerkname LIKE '%'||#{clerkName}||'%'
+		AND frRegiNum = #{frRegiNum}
 	</select>
 	<update id="uptStoreClerk" parameterType="storeclerk">
 		UPDATE storeclerk
@@ -48,6 +49,7 @@
 				from storeclerk s
 				where 1=1
 				and clerkname LIKE '%'||#{clerkName}||'%'
+				AND frRegiNum = #{frRegiNum}
 				)
 			where cnt between #{start} and #{end}
 	</select>

@@ -17,7 +17,7 @@
 </head>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","9101")
-	localStorage.setItem("eqIdx","3")
+	localStorage.setItem("eqIdx","2")
 </script>
 <body class="container">
 	<%@ include file="/resource/templates/header.jsp"%>

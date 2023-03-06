@@ -44,7 +44,7 @@ public class A2_Service {
 	
 	public List<StoreClerk> storeClerkList(SCPage sch){
 		if(sch.getClerkName() == null) sch.setClerkName("");
-		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("1234567890");
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
 		if(sch.getPageSize()==0) {
 			sch.setPageSize(5);
 		}
