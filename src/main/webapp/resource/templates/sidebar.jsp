@@ -27,7 +27,7 @@
 </style>
  <div class="lnb">
                 <ul>
-                    <li>
+                    <li id="3000">
                         <a href="#">직원 관리</a>
                         <ul>
 	                        <li id="3100" onclick="location.href='${path }/storeClerkList.do'"><a>- 직원 정보 조회</a></li>
@@ -36,7 +36,7 @@
                             <li id="3300" onclick="location.href='${path }/clerkPayList.do'"><a>- 급여액 조회</a></li>
                         </ul>
                     </li>
-                    <li id="9000">
+                    <li id="7000">
                         <a href="#">재무 관리</a>
                         <ul>
                             <li id="7201" onclick="location.href='${path }/selectAccount.do'"><a>- 계정 과목 관리</a></li>
@@ -45,7 +45,7 @@
                             <li><a>- 손익 계산서 조회</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="9000">
                         <a href="#">물류 관리</a>
                         <ul>
                             <li id="9101" onclick="location.href='${path }/requestProd.do'"><a>- 발주 신청</a></li>
@@ -56,7 +56,7 @@
                             <li><a>- 재고 관리</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="">
                         <a href="#">매장 관리</a>
                         <ul>
                             <li><a>- 매장 정보 등록</a></li>
@@ -72,7 +72,7 @@
                             <li><a>- 출근시간 점검</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="2000">
                         <a href="#">메뉴 관리</a>
                         <ul>
                             <li id="2001" onclick="location.href='${path }/showMenu.do'"><a>- 판매 메뉴 등록</a></li>
