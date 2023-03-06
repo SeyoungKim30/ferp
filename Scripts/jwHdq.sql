@@ -115,11 +115,13 @@ SELECT MENUNAME, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales
 FROM menu m,(SELECT menunum, sum(amount) mcnt
 			FROM orders
 			WHERE FRREGINUM='1234567891'
+			AND state='완료'
 			AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/02', 'YYYY-MM')
 			group BY menunum) o
 WHERE m.MENUNUM=o.MENUNUM(+)
 ORDER BY mcnt desc, msales desc;
 
+SELECT * FROM orders;
 
 --
 SELECT to_char(orderdate, 'YYYY/MM'), PRODUCTNUM, nvl(sum(amount),0) mcnt

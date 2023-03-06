@@ -199,6 +199,7 @@
 			
 			$(".storeSales_table tbody").html(trtdst);
 			$(".storeDetailSales_table tbody").html(trtdnd);
+			//위치 위로 올리기
 			$("#fsales").html(sumfrsales.toLocaleString()+"&nbsp;원");
 			$("#fpurchase").html(sumfrpurchase.toLocaleString()+"&nbsp;원");
 			$("#lastResult span").html("총 수익&nbsp;&nbsp;"+(sumfrsales-sumfrpurchase).toLocaleString()+"&nbsp;원");
