@@ -56,7 +56,7 @@ $(document).ready(function(){
 	<h3>조건으로 검색</h3>
 	<div class="toolbar" title="조건은 다중적용이 가능합니다">
 	<div>
-	<fieldset id="noDisplayForStores">
+	<fieldset class="noDisplayForStores">
 		<label>주문지점<input name="demander" list="storeList"></label><datalist id="storeList"></datalist>
 		<label>담당자<input name="supplier"></label>
 	</fieldset>
@@ -100,13 +100,13 @@ $(document).ready(function(){
 <input name="orderNum">
 <input name="orderDate">
 <input name="demander">
-<input name="supplier">담당자
+<input name="supplier" placeholder="담당자">
 <input name="productNum" placeholder="productNum">
 <input name="orderState">
 <input name="paymentState">
 <input name="orderStateUpdate" placeholder="orderStateUpdate">
 </div>
-	<table><thead><th>자재코드</th><th>자재명</th><th>총 수량</th><th>상태 일괄 변경</th></thead>
+	<table><thead><th>자재코드</th><th>자재명</th><th>총 수량</th><c:if test="${login.frRegiNum == 9999999999 }"><th>상태 일괄 변경</th></c:if></thead>
 	<tbody></tbody>
 	</table>
 </form>
@@ -208,16 +208,22 @@ function printTotalAmountbyProd(resultlist,isDaily){
 			jsonprodAmount.push(prodjson)
 		}
 	})
-	//여기까지 json 배열 생성한거, 아래서 출력하기
+	//여기까지 json 배열 생성한거, 아래서 출력하기	
 	let htmls='';
 	jsonprodAmount.forEach(function(each){
+	<c:if test="${login.frRegiNum == 9999999999 }">
 		if(isDaily){
 			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td title="조회한 조건에 따라 발주 상태가 변경됩니다."><button type="button" class="btn-primary btn-sm" id="`+each.num+`">배송중</button> <button type="button" class="btn-success btn-sm" id="`+each.num+`">완료</button></td></tr>`
 		}else{
 			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td>일자별 조회시 일괄변경 가능</td></tr>`
 		}
+	</c:if>
+	<c:if test="${login.frRegiNum != 9999999999 }">
+		htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td></tr>`
+	</c:if>
 	})
 	$('#modalByProd tbody').html(htmls)
+	<c:if test="${login.frRegiNum == 9999999999 }">
 	$('#orderStateForm .btn-sm').on('click',function(){
 		let prodnum=$(this).attr('id');
 		let stateupdate=$(this).text();
@@ -231,6 +237,7 @@ function printTotalAmountbyProd(resultlist,isDaily){
 			alert(`배송상태 변경에 실패했습니다.`)
 			})
 	})
+	</c:if>
 }
 
 
@@ -242,7 +249,7 @@ $(function(){
 
 	//가맹점은 주문지점 담당자 선택 못하게
 	if(${login.frRegiNum !=9999999999}){
-		$("#noDisplayForStores").css("display","none")
+		$(".noDisplayForStores").css("display","none")
 		$('[name=demander]').val('${login.frRegiNum}')
 	}
 	//로딩하자마자 오늘거 리스트
