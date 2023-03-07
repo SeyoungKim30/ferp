@@ -2,7 +2,7 @@ package ferp.dao;
 
 import java.util.List;
 
-import vo.ProdOrder;
+import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
 import vo.StoreClerk;
@@ -16,8 +16,8 @@ public interface A2_Dao {
 	public List<StoreClerk> storeClerkPayList(SCPage sch);
 	public List<Rq_Product> availProd(Rq_Product plist);
 	public int clerkTot();
-	public void prodOrderReq(ProdOrder ins);
-	public List<ProdOrder> reqList(ProdOrder sch);
-	public void uptReqList(ProdOrder upt);
-	public void delReqList(ProdOrder del);
+	public void prodOrderReq(Prod_ProdOrder ins);
+	public List<Prod_ProdOrder> reqList(Prod_ProdOrder sch);
+	public void uptReqList(Prod_ProdOrder upt);
+	public void delReqList(Prod_ProdOrder del);
 }

@@ -64,22 +64,24 @@
 		AND FRREGINUM = #{frRegiNum}
 	</select>
 	<!-- 발주 신청 등록 -->
-	<insert id="prodOrderReq" parameterType="prodOrder">
+	<insert id="prodOrderReq" parameterType="prodProdOrder">
 		INSERT INTO PRODORDER VALUES(
-		(SELECT to_char(to_date(#{orderDate},'yyyy-mm-dd'),'yyyymmdd') FROM dual)||#{demander},
+		(SELECT to_char(to_date(#{orderDate},'yy-mm-dd'),'yymmdd') FROM dual)||#{demander},
 		#{productNum},#{demander},#{supplier},sysdate,#{amount},'정산전','요청')
 	</insert>
 	<!-- 발주 신청서 조회 -->
-	<select id="reqList" parameterType="prodOrder" resultType="prodOrder">
-		SELECT po.*, p.img, p.PRODUCTNAME
+	<select id="reqList" parameterType="prodOrder" resultType="prodProdOrder">
+		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY
 		FROM PRODUCT p, PRODORDER po
 		WHERE p.PRODUCTNUM = po.PRODUCTNUM
-		AND ORDERNUM LIKE '%'||#{orderNum}||'%' 
+		AND p.PRODUCTNAME LIKE '%'||#{productName}||'%' 
+		AND p.CATEGORY LIKE '%'||#{category}||'%'
+		AND to_char(to_date(ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
 		AND DEMANDER = #{demander}
 		ORDER BY to_char(orderdate, 'YYMMDD HH24:MI:SS') DESC
 	</select>
 	<!-- 발주 신청서 수정 -->
-	<update id="uptReqList" parameterType="prodOrder">
+	<update id="uptReqList" parameterType="prodProdOrder">
 		UPDATE (SELECT po.*, p.img, p.PRODUCTNAME
 				FROM PRODUCT p, PRODORDER po
 				WHERE p.PRODUCTNUM = po.PRODUCTNUM)
@@ -88,7 +90,7 @@
 		AND productnum = #{productNum}
 		AND orderdate = to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
 	</update>
-	<delete id="delReqList" parameterType="prodOrder">
+	<delete id="delReqList" parameterType="prodProdOrder">
 		DELETE FROM PRODORDER
 		WHERE ordernum = #{orderNum}
 		AND productnum = #{productNum}

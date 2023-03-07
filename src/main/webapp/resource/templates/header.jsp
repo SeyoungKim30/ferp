@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	var login = '${login.frRegiNum}'
 	if (login == "") {
-		location.href = "${path}/storeLogin.do"
+		location.href = "${path}/index.jsp"
 	}
 </script>
 <style>

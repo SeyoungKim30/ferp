@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ferp.dao.A2_Dao;
-import vo.ProdOrder;
+import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
 import vo.StoreClerk;
@@ -82,18 +82,20 @@ public class A2_Service {
 	public int clerkTot() {
 		return dao.clerkTot();
 	}
-	public void prodOrderReq(ProdOrder ins) {
+	public void prodOrderReq(Prod_ProdOrder ins) {
 		dao.prodOrderReq(ins);
 	}
-	public List<ProdOrder> reqList(ProdOrder sch){
-		if(sch.getOrderNum() == null) sch.setOrderNum("");
+	public List<Prod_ProdOrder> reqList(Prod_ProdOrder sch){
+		if(sch.getProductName() == null) sch.setProductName("");
+		if(sch.getCategory() == null) sch.setCategory("");
 		if(sch.getDemander() == null) sch.setDemander("");
+		if(sch.getOrderDateMonth() == null) sch.setOrderDateMonth("");
 		return dao.reqList(sch);
 	}
-	public void uptReqList(ProdOrder upt) {
+	public void uptReqList(Prod_ProdOrder upt) {
 		dao.uptReqList(upt);
 	}
-	public void delReqList(ProdOrder del) {
+	public void delReqList(Prod_ProdOrder del) {
 		dao.delReqList(del);
 	}
 }
