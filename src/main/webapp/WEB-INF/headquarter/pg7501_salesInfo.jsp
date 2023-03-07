@@ -31,7 +31,7 @@
 	.hdq_search{
 		display:flex;
 	 	background-color: rgba( 204, 204, 204, 0.2 );
-	 	height:50px;
+	 	height:60px;
 	    border-radius: 5px;
 	    align-items: center; 
 	    margin-top: 5px;

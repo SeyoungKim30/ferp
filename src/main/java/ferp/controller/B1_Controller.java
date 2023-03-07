@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ferp.service.B1_Service;
 import vo.Orders;
+import vo.Store;
 
 
 @Controller
@@ -44,6 +45,7 @@ public class B1_Controller {
 	}
 	
 	
+	
 	// 본사:특정매장정보조회&페이지이동
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@RequestMapping("salesDetail.do")
@@ -51,7 +53,6 @@ public class B1_Controller {
 		d.addAttribute("dinfo", service.StoreDetailInfo(frRegiNum));
 		return "WEB-INF\\headquarter\\pg7505_salesDetailInfo.jsp";
 	}
-
 	// http://localhost:6080/ferp/detailInfoJson.do
 	// 본사:특정매장정보JSON
 	@RequestMapping("detailInfoJson.do")
@@ -63,6 +64,27 @@ public class B1_Controller {
 	}
 	
 
+	// http://localhost:6080/ferp/storeOpenInfo.do
+	// http://localhost:6080/ferp/storeOpenInfoJson.do
+	// 본사:전매장오픈시간조회페이지/검색
+	@RequestMapping("storeOpenInfo.do")
+	public String r6202StoreOpenInfo(@ModelAttribute("sch") Store str,  Model d){
+		d.addAttribute("optimelist", service.StoreOpenList(str));
+		return "WEB-INF\\headquarter\\pg6202_storeOpenInf.jsp";
+	} 
+	// 본사:전매장오픈시간조회JSON
+	@RequestMapping("storeOpenInfoJson.do")
+	public String r6202StoreOpenInfoJson(Store str, Model d){
+		d.addAttribute("optimelist", service.StoreOpenList(str));
+		return "pageJsonReport";
+	}
+	
+	// 본사:특정매장오픈시간상세조회페이지
+	@RequestMapping("openTimeDetail.do")
+	public String r6202OpenDetail(@RequestParam("frRegiNum") String frRegiNum, Model d ){
+		d.addAttribute("otdetail", service.StoreDetailOpenTime(frRegiNum));
+		return "WEB-INF\\headquarter\\pg6202_storeOpenDetail.jsp";
+	}
 	
 
 }
