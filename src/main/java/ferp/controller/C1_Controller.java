@@ -130,12 +130,12 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg9310_prodOrderPayState.jsp";
 	}
 	
-
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
-	@GetMapping("selectActiveStoreJson.do")
-	public String selectActiveStore(Model model) {
-		model.addAttribute("storeList",service.selectActiveStore());
+	@RequestMapping("selectProdOrderPayState.do")
+	public String r9310selectProdOrderPayState(Model model,ProdOrder prodOrder) {
+		model.addAttribute("list",service.r9310selectProdOrderPayState(prodOrder));
 		return "pageJsonReport";
 	}
+	
 
 }

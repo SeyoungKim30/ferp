@@ -7,7 +7,8 @@
 
 	<resultMap type="vo.Prod_order_stock_emp_store" id="posesRS">
 		<association property="product" javaType="vo.Product">
-		<result column="productName" property="productName" />
+			<result column="productName" property="productName" />
+			<result column="price" property="price" />
 		</association>
 		<association property="prodOrder" javaType="vo.ProdOrder" >
 			<result column="orderNum" property="orderNum"/>
@@ -66,6 +67,17 @@ SELECT po.ORDERNUM,po.PRODUCTNUM FROM PRODORDER po, product pd,
 	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%' AND po.ORDERSTATE LIKE '%'||#{orderState,jdbcType=VARCHAR}||'%'
 )
 </update>
+
+<select id="r9310selectProdOrderPayState" resultMap="posesRS" parameterType="prodOrder">
+SELECT to_char(TRUNC(ORDERDATE,'month'),'YYYY-MM') AS orderDateMonth,FRREGINUM,FRNAME, sum(AMOUNT*price) AS price, ename, po.PAYMENTSTATE
+FROM prodOrder po,PRODUCT pd, (SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se
+WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
+	AND TRUNC(orderdate,'month') BETWEEN to_date(#{orderDateMonth,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{orderDate,jdbcType=VARCHAR}, 'YYYY-MM')
+	AND (po.DEMANDER LIKE '%'||#{demander,jdbcType=VARCHAR}||'%' OR se.frname LIKE '%'||#{demander,jdbcType=VARCHAR}||'%')
+	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')	
+	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%'
+GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,po.PAYMENTSTATE
+</select>
 
 	<select id="r7100SelectAccount" resultType="account" parameterType="account">
 		SELECT * FROM Account 

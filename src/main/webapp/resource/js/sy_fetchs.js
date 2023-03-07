@@ -38,7 +38,13 @@ var fetchUpdatePromise =function(formid, pathurl) {
 	  });
 	}
 	
-	
+var fetchSelectPromise = function(formid,pathurl){
+	return new Promise(function(resolve,reject){
+		 let url = pathurl + $(formid).serialize();
+		 fetch(url).then(response=>response.json()).then(json=>{resolve(json)})
+		 .catch(error=>{reject(error)})
+	})
+}	
 
 
 	function makeAccountOption(acntList){
