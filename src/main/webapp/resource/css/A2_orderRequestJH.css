@@ -186,3 +186,24 @@
 .cBtn:not(:disabled):not(.disabled) {
 	cursor: pointer
 }
+#reqSchFrm>.schDiv>div>input[type="text"] {
+	width: 100%;
+	height: 30px;
+}
+#reqSchFrm>.schDiv>div>select[name="category"] {
+	width: 100%;
+	height: 30px;
+}
+
+#reqSchFrm>.schDiv>div.left {
+	width: 65%;
+}
+
+#reqSchFrm>.schDiv>button {
+	width: 25%;
+	height: 30px;
+	background-color: #DDD;
+	border: none;
+	margin-top: 20px;
+	margin-left: 10px;
+}

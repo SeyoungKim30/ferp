@@ -20,4 +20,5 @@ public interface A2_Dao {
 	public List<Prod_ProdOrder> reqList(Prod_ProdOrder sch);
 	public void uptReqList(Prod_ProdOrder upt);
 	public void delReqList(Prod_ProdOrder del);
+	public List<Rq_Product> cateCombo();
 }
