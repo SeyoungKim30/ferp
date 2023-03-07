@@ -74,13 +74,6 @@ public class A1_Controller {
       return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
    }
    
-   // http://localhost:6080/ferp/goIndex.do
-   @RequestMapping("/goIndex.do")
-   public String goIndex() {
-      return "/pg0003.jsp";
-   }
-   
-   
    @RequestMapping("/storeSet.do")
    public String storeSet() {
       return "/pg0002.jsp";
