@@ -11,6 +11,11 @@ public class Store {
 	private String frTel;
 	private String frAddress;
 	private String frPass;
+	
+	// 본사:매장오픈시간조회
+	private String ename;
+	private String opentime;
+	
 	public Store() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -89,5 +94,18 @@ public class Store {
 	public void setFrPass(String frPass) {
 		this.frPass = frPass;
 	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
+	public String getOpentime() {
+		return opentime;
+	}
+	public void setOpentime(String opentime) {
+		this.opentime = opentime;
+	}
+	
 	
 }

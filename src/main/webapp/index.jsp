@@ -15,17 +15,18 @@
 
 <body class="container">
 <c:if test="${login == null }">
-<c:redirect url="pg0003.jsp"/>
+	<c:redirect url="pg0003.jsp"/>
 </c:if>
-<c:if test="${login != null }">
-<c:if test="${login.frRegiNum == '9999999999' }">
-본사메인으로 이동
-<c:redirect url="pg0001.jsp"/>
 
-</c:if>
-<c:if test="${login.frRegiNum == '9999999999' }">
-c:redirect url="" pg1001가는 컨트롤러 주소
-</c:if>
+
+<c:if test="${login != null }">
+	<c:if test="${login.frRegiNum == '9999999999' }">
+	본사메인으로 이동
+	<c:redirect url="pg0001.jsp"/>
+	</c:if>
+	<c:if test="${login.frRegiNum == '9999999999' }">
+	<c:redirect url="/storeMainMenu.do" />
+	</c:if>
 </c:if>
 </body>
 </html>

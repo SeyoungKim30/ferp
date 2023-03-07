@@ -35,7 +35,7 @@ $(document).ready(function(){
 </script>
 
 <body class="container">
-	<%@ include file="/resource/templates/header.jsp"%>
+	%@ include file="/resource/templates/header.jsp"%
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">

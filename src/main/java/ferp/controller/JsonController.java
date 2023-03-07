@@ -44,4 +44,11 @@ public class JsonController {
 		return "pageJsonReport";
 	}
 	
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@GetMapping("selectActiveStoreJson.do")
+	public String selectActiveStore(Model model) {
+		model.addAttribute("storeList",serviceC1.selectActiveStore());
+		return "pageJsonReport";
+	}
+	
 }

@@ -169,4 +169,36 @@ INSERT INTO orders VALUES ('23020412345678921003', to_Date('2023/02/04','YY/MM/D
 INSERT INTO orders VALUES ('23020412345678921004', to_Date('2023/02/04','YY/MM/DD'),'1022','1234567891','완료',2,11800, '');
 */
 
+SELECT * FROM STORECLERK s ;
+SELECT * FROM emp;
+SELECT * FROM store;
+
+--본사:전매장오픈시간조회
+SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
+FROM store s, emp e
+WHERE s.empnum=e.EMPNUM
+AND frreginum!='9999999999';
+
+--본사:특정매장오픈시간상세조회
+SELECT frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime
+FROM store s, emp e
+WHERE s.empnum=e.EMPNUM
+AND frreginum='1234567891';
+--본사:특정매장오픈시간캘린더
+SELECT to_char(onTime, 'YYYY/MM/DD') wday, MIN(onTime) firstworkt
+FROM EMPCHECKIN 
+WHERE FRREGINUM='1234567890' 
+GROUP BY to_char(onTime, 'YYYY/MM/DD');
+
+
+
+SELECT *  --FRCLOSEDDTE 휴무일 
+FROM store ;
+--GROUP BY TRUNC(onTime, DATE);
+
+SELECT frname, fropertime, frrepname, ename
+		FROM store s, emp e
+		WHERE s.empnum=e.EMPNUM;
+
+
 

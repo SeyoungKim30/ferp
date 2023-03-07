@@ -10,7 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>매장 상세 조회</title>
+
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
@@ -61,7 +63,8 @@
 	    gap: 30px;
 	}
 	#detail{
-		margin: 40px 0px 15px 5px;
+		display: inline-block;
+    	margin: 30px 0px 15px 5px;
 	}
 
 	
@@ -69,18 +72,22 @@
 	.salesResult{
 		text-align: end;
     	display: inline-block;
-    	font-size: 22px;
+    	width:100%;
+    	font-size: 19px;
     	font-weight: 600;
     	float: right;
-    	margin-top:20px;
+    	margin: 10px 0;
 	}
 	.salesResult>div{
+		float:right;
+	}
+	.salesResult>div>div{
 		display: flex;
 		justify-content: space-between;
 		margin: 2px 5px 2px 20px;
 		gap:30px;
 	}
-	.salesResult>div>hr{
+	.salesResult>div>div>hr{
 		margin: 3px 0px;
 	}
 
@@ -135,6 +142,10 @@
 				</form>
 			</div>
 			<table class="storeSales_table">
+					<col width="15%">
+					<col width="30%">
+					<col width="30%">
+					<col width="25%">
 				<thead>
 					<tr><th>날짜</th><th>매장 매출액</th><th>매장 매입액</th><th>순수익</th></tr>
 				</thead>
@@ -144,26 +155,36 @@
 			<!-- 매출조회 끝 -->
 			
 			
+			<!-- 결과값출력 시작 -->
+			<div class="salesResult">
+			<div>
+				<div><span>총 매출액</span><span id="fsales"> </span></div>
+				<div><span>총 매입액</span><span id="fpurchase"> </span></div>
+				<hr>
+				<div id="lastResult"><span></span></div>
+			</div>
+			</div>
+			<!-- 결과값출력 끝 -->
+			
+			
 			<!-- 매출상세내역 시작 -->
-			<h2 id="detail">조회기간 상세판매내역</h2>
+			<h2 id="detail">조회기간 내 판매내역</h2>
 			<table class="storeDetailSales_table">
+					<col width="30%">
+					<col width="20%">
+					<col width="20%">
+					<col width="30%">
 				<thead>
 					<tr><th>판매메뉴</th><th>가격</th><th>판매개수</th><th>총 판매액</th></tr>
 				</thead>
 				<tbody>
 				</tbody>
 			</table>
+			
 			<!-- 매출상세내역 끝 -->
 			
 			
-			<!-- 결과값출력 시작 -->
-			<div class="salesResult">
-				<div><span>총 매출액</span><span id="fsales"> </span></div>
-				<div><span>총 매입액</span><span id="fpurchase"> </span></div>
-				<hr>
-				<div id="lastResult"><span></span></div>
-			</div>
-			<!-- 결과값출력 끝 -->
+
 			
 		</div>
 	</div>
@@ -201,11 +222,12 @@
 			})
 			
 			$(".storeSales_table tbody").html(trtdst);
-			$(".storeDetailSales_table tbody").html(trtdnd);
-			//위치 위로 올리기
+			
 			$("#fsales").html(sumfrsales.toLocaleString()+"&nbsp;원");
 			$("#fpurchase").html(sumfrpurchase.toLocaleString()+"&nbsp;원");
 			$("#lastResult span").html("총 수익&nbsp;&nbsp;"+(sumfrsales-sumfrpurchase).toLocaleString()+"&nbsp;원");
+			
+			$(".storeDetailSales_table tbody").html(trtdnd);
 					
 		}).catch(function(err){console.log(err)})	
 	

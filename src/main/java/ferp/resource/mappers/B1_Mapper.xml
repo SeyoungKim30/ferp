@@ -4,7 +4,8 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="ferp.dao.B1_Dao">
-	
+
+	<!-- 매장정보 -->
 	<!-- 본사:지난달전체매장매출총액 -->
 	<select id="lastmonthAllSales" resultType="int">
 		SELECT nvl(sum(payprice),0) allfrsales
@@ -14,7 +15,7 @@
 	</select>
 	
 	<!-- 본사:매장별매출 전체조회 -->
-	<select id="SalesByStoreList" parameterType="orders" resultType="orders">
+	<select id="salesByStoreList" parameterType="orders" resultType="orders">
 		SELECT frname, s.frreginum, frtel, frRepname, ename, nvl(frsalesum, 0) frsales, nvl(mtotal, 0) frpurchase
 		FROM store s, emp e, 
 			( SELECT frreginum, sum(payprice) frsalesum
@@ -44,9 +45,8 @@
 		ORDER BY frname
 	</select>
 	
-	
 	<!-- 본사:매장정보상세조회 -->
-	<select id="StoreDetailInfo" parameterType="String" resultType="orders">
+	<select id="storeDetailInfo" parameterType="String" resultType="orders">
 		SELECT frname, s.frreginum, TO_char(FROPEN,'YYYY.MM.DD') AS fropen, 
 		fraddress, frtel, frrepname, ename
 		FROM store s, emp e
@@ -55,7 +55,7 @@
 	</select>
 	
 	<!-- 본사:매장정보상세조회-매매액 -->
-	<select id="DetailSalesList" parameterType="orders" resultType="orders">		
+	<select id="detailSalesList" parameterType="orders" resultType="orders">		
 		SELECT o.orderdate, nvl(frsales,0) frsales, nvl(frpurchase,0) frpurchase,  nvl(frsales-frpurchase,0) profit
 		FROM (  SELECT orderdate, nvl(sum(mcnt*price),0) frpurchase
 				FROM PRODUCT p ,(SELECT to_char(orderdate, 'YYYY.MM') orderdate, PRODUCTNUM, nvl(sum(amount),0) mcnt
@@ -76,7 +76,7 @@
 	</select>
 	
 	<!-- 본사:매장정보상세조회-메뉴 -->
-	<select id="DetailMenuList" parameterType="orders" resultType="orders">			
+	<select id="detailMenuList" parameterType="orders" resultType="orders">			
 		SELECT MENUNAME, price, nvl(mcnt,0) mcnt,  nvl(price*mcnt,0) msales 
 		FROM menu m, (SELECT menunum, sum(amount) mcnt
 					FROM orders
@@ -89,6 +89,48 @@
 					WHERE FRREGINUM=#{frRegiNum, jdbcType=VARCHAR, index=1}) os
 		WHERE m.menunum=o.menunum(+) AND os.menunum=m.menunum
 		ORDER BY mcnt desc, msales desc
+	</select>
+	
+	
+	
+	<!-- 매장오픈점검 -->
+	<!-- 본사:전매장오픈시간조회 -->
+	<select id="storeOpenList" parameterType="store" resultType="store">
+		SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
+		FROM store s, emp e
+		WHERE s.empnum=e.EMPNUM
+		AND frreginum!='9999999999'
+		<if test="frName!=null and !frName.equals('')">
+		AND frName LIKE '%'||#{frName}||'%'
+		</if>
+		<if test="frRepName!=null and !frRepName.equals('')">
+		AND frRepName LIKE '%'||#{frRepName}||'%'
+		</if>
+		<if test="ename!=null and !ename.equals('')">
+		AND ename LIKE '%'||#{ename}||'%'
+		</if>
+		ORDER BY frname
+	</select>
+	
+	<!-- 본사:매장오픈상세조회-기본정보 -->
+	<select id="storeDetailOpenTime" parameterType="string" resultType="store">
+		SELECT frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime 
+		FROM store s, emp e
+		WHERE s.empnum=e.EMPNUM
+		AND frRegiNum=#{frRegiNum}
+	</select>
+	
+	<!-- 본사:매장오픈상세조회-캘린더JSON -->
+	<resultMap type="openTimeCalender" id="calMap">
+		<result column="frRegiNum" property="writer"/>
+		<result column="startworkt" property="start"/>
+		<result column="lastworkt" property="end"/>
+	</resultMap>
+	<select id="openTimeDetailCalendar" resultMap="calMap">
+		SELECT to_char(onTime, 'YYYY/MM/DD') wday, MIN(onTime) startworkt,  MAX(offTime) lastworkt
+		FROM EMPCHECKIN 
+		WHERE FRREGINUM=#{frRegiNum}
+		GROUP BY to_char(onTime, 'YYYY/MM/DD')
 	</select>
 
 </mapper>

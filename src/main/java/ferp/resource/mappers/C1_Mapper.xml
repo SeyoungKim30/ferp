@@ -7,7 +7,9 @@
 
 	<resultMap type="vo.Prod_order_stock_emp_store" id="posesRS">
 		<association property="product" javaType="vo.Product">
-		<result column="productName" property="productName" />
+			<result column="productName" property="productName" />
+			<result column="price" property="price" />
+			<result column="remark" property="remark" />
 		</association>
 		<association property="prodOrder" javaType="vo.ProdOrder" >
 			<result column="orderNum" property="orderNum"/>
@@ -15,6 +17,7 @@
 			<result column="supplier" property="supplier"/>
 			<result column="demander" property="demander"/>
 			<result column="orderDate" property="orderDate"/>
+			<result column="orderDateMonth" property="orderDateMonth"/>
 			<result column="amount" property="amount"/>
 			<result column="paymentState" property="paymentState"/>
 			<result column="orderState" property="orderState"/>
@@ -65,6 +68,26 @@ SELECT po.ORDERNUM,po.PRODUCTNUM FROM PRODORDER po, product pd,
 	AND (pd.PRODUCTNUM LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%' OR pd.PRODUCTNAME LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%')
 	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%' AND po.ORDERSTATE LIKE '%'||#{orderState,jdbcType=VARCHAR}||'%'
 )
+</update>
+
+<select id="r9310selectProdOrderPayState" resultMap="posesRS" parameterType="prodOrder">
+SELECT to_char(TRUNC(ORDERDATE,'month'),'YYYY-MM') AS orderDateMonth,FRREGINUM,FRNAME, 
+	sum(AMOUNT*price) AS price,sum(CASE WHEN CATEGORY LIKE '면세'||'%' THEN 0 ELSE AMOUNT * price * 0.1 END ) AS remark,
+	ename,empnum, po.PAYMENTSTATE
+FROM prodOrder po,PRODUCT pd, (SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se
+WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
+	AND TRUNC(orderdate,'month') BETWEEN to_date(#{orderDateMonth,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{orderDate,jdbcType=VARCHAR}, 'YYYY-MM')
+	AND (po.DEMANDER LIKE '%'||#{demander,jdbcType=VARCHAR}||'%' OR se.frname LIKE '%'||#{demander,jdbcType=VARCHAR}||'%')
+	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')	
+	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%'
+GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,empnum,po.PAYMENTSTATE
+</select>
+<update id="r9311updateProdOrderPayState" parameterType="prodOrder">
+	UPDATE PRODORDER SET PAYMENTSTATE = #{paymentState} 
+	WHERE trunc(ORDERDATE,'month') = to_date(#{orderDateMonth},'yyyy-mm') 
+		<if test="demander!='0000000000' and demander!='0000000000'">
+		AND demander = #{demander}
+		</if>
 </update>
 
 	<select id="r7100SelectAccount" resultType="account" parameterType="account">
