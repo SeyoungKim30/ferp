@@ -27,6 +27,7 @@
 		<typeAlias alias="scheduleCalender" type="vo.ScheduleCalender"/>
 		<typeAlias alias="onsale" type="vo.Onsale"/>
 		<typeAlias alias="openTimeCalender" type="vo.OpenTimeCalender"/>
+		<typeAlias alias="prodProdOrder" type="vo.Prod_ProdOrder"/>
 	</typeAliases>
 			
 <mappers>
