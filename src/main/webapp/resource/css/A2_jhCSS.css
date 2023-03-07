@@ -59,6 +59,10 @@ button:hover, .selectedFunction:hover, .unselectedFunction:hover {
 	margin: 20px;
 }
 
+.margin-sm {
+	margin: 5px;
+}
+
 .margin-tn {
 	margin: 0 20px 0 20px;
 }
@@ -219,4 +223,10 @@ input[type="text"].listInput:disabled {
 	border: none;
 	margin-top: 20px;
 	margin-left: 10px;
+}
+.monthDiv{
+	padding: 5px 15px 5px 15px;
+	background-color:#efefef;
+	border:1px solid #a4a4a4;
+	cursor: pointer;
 }
