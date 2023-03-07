@@ -4,7 +4,8 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="ferp.dao.B1_Dao">
-	
+
+	<!-- 매장정보 -->
 	<!-- 본사:지난달전체매장매출총액 -->
 	<select id="lastmonthAllSales" resultType="int">
 		SELECT nvl(sum(payprice),0) allfrsales
@@ -43,7 +44,6 @@
 		</if>
 		ORDER BY frname
 	</select>
-	
 	
 	<!-- 본사:매장정보상세조회 -->
 	<select id="StoreDetailInfo" parameterType="String" resultType="orders">
@@ -92,6 +92,8 @@
 	</select>
 	
 	
+	
+	<!-- 매장오픈점검 -->
 	<!-- 본사:전매장오픈시간조회 -->
 	<select id="StoreOpenList" parameterType="store" resultType="store">
 		SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
@@ -110,12 +112,20 @@
 		ORDER BY frname
 	</select>
 	
-	<!-- 본사:매장오픈상세조회 -->
+	<!-- 본사:매장오픈상세조회-기본정보 -->
 	<select id="StoreDetailOpenTime" parameterType="String" resultType="store">
 		SELECT frname, fropertime, frrepname, ename
 		FROM store s, emp e
 		WHERE s.empnum=e.EMPNUM
 		AND frRegiNum=#{frRegiNum}
+	</select>
+	
+	<!-- 본사:매장오픈상세조회-캘린더 -->
+	<select id="OpenTimeCalender">
+		SELECT to_char(onTime, 'YYYY/MM/DD') wday, MIN(onTime) firstworkt
+		FROM EMPCHECKIN 
+		WHERE FRREGINUM='1234567890' 
+		GROUP BY to_char(onTime, 'YYYY/MM/DD')
 	</select>
 
 </mapper>
