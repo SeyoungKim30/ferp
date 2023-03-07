@@ -61,7 +61,6 @@ public class A1_Controller {
       return "forward:/empLogin.do";
    }
    
-   
    // 로그아웃(store)
    @RequestMapping("/logoutStore.do")
    public String logoutStore(HttpSession session, Model d) {
