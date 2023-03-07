@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ferp.download.ChatHandler;
 import ferp.service.B2_Service;
 import vo.Emp;
 import vo.Menu;
@@ -259,4 +260,20 @@ public class B2_Controller {
 		
 		return "redirect:/qnaList.do";
 	}	
+	
+	
+	@Autowired(required = false)
+	private ChatHandler chHandl;
+	
+	// http://localhost:7080/ferp/chatting.do
+	@RequestMapping("/chatting.do")
+	public String chatting() {
+		return "WEB-INF\\view\\chatting.jsp";
+	}
+	@GetMapping("chGroup.do")
+	public String chGroup(Model d) {
+		d.addAttribute("group", chHandl.getIdx());
+		return "pageJsonReport";
+	}
+	
 }

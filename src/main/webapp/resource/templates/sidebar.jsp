@@ -87,7 +87,7 @@
                             <li id="5001"><a href="${path}/noticeList.do">- 공지사항 조회</a></li>
                             <li id="5101"><a href="${path}/qnaInsert.do">- 문의글 등록</a></li>
                             <li id="5103"><a href="${path}/qnaList.do">- 문의글 조회</a></li>
-                            <li><a href="#">- 1:1 채팅</a></li>
+                            <li id="5201"><a href="#">- 1:1 채팅</a></li>
                         </ul>
                     </li>
                      <li>

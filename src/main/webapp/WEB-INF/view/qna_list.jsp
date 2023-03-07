@@ -64,7 +64,7 @@
 			    		${qna.title}</td>
 			    		<td>${qna.writer}</td>
 			    		<td><fmt:formatDate value="${qna.regdte}"/></td>
-			    		<td class="readCnt">${qna.readCnt}</td>
+			    		<td class="numberData">${qna.readCnt}</td>
 			    	</tr>
 					</c:forEach>
 			    </tbody>	

@@ -52,7 +52,7 @@
 			    	<tr>
 			    		<td>${menu.menuName}</td>
 			    		<td>${menu.info}</td>
-			    		<td><fmt:formatNumber value="${menu.price}"/></td>
+			    		<td class="numberData"><fmt:formatNumber value="${menu.price}" type='currency'/></td>
 			    		<td><img style="width: 100px; height: 100px;" src="${path}/resource/img/${menu.img}"></td>
 			    	</tr>
 					</c:forEach>

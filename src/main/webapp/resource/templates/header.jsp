@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="${path}/resource/css/reset.css" />
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css" />
 <script type="text/javascript">
+//login.frRegiNum
 	var login = '9999999999'
 	if (login == "") {
 		location.href = "${path}/storeLogin.do"
