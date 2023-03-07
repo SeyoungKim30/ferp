@@ -51,6 +51,7 @@ public class A1_Controller {
          session.setAttribute("login", service.empLogin(emp));
          return "/goEmpMainPage.do";
       }
+      
    }
    // 로그아웃(emp)
    @RequestMapping("/logoutEmp.do")
