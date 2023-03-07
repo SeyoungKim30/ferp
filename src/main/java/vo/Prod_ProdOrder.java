@@ -1,6 +1,6 @@
 package vo;
 
-public class ProdOrder {
+public class Prod_ProdOrder {
 	private String orderNum;
 	private String productNum;
 	private String demander;	//본사가 사올때는 본사코드, 팔때는 가맹점번호
@@ -11,22 +11,9 @@ public class ProdOrder {
 	private String orderState;
 	private String orderStateUpdate;
 	private String orderDateMonth;
-	public String getOrderStateUpdate() {
-		return orderStateUpdate;
-	}
-	public void setOrderStateUpdate(String orderStateUpdate) {
-		this.orderStateUpdate = orderStateUpdate;
-	}
-	public String getOrderDateMonth() {
-		return orderDateMonth;
-	}
-	public void setOrderDateMonth(String orderDateMonth) {
-		this.orderDateMonth = orderDateMonth;
-	}
-	public ProdOrder() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private String productName;
+	private String img;
+	private String category;
 	public String getOrderNum() {
 		return orderNum;
 	}
@@ -75,6 +62,34 @@ public class ProdOrder {
 	public void setOrderState(String orderState) {
 		this.orderState = orderState;
 	}
-	
-	
+	public String getOrderStateUpdate() {
+		return orderStateUpdate;
+	}
+	public void setOrderStateUpdate(String orderStateUpdate) {
+		this.orderStateUpdate = orderStateUpdate;
+	}
+	public String getOrderDateMonth() {
+		return orderDateMonth;
+	}
+	public void setOrderDateMonth(String orderDateMonth) {
+		this.orderDateMonth = orderDateMonth;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 }

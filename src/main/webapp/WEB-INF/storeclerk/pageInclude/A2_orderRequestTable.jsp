@@ -27,6 +27,9 @@
 		 발주 번호, 자재명, 종류, 처리방식, 첨부 이미지, 신청 상태(처리 대기/처리 완료), 신청일, 처리일(완료 시)
 		 orderNum, productName, category, method, img, state, orderDate, applyDate
 		 */
+		 $(".monthDiv").click(function(){
+			 
+		 })
 	})
 </script>
 </head>
@@ -34,47 +37,67 @@
 	<h2 class="h2Title">발주 신청서 조회</h2>
 	<br>
 	<div>
-		<div class="row">
-			<div class="thDiv" style="width: 18%;">발주번호</div>
-			<div class="thDiv" style="width: 10%;">자재번호</div>
-			<div class="thDiv" style="width: 14%;">요청매장번호</div>
-			<div class="thDiv" style="width: 14%;">공급자번호</div>
-			<div class="thDiv" style="width: 14%;">신청날짜</div>
-			<div class="thDiv" style="width: 10%;">요청수량</div>
-			<div class="thDiv" style="width: 10%;">결제상태</div>
-			<div class="thDiv" style="width: 10%;">발주상태</div>
+	<div class="toolbox">
+		<div class="row margin-sm">
+			<div class="monthDiv">1월</div>
+			<div class="monthDiv">2월</div>
+			<div class="monthDiv">3월</div>
+			<div class="monthDiv">4월</div>
+			<div class="monthDiv">5월</div>
+			<div class="monthDiv">6월</div>
+			<div class="monthDiv">7월</div>
+			<div class="monthDiv">8월</div>
+			<div class="monthDiv">9월</div>
+			<div class="monthDiv">10월</div>
+			<div class="monthDiv">11월</div>
+			<div class="monthDiv">12월</div>
 		</div>
-		<div>
-			<c:forEach var="req" items="${reqlist }">
-				<div class="row"
-					onclick="prodInfo('${req.orderNum}','${req.productNum }','${req.productName }','${req.amount }',
-						'${req.supplier }','${req.demander }','${req.orderDate }','${req.img}','${req.paymentState }','${req.orderState }')">
-					<div class="tdDiv" style="width: 18%;">${req.orderNum }</div>
-					<div class="tdDiv" style="width: 10%;">${req.productNum }</div>
-					<div class="tdDiv" style="width: 14%;">${req.demander }</div>
-					<div class="tdDiv" style="width: 14%;">${req.supplier }</div>
-					<div class="tdDiv" style="width: 14%;">
-						<div style="display: none;">
-							<fmt:parseDate var="orderDate" value="${req.orderDate }"
-								pattern="yyyy-MM-dd HH:mm:ss" />
-						</div>
-						<fmt:formatDate value="${orderDate }" pattern="yyyy년MM월dd일" />
-					</div>
-					<div class="tdDiv" style="width: 10%; text-align: right;">
-						<fmt:formatNumber value='${req.amount }' pattern='#,#00.##' />
-					</div>
-					<div class="tdDiv" style="width: 10%;">${req.paymentState }</div>
-					<div class="tdDiv" style="width: 10%;">${req.orderState}</div>
+	</div>
+	<form id="schFrm" method="post">
+		<input type="text" name="orderDateMonth">
+		<input type="text" name="">
+		<input type="text" name="orderDateMonth">
+	</form>
+	<div class="row">
+		<div class="thDiv" style="width: 18%;">발주번호</div>
+		<div class="thDiv" style="width: 10%;">자재번호</div>
+		<div class="thDiv" style="width: 14%;">요청매장번호</div>
+		<div class="thDiv" style="width: 14%;">공급자번호</div>
+		<div class="thDiv" style="width: 14%;">신청날짜</div>
+		<div class="thDiv" style="width: 10%;">요청수량</div>
+		<div class="thDiv" style="width: 10%;">결제상태</div>
+		<div class="thDiv" style="width: 10%;">발주상태</div>
+	</div>
+	<div>
+	<c:forEach var="req" items="${reqlist }">
+		<div class="row" onclick="prodInfo('${req.orderNum}','${req.productNum }','${req.productName }','${req.amount }',
+			'${req.supplier }','${req.demander }','${req.orderDate }','${req.img}','${req.paymentState }','${req.orderState }')">
+			<div class="tdDiv" style="width: 18%;">${req.orderNum }</div>
+			<div class="tdDiv" style="width: 10%;">${req.productNum }</div>
+			<div class="tdDiv" style="width: 14%;">${req.demander }</div>
+			<div class="tdDiv" style="width: 14%;">${req.supplier }</div>
+			<div class="tdDiv" style="width: 14%;">
+				<div style="display: none;">
+					<fmt:parseDate var="orderDate" value="${req.orderDate }"
+						pattern="yyyy-MM-dd HH:mm:ss" />
 				</div>
-			</c:forEach>
-		</div>
-		<div id="modal2">
-			<div class="modal_content">
-				<%@ include
-					file="/WEB-INF/storeclerk/pageInclude/A2_orderRequestProdInfo.jsp"%>
-				<div style="text-align: right;"></div>
+				<fmt:formatDate value="${orderDate }" pattern="yyyy년MM월dd일" />
 			</div>
-			<div class="modal_layer"></div>
+			<div class="tdDiv" style="width: 10%; text-align: right;">
+				<fmt:formatNumber value='${req.amount }' pattern='#,##0.##' />
+			</div>
+			<div class="tdDiv" style="width: 10%;">${req.paymentState }</div>
+			<div class="tdDiv" style="width: 10%;">${req.orderState}</div>
+		</div>
+	</c:forEach>
+	</div>
+	<div id="modal2">
+		<div class="modal_content">
+			<%@ include
+				file="/WEB-INF/storeclerk/pageInclude/A2_orderRequestProdInfo.jsp"%>
+			<div style="text-align: right;"></div>
+		</div>
+		<div class="modal_layer"></div>
 		</div>
 	</div>
 </body>
