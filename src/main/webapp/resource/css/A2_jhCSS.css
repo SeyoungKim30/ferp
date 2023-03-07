@@ -213,7 +213,7 @@ input[type="text"].listInput:disabled {
 }
 
 #frm01>.schDiv>div.left {
-	width: 65%;
+	width: 55%;
 }
 
 #frm01>.schDiv>button {
@@ -229,4 +229,5 @@ input[type="text"].listInput:disabled {
 	background-color:#efefef;
 	border:1px solid #a4a4a4;
 	cursor: pointer;
+	height:30px;
 }

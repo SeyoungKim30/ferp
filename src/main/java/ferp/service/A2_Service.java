@@ -98,4 +98,7 @@ public class A2_Service {
 	public void delReqList(Prod_ProdOrder del) {
 		dao.delReqList(del);
 	}
+	public List<Rq_Product> cateCombo() {
+		return dao.cateCombo();
+	}
 }

@@ -149,12 +149,14 @@ DELETE FROM orders WHERE orderdate LIKE '%'||''||'%';
 SELECT * FROM store;
 
 SELECT to_char(s.STOCKDATE,'YYYY-MM-dd') ,p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAME ,p.OPPOSITE ,p.PRICE ,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK 
-      FROM PRODUCT p , STOCK s , PRODORDER p2 
-      WHERE p.PRODUCTNUM = s.PRODUCTNUM 
-      AND p.PRODUCTNUM = p2.PRODUCTNUM 
-      AND to_char(s.STOCKDATE,'YYYY-MM-dd') = '2023-02-11'
-      AND p.productNum LIKE '%'||''||'%'
-      AND category LIKE '%'||''||'%'
-      AND productName LIKE '%'||''||'%'
-      AND opposite LIKE '%'||''||'%'
-      AND orderState LIKE '%'||''||'%';
+FROM PRODUCT p , STOCK s , PRODORDER p2 
+WHERE p.PRODUCTNUM = s.PRODUCTNUM 
+AND p.PRODUCTNUM = p2.PRODUCTNUM 
+AND to_char(s.STOCKDATE,'YYYY-MM-dd') = '2023-02-11'
+AND p.productNum LIKE '%'||''||'%'
+AND category LIKE '%'||''||'%'
+AND productName LIKE '%'||''||'%'
+AND opposite LIKE '%'||''||'%'
+AND orderState LIKE '%'||''||'%';
+      
+SELECT DISTINCT category FROM product;   

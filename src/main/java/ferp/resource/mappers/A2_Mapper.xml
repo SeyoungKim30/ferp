@@ -96,4 +96,8 @@
 		AND productnum = #{productNum}
 		AND orderdate = to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
 	</delete>
+	<!-- 카테고리 콤보박스 -->
+	<select id="cateCombo" resultType="rqproduct">
+		SELECT DISTINCT category FROM product
+	</select>
 </mapper>

@@ -24,12 +24,22 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		/* 
-		 발주 번호, 자재명, 종류, 처리방식, 첨부 이미지, 신청 상태(처리 대기/처리 완료), 신청일, 처리일(완료 시)
-		 orderNum, productName, category, method, img, state, orderDate, applyDate
-		 */
-		 $(".monthDiv").click(function(){
-			 
-		 })
+		발주 번호, 자재명, 종류, 처리방식, 첨부 이미지, 신청 상태(처리 대기/처리 완료), 신청일, 처리일(완료 시)
+		orderNum, productName, category, method, img, state, orderDate, applyDate
+		*/
+		$(".monthDiv").click(function(){
+			$("[name=orderDateMonth]").val(this.innerText)
+			$("#reqSchFrm").submit()
+			})
+		$("#monthCheck").change(function(){
+			console.log(!$("#monthCheck").is(':checked')) 
+			})
+		$("#schFrmBtn").click(function(){
+			if(!$("#monthCheck").is(':checked')){
+				$("[name=orderDateMonth]").val("")
+			}
+			$("#reqSchFrm").submit()
+		})
 	})
 </script>
 </head>
@@ -39,25 +49,42 @@
 	<div>
 	<div class="toolbox">
 		<div class="row margin-sm">
-			<div class="monthDiv">1월</div>
-			<div class="monthDiv">2월</div>
-			<div class="monthDiv">3월</div>
-			<div class="monthDiv">4월</div>
-			<div class="monthDiv">5월</div>
-			<div class="monthDiv">6월</div>
-			<div class="monthDiv">7월</div>
-			<div class="monthDiv">8월</div>
-			<div class="monthDiv">9월</div>
-			<div class="monthDiv">10월</div>
-			<div class="monthDiv">11월</div>
-			<div class="monthDiv">12월</div>
+			<div class="col left" >
+				<div class="row" style="margin-top: 7px;">
+					<input type="checkbox" id="monthCheck" checked>
+					<label>월 포함</label>
+				</div>
+				<div class="row">
+					<c:forEach var="i" begin="1" end="12">
+						<div class="monthDiv">${i }월</div>
+					</c:forEach>
+				</div>
+			</div>
+			<div style="padding-left: 5%;">
+				<form id="reqSchFrm" method="post">
+					<div class="row schDiv">
+						<div class="col left" >
+							<label>카테고리</label>
+							<select name="category">
+								<option value="">---</option>
+								<c:forEach var="c" items="${category }">
+									<option>${c.category}</option>
+								</c:forEach>
+							</select>
+						</div>
+						&nbsp;&nbsp;&nbsp;
+						<div class="col left" >
+							<label>자재명</label>
+							<input type="text" name="productName" value="${rSch.productName}">				
+						</div>
+						<button type="button" id="schFrmBtn">조회</button>
+					</div>
+					<input type="hidden" name="orderDateMonth" value="${rSch.orderDateMonth}">
+					<input type="hidden" name="demander" value="${login.frRegiNum}">		
+				</form>
+			</div>
 		</div>
 	</div>
-	<form id="schFrm" method="post">
-		<input type="text" name="orderDateMonth">
-		<input type="text" name="">
-		<input type="text" name="orderDateMonth">
-	</form>
 	<div class="row">
 		<div class="thDiv" style="width: 18%;">발주번호</div>
 		<div class="thDiv" style="width: 10%;">자재번호</div>

@@ -71,7 +71,7 @@ public class A2_Controller {
 		return "/WEB-INF/storeclerk/A2_clerkPayCon.jsp";
 	}
 //	발주 신청서 리스트 조회
-	@GetMapping("/requestProd.do")
+	@RequestMapping("/requestProd.do")
 	public String pg9101() {
 		return "/WEB-INF/storeclerk/A2_orderRequestCon.jsp";
 	}
@@ -89,7 +89,7 @@ public class A2_Controller {
 	}
 //	발주 신청서 조회
 	@ModelAttribute("reqlist")
-	public List<Prod_ProdOrder> requestList(Prod_ProdOrder sch, HttpSession session){
+	public List<Prod_ProdOrder> requestList(@ModelAttribute("rSch") Prod_ProdOrder sch, HttpSession session){
 		Store s = (Store)session.getAttribute("login");
 		sch.setDemander(s.getFrRegiNum());
 		return service.reqList(sch);
@@ -107,5 +107,10 @@ public class A2_Controller {
 		service.delReqList(del);
 		d.addAttribute("msg", "삭제완료");
 		return "pageJsonReport";
+	}
+//	카테고리 콤보박스
+	@ModelAttribute("category")
+	public List<Rq_Product> cateCombo(){
+		return service.cateCombo();
 	}
 }
