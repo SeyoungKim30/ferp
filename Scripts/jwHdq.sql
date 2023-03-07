@@ -180,7 +180,25 @@ WHERE s.empnum=e.EMPNUM
 AND frreginum!='9999999999';
 
 --본사:특정매장오픈시간상세조회
-SELECT frname, fropertime, frrepname, ename
+SELECT frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime
 FROM store s, emp e
 WHERE s.empnum=e.EMPNUM
 AND frreginum='1234567891';
+--본사:특정매장오픈시간캘린더
+SELECT to_char(onTime, 'YYYY/MM/DD') wday, MIN(onTime) firstworkt
+FROM EMPCHECKIN 
+WHERE FRREGINUM='1234567890' 
+GROUP BY to_char(onTime, 'YYYY/MM/DD');
+
+
+
+SELECT *  --FRCLOSEDDTE 휴무일 
+FROM store ;
+--GROUP BY TRUNC(onTime, DATE);
+
+SELECT frname, fropertime, frrepname, ename
+		FROM store s, emp e
+		WHERE s.empnum=e.EMPNUM;
+
+
+
