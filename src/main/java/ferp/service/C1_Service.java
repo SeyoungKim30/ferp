@@ -97,6 +97,9 @@ public class C1_Service {
 		}
 		return dao.r9310selectProdOrderPayState(prodOrder);
 	}
+	public int r9311updateProdOrderPayState(ProdOrder prodOrder) {
+		return 	dao.r9311updateProdOrderPayState(prodOrder);
+	}
 	
 	
 	public List<Store> selectActiveStore(){

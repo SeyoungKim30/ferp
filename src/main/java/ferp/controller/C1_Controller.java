@@ -129,7 +129,7 @@ public class C1_Controller {
 	public String r9310prodOrderPayState() {
 		return "WEB-INF\\headquarter\\pg9310_prodOrderPayState.jsp";
 	}
-	
+
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@RequestMapping("selectProdOrderPayState.do")
 	public String r9310selectProdOrderPayState(Model model,ProdOrder prodOrder) {
@@ -137,5 +137,11 @@ public class C1_Controller {
 		return "pageJsonReport";
 	}
 	
+	@RequestMapping("updateProdOrderPayState.do")
+	@ResponseBody
+	public String r9311updateProdOrderPayState(Model model,ProdOrder prodOrder) {
+		int a=service.r9311updateProdOrderPayState(prodOrder);
+		return a+"";
+	}
 
 }

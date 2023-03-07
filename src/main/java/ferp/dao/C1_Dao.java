@@ -30,6 +30,7 @@ public interface C1_Dao {
 	public int r9203updateOrderState(ProdOrder prodOrder);
 	
 	public List<Prod_order_stock_emp_store>r9310selectProdOrderPayState(ProdOrder prodOrder);
+	public int r9311updateProdOrderPayState(ProdOrder prodOrder);
 	
 	//모든 store 리스트
 	public List<Store> selectActiveStore();

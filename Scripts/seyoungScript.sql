@@ -173,8 +173,7 @@ INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567891' FRO
 INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567891' FROM dual),'PD10002','1234567891','9999999999',sysdate,12,'요청','완료');
 INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567890' FROM dual),'PD10001','1234567890','9999999999',sysdate,32,'배송','완료');
 INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYMMDD')||'1234567890' FROM dual),'PD10002','1234567890','9999999999',sysdate,8,'배송','완료');
---INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10001','1234567892','9999999999',SYSdate,3,'정산전','요청');
---INSERT INTO PRODORDER values((SELECT TO_CHAR(SYSDATE,'YYYYMM')||'1234567890' FROM dual),'PD10002','1234567892','9999999999',SYSdate,1,'정산전','요청');
+INSERT INTO PRODORDER values('2203071234567890','PD10022','1234567890','9999999999',to_date('2023-03-07','YYYY-MM-DD'),41,'배송','완료');
 
 --물류관리 발주 조회 메뉴
 --주문지점, 발주번호, 날짜로 검색 + 월별 조회
@@ -202,12 +201,22 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	AND (TRUNC(orderdate) = to_date('','YYYY-MM-DD')	--일별일때
 			OR TRUNC(orderdate,'month') = TRUNC(to_date('','YYYY-MM-DD'),'month')--월별일때
 			OR ORDERNUM LIKE '%'||''||'%')	--발주번호
-	AND (po.DEMANDER LIKE '%'||'독'||'%' OR se.frname LIKE '%'||'독'||'%')	--주문지점
-	AND (se.ename LIKE '%'||'김'||'%' OR se.empNum LIKE '%'||'김'||'%')	--담당자
-	AND (pd.PRODUCTNUM LIKE '%'||'바리'||'%' OR pd.PRODUCTNAME LIKE '%'||'바리'||'%') --상품번호 또는 이름
+	AND (po.DEMANDER LIKE '%'||''||'%' OR se.frname LIKE '%'||''||'%')	--주문지점
+	AND (se.ename LIKE '%'||''||'%' OR se.empNum LIKE '%'||''||'%')	--담당자
+	AND (pd.PRODUCTNUM LIKE '%'||''||'%' OR pd.PRODUCTNAME LIKE '%'||''||'%') --상품번호 또는 이름
 	AND po.PAYMENTSTATE LIKE '%'||''||'%' AND po.ORDERSTATE LIKE '%'||''||'%'
 ORDER BY po.ORDERDATE asc ;
 ;
+
+
+UPDATE PRODORDER SET PAYMENTSTATE  ='정산전' WHERE ORDERDATE < sysdate;
+UPDATE PRODORDER SET PAYMENTSTATE ='청구' WHERE ORDERDATE < to_date('2023-03-01','yyyy-mm-dd') AND demander = '1234567890';
+UPDATE PRODORDER SET PAYMENTSTATE ='계산서 발행' WHERE ORDERDATE < to_date('2023-02-28','yyyy-mm-dd');
+UPDATE PRODORDER SET PAYMENTSTATE ='완료' WHERE ORDERDATE < to_date('2023-01-31','yyyy-mm-dd');
+
+UPDATE PRODORDER SET ORDERSTATE  ='요청' WHERE ORDERDATE < sysdate;
+UPDATE PRODORDER SET ORDERSTATE ='배송' WHERE ORDERDATE < to_date('2023-03-07','yyyy-mm-dd');
+UPDATE PRODORDER SET ORDERSTATE ='완료' WHERE ORDERDATE < to_date('2023-03-06','yyyy-mm-dd');
 --발주상태 변경
 /*UPDATE PRODORDER SET ORDERSTATE ='완료' WHERE (ORDERNUM,PRODUCTNUM) IN (SELECT po.ORDERNUM,po.PRODUCTNUM  FROM PRODORDER po, product pd, 
 		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se,
@@ -222,14 +231,22 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	AND po.PAYMENTSTATE LIKE '%'||''||'%' AND po.ORDERSTATE LIKE '%'||''||'%');*/
 
 --결제상태 검색
-SELECT to_char(TRUNC(ORDERDATE,'month'),'YYYY-MM') AS orderDateMonth,FRREGINUM,FRNAME, sum(AMOUNT*price) AS price,ename,po.PAYMENTSTATE
-FROM prodOrder po,PRODUCT pd, (SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se
+SELECT to_char(TRUNC(ORDERDATE,'month'),'YYYY-MM') AS orderDateMonth,FRREGINUM,FRNAME,sum(CASE WHEN CATEGORY LIKE '면세'||'%' THEN 0 ELSE AMOUNT * price * 0.1 END ) AS remark
+		,sum(AMOUNT*price) AS price, ename, empnum, po.PAYMENTSTATE
+FROM prodOrder po,
+	product pd, 
+	(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se
 WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
-	AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023-03', 'YYYY-MM')	--날짜
+	AND TRUNC(orderdate,'month') BETWEEN to_date('2023-03', 'YYYY-MM') AND to_date('2023-03', 'YYYY-MM')	--날짜
 	AND (po.DEMANDER LIKE '%'||''||'%' or se.frname LIKE '%'||''||'%')	--주문지점
-	AND (se.ename LIKE '%'||'김'||'%' or se.empNum LIKE '%'||''||'%')	--담당자
+	AND (se.ename LIKE '%'||''||'%' or se.empNum LIKE '%'||''||'%')	--담당자
 	AND po.PAYMENTSTATE LIKE '%'||''||'%' 
-GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,po.PAYMENTSTATE
+GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,empnum,po.PAYMENTSTATE
+;
+
+SELECT * FROM product WHERE CATEGORY NOT LIKE '면세'||'%'
+union
+SELECT * FROM product WHERE CATEGORY LIKE '면세'||'%'
 ;
 
 
@@ -245,7 +262,7 @@ SELECT * FROM stock;
 SELECT * FROM emp  ;
 /*INSERT INTO emp values('00009999','1234','admin','관리자');
 INSERT INTO store(frreginum) values('9999999999',); 
-INSERT INTO stock VALUES ('PD10001','9999999999',sysdate,100,100,null);*/
-INSERT INTO stock VALUES ('PD10001','9999999999',sysdate,10,110,null);
+INSERT INTO stock VALUES ('PD10001','9999999999',sysdate,100,100,null);
+INSERT INTO stock VALUES ('PD10022','9999999999',sysdate,40,40,null);*/
 
 SELECT * FROM emp;
