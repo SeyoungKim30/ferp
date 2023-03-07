@@ -124,6 +124,12 @@ public class C1_Controller {
 		return a+"";
 	}
 	
+	// http://localhost:6080/ferp/prodOrderPayState.do
+	@GetMapping("prodOrderPayState.do")
+	public String r9310prodOrderPayState() {
+		return "WEB-INF\\headquarter\\pg9310_prodOrderPayState.jsp";
+	}
+	
 
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@GetMapping("selectActiveStoreJson.do")

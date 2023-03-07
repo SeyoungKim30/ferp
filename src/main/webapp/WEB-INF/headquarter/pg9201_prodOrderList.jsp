@@ -23,14 +23,6 @@
 	localStorage.setItem("pageIdx","9201")
 	localStorage.setItem("eqIdx","9000")
 
-	//지점 리스트(본사일때만??)
-	function fetchStoreList(){
-		let url ="${path}/selectActiveStoreJson.do"
-		fetch(url).then(function(response){return response.json() }).then(function(json){
-			makeOptions(json.storeList,'frName','frRegiNum','#storeList')
-	 	}).catch(function(err){console.log(err)})
-	}
-
 	//담당자 리스트
 	var empList=[];
 	
@@ -69,7 +61,7 @@ $(document).ready(function(){
 		<label>담당자<input name="supplier"></label>
 	</fieldset>
 		<label>상품 선택<input name="productNum"></label>
-		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>준비</option><option>배송</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
+		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
 		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
 	</div>
 	<button class="btn-secondary">발주조회</button>
@@ -104,6 +96,7 @@ $(document).ready(function(){
       </div>
  <div class="modal-body">
 <form id="orderStateForm">
+<div style="display: none">
 <input name="orderNum">
 <input name="orderDate">
 <input name="demander">
@@ -112,6 +105,7 @@ $(document).ready(function(){
 <input name="orderState">
 <input name="paymentState">
 <input name="orderStateUpdate" placeholder="orderStateUpdate">
+</div>
 	<table><thead><th>자재코드</th><th>자재명</th><th>총 수량</th><th>상태 일괄 변경</th></thead>
 	<tbody></tbody>
 	</table>
@@ -141,7 +135,7 @@ $('.toolbar').first().find('label').each(function(){
 })
 
 //submit 비동기로 불러와서 표에 출력하기
-const form1= document.querySelector('form')
+const form1= document.querySelector('#searchform')
 form1.addEventListener('submit', (e) => {
     e.preventDefault();
     selectProdOrderListJson();
@@ -169,7 +163,7 @@ function selectProdOrderListJson(){
 					+`</td><td>`+each.prodOrder.paymentState
 					+`</td></tr>`;
 			})
-			printTotalAmountbyProd(resultlist,(json.prodOrder.orderDate!=null||json.prodOrder.orderNum!=null));
+		printTotalAmountbyProd(resultlist,(json.prodOrder.orderDate!=null||json.prodOrder.orderNum!=null));
 		document.querySelector('tbody').innerHTML=htmls
 		openModal();
 		$('#modalByProd [name=orderNum]').val(json.prodOrder.orderNum)
@@ -218,36 +212,24 @@ function printTotalAmountbyProd(resultlist,isDaily){
 	let htmls='';
 	jsonprodAmount.forEach(function(each){
 		if(isDaily){
-			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td title="조회한 조건에 따라 발주 상태가 변경됩니다."><button type="button" class="btn-primary btn-sm" id="`+each.num+`">배송중</button> <button type="button" class="btn-success btn-sm" id="`+each.num+`">배송완료</button></td></tr>`
+			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td title="조회한 조건에 따라 발주 상태가 변경됩니다."><button type="button" class="btn-primary btn-sm" id="`+each.num+`">배송중</button> <button type="button" class="btn-success btn-sm" id="`+each.num+`">완료</button></td></tr>`
 		}else{
 			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td>일자별 조회시 일괄변경 가능</td></tr>`
 		}
 	})
 	$('#modalByProd tbody').html(htmls)
 	$('#orderStateForm .btn-sm').on('click',function(){
-		//fetchUpdate('#orderStateForm','${path}/updateOrderState.do?')
-var _promise = function (param) {
-  return new Promise(function (resolve, reject) {
-    fetchUpdate('#orderStateForm', '${path}/updateOrderState.do?')
-      .then(function(result) {
-        resolve(result);
-      })
-      .catch(function(error) {
-        reject(error);
-      });
-  });
-};
-
-_promise(true)
-.then(function(result) {
-  alert(`배송상태 변경 `+result);
-})
-.catch(function(error) {
-  console.error(error);
-});
-		//alert(`배송상태 변경 `+fetchUpdateReturn)
-		
-		
+		let prodnum=$(this).attr('id');
+		let stateupdate=$(this).text();
+		$('#orderStateForm [name=productNum]').val(prodnum)
+		$('#orderStateForm [name=orderStateUpdate]').val(stateupdate)
+		fetchUpdatePromise('#orderStateForm','${path}/updateOrderState.do?')
+		.then(function(result){
+			 alert(`배송상태 변경 `+result);
+		}).catch(function(reject){
+			console.error(reject);
+			alert(`배송상태 변경에 실패했습니다.`)
+			})
 	})
 }
 
