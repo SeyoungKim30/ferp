@@ -52,7 +52,7 @@
                             <li id="9201" onclick="location.href='${path }/productOrderList.do'"><a>- 발주 조회</a></li>
                             <li><a>- 배송 불량 신청</a></li>
                             <li><a>- 배송 불량 신청 현황</a></li>
-                            <li><a>- 발주 계산서 조회</a></li>
+                            <li id="9310" onclick="location.href='${path }/prodOrderPayState.do'"><a>- 발주 결제 관리</a></li>
                             <li><a>- 재고 관리</a></li>
                         </ul>
                     </li>
