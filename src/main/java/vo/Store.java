@@ -14,6 +14,7 @@ public class Store {
 	
 	// 본사:매장오픈시간조회
 	private String ename;
+	private String opentime;
 	
 	public Store() {
 		super();
@@ -98,6 +99,12 @@ public class Store {
 	}
 	public void setEname(String ename) {
 		this.ename = ename;
+	}
+	public String getOpentime() {
+		return opentime;
+	}
+	public void setOpentime(String opentime) {
+		this.opentime = opentime;
 	}
 	
 	
