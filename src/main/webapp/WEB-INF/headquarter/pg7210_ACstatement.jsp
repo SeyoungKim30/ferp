@@ -200,57 +200,43 @@ totalcalculator('.credit','.totalcredit');
 	})
 
 
-	//fetch로 계정받아와서 데이터리스트 만들기
-	function fetchlist(){
-		let url="/ferp/selectAccountJson.do"
-	 	fetch(url).then(function(response){return response.json() }).then(function(json){
-	 		accountList=json.accountList;
-	 		makeAccountOption(accountList);
-	 		$('.acntNum').each(function(){	//불러와진 전표번호에 맞춰서 전표명 입력
-	 			var myinput = $(this).val();
-	 			var myresult = $(this).parents('tr').find(".acntTitle")
-	 			for(var i=0;i<accountList.length;i++){
-	 				if(accountList[i].acntNum==myinput){
-	 					myresult.val(accountList[i].acntTitle);
-	 					break;
-	 				}else{
-	 					myresult.val('');
-	 				}
-	 			}
-	 		})
-	 	}).catch(function(err){console.log(err)})
+var accountList=[]
+$(document).ready(function(){
+	fetchSelectPromise('#searchform','${path}/selectAccountJson.do').then(result=>{
+		console.log(result)
+		accountList=result.list
+		makeOptions(accountList,'acntTitle','acntNum','#titleList')
+		makeOptions(accountList,'acntNum','acntTitle','#numList')
+	}).catch(function(error){console.error(error);})
+})	
+	
+//계정목록 가져온거 입력할때마다 적용되게 하기
+$('.acntTitle').on("keyup",function(){
+	var myinput = $(this).val();
+	var myresult = $(this).parents('tr').find(".acntNum")
+	for(var i=0;i<accountList.length;i++){
+		if(accountList[i].acntTitle==myinput){
+			myresult.val(accountList[i].acntNum);
+			break;
+		}else{
+			myresult.val('');
+		}
 	}
+})
 	
-	fetchlist();
-	
-	
-	//계정목록 가져온거 입력할때마다 적용되게 하기
-	$('.acntTitle').on("keyup",function(){
-		var myinput = $(this).val();
-		var myresult = $(this).parents('tr').find(".acntNum")
-		for(var i=0;i<accountList.length;i++){
-			if(accountList[i].acntTitle==myinput){
-				myresult.val(accountList[i].acntNum);
-				break;
-			}else{
-				myresult.val('');
-			}
+$('.acntNum').on("keyup",function(){
+	var myinput = $(this).val();
+	var myresult = $(this).parents('tr').find(".acntTitle")
+	for(var i=0;i<accountList.length;i++){
+		if(accountList[i].acntNum==myinput){
+			console.log('일치');
+			myresult.val(accountList[i].acntTitle);
+			break;
+		}else{
+			myresult.val('');
 		}
-	})
-	
-	$('.acntNum').on("keyup",function(){
-		var myinput = $(this).val();
-		var myresult = $(this).parents('tr').find(".acntTitle")
-		for(var i=0;i<accountList.length;i++){
-			if(accountList[i].acntNum==myinput){
-				console.log('일치');
-				myresult.val(accountList[i].acntTitle);
-				break;
-			}else{
-				myresult.val('');
-			}
-		}
-	})	
+	}
+})	
 </script>
 
 </body>

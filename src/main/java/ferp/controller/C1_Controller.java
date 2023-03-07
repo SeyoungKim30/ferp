@@ -22,17 +22,6 @@ public class C1_Controller {
 	@Autowired
 	C1_Service service;
 
-	// http://localhost:6080/ferp/selectAccountJson.do
-	@CrossOrigin(origins = "*",allowedHeaders = "*")
-	@GetMapping("selectAccountJson.do")
-	public String r7100SelectAccountJson(Account account, Model model) {
-		account.setAcntUsing(true);
-		model.addAttribute("accountList", service.r7100SelectAccount(account));
-		account.setAcntUsing(false);
-		model.addAttribute("accountListfalse", service.r7100SelectAccount(account));
-		return "pageJsonReport";
-	}
-	
 	// http://localhost:6080/ferp/selectAccount.do
 	@RequestMapping("selectAccount.do")
 	public String r7101SelectAccount(Account account, Model model) {

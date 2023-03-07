@@ -3,7 +3,7 @@
  */
 console.log('sy_fetchs included')
 
-var accountList=[];
+/*var accountList=[];
 var accountListfalse=[];
 var accountListBoth=[];
 
@@ -16,7 +16,7 @@ function fetchAccountList(queryString){
 	 	console.log('어카운트리스트'+accountList)
 	 }).catch(function(err){console.log(err)})
 }
-
+*/
 function fetchStoreList(){
 	let url ="/ferp/selectActiveStoreJson.do"
 	fetch(url).then(function(response){return response.json() }).then(function(json){

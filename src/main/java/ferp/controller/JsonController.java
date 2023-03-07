@@ -1,5 +1,7 @@
 package ferp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ferp.service.B2_Service;
 import ferp.service.C1_Service;
 import ferp.service.C2_Service;
+import vo.Account;
 import vo.NoticeSch;
-import vo.ProductProdOrder;
 
 @Controller
 public class JsonController {
@@ -23,6 +25,16 @@ public class JsonController {
 	C2_Service serviceC2;
 	@Autowired
 	B2_Service serviceB2;
+	
+	// http://localhost:6080/ferp/selectAccountJson.do
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@GetMapping("selectAccountJson.do")
+	public String r7100SelectAccountJson(Account account, Model model) {
+		account.setAcntUsing(true);
+		List<Account> list= serviceC1.r7100SelectAccount(account);
+		model.addAttribute("list",list);
+		return "pageJsonReport";
+	}
 	
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@GetMapping("selectEmpListJson.do")
