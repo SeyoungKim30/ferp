@@ -12,7 +12,6 @@
 <title>발주목록 조회</title>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
@@ -213,6 +212,7 @@ function printTotalAmountbyProd(resultlist,isDaily){
 	let htmls='';
 	jsonprodAmount.forEach(function(each){
 	<c:if test="${login.frRegiNum == 9999999999 }">
+	//본사일때
 		if(isDaily){
 			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td title="조회한 조건에 따라 발주 상태가 변경됩니다."><button type="button" class="btn-primary btn-sm" id="`+each.num+`">배송중</button> <button type="button" class="btn-success btn-sm" id="`+each.num+`">완료</button></td></tr>`
 		}else{
@@ -220,6 +220,7 @@ function printTotalAmountbyProd(resultlist,isDaily){
 		}
 	</c:if>
 	<c:if test="${login.frRegiNum != 9999999999 }">
+	//가맹점일때
 		htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td></tr>`
 	</c:if>
 	})

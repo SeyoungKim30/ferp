@@ -243,11 +243,23 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
 	AND po.PAYMENTSTATE LIKE '%'||''||'%' 
 GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,empnum,po.PAYMENTSTATE
 ;
-
-SELECT * FROM product WHERE CATEGORY NOT LIKE '면세'||'%'
-union
-SELECT * FROM product WHERE CATEGORY LIKE '면세'||'%'
+--정산서 검색
+SELECT pd.productnum,pd.category,pd.PRODUCTNAME ,pd.PRICE,(CASE WHEN CATEGORY LIKE '면세'||'%' THEN 0 ELSE price * 0.1 END) AS remark,
+to_char(monthly,'yyyy-mm') AS orderDateMonth,po.frreginum,po.AMOUNT,s.frname,s.FRREPNAME ,s.FRADDRESS 
+	FROM PRODUCT pd,
+		store s,
+		(SELECT TRUNC(ORDERDATE,'month') AS monthly,po.DEMANDER AS frreginum, po.productnum,sum(amount) AS amount
+		FROM PRODORDER po 
+		WHERE po.DEMANDER ='1234567890' AND TRUNC(ORDERDATE,'month')=TO_DATE('2023-03','YYYY-MM')
+		GROUP BY TRUNC(ORDERDATE,'month'), po.productnum,po.DEMANDER) po
+WHERE pd.PRODUCTNUM =po.productnum AND s.FRREGINUM =po.frreginum
+ORDER BY CATEGORY 
 ;
+
+SELECT TRUNC(ORDERDATE,'month') AS monthly,po.DEMANDER, po.productnum,sum(amount) AS amount
+	FROM PRODORDER po 
+	WHERE po.DEMANDER ='1234567890' AND TRUNC(ORDERDATE,'month')=TO_DATE('2023-03','YYYY-MM')
+	GROUP BY TRUNC(ORDERDATE,'month'), po.productnum,po.DEMANDER;
 
 
 SELECT * FROM PRODUCT p ;

@@ -29,8 +29,12 @@ public interface C1_Dao {
 	public List<Prod_order_stock_emp_store>r9201select(ProdOrder prodOrder);
 	public int r9203updateOrderState(ProdOrder prodOrder);
 	
+	//결제내역 조회
 	public List<Prod_order_stock_emp_store>r9310selectProdOrderPayState(ProdOrder prodOrder);
 	public int r9311updateProdOrderPayState(ProdOrder prodOrder);
+	
+	//결제내역-매월 정산서
+	public List<Prod_order_stock_emp_store> r9301prodOrderPayDetail(ProdOrder prodOrder);
 	
 	//모든 store 리스트
 	public List<Store> selectActiveStore();

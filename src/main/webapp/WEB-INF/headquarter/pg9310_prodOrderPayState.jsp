@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>타이틀</title>
+<title>발주 정산</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -75,6 +75,13 @@ localStorage.setItem("eqIdx","9000")
 	<input name="demander">
 	<input name="paymentState">
 	</form>
+	
+<form id='prodOrderPayDetail' action="${path }/prodOrderPayDetail.do" method="post" style="display: none;">
+<input name="demander" required>
+<input name="orderDateMonth" type="month" required>
+</form>
+
+
 <script>
 //form ajax로 제출해서 테이블에 출력하기
 const form1= document.querySelector('#searchform')
@@ -93,8 +100,8 @@ form1.addEventListener('submit', function(e){
 				case '청구' : whichbuttonshouldiprint=`<button id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`' class="btn-warning">계산서 발행</button>`;break;
 				case '계산서 발행' : whichbuttonshouldiprint=`<button id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`' class="btn-primary">완료</button>`;break;
 				case '완료' : whichbuttonshouldiprint=`<button id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`' class='btn-danger'>취소</button>`;break;	}
-			htmls+=`<tr><td>`+each.prodOrder.orderDateMonth
-			+`</td><td id="`+each.store.frRegiNum+`">`+each.store.frName
+			htmls+=`<tr><td title='클릭하면 정산서 조회 페이지로 이동합니다' id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`'>`+each.prodOrder.orderDateMonth
+			+`</td><td title='클릭하면 정산서 조회 페이지로 이동합니다' id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`'>`+each.store.frName
 			+`</td><td id="`+each.emp.ename+`">`+each.emp.ename
 			+`</td><td>`+(each.product.price).toLocaleString()
 			+`</td><td>`+Number(each.product.remark).toLocaleString()
@@ -112,6 +119,8 @@ form1.addEventListener('submit', function(e){
 		+` <button id='0000000000 `+result.prodOrder.orderDate+`' class="btn-sm btn-warning">계산서 발행</button></td></tr>`;
 		$('tbody').find('button').on('click',updateClick)
 		$('tfoot').find('button').on('click',updateAllClick)
+		$('tbody').find('tr td:nth-child(1)').on('click',goDetail)
+		$('tbody').find('tr td:nth-child(2)').on('click',goDetail)
 	}).catch(function(error){console.error(error);})
 })
 
@@ -141,6 +150,13 @@ function updateAllClick(){	//fetch하고 테이블에 있는 버튼에 적용
 		 $('#searchform .btn-secondary').trigger('click');
 	}else{return false;}
 	}
+	
+function goDetail(){	//정산서 보러 가기
+	let yyyymm=$(this).attr('id').substr(11,13)
+	document.querySelector('#prodOrderPayDetail [name=demander]').value = $(this).attr('id').substr(0,10)
+	document.querySelector('#prodOrderPayDetail [name=orderDateMonth]').value = yyyymm
+	document.querySelector('#prodOrderPayDetail').submit();
+}
 </script>	
 </body>
 </html>
