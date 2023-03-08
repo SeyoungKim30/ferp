@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ferp.dao.B2_Dao;
 import vo.Emp;
 import vo.Menu;
+import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
 import vo.Store;
@@ -26,9 +27,29 @@ public class B2_Service {
 	private String upload;
 	
 	// 메뉴 조회
-	public List<Menu> searchMenu(Menu sch){
+	public List<Menu> searchMenu(MenuSch sch){
 		if(sch.getMenuName()==null) sch.setMenuName("");
 		
+		sch.setCount(dao.totCntMenu(sch));
+		
+		if(sch.getCurPage()==0) sch.setCurPage(1);
+		
+		if(sch.getPageSize()==0) sch.setPageSize(15);
+		
+		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
+		
+		if(sch.getCurPage()>sch.getPageCount()) sch.setCurPage(sch.getPageCount());
+		
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getPageSize()*sch.getCurPage());
+		sch.setBlockSize(5);
+		
+		int blocknum = (int)Math.ceil((double)sch.getCurPage()/sch.getBlockSize());
+		int endBlock = blocknum*sch.getBlockSize();
+		if(endBlock > sch.getPageCount()) endBlock = sch.getPageCount();
+		sch.setEndBlock(endBlock);
+
+		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.searchMenu(sch);
 	}
 	
@@ -103,7 +124,10 @@ public class B2_Service {
 		return upt.getEmpnum();
 	}
 	
-	
+	// 중요 공지사항
+	public Notice importantNotice() {
+		return dao.importantNotice();
+	}
 	// 공지사항 조회
 	public List<Notice> searchNotice(NoticeSch sch){
 		if(sch.getTitle()==null) sch.setTitle("");

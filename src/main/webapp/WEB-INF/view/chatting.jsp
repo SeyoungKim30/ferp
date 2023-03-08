@@ -15,9 +15,42 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="/ferp/resource/css/chatting.css"/>
+<link rel="stylesheet" href="/ferp/resource/css/popup.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
+<style type="text/css">
+.popup_bottom > a{
+	text-decoration:none; 
+}
+.pull-right{float:right}
+.main_popup{
+	width:350px;
+	height:350px;
+	border:3px solid #3E4156;
+	border-radius: 30px;
+	background-color: white;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 25px 25px 10px 25px;
+}
 
+.popup_bottom{
+    color: black;
+	padding: 10px 30px 3px 20px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 14px;
+}
+pre{
+	white-space: pre-line;
+    font-size: 15px;
+    font-family: inherit;
+    height: 220px;
+    overflow: auto;
+    margin-top: 14px;
+}
+</style>
 </head>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","5201")
@@ -34,7 +67,7 @@
 					<span class="input-group-text  justify-content-center">접속아이디</span>
 				</div>
 				<input id="id" class="form-control"  placeholder="접속할 아이디를 입력하세요"/>
-				<button id="enterBtn" type="button" class="btn btn-success" >입장</button>
+				<button id="enterBtn" type="button" class="btn btn-success">입장</button>
 				<button id="exitBtn" type="button" class="btn btn-danger" >나가기</button>			
 			</div>	
 			<div class="input-group">
@@ -60,9 +93,28 @@
 				<button id="sendBtn" type="button" class="btn btn-info">메시지전송</button>		
 			</div>
 		</div>
-	</div>
+		
+		<c:if test="${important.title ne null}">
+		<div id="main_popup" class="main_popup" style="position: absolute; z-index:10000; display: none;">
+			<div style="height: 280px; border-bottom: 1px solid;">
+				<h3 style="border-bottom: 1px solid;padding-bottom: 10px;">
+    				${important.title}
+    			</h3>
+				<pre>
+${important.content}
+				</pre>
+			</div>
+			<div class="popup_bottom">
+				<a href="javascript:closePopupNotToday()" class="white">오늘 하루동안 보지 않기</a>
+				<a class="pull-right white" href="javascript:closeMainPopup();">닫기</a>
+			</div>
+		</div>
+		</c:if>
+		
+	</div>	
 </body>
 <script type="text/javascript">
+console.log('${important.title}')
 	window.addEventListener("resize", function() {
 		//console.log("크기 변경")
 		//console.log("#chatArea 크기 변경:"+$("#chatArea").width())
@@ -133,8 +185,6 @@ function cKId(){
 	if($("#id").val()==""){
 		alert("아이디를 입력하셔야 접속가능합니다.")
 	}else{
-		console.log(members)
-		console.log("접속자들")
 		var isNotValid=false;
 		$(members).each(function(idx, mem){
 			console.log(idVal+":"+mem)
@@ -223,9 +273,6 @@ function revMsgFun(msg){
 			).attr("align",alignOpt).css("width",
 					$("#chatArea").width()-20)
 	$("#chatMessageArea").append(msgObj)
-	
-	
-	
 
 	
 	// 스크롤링 처리
@@ -262,6 +309,44 @@ function conUsers(){
 	})		
 }
 
+// 레이어 팝업
+if(getCookie("notToday")!="Y"){
+	$("#main_popup").show('fade');
+}
+
+function closePopupNotToday(){	             
+	setCookie('notToday','Y', 1);
+	$("#main_popup").hide('fade');
+}
+function setCookie(name, value, expiredays) {
+var today = new Date();
+    today.setDate(today.getDate() + expiredays);
+
+    document.cookie = name + '=' + escape(value) + '; path=/; expires=' + today.toGMTString() + ';'
+}
+
+function getCookie(name) 
+{ 
+var cName = name + "="; 
+var x = 0; 
+while ( x <= document.cookie.length ) 
+{ 
+    var y = (x+cName.length); 
+    if ( document.cookie.substring( x, y ) == cName ) 
+    { 
+        if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 ) 
+            endOfCookie = document.cookie.length;
+        return unescape( document.cookie.substring( y, endOfCookie ) ); 
+    } 
+    x = document.cookie.indexOf( " ", x ) + 1; 
+    if ( x == 0 ) 
+        break; 
+} 
+return ""; 
+}
+function closeMainPopup(){
+$("#main_popup").hide('fade');
+}
 
 </script>
 </html>

@@ -4,12 +4,17 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 
 <mapper namespace="ferp.dao.B2_Dao">
-	<select id="searchMenu" resultType="menu" parameterType="menu">
+	<select id="searchMenu" resultType="menu" parameterType="menuSch">
 		SELECT *
 		FROM menu
 		WHERE menuname LIKE '%'||#{menuName}||'%'
 	</select>
-
+	<select id="totCntMenu" resultType="int" parameterType="menuSch">
+		select count(*)
+		from menu
+		where 1=1
+		and menuname like '%'||''||'%'
+	</select>
 	<insert id="insertMenu" parameterType="menu">
 		INSERT INTO menu VALUES('M'||menu_seq.nextval, #{menuName}, #{price}, #{info}, #{img}, #{necessary}, #{category})
 	</insert>
@@ -65,15 +70,29 @@
 	</update>
 	
 
+	<!-- 중요 공지사항 -->
+	<select id="importantNotice" resultType="notice">
+		SELECT *
+		FROM (
+			SELECT * 
+			FROM notice 
+			WHERE noticeNum LIKE '%'||'N'||'%'
+			AND important = 'o'
+			AND to_char(regdte, 'yyyymmdd' ) = to_char(sysdate-1, 'yyyymmdd')
+			ORDER BY regdte DESC
+		)WHERE rownum = 1
+	</select>
 	<!-- 공지사항 조회 -->
 	<select id="searchNotice" resultType="notice" parameterType="noticeSch">
 		select *
 		from (
 			SELECT rownum cnt, n.*
-			FROM notice n
-			WHERE title LIKE '%'||#{title}||'%'
-			and noticeNum LIKE '%'||'N'||'%'
-			ORDER BY regdte DESC )
+			FROM (
+				SELECT* FROM notice n
+				WHERE 1=1
+				AND title LIKE '%'||''||'%'
+				and noticeNum LIKE '%'||'N'||'%'
+				ORDER BY regdte DESC)n )
 		where cnt between #{start} and #{end}	
 
 	</select>

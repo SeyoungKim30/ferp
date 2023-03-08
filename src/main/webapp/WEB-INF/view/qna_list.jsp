@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="/ferp/resource/css/notice_list.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
+
 </head>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","5103")
@@ -79,6 +80,7 @@
 			   </div>
 			</div>
 		</div>
+
 	</div>
 </body>
 <script type="text/javascript">

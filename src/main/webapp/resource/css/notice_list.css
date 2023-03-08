@@ -9,6 +9,33 @@ section{
     margin: auto;
 }
 
+.p{
+	position: relative;
+	border:1px solid #efefef;
+	display:none;	
+}
+
+.row {
+	display: flex;
+	align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #e4e4e4;
+}
+.thDiv {
+	border-bottom: 2px solid #e4e4e4;
+	background-color: #efefef;
+	font-size: large;
+	text-align: center;
+	padding: 5px;
+}
+
+.tdDiv {
+	text-align: center;
+	font-size: large;
+	padding: 5px;
+}
+
+
 
 h3{
 	letter-spacing: 3px;
@@ -49,6 +76,7 @@ input:focus{
 
 .sch_line{
 	margin-top: 35px;
+	margin-bottom: 25px;
 }
 input{
 	width: 25%;	
@@ -110,6 +138,7 @@ tbody > tr > .tab_title{
 
 .page_wrap {
 	text-align:center;
+	margin-top: 25px;
 	font-size:0;
  }
 .page_nation {

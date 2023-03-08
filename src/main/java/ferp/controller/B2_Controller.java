@@ -16,6 +16,7 @@ import ferp.download.ChatHandler;
 import ferp.service.B2_Service;
 import vo.Emp;
 import vo.Menu;
+import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
 import vo.Store;
@@ -47,9 +48,9 @@ public class B2_Controller {
 	// 메뉴 조회 controller
 	// http://localhost:7080/ferp/menuList.do
 	@RequestMapping("/menuList.do")
-	public String menuList(@ModelAttribute("sch") Menu sch, Model d) {
+	public String menuList(@ModelAttribute("sch") MenuSch sch, Model d) {
 		d.addAttribute("menu", service.searchMenu(sch));
-		
+		 
 		return "WEB-INF\\view\\menu_list.jsp";
 	}
 	// 메뉴 등록 controller
@@ -61,10 +62,10 @@ public class B2_Controller {
 	@PostMapping("/menuInsert.do")
 	public String menuInsert(Menu ins, RedirectAttributes redirect) {
 		if( service.insertMenu(ins) != null ) {
-			redirect.addFlashAttribute("msg", "메뉴 등록 성공!");
+			redirect.addFlashAttribute("insMsg", "메뉴 등록 성공!");
 		}
 		// redirect로 본사 홈페이지로 이동
-		return "redirect:/mainpage.do";
+		return "redirect:/menuList.do";
 	}
 	
 	// 매장정보등록 controller
@@ -267,10 +268,12 @@ public class B2_Controller {
 	
 	// http://localhost:7080/ferp/chatting.do
 	@RequestMapping("/chatting.do")
-	public String chatting() {
+	public String chatting(Model d) {
+		d.addAttribute("important", service.importantNotice());
+		
 		return "WEB-INF\\view\\chatting.jsp";
 	}
-	@GetMapping("chGroup.do")
+	@GetMapping("/chGroup.do")
 	public String chGroup(Model d) {
 		d.addAttribute("group", chHandl.getIdx());
 		return "pageJsonReport";

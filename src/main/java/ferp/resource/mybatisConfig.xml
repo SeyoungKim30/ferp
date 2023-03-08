@@ -5,6 +5,7 @@
 
 	<typeAliases>
 		<typeAlias alias="menu" type="vo.Menu"/>
+		<typeAlias alias="menuSch" type="vo.MenuSch"/>
 		<typeAlias alias="notice" type="vo.Notice"/>
 		<typeAlias alias="noticeSch" type="vo.NoticeSch"/>
 		<typeAlias alias="store" type="vo.Store"/>

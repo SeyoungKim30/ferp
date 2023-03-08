@@ -4,13 +4,14 @@ import java.util.List;
 
 import vo.Emp;
 import vo.Menu;
+import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
 import vo.Store;
 
 public interface B2_Dao {
 	// 메뉴 조회
-	public List<Menu> searchMenu(Menu sch);
+	public List<Menu> searchMenu(MenuSch sch);
 	// 메뉴 등록
 	public void insertMenu(Menu ins);
 	
@@ -32,6 +33,9 @@ public interface B2_Dao {
 	
 	public int totCntNotice(NoticeSch sch);
 	public int totCntQnA(NoticeSch sch);
+	public int totCntMenu(MenuSch sch);
+	// 중요 공지사항
+	public Notice importantNotice();
 	// 공지사항 조회
 	public List<Notice> searchNotice(NoticeSch sch);
 	// 공지사항 상세 페이지

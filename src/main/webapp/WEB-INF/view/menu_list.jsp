@@ -32,47 +32,72 @@
          		<form method="post">
 	           		<input type="text" name="menuName" id="title" value="${sch.menuName}" placeholder="메뉴명 검색">
 					<button type="button" class="schBtn">검 색</button>
+					<input type="hidden" name="curPage" value="${sch.curPage}"/>
 				</form>
          	</div>
-			<table>
-		   	<col width="15%">
-		   	<col width="50%">
-		   	<col width="15%">
-		   	<col width="20%">
-			    <thead>
-			      <tr>
-			        <th>메뉴명</th>
-			        <th>메뉴설명</th>
-			        <th>가격</th>
-			        <th>사진</th>
-			      </tr>
-   				</thead>
-			    <tbody>
-			    	<c:forEach var="menu" items="${menu}">
-			    	<tr>
-			    		<td>${menu.menuName}</td>
-			    		<td>${menu.info}</td>
-			    		<td class="numberData"><fmt:formatNumber value="${menu.price}" type='currency'/></td>
-			    		<td><img style="width: 100px; height: 100px;" src="${path}/resource/img/${menu.img}"></td>
-			    	</tr>
-					</c:forEach>
-			    </tbody>	
-			</table>
+  		<div class="row">
+			<div class="thDiv" style="width: 25%;">메뉴명</div>
+			<div class="thDiv" style="width: 45%;">메뉴설명</div>
+			<div class="thDiv" style="width: 15%;">가격</div>
+			<div class="thDiv" style="width: 20%;">카테고리</div>
+		</div>
+		<div>
+			<c:forEach var="menu" items="${menu}">
+				<div class="row p${menu.menuNum}">
+					<div class="tdDiv" style="width: 25%;">${menu.menuName}</div>
+					<div class="tdDiv" style="width: 45%; text-align: left;">${menu.info}</div>
+					<div class="tdDiv" style="width: 15%; text-align: right; padding-right: 40px;">
+						<fmt:formatNumber value="${menu.price}" type='currency'/>
+					</div>
+					<div class="tdDiv" style="width: 20%;">${menu.category}</div>
+				</div>
+				<img style="width: 120px; height: 120px;" src="${path}/resource/img/${menu.img}" class="p preview${menu.menuNum}"/>
+				<style>
+				.p${menu.menuNum}:hover ~ .preview${menu.menuNum}{
+					position:absolute;
+					display:block;
+				}
+				</style>
+				<script type="text/javascript">
+					$(".p${menu.menuNum}").mouseover(function(e){
+						$(".preview${menu.menuNum}").css({
+							left: e.pageX+50,
+						    top: e.pageY
+						 });
+					})
+
+				</script>
+			</c:forEach>
+		</div>       	
+	
 			<div class="page_wrap">
 			   <div class="page_nation">
-			      <a class="arrow prev" href="#"></a>
-			      <a href="#" class="active">1</a>
-			      <a href="#">2</a>
-			      <a href="#">3</a>
-			      <a href="#">4</a>
-			      <a href="#">5</a>
-			      <a class="arrow next" href="#"></a>
+			      <a class="arrow prev" href="javascript:goPage(${sch.startBlock-1});"></a>
+			      <c:forEach var="cnt" begin="${sch.startBlock}" end="${sch.endBlock}">
+			      	<a href="#" class="${sch.curPage==cnt?'active':''}" onclick="goPage(${cnt})">${cnt}</a>
+			      </c:forEach>
+			      <a class="arrow next" href="javascript:goPage(${sch.endBlock+1});"></a>
 			   </div>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-
+$(document).ready(function(){
+    var insMsg = "${insMsg}"
+    if(insMsg != ""){
+	  Swal.fire({
+		  title: '등록 성공!',
+		  icon: 'success',
+		  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+		  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+		}).then((result) => {
+		  if (result.value) {
+			//"확인" 버튼을 눌렀을 때 작업할 내용
+		  }
+		})	
+    }
+});
 </script>
 </html>
