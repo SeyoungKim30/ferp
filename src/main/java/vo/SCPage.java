@@ -1,19 +1,27 @@
 package vo;
 
 public class SCPage {
+	// 검색 조건 
 	private String clerkName;
 	private String frRegiNum;
+	private String orderDateMonth;
 	
-	private int count; // 전체 데이터 건수
-	private int pageSize; // 한페이지에 보여줄 데이터 크기
-	private int pageCount; // 총 페이지 수 count/pageSize
-	private int curPage; // 클릭한 현재 페이지 번호
-	private int start; // 현재 페이지 시작번호
-	private int end; // 현재 페이지 마지막번호
-	// 3. 페이지 처리 2단계(블럭)
-	private int blockSize; // 한번에 보여줄 block의 크기
-	private int startBlock; // block 시작번호
-	private int endBlock; // block 마지막번호
+	// 페이지 네이션
+	private int count;
+	private int pageSize;
+	private int pageCount;
+	private int curPage;
+	private int start;
+	private int end; 
+	private int blockSize; 
+	private int startBlock;
+	private int endBlock; 
+	public String getOrderDateMonth() {
+		return orderDateMonth;
+	}
+	public void setOrderDateMonth(String orderDateMonth) {
+		this.orderDateMonth = orderDateMonth;
+	}
 	public String getFrRegiNum() {
 		return frRegiNum;
 	}

@@ -24,7 +24,27 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
-	
+$(document).ready(function() {
+	$(".monthDiv").click(function(){
+		$("[name=orderDateMonth]").val(this.innerText)
+		$("#reqSchFrm").submit()
+	})
+	$("#schFrmBtn").click(function(){
+		if(!$("#monthCheck").is(':checked')){
+			$("[name=orderDateMonth]").val("")
+		}
+		$("#reqSchFrm").submit()
+	})
+	$("#rstFrmBtn").click(function(){
+		$("[name=orderDateMonth]").val("")
+		$("[name=clerkName]").val("")
+		$("[name=curPage]").val("1")
+		$("#reqSchFrm").submit()
+	})
+	$("div.monthDiv").filter(function() {
+	    return $(this).text() === '${rSch.orderDateMonth}';
+	}).css({"backgroundColor":"#007bff","color":"white","borderColor":"#007bff"})
+})
 </script>
 </head>
 
@@ -32,48 +52,69 @@
 	<div class="containerJ">
 		<h2 class="h2Title">급여액 조회</h2>
 		<br>
-		<div>
-			<div>
-				<div>
-					<div class="schDiv toolbox" style="margin-left: 85%;">
-						<form id="frm01" method="post">
-							<input type="text" name="clerkName" value="${SCsch.clerkName}"/>
-							<input type="hidden" name="curPage" value="${SCsch.curPage}" />
-							<button type="submit" class="schBtn">조회</button>
-						</form>
+		<div class="toolbox">
+			<div class="row margin-sm">
+				<div class="col left" >
+					<div class="row" style="margin-top: 7px;">
+						<input type="checkbox" id="monthCheck" checked>
+						<label>월 포함</label>
+					</div>
+					<div class="row">
+						<c:forEach var="i" begin="1" end="12">
+							<div class="monthDiv">${i }월</div>
+						</c:forEach>
 					</div>
 				</div>
+				<div>
+					<form id="reqSchFrm" method="post">
+						<div class="row schDiv schDiv-padding">
+							<div class="col left schDiv-padding" >
+								<label>직원명</label>
+								<input type="text" name="clerkName" value="${SCpsch.clerkName}">				
+							</div>
+							<button type="button" id="schFrmBtn">조회</button>
+							<button type="button" id="rstFrmBtn">초기화</button>
+						</div>
+						<input type="hidden" name="orderDateMonth" value="${SCpsch.orderDateMonth}">
+						<input type="hidden" name="frRegiNum" value="${login.frRegiNum}">	
+						<input type="hidden" name="curPage" value="${SCpsch.curPage}" />	
+					</form>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div>
 				<div class="row">
 					<div class="thDiv" style="width:15%;">직원번호</div>
-					<div class="thDiv" style="width:15%;">직원명</div>
+					<div class="thDiv" style="width:10%;">직원명</div>
 					<div class="thDiv" style="width:5%;">성별</div>
 					<div class="thDiv" style="width:10%;">시급</div>
+					<div class="thDiv" style="width:10%;">근로시간</div>
 					<div class="thDiv" style="width:10%;">지급액</div>
-					<div class="thDiv" style="width:45%;">비고</div>
+					<div class="thDiv" style="width:40%;">비고</div>
 				</div>
 				<c:forEach var="sc" items="${scList }">
 					<div class="row">
-						<div class="tdDiv" style="width:15%;">
-							<input type="text" class="listInput" name="clerkNum" style="width:100%;" value="${sc.clerkNum }" disabled/>
-						</div>
-						<div class="tdDiv" style="width:15%;">
-							<input type="text" class="listInput" name="clerkName" style="width:100%;" value="${sc.clerkName }" disabled/>
-						</div>
-						<div class="tdDiv" style="width:5%;">
-							<input type="text" class="listInput" name="gender" style="width:100%;" value="${sc.gender }" disabled/>
-						</div>
+						<div class="tdDiv" style="width:15%;">${sc.clerkNum }</div>
+						<div class="tdDiv" style="width:10%;">${sc.clerkName }</div>
+						<div class="tdDiv" style="width:5%;">${sc.gender }</div>
 						<div class="tdDiv" style="width:10%;">
-							<input type="text" class="listInput" name="hourlyPay" style="width:100%;" value="${sc.hourlyPay }" disabled/>
+							<div class="right">
+								<fmt:formatNumber value='${sc.hourlyPay }' type='currency'/>
+							</div>
 						</div>
+						<div class="tdDiv" style="width:10%;">${sc.workhour }시간</div>
 						<div class="tdDiv" style="width:10%;">
-							<input type="text" class="listInput" name="totPay" style="width:100%;" value="" disabled/>
+							<div class="right">
+								<fmt:formatNumber value='${sc.pay }' type='currency'/>								
+							</div>
 						</div>
-						<div class="tdDiv" style="width:45%;">
+						<div class="tdDiv" style="width:40%;">
 							<input type="text" class="listInput" name="comments" style="width:100%;" value="" disabled/>
 						</div>
 					</div>
 				</c:forEach>
-				<div class="row center">
+				<div class="row pBtn_center">
 					<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${SCpsch.startBlock-1});'">
 						&lt;
 					</button>
@@ -86,9 +127,6 @@
 						&gt;
 					</button>
 				</div>
-				<form id="pageFrm">
-					<input type="hidden" name="curPage" value="${SCpsch.curPage}" />
-				</form>
 			</div>
 		</div>
 	</div>	
@@ -97,7 +135,7 @@
 function goPage(cnt){
 	$("[name=curPage]").val(cnt);
 	localStorage.setItem("scplistPg",cnt)
-	$("#pageFrm").submit()
+	$("#reqSchFrm").submit()
 }
 if(${SCpsch.curPage==1}){
 	$("[name=prev]").attr("disabled",true)
@@ -105,9 +143,10 @@ if(${SCpsch.curPage==1}){
 if(${SCpsch.curPage==SCpsch.endBlock}){
 	$("[name=next]").attr("disabled",true)
 }
-if(${SCpsch.curPage}==localStorage.getItem("scplistPg")){
-	$(".pg"+localStorage.getItem("scplistPg")).css("backgroundColor","#a4a4a4")
-	$(".pg"+localStorage.getItem("scplistPg")).css("color","white")
-}
+
+$(".pg"+${SCpsch.curPage}).css({
+	'background' : '#a4a4a4',
+	'color' : 'white'
+})
 </script>
 </html>

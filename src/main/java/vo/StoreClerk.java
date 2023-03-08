@@ -9,9 +9,23 @@ public class StoreClerk {
 	private String phoneNum;
 	private String address;
 	private int hourlyPay;
+	private int pay;
+	private int workhour;
 	public StoreClerk() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public int getPay() {
+		return pay;
+	}
+	public void setPay(int pay) {
+		this.pay = pay;
+	}
+	public int getWorkhour() {
+		return workhour;
+	}
+	public void setWorkhour(int workhour) {
+		this.workhour = workhour;
 	}
 	public String getClerkNum() {
 		return clerkNum;
