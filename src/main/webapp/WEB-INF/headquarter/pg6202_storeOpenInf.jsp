@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>오픈 시간 점검</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
@@ -21,16 +21,17 @@
 	.hdq_search{
 		display:flex;
 	 	background-color: rgba( 204, 204, 204, 0.2 );
-	 	height:60px;
+	 	height:70px;
 	    border-radius: 5px;
 	    align-items: center; 
-	    margin-top: 5px;
+	    margin: 20px 0;
 	    justify-content: center;
 	}
 	.hdq_search>form{
 		 display: inline-flex;
 		 width: 80%;
 		 justify-content: space-between;
+		 align-items: center;
 	}	
 	input[type=text]{
 		height:30px;
@@ -45,8 +46,10 @@
    	 	border-radius: 5px;
    	 	border:0px;
 	}
-	
-		
+	#frs_salesInfo_table>h3{
+		 margin: 35px 0px 8px 5px;
+	}
+		   
 	tbody tr{
 		cursor:pointer;
 	}
@@ -81,8 +84,8 @@
 			<!-- 검색칸 끝 -->
 			
 			<!-- 정보출력표 시작-->
-			<h4>오픈 시간 조회</h4>
 			<div id="frs_salesInfo_table">
+			<h3>오픈 시간 조회</h3>
 				<table>
 					<col width="20%">
 					<col width="20%">
@@ -116,7 +119,7 @@
 	
 	//ajax fetch사용
 	function search(){
-		let url="${path}/StoreOpenInfoJson.do?frName="+frName+"&frRepName="+frRepName+"&ename="+ename  //검색값 넘기기
+		let url="${path}/strOpenInfoJson.do?frName="+frName+"&frRepName="+frRepName+"&ename="+ename  //검색값 넘기기
 		console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
@@ -125,7 +128,7 @@
 			var trtd='';
 		
 			optimelist.forEach(function(each){
-				trtd+="<tr ondblclick='goDetail("+each.frRegiNum+")'><td class='leftdata'>"+each.frName+"</td><td>"+each.frOperTime+"</td><td class='leftdata'>"+each.frTel+"</td><td>"+each.frRepName+"</td><td>"+each.ename+"</td></tr>"
+				trtd+="<tr onclick='goDetail("+each.frRegiNum+")'><td class='leftdata'>"+each.frName+"</td><td>"+each.frOperTime+"</td><td class='leftdata'>"+each.frTel+"</td><td>"+each.frRepName+"</td><td>"+each.ename+"</td></tr>"
 			})
 			$("table tbody").html(trtd);
 			console.log(trtd);
@@ -150,7 +153,7 @@
 	
 			
 	function goDetail(frRegiNum){
-		location.href="${path}/OpenTimeDetail.do?frRegiNum="+frRegiNum
+		location.href="${path}/openTimeCalendar.do?frRegiNum="+frRegiNum
 	}
 
 </script>

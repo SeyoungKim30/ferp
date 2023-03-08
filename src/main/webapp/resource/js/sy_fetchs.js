@@ -3,50 +3,48 @@
  */
 console.log('sy_fetchs included')
 
-var accountList=[];
+/*var accountList=[];
 var accountListfalse=[];
 var accountListBoth=[];
 
-	function fetchAccountList(queryString){
-		let url="/ferp/selectAccountJson.do"+queryString;
-	 	fetch(url).then(function(response){return response.json() }).then(function(json){
-	 		accountList=json.accountList;
-	 		accountListfalse=json.accountListfalse;
-	 		accountListBoth=[...accountList,...accountListfalse]
-	 		console.log('어카운트리스트'+accountList)
-	 	}).catch(function(err){console.log(err)})
-	}
+function fetchAccountList(queryString){
+	let url="/ferp/selectAccountJson.do"+queryString;
+	 fetch(url).then(function(response){return response.json() }).then(function(json){
+	 	accountList=json.accountList;
+	 	accountListfalse=json.accountListfalse;
+	 	accountListBoth=[...accountList,...accountListfalse]
+	 	console.log('어카운트리스트'+accountList)
+	 }).catch(function(err){console.log(err)})
+}
+*/
+function fetchStoreList(){
+	let url ="/ferp/selectActiveStoreJson.do"
+	fetch(url).then(function(response){return response.json() }).then(function(json){
+	makeOptions(json.storeList,'frName','frRegiNum','#storeList')
+	}).catch(function(err){console.log(err)})
+}
+
 	
-var fetchUpdateReturn='';
-/*	function fetchUpdate(formid,pathurl){
-		let url=pathurl+$(formid).serialize()
-		fetch(url).then(function(response){return response.text()}).then(function(text){
-			if(text=='1'){
-				fetchUpdateReturn='성공';
-			}else{
-				fetchUpdateReturn='실패';
-			}
-		return fetchUpdateReturn;
-		}).catch(function(err){console.log(err)})
-	}*/
-	
-	function fetchUpdate(formid, pathurl) {
+var fetchUpdatePromise =function(formid, pathurl) {
 	  return new Promise((resolve, reject) => {
 	    let url = pathurl + $(formid).serialize();
-	    fetch(url)
-	      .then(response => response.text())
+	    fetch(url).then(response => response.text())
 	      .then(text => {
-	        if (text == '1') {
-	          resolve('성공');
-	        } else {
-	          reject('실패');
-	        }
+			resolve(text+'건 성공');
 	      })
 	      .catch(error => {
 	        reject(error);
 	      });
 	  });
 	}
+	
+var fetchSelectPromise = function(formid,pathurl){
+	return new Promise(function(resolve,reject){
+		 let url = pathurl + $(formid).serialize();
+		 fetch(url).then(response=>response.json()).then(json=>{resolve(json)})
+		 .catch(error=>{reject(error)})
+	})
+}	
 
 
 	function makeAccountOption(acntList){

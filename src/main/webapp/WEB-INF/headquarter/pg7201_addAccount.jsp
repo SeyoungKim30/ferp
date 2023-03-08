@@ -58,7 +58,7 @@
 				<tbody>
 					<tr>
 					<form action="${path }/insertAccount.do" id='insertForm'>
-						<td><input id="insertNum" name="acntNum" placeholder="새로운 계정을 등록합니다" required="required"><div id="insertNumValid" class="valid-feedback">이미 사용중인 계정번호입니다.</div></td>
+						<td><input id="insertNum" name="acntNum" placeholder="새로운 계정을 등록합니다" required="required" type="number" min="10000" max="99999"><div id="insertNumValid" class="valid-feedback">이미 사용중인 계정번호입니다.</div></td>
 						<td><select name="acntGroup" required>
 							<option>자산</option>
 							<option>자본</option>
@@ -92,29 +92,32 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
+	<script type="text/javascript" src="${path }/resource/js/sy_validateCheck.js"></script>
 	
 	<script>
-	fetchAccountList('');
+var accountListBoth=[]
+<c:forEach items="${accountListtrue }" var="each">
+accountListBoth.push({acntNum:'${each.acntNum }',acntGroup:'${each.acntGroup }',acntTitle:'${each.acntTitle }'})
+</c:forEach>
+<c:forEach items="${accountListfalse }" var="each">
+accountListBoth.push({acntNum:'${each.acntNum }',acntGroup:'${each.acntGroup }',acntTitle:'${each.acntTitle }'})
+</c:forEach>
 
-	$('#insertNum').on('keyup',function(){
-		let myinput=$('#insertNum').val();
-		for(var i=0;i<accountListBoth.length;i++){
-			if(accountListBoth[i].acntNum==myinput){
-				$('#insertNumValid').removeClass('valid-feedback');
-				$('#insertNumValid').addClass('invalid-feedback');
-				$('#insertNum').addClass('is-invalid');
-				$('.btn-primary').attr('disabled',true);
-				$('.btn-primary').addClass('btn-danger');
-				break;
-			}else{
-				$('#insertNumValid').addClass('valid-feedback');
-				$('#insertNumValid').removeClass('invalid-feedback');
-				$('#insertNum').removeClass('is-invalid');
-				$('.btn-primary').attr('disabled',false);
-				$('.btn-primary').removeClass('btn-danger');
-			}
+$('#insertNum').on('keyup',function(){
+	let myinput=$('#insertNum').val();
+	for(var i=0;i<accountListBoth.length;i++){
+		if(accountListBoth[i].acntNum==myinput){
+			invalidClass('#insertNum','#insertNumValid')
+			$('.btn-primary').attr('disabled',true);
+			$('.btn-primary').addClass('btn-danger');
+			break;
+		}else{
+			validClass('#insertNum','#insertNumValid')	
+			$('.btn-primary').attr('disabled',false);
+			$('.btn-primary').removeClass('btn-danger');
 		}
-	})
+	}
+})
 	
 	$('[name=acntUsing]').on('click',function(){
 		let acntNumVal = $(this).val()

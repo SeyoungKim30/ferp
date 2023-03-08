@@ -22,17 +22,6 @@ public class C1_Controller {
 	@Autowired
 	C1_Service service;
 
-	// http://localhost:6080/ferp/selectAccountJson.do
-	@CrossOrigin(origins = "*",allowedHeaders = "*")
-	@GetMapping("selectAccountJson.do")
-	public String r7100SelectAccountJson(Account account, Model model) {
-		account.setAcntUsing(true);
-		model.addAttribute("accountList", service.r7100SelectAccount(account));
-		account.setAcntUsing(false);
-		model.addAttribute("accountListfalse", service.r7100SelectAccount(account));
-		return "pageJsonReport";
-	}
-	
 	// http://localhost:6080/ferp/selectAccount.do
 	@RequestMapping("selectAccount.do")
 	public String r7101SelectAccount(Account account, Model model) {
@@ -124,12 +113,36 @@ public class C1_Controller {
 		return a+"";
 	}
 	
-
-	@CrossOrigin(origins = "*",allowedHeaders = "*")
-	@GetMapping("selectActiveStoreJson.do")
-	public String selectActiveStore(Model model) {
-		model.addAttribute("storeList",service.selectActiveStore());
-		return "pageJsonReport";
+	// http://localhost:6080/ferp/prodOrderPayState.do
+	@GetMapping("prodOrderPayState.do")
+	public String r9310prodOrderPayState() {
+		return "WEB-INF\\headquarter\\pg9310_prodOrderPayState.jsp";
 	}
 
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@RequestMapping("selectProdOrderPayState.do")
+	public String r9310selectProdOrderPayState(Model model,ProdOrder prodOrder) {
+		model.addAttribute("list",service.r9310selectProdOrderPayState(prodOrder));
+		return "pageJsonReport";
+	}
+	
+	@RequestMapping("updateProdOrderPayState.do")
+	@ResponseBody
+	public String r9311updateProdOrderPayState(Model model,ProdOrder prodOrder) {
+		int a=service.r9311updateProdOrderPayState(prodOrder);
+		return a+"";
+	}
+
+	//http://localhost:6080/ferp/prodOrderPayDetail.do
+	@GetMapping("prodOrderPayDetail.do")
+	public String r9301() {
+		return "WEB-INF\\headquarter\\pg9301_prodOrderPayDetail.jsp";
+	}
+		
+	@PostMapping("prodOrderPayDetail.do")
+	public String r9301prodOrderPayDetail(Model model,ProdOrder prodOrder) {
+		model.addAttribute("list",service.r9301prodOrderPayDetail(prodOrder));
+		return "WEB-INF\\headquarter\\pg9301_prodOrderPayDetail.jsp";
+	}
+	
 }

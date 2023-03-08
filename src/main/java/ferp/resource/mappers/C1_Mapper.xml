@@ -7,7 +7,10 @@
 
 	<resultMap type="vo.Prod_order_stock_emp_store" id="posesRS">
 		<association property="product" javaType="vo.Product">
-		<result column="productName" property="productName" />
+			<result column="productName" property="productName" />
+			<result column="price" property="price" />
+			<result column="remark" property="remark" />
+			<result column="category" property="category" />
 		</association>
 		<association property="prodOrder" javaType="vo.ProdOrder" >
 			<result column="orderNum" property="orderNum"/>
@@ -15,6 +18,7 @@
 			<result column="supplier" property="supplier"/>
 			<result column="demander" property="demander"/>
 			<result column="orderDate" property="orderDate"/>
+			<result column="orderDateMonth" property="orderDateMonth"/>
 			<result column="amount" property="amount"/>
 			<result column="paymentState" property="paymentState"/>
 			<result column="orderState" property="orderState"/>
@@ -22,6 +26,8 @@
 		<association property="store" javaType="vo.Store">
 		<result column="frRegiNum" property="frRegiNum"/>
 		<result column="frName" property="frName"/>
+		<result column="frAddress" property="frAddress"/>
+		<result column="frRepName" property="frRepName"/>
 		</association>
 		<association property="emp" javaType="vo.Emp">
 		<result column="empnum" property="empnum"/>
@@ -67,13 +73,47 @@ SELECT po.ORDERNUM,po.PRODUCTNUM FROM PRODORDER po, product pd,
 )
 </update>
 
-	<select id="r7100SelectAccount" resultType="account" parameterType="account">
-		SELECT * FROM Account 
-		where acntNum Like '%'||#{acntNum,jdbcType=VARCHAR}||'%' 
-		And acntTitle LIKE '%'||#{acntTitle,jdbcType=VARCHAR}||'%'
-		And acntGroup LIKE '%'||#{acntGroup,jdbcType=VARCHAR}||'%'
-		and acntUsing = #{acntUsing}
-	</select>
+<select id="r9310selectProdOrderPayState" resultMap="posesRS" parameterType="prodOrder">
+SELECT to_char(TRUNC(ORDERDATE,'month'),'YYYY-MM') AS orderDateMonth,FRREGINUM,FRNAME, 
+	sum(AMOUNT*price) AS price,sum(CASE WHEN CATEGORY LIKE '면세'||'%' THEN 0 ELSE AMOUNT * price * 0.1 END ) AS remark,
+	ename,empnum, po.PAYMENTSTATE
+FROM prodOrder po,PRODUCT pd, (SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se
+WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
+	AND TRUNC(orderdate,'month') BETWEEN to_date(#{orderDateMonth,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{orderDate,jdbcType=VARCHAR}, 'YYYY-MM')
+	AND (po.DEMANDER LIKE '%'||#{demander,jdbcType=VARCHAR}||'%' OR se.frname LIKE '%'||#{demander,jdbcType=VARCHAR}||'%')
+	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')	
+	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%'
+GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,empnum,po.PAYMENTSTATE
+</select>
+<update id="r9311updateProdOrderPayState" parameterType="prodOrder">
+	UPDATE PRODORDER SET PAYMENTSTATE = #{paymentState} 
+	WHERE trunc(ORDERDATE,'month') = to_date(#{orderDateMonth},'yyyy-mm') 
+		<if test="demander!='0000000000' and demander!='0000000000'">
+		AND demander = #{demander}
+		</if>
+</update>
+
+<select id="r9301prodOrderPayDetail" resultMap="posesRS" parameterType="prodOrder">
+SELECT pd.productnum,pd.category,pd.PRODUCTNAME ,pd.PRICE,(CASE WHEN CATEGORY LIKE '면세'||'%' THEN 0 ELSE price * 0.1 END) AS remark,
+to_char(monthly,'yyyy-mm') AS orderDateMonth,po.frreginum,po.AMOUNT,po.PAYMENTSTATE,s.frname,s.FRREPNAME ,s.FRADDRESS 
+	FROM PRODUCT pd,
+		store s,
+		(SELECT TRUNC(ORDERDATE,'month') AS monthly,po.DEMANDER AS frreginum, po.productnum,sum(amount) AS amount,PAYMENTSTATE
+		FROM PRODORDER po 
+		WHERE po.DEMANDER =#{demander} AND TRUNC(ORDERDATE,'month')=TO_DATE(#{orderDateMonth},'YYYY-MM')
+		GROUP BY TRUNC(ORDERDATE,'month'), po.productnum,po.DEMANDER,PAYMENTSTATE) po
+WHERE pd.PRODUCTNUM =po.productnum AND s.FRREGINUM =po.frreginum
+ORDER BY CATEGORY 
+</select>
+
+
+<select id="r7100SelectAccount" resultType="account" parameterType="account">
+	SELECT * FROM Account 
+	where acntNum Like '%'||#{acntNum,jdbcType=VARCHAR}||'%' 
+	And acntTitle LIKE '%'||#{acntTitle,jdbcType=VARCHAR}||'%'
+	And acntGroup LIKE '%'||#{acntGroup,jdbcType=VARCHAR}||'%'
+	and acntUsing = #{acntUsing}
+</select>
 	
 	<update id="r7102updateAccountUsing" parameterType="account">
 	update account set acntUsing =#{acntUsing} where acntNum =#{acntNum}

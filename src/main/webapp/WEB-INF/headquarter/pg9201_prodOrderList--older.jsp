@@ -12,21 +12,11 @@
 <title>발주목록 조회</title>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
-<style>
-.main_wrapper td:nth-child(1),.main_wrapper td:nth-child(2),.main_wrapper td:nth-child(3),.main_wrapper td:nth-child(7),.main_wrapper td:nth-child(8){
-	text-align:center;
-	}
-.main_wrapper td:nth-child(5),.main_wrapper td:nth-child(6){
-	text-align:right;
-}
-.modal-body td:nth-child(3){
-	text-align:right;
-}
-</style>
 </head>
 
 <script type="text/javascript">
@@ -39,6 +29,9 @@
 	//상품리스트
 	var prodList=[];
 
+$(document).ready(function(){
+	fetchStoreList();
+})	
 </script>
 
 <body class="container">
@@ -90,9 +83,7 @@
 
 </tbody>
 </table>
-		</div>
-	</div>
-	
+
 <div class="modal" id="modalByProd">
 <div class="modal-dialog">
 
@@ -124,14 +115,30 @@
 </div>
 </div>
 </div>
+
+
+		</div>
+	</div>
 	
 	
 <script>
+
+//셋 중 하나만 입력할 수 있게
+$('.toolbar').first().find('label').each(function(){
+	$(this).on('click',function(){
+		$('.toolbar').first().find('label').each(function(){
+			$(this).find('input').attr("disabled",true);
+		})
+		$(this).find('input').attr("disabled",false);
+		$(this).find('input').focus();
+	})
+})
+
 //submit 비동기로 불러와서 표에 출력하기
 const form1= document.querySelector('#searchform')
 form1.addEventListener('submit', (e) => {
-   e.preventDefault();
-   selectProdOrderListJson();
+    e.preventDefault();
+    selectProdOrderListJson();
 })
 
 
@@ -139,56 +146,38 @@ form1.addEventListener('submit', (e) => {
 function selectProdOrderListJson(){
    	let serial=$('#searchform').serialize()
  	var resultlist=[];
-    fetchSelectPromise('#searchform',"${path }/productOrderListJson.do?").then(json=>{
-    	resultlist=json.list
-    	let htmls='';
-    	resultlist.forEach(function(each){
-			console.log(each)
-			htmls+=`<tr><td title="`+each.prodOrder.orderDate+`">`+each.prodOrder.orderDate.substr(0,10)
-			<c:if test="${login.frRegiNum == 9999999999 }">
-				+`</td><td title="`+each.prodOrder.demander+`">`+each.store.frName
-				+`</td><td title="`+each.emp.empnum+`">`+each.emp.ename
-			</c:if>
-				+`</td><td title="`+each.prodOrder.productNum+`">`+each.product.productName
-				+`</td><td>`+each.prodOrder.amount
+	fetch("${path }/productOrderListJson.do?"+serial)
+		.then(function(response){return response.json() })
+		.then(function(json){
+			let htmls='';
+			resultlist=json.list
+			resultlist.forEach(function(each){
+				console.log(each)
+				htmls+=`<tr><td title="`+each.prodOrder.orderDate+`">`+each.prodOrder.orderDate.substr(0,10)
 				<c:if test="${login.frRegiNum == 9999999999 }">
-				+`</td><td>`+each.stock.remainAmount
+					+`</td><td title="`+each.prodOrder.demander+`">`+each.store.frName
+					+`</td><td title="`+each.emp.empnum+`">`+each.emp.ename
 				</c:if>
-				+`</td><td>`+each.prodOrder.orderState
-				+`</td><td>`+each.prodOrder.paymentState
-				+`</td></tr>`;
-				printTotalAmountbyProd(resultlist,(json.prodOrder.orderDate!=null||json.prodOrder.orderNum!=null));
-				document.querySelector('tbody').innerHTML=htmls
-				$('#modalByProd [name=orderNum]').val(json.prodOrder.orderNum)
-				$('#modalByProd [name=orderDate]').val(json.prodOrder.orderDate)
-				$('#modalByProd [name=demander]').val(json.prodOrder.demander)
-				$('#modalByProd [name=supplier]').val(json.prodOrder.supplier)
-				$('#modalByProd [name=productNum]').val(json.prodOrder.productNum)
-				$('#modalByProd [name=orderState]').val(json.prodOrder.orderState)
-				$('#modalByProd [name=paymentState]').val(json.prodOrder.paymentState)
-		})
-    }).catch(function(err){console.log(err)})
-} 
-
-
-
-
-//모달에서 상품별 전체수량 볼때 배송상태 일괄변경 버튼에 이벤트 할당 
-function totalUpdateBtn(){
-	$('#orderStateForm .btn-sm').on('click',function(){
-		let prodnum=$(this).attr('id');
-		let stateupdate=$(this).text();
-		$('#orderStateForm [name=productNum]').val(prodnum)
-		$('#orderStateForm [name=orderStateUpdate]').val(stateupdate)
-		fetchUpdatePromise('#orderStateForm','${path}/updateOrderState.do?')
-		.then(function(result){
-			 alert(`배송상태 변경 `+result);
-			 selectProdOrderListJson();
-		}).catch(function(reject){
-			console.error(reject);
-			alert(`배송상태 변경에 실패했습니다.`)
+					+`</td><td title="`+each.prodOrder.productNum+`">`+each.product.productName
+					+`</td><td>`+each.prodOrder.amount
+					<c:if test="${login.frRegiNum == 9999999999 }">
+					+`</td><td>`+each.stock.remainAmount
+					</c:if>
+					+`</td><td>`+each.prodOrder.orderState
+					+`</td><td>`+each.prodOrder.paymentState
+					+`</td></tr>`;
 			})
-	})
+		printTotalAmountbyProd(resultlist,(json.prodOrder.orderDate!=null||json.prodOrder.orderNum!=null));
+		document.querySelector('tbody').innerHTML=htmls
+		$('#modalByProd [name=orderNum]').val(json.prodOrder.orderNum)
+		$('#modalByProd [name=orderDate]').val(json.prodOrder.orderDate)
+		$('#modalByProd [name=demander]').val(json.prodOrder.demander)
+		$('#modalByProd [name=supplier]').val(json.prodOrder.supplier)
+		$('#modalByProd [name=productNum]').val(json.prodOrder.productNum)
+		$('#modalByProd [name=orderState]').val(json.prodOrder.orderState)
+		$('#modalByProd [name=paymentState]').val(json.prodOrder.paymentState)
+		})
+	.catch(function(err){console.log(err)})
 }
 
 //fetch결과로 상품별 총 주문량 보여주기(모달에 출력)
@@ -212,7 +201,6 @@ function printTotalAmountbyProd(resultlist,isDaily){
 	let htmls='';
 	jsonprodAmount.forEach(function(each){
 	<c:if test="${login.frRegiNum == 9999999999 }">
-	//본사일때
 		if(isDaily){
 			htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td><td title="조회한 조건에 따라 발주 상태가 변경됩니다."><button type="button" class="btn-primary btn-sm" id="`+each.num+`">배송중</button> <button type="button" class="btn-success btn-sm" id="`+each.num+`">완료</button></td></tr>`
 		}else{
@@ -220,18 +208,28 @@ function printTotalAmountbyProd(resultlist,isDaily){
 		}
 	</c:if>
 	<c:if test="${login.frRegiNum != 9999999999 }">
-	//가맹점일때
 		htmls+=`<tr><td>`+each.num+`</td><td>`+each.name+`</td><td>`+each.amount+`</td></tr>`
 	</c:if>
 	})
 	$('#modalByProd tbody').html(htmls)
 	<c:if test="${login.frRegiNum == 9999999999 }">
-	totalUpdateBtn()
+	$('#orderStateForm .btn-sm').on('click',function(){
+		let prodnum=$(this).attr('id');
+		let stateupdate=$(this).text();
+		$('#orderStateForm [name=productNum]').val(prodnum)
+		$('#orderStateForm [name=orderStateUpdate]').val(stateupdate)
+		fetchUpdatePromise('#orderStateForm','${path}/updateOrderState.do?')
+		.then(function(result){
+			 alert(`배송상태 변경 `+result);
+		}).catch(function(reject){
+			console.error(reject);
+			alert(`배송상태 변경에 실패했습니다.`)
+			})
+	})
 	</c:if>
 }
 
-
-//모달 버튼 할당
+//fetch함수 내부에서 실행시킴 
 function openModal(){
 	//모달 닫기버튼으로 닫기
 	$('.btn-close').on('click',function(){
@@ -244,36 +242,22 @@ function openModal(){
 		$('#modalByProd').removeClass('modal')
 	})
 }
+openModal()
 
 $(function(){
 	//오늘 날짜 기본 입력
 	$('[type=date]').val(new Date().toISOString().slice(0, 10));
 	//로딩할때 날짜만 활성화되어있게
 	$('[type=date]').trigger("click");
-	//datalist 만들기 - 가맹점 리스트
-	fetchStoreList();
+
 	//가맹점은 주문지점 담당자 선택 못하게
 	if(${login.frRegiNum !=9999999999}){
 		$(".noDisplayForStores").css("display","none")
 		$('[name=demander]').val('${login.frRegiNum}')
 	}
-	
-	//로딩하자마자 오늘거 검색
+	//로딩하자마자 오늘거 리스트
 	selectProdOrderListJson();
 	
-	//모달 버튼 할당
-	openModal()
-	
-	//셋 중 하나만 입력할 수 있게
-	$('.toolbar').first().find('label').each(function(){
-		$(this).on('click',function(){
-			$('.toolbar').first().find('label').each(function(){
-				$(this).find('input').attr("disabled",true);
-			})
-			$(this).find('input').attr("disabled",false);
-			$(this).find('input').focus();
-		})
-	})
 });
 </script>
 </body>

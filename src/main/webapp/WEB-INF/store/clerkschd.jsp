@@ -15,19 +15,20 @@
 <script>
   // 위 js를 사용할 수 있게 같은 폴드에 있는 dist 폴드를
   // 복사해서 webapp/a00_com 폴드하위에 넣어주세요.
+  var today = new Date().toISOString().split("T")[0];
   
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
-        left: 'prev,next today',
+        left: 'prev',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'today next'//'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      initialDate: '2023-02-16',
-      navLinks: true, // can click day/week names to navigate views
-      selectable: true,
+      initialDate: today,
+      //navLinks: true, // can click day/week names to navigate views
+      selectable: false,
       selectMirror: true,
       select: function(arg) {
         var title = prompt('일정 등록:');
@@ -41,12 +42,13 @@
         }
         calendar.unselect()
       },
+      /*
       eventClick: function(arg) {
         if (confirm('Are you sure you want to delete this event?')) {
           arg.event.remove()
         }
       },
-      editable: true,
+      editable: true,*/
       dayMaxEvents: true, // allow "more" link when too many events
       events: function (info, successCallback, failureCallback){
     	  $.ajax({

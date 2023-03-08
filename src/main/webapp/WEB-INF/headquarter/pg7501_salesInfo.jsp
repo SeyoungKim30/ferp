@@ -41,6 +41,7 @@
 		 display: inline-flex;
 		 width: 80%;
 		 justify-content: space-between;
+		 align-items: center;
 	}
 	
 	input[type=text]{
@@ -98,8 +99,15 @@
 	.numdata{
 		text-align: end;
 	}
+	.ctrdata{
+		text-align: center;
+	}
+	
 	tbody tr{
 		cursor:pointer;
+	}
+	table td{
+		vertical-align: middle;
 	}
 	/*검색버튼*/
 	.frsalesSchBtn {
@@ -138,6 +146,7 @@
 </style>
 
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <head>
 
@@ -251,7 +260,7 @@
 			var trtd='';
 		
 			sbslist.forEach(function(each){
-				trtd+="<tr ondblclick='goDetail("+each.frRegiNum+")'><td>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td>"+each.frtel+"</td><td>"+each.frRepname+"</td><td>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
+				trtd+="<tr onclick='goDetail("+each.frRegiNum+")'><td>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
 			})
 			$("table tbody").html(trtd);
 			//console.log(trtd);

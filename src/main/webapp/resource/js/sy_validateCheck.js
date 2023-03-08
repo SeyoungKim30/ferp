@@ -1,7 +1,7 @@
 /**
  * 
  */
-window.addEventListener('load', function() {
+/*window.addEventListener('load', function() {
 	console.log('validateCheck is included')
 	document.querySelector('form').addEventListener('submit',function(){
 	var invals = document.querySelectorAll(':invalid')
@@ -10,7 +10,7 @@ window.addEventListener('load', function() {
 	})
 		return false;
 	})
-})
+})*/
 
 document.addEventListener('keydown', function(event) {
   if (event.keyCode == 13) {

@@ -140,7 +140,7 @@ public class A1_Controller {
       return "WEB-INF\\store\\pg2002_onsaleList.jsp";
    }
    
-   // 전체 메뉴 조회 페이지
+   // 전체 메뉴 조회 페이지(등록)
    @RequestMapping("/showMenu.do")
    public String pg2001showMenu(@ModelAttribute("sch") Menu sch, Model d){
       d.addAttribute("showAllMenu", service.getAllMenu(sch));
