@@ -244,14 +244,14 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
 GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,empnum,po.PAYMENTSTATE
 ;
 --정산서 검색
-SELECT pd.productnum,pd.category,pd.PRODUCTNAME ,pd.PRICE,(CASE WHEN CATEGORY LIKE '면세'||'%' THEN 0 ELSE price * 0.1 END) AS remark,
+SELECT po.PAYMENTSTATE,pd.productnum,pd.category,pd.PRODUCTNAME ,pd.PRICE,(CASE WHEN CATEGORY LIKE '면세'||'%' THEN 0 ELSE price * 0.1 END) AS remark,
 to_char(monthly,'yyyy-mm') AS orderDateMonth,po.frreginum,po.AMOUNT,s.frname,s.FRREPNAME ,s.FRADDRESS 
 	FROM PRODUCT pd,
 		store s,
-		(SELECT TRUNC(ORDERDATE,'month') AS monthly,po.DEMANDER AS frreginum, po.productnum,sum(amount) AS amount
+		(SELECT PAYMENTSTATE,TRUNC(ORDERDATE,'month') AS monthly,po.DEMANDER AS frreginum, po.productnum,sum(amount) AS amount
 		FROM PRODORDER po 
 		WHERE po.DEMANDER ='1234567890' AND TRUNC(ORDERDATE,'month')=TO_DATE('2023-03','YYYY-MM')
-		GROUP BY TRUNC(ORDERDATE,'month'), po.productnum,po.DEMANDER) po
+		GROUP BY TRUNC(ORDERDATE,'month'), po.productnum,po.DEMANDER,PAYMENTSTATE) po
 WHERE pd.PRODUCTNUM =po.productnum AND s.FRREGINUM =po.frreginum
 ORDER BY CATEGORY 
 ;
