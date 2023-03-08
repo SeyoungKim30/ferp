@@ -157,4 +157,9 @@ public class A1_Controller {
       return "pageJsonReport";
    }
    
+   @RequestMapping("/kiosquePay.do")
+   public String pg2102kiosquePay() {
+	   return "WEB-INF\\customer\\pg2102_kiosquePay.jsp";
+   }
+   
 }

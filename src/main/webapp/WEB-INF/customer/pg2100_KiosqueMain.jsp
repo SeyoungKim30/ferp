@@ -19,6 +19,11 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
+
+<!-- 알럿창 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 <style type="text/css">
 .wrap_container{
 			max-width: 1200px;
@@ -375,6 +380,7 @@
 				<div class="modal_product_option_wrap">
 					<div class="modal_option_wrap">
 						<p class="modal_product_name">음료 이름</p>
+						<p class="modal_product_Num" style="display: none;">음료 번호</p>
 						<p class="modal_product_infoText">음료 상세</p>
 						<form class="modal_product_option">
 							<p class="option_name">옵션 선택</p>
@@ -546,6 +552,8 @@
 </body>
 <script type="text/javascript">
 'use strict';
+//	orders json 생성
+	var orders = [];
 // modal
 var tabContent = $('.tab_con'),
 	dimmed = $('.dimmed'),
@@ -566,6 +574,8 @@ tabContent.click(function () {
 		var MenuPrice = $(this).find(".con_price").text();
 		$(".modal_product_price").text(MenuPrice);
 		var MenuCategory = $(this).find(".con_category").text();
+		var MunuNum = $(this).attr('name');
+		$(".modal_product_Num").text(MunuNum);
 		if(MenuCategory == "onlyIce"){
 			$(".option_radio").css('display','none');
 			$(".delS").css('display','none');
@@ -645,6 +655,8 @@ var modal_btn_add = $(".modal_btn_add");
 	var name = $(".modal_product_name").text();
 	var cnt = $(".product_number").val();
 	var price = $(".modal_product_price").text();
+	var price = $(".modal_product_price").text();
+	var menuNum = $(".modal_product_Num").text();
 	var option="";
 	price = price.replace("￦", "");
 	price = Number(price.replace(",", ""));
@@ -680,20 +692,81 @@ var modal_btn_add = $(".modal_btn_add");
 	price = price.toLocaleString();
 	price += "￦";
 	
-	resultAddString += "<li class='list_item'><p class='list_item_info'><span class='list_item_name'><span>"+name+"</span>x<span>"+cnt+"</span>"
-	+"</span><span class='list_item_option'>"+option+"</span></p><p class='list_item_price'>"+price+"</p></li>";
+	resultAddString += "<li class='list_item'><p class='list_item_info'><span class='list_item_name'><span class='menuNum' style='display:none;'>"+menuNum+"</span><span class='listItemName'>"
+	+name+"</span>x<span class='listItemCnt'>"
+	+cnt+"</span>"+"</span><span class='list_item_option'>"+option+"</span></p><p class='list_item_price'>"+price+"</p></li>";
 	
 	$(".result_list_wrap").html(resultAddString);
 	
+    // JSON 객체 생성 및 orders 배열에 추가
+    var order = {
+        "menuNum": $(".menuNum").last().text(),
+        "amount": $(".listItemCnt").last().text(),
+        "payprice": Number($(".list_item_price").last().text().replace("￦","").replace(",","")),
+        "orderoption": $(".list_item_option").last().text()
+    };
+    orders.push(order);
+	
 	modalClose.trigger('click');
+	console.log(orders);
 	
 });
 
+	
+// 취소하기 버튼
 $(".delOrderBtn").click(function () {
 	var insHtml = "<li class='listdefalut'>주문하실 음료를<br> 선택해주세요.</li>"
 	$(".result_list_wrap").html(insHtml);
 	resultAddString = "";
+	orders = [];
 });
+
+$(".addOrderBtn").click(function () {
+	// var listItemIndex = $(".list_item").length;
+	Swal.fire({
+			  title: '결제하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#2262F3',
+			  cancelButtonColor: '#888',
+			  confirmButtonText: '결제',
+			  cancelButtonText: '취소'
+			}).then((result) => {
+				if(orders.length == 0){
+					  Swal.fire({
+						  title: '주문하실 음료를 추가해주세요',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#2262F3',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $(".listdefalut").css('color','red');
+						      return;
+						  }
+					  })
+				}else{
+					addAjax("/addOrder.do");					
+				}
+			})
+});
+
+	function addAjax(url) {
+		$.ajax({
+			type : "post",
+			url : "/ferp" + url,
+			data : JSON.stringify(orders),
+			contentType: "application/json",
+			success : function(data) {
+				alert(data.msg);
+				location.href="/ferp/kiosquePay.do";
+			},
+			error : function(err) {
+				console.log(err)
+			}
+		})
+	}
+
 
 </script>
 </html>

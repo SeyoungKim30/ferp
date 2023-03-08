@@ -10,6 +10,7 @@ public class Orders {
 	private String state;
 	private int amount;
 	private int payprice;
+	private String orderOption;
 	
 	//본사:저번달 전체매장의 총 매출조회
 	private int allfrsales; 
@@ -185,6 +186,14 @@ public class Orders {
 	}
 	public void setMenuName(String menuName) {
 		this.menuName = menuName;
+	}
+
+	public String getOrderOption() {
+		return orderOption;
+	}
+
+	public void setOrderOption(String orderOption) {
+		this.orderOption = orderOption;
 	} 
 	
 	
