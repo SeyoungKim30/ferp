@@ -17,6 +17,17 @@
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
+<style>
+.main_wrapper td:nth-child(1),.main_wrapper td:nth-child(2),.main_wrapper td:nth-child(3),.main_wrapper td:nth-child(7),.main_wrapper td:nth-child(8){
+	text-align:center;
+	}
+.main_wrapper td:nth-child(5),.main_wrapper td:nth-child(6){
+	text-align:right;
+}
+.modal-body td:nth-child(3){
+	text-align:right;
+}
+</style>
 </head>
 
 <script type="text/javascript">
@@ -80,7 +91,9 @@
 
 </tbody>
 </table>
-
+		</div>
+	</div>
+	
 <div class="modal" id="modalByProd">
 <div class="modal-dialog">
 
@@ -112,10 +125,6 @@
 </div>
 </div>
 </div>
-
-
-		</div>
-	</div>
 	
 	
 <script>

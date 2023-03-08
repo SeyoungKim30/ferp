@@ -133,4 +133,10 @@ public class C1_Controller {
 		return a+"";
 	}
 
+	// http://localhost:6080/ferp/prodOrderPayDetail.do
+		@GetMapping("prodOrderPayDetail.do")
+		public String r9301prodOrderPayDetail() {
+			return "WEB-INF\\headquarter\\pg9301_prodOrderPayDetail.jsp";
+		}
+	
 }

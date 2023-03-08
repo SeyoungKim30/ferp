@@ -16,6 +16,15 @@
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
+<style>
+.main_wrapper td:nth-child(3),.main_wrapper td:nth-child(7),.main_wrapper td:nth-child(8){
+	text-align:center;
+}
+.main_wrapper td:nth-child(4),.main_wrapper td:nth-child(5),.main_wrapper td:nth-child(6){
+	text-align:right;
+}
+</style>
+
 <script>
 window.addEventListener('load',function(){
 	fetchStoreList();
@@ -28,11 +37,11 @@ window.addEventListener('load',function(){
 localStorage.setItem("pageIdx","9310")
 localStorage.setItem("eqIdx","9000")
 </script>
-%@ include file="/resource/templates/header.jsp"%
+<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		<h2>발주 결제 관리</h2><hr>	<br>
+		<h2>발주 정산</h2><hr>	<br>
 
 
 <form id="searchform">
