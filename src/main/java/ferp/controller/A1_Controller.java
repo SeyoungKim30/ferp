@@ -1,11 +1,17 @@
 package ferp.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ferp.service.A1_Service;
@@ -13,6 +19,7 @@ import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
 import vo.Onsale;
+import vo.Orders;
 import vo.Store;
 
 
@@ -157,9 +164,19 @@ public class A1_Controller {
       return "pageJsonReport";
    }
    
+   // 키오스크 결제 페이지 호출
    @RequestMapping("/kiosquePay.do")
    public String pg2102kiosquePay() {
 	   return "WEB-INF\\customer\\pg2102_kiosquePay.jsp";
    }
+   
+   // 키오스크 추가
+   @PostMapping("/addOrder.do")
+   public String addOrder(@RequestBody List<Orders> ins) {
+       // 받은 orders 데이터를 처리하는 로직을 작성
+       service.insertOrdersList(ins);
+       return "redirect:/kiosquePay.do";
+   }
+   // http://localhost:6080/ferp/storeLogin.do
    
 }

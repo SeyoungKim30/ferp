@@ -62,12 +62,7 @@ public class Orders {
 	public void setMenuNum(String menuNum) {
 		this.menuNum = menuNum;
 	}
-	public String getFrRegiNum() {
-		return frRegiNum;
-	}
-	public void setFrRegiNum(String frRegiNum) {
-		this.frRegiNum = frRegiNum;
-	}
+
 	public String getState() {
 		return state;
 	}
@@ -194,6 +189,14 @@ public class Orders {
 
 	public void setOrderOption(String orderOption) {
 		this.orderOption = orderOption;
+	}
+
+	public String getFrRegiNum() {
+		return frRegiNum;
+	}
+
+	public void setFrRegiNum(String frRegiNum) {
+		this.frRegiNum = frRegiNum;
 	} 
 	
 	

@@ -701,9 +701,10 @@ var modal_btn_add = $(".modal_btn_add");
     // JSON 객체 생성 및 orders 배열에 추가
     var order = {
         "menuNum": $(".menuNum").last().text(),
-        "amount": $(".listItemCnt").last().text(),
+        "amount": Number($(".listItemCnt").last().text()),
         "payprice": Number($(".list_item_price").last().text().replace("￦","").replace(",","")),
-        "orderoption": $(".list_item_option").last().text()
+        "orderOption": $(".list_item_option").last().text(),
+        "frRegiNum":${login.frRegiNum}
     };
     orders.push(order);
 	
@@ -758,7 +759,6 @@ $(".addOrderBtn").click(function () {
 			data : JSON.stringify(orders),
 			contentType: "application/json",
 			success : function(data) {
-				alert(data.msg);
 				location.href="/ferp/kiosquePay.do";
 			},
 			error : function(err) {
