@@ -24,6 +24,10 @@
 		text-align: center;
 	    line-height: 35px;
 	}
+	
+	.infoTextTd{
+		text-align: left;
+	}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","2001")
@@ -63,7 +67,7 @@
 								<td>
 									<fmt:formatNumber value="${mn.price }" pattern="#,###" />￦
 								</td>
-								<td>${mn.info}</td>
+								<td class="infoTextTd">${mn.info}</td>
 								<td>
 									<c:if test="${mn.necessary == 'N'}">
 									<button class="btn-primary">등록</button>
