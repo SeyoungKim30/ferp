@@ -63,7 +63,7 @@ public class A2_Controller {
 		return "pageJsonReport";
 	}
 //	직원 급여액 조회
-	@GetMapping("/clerkPayList.do")
+	@RequestMapping("/clerkPayList.do")
 	public String pg3300(@ModelAttribute("SCpsch") SCPage SCpsch, Model d, HttpSession session) {
 		Store s=(Store)session.getAttribute("login");
 		SCpsch.setFrRegiNum(s.getFrRegiNum());

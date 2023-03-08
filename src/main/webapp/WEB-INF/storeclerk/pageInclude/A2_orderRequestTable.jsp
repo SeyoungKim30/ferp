@@ -30,16 +30,22 @@
 		$(".monthDiv").click(function(){
 			$("[name=orderDateMonth]").val(this.innerText)
 			$("#reqSchFrm").submit()
-			})
-		$("#monthCheck").change(function(){
-			console.log(!$("#monthCheck").is(':checked')) 
-			})
+		})
 		$("#schFrmBtn").click(function(){
 			if(!$("#monthCheck").is(':checked')){
 				$("[name=orderDateMonth]").val("")
 			}
 			$("#reqSchFrm").submit()
 		})
+		$("#rstFrmBtn").click(function(){
+			$("[name=orderDateMonth]").val("")
+			$("[name=productName]").val("")
+			$("[name=category]").val("")
+			$("#reqSchFrm").submit()
+		})
+		$("div.monthDiv").filter(function() {
+		    return $(this).text() === '${rSch.orderDateMonth}';
+		}).css({"backgroundColor":"#007bff","color":"white","borderColor":"#007bff"})
 	})
 </script>
 </head>
@@ -60,9 +66,9 @@
 					</c:forEach>
 				</div>
 			</div>
-			<div style="padding-left: 5%;">
+			<div>
 				<form id="reqSchFrm" method="post">
-					<div class="row schDiv">
+					<div class="row schDiv schDiv-padding">
 						<div class="col left" >
 							<label>카테고리</label>
 							<select name="category">
@@ -78,6 +84,7 @@
 							<input type="text" name="productName" value="${rSch.productName}">				
 						</div>
 						<button type="button" id="schFrmBtn">조회</button>
+						<button type="button" id="rstFrmBtn">초기화</button>
 					</div>
 					<input type="hidden" name="orderDateMonth" value="${rSch.orderDateMonth}">
 					<input type="hidden" name="demander" value="${login.frRegiNum}">		
@@ -86,22 +93,22 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="thDiv" style="width: 18%;">발주번호</div>
-		<div class="thDiv" style="width: 10%;">자재번호</div>
-		<div class="thDiv" style="width: 14%;">요청매장번호</div>
+		<div class="thDiv" style="width: 19%;">발주번호</div>
+		<div class="thDiv" style="width: 20%;">자재명</div>
+		<div class="thDiv" style="width: 9%;">카테고리</div>
 		<div class="thDiv" style="width: 14%;">공급자번호</div>
 		<div class="thDiv" style="width: 14%;">신청날짜</div>
-		<div class="thDiv" style="width: 10%;">요청수량</div>
+		<div class="thDiv" style="width: 7%;">요청수량</div>
 		<div class="thDiv" style="width: 10%;">결제상태</div>
-		<div class="thDiv" style="width: 10%;">발주상태</div>
+		<div class="thDiv" style="width: 7%;">발주상태</div>
 	</div>
 	<div>
 	<c:forEach var="req" items="${reqlist }">
-		<div class="row" onclick="prodInfo('${req.orderNum}','${req.productNum }','${req.productName }','${req.amount }',
+		<div class="row tdAll" onclick="prodInfo('${req.orderNum}','${req.productNum }','${req.productName }','${req.amount }',
 			'${req.supplier }','${req.demander }','${req.orderDate }','${req.img}','${req.paymentState }','${req.orderState }')">
-			<div class="tdDiv" style="width: 18%;">${req.orderNum }</div>
-			<div class="tdDiv" style="width: 10%;">${req.productNum }</div>
-			<div class="tdDiv" style="width: 14%;">${req.demander }</div>
+			<div class="tdDiv" style="width: 19%;">${req.orderNum }</div>
+			<div class="tdDiv" style="width: 20%;">${req.productName }</div>
+			<div class="tdDiv" style="width: 9%;">${req.category }</div>
 			<div class="tdDiv" style="width: 14%;">${req.supplier }</div>
 			<div class="tdDiv" style="width: 14%;">
 				<div style="display: none;">
@@ -110,11 +117,11 @@
 				</div>
 				<fmt:formatDate value="${orderDate }" pattern="yyyy년MM월dd일" />
 			</div>
-			<div class="tdDiv" style="width: 10%; text-align: right;">
+			<div class="tdDiv" style="width: 7%; text-align: right;">
 				<fmt:formatNumber value='${req.amount }' pattern='#,##0.##' />
 			</div>
 			<div class="tdDiv" style="width: 10%;">${req.paymentState }</div>
-			<div class="tdDiv" style="width: 10%;">${req.orderState}</div>
+			<div class="tdDiv" style="width: 7%;">${req.orderState}</div>
 		</div>
 	</c:forEach>
 	</div>

@@ -65,7 +65,9 @@ public class A2_Service {
 	}
 	
 	public List<StoreClerk> storeClerkPayList(SCPage sch){
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
 		if(sch.getClerkName() == null) sch.setClerkName("");
+		if(sch.getOrderDateMonth() == null) sch.setOrderDateMonth("");
 		sch.setCount(dao.totNum(sch));
 		if(sch.getPageSize()==0) {
 			sch.setPageSize(10);
