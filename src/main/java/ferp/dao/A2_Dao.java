@@ -2,6 +2,7 @@ package ferp.dao;
 
 import java.util.List;
 
+import vo.ClerkFile;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
@@ -21,4 +22,5 @@ public interface A2_Dao {
 	public void uptReqList(Prod_ProdOrder upt);
 	public void delReqList(Prod_ProdOrder del);
 	public List<Rq_Product> cateCombo();
+	public void clerkfileupl(ClerkFile upl);
 }

@@ -109,7 +109,12 @@
 			<div class="tdDiv" style="width: 19%;">${req.orderNum }</div>
 			<div class="tdDiv" style="width: 20%;">${req.productName }</div>
 			<div class="tdDiv" style="width: 9%;">${req.category }</div>
-			<div class="tdDiv" style="width: 14%;">${req.supplier }</div>
+			<div class="tdDiv" style="width: 14%;">
+				<c:choose>
+					<c:when test="${req.demander eq '9999999999'}">---</c:when>
+					<c:otherwise>${req.supplier }</c:otherwise>
+				</c:choose>
+			</div>
 			<div class="tdDiv" style="width: 14%;">
 				<div style="display: none;">
 					<fmt:parseDate var="orderDate" value="${req.orderDate }"

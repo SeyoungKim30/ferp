@@ -148,6 +148,8 @@ DELETE FROM orders WHERE orderdate LIKE '%'||''||'%';
 
 SELECT * FROM store;
 
+SELECT * FROM emp;
+
 SELECT to_char(s.STOCKDATE,'YYYY-MM-dd') ,p.PRODUCTNUM ,p.CATEGORY ,p.PRODUCTNAME ,p.OPPOSITE ,p.PRICE ,p2.AMOUNT ,p2.ORDERSTATE ,p.REMARK 
 FROM PRODUCT p , STOCK s , PRODORDER p2 
 WHERE p.PRODUCTNUM = s.PRODUCTNUM 
@@ -260,3 +262,19 @@ SELECT c.ONDAY ,s.*
 FROM CLERKSCHEDULE c , STORECLERK s 
 WHERE c.FRREGINUM = s.FRREGINUM(+)
 AND c.CLERKNUM = s.CLERKNUM ;
+
+SELECT * FROM CLERKFILE c ;
+
+INSERT INTO CLERKFILE values('',sysdate,sysdate,'','');
+
+SELECT *
+	FROM (
+	SELECT rownum cnt, s.*
+		FROM storeclerk s,
+		emp e
+		WHERE 1=1
+		AND clerkname LIKE '%'||''||'%'
+		AND frreginum = '9999999999')
+WHERE cnt BETWEEN 1 AND 5;
+
+SELECT * FROM emp;

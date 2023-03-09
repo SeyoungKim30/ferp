@@ -7,18 +7,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ferp.service.A2_Service;
+import vo.ClerkFile;
+import vo.Emp;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
-import vo.StoreClerk;
 import vo.Store;
+import vo.StoreClerk;
 
 @Controller
 public class A2_Controller {
@@ -29,8 +30,16 @@ public class A2_Controller {
 //	직원 정보 리스트 조회
 	@RequestMapping("/storeClerkList.do")
 	public String pg3100(@ModelAttribute("SCsch") SCPage SCsch, Model d, HttpSession session) {
-		Store s=(Store)session.getAttribute("login");
-		SCsch.setFrRegiNum(s.getFrRegiNum());
+		String a = String.valueOf(session.getAttribute("login"));
+		int i = a.indexOf("@");
+		String vo = a.substring(0, i);
+		if(vo.equals("vo.Emp")) {
+			Emp s = (Emp)session.getAttribute("login");
+			SCsch.setFrRegiNum(s.getFrRegiNum());			
+		}else {
+			Store s = (Store)session.getAttribute("login");
+			SCsch.setFrRegiNum(s.getFrRegiNum());
+		}
 		d.addAttribute("scList", service.storeClerkList(SCsch));
 		d.addAttribute("clerkTot", service.clerkTot());
 		return "/WEB-INF/storeclerk/A2_storeClerkListCon.jsp";
@@ -90,8 +99,17 @@ public class A2_Controller {
 //	발주 신청서 조회
 	@ModelAttribute("reqlist")
 	public List<Prod_ProdOrder> requestList(@ModelAttribute("rSch") Prod_ProdOrder sch, HttpSession session){
-		Store s = (Store)session.getAttribute("login");
-		sch.setDemander(s.getFrRegiNum());
+		String a = String.valueOf(session.getAttribute("login"));
+		int i = a.indexOf("@");
+		String vo = a.substring(0, i);
+		if(vo.equals("vo.Emp")) {
+			Emp s = (Emp)session.getAttribute("login");
+			sch.setDemander(s.getFrRegiNum());
+		}else {
+			Store s = (Store)session.getAttribute("login");
+			sch.setDemander(s.getFrRegiNum());
+		}
+		
 		return service.reqList(sch);
 	}
 //	발주 신청서 수정
@@ -112,5 +130,13 @@ public class A2_Controller {
 	@ModelAttribute("category")
 	public List<Rq_Product> cateCombo(){
 		return service.cateCombo();
+	}
+//	직원 서류 업로드
+	@PostMapping("/clerkfilemanage.do")
+	public String pg3104(ClerkFile upl, Model d) {
+		if(service.clerkfileupl(upl)!="") {
+			d.addAttribute("msg", "업로드 성공");
+		}
+		return "pageJsonReport";
 	}
 }

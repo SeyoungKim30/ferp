@@ -103,4 +103,8 @@
 	<select id="cateCombo" resultType="rqproduct">
 		SELECT DISTINCT category FROM product
 	</select>
+	<!-- 직원 파일 업로드 -->
+	<insert id="clerkfileupl" parameterType="clerkfile">
+		INSERT INTO CLERKFILE values(#{fname},sysdate,sysdate,#{clerkNum},#{frRegiNum})
+	</insert>
 </mapper>
