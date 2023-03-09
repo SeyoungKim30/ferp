@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>본사 재고 등록</title>
+<title>본사 자재 정보</title>
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -22,7 +22,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width : 800px;
+	width : 500px;
 	padding: 25px;
 	border: 1px solid #FFFFFF;
 	border-radius: 5px;
@@ -35,9 +35,15 @@ body{
 	width: 250px;
 	height: 250px;
 }
+label{
+	font-size: 15pt;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$("#uptBtn").click(function(){
+			$("form").submit()
+		})
 		$("#returnBtn").click(function(){
 			location.href = "${path}/hproductList.do"
 		})
@@ -47,40 +53,22 @@ body{
 <body>
 	<div>
 		<div id="insform">
-			<h2>본사 자재 상세</h2>
-			<div><img class="prodimg" src="${path}/resource/img/${product.img}"></div>
-			<div>
-				<label for="productNum">자재코드</label> 
-				<input name="productNum" type="text" value="${product.productNum}" readonly
-					class="ckValid" id="productNum" placeholder="자재코드 입력" required>
-			</div>
-			<div>
-				<label for="category">카테고리명</label> 
-				<input type="text" name="category" value="${product.category}" readonly
-					class="ckValid" id="category" placeholder="카테고리명 입력" required>
-			</div>
-			<div>
-				<label for="productName">자재명</label> 
-				<input type="text" name="productName" value="${product.productName}" readonly
-					class="ckValid" id="productName" placeholder="자재명 입력" required>
-			</div>
-			<div>
-				<label for="opposite">거래처</label> 
-				<input type="text" name="opposite" value="${product.opposite}" readonly
-					class="ckValid"	id="opposite" placeholder="거래처 입력" required>
-			</div>
-			<div>
-				<label for="price">단가</label> 
-				<input type="text" name="price" value="${product.price}" readonly
-					class="ckValid" id="price" placeholder="단가 입력" required>
-			</div>
-			<div>
-				<label for="remark">비고</label> 
-				<input type="text" name="remark" value="${product.remark}" readonly
-					class="ckValid" id="remark" placeholder="비고 입력" required>
-			</div>
-			<br>
-			<button id="returnBtn" class="btn-submit" type="button">닫기</button>
+			<h2>자재 정보</h2>
+			<form method="post" action="${path}/hproductUpt.do">
+				<div><img class="prodimg" src="${path}/resource/img/${product.img}"></div><br>
+				<table>
+					<tr><th>자재코드</th><td>${product.productNum}
+					<input name="productNum" type="hidden" value="${product.productNum}" id="productNum"></td></tr>
+					<tr><th>카테고리명</th><td>${product.category}</td></tr>
+					<tr><th>자재명</th><td>${product.productName}</td></tr>
+					<tr><th>거래처</th><td>${product.opposite}</td></tr>
+					<tr><th>단가</th><td><fmt:formatNumber value="${product.price}" type='currency'/></td></tr>
+					<tr><th><label for="remark">비고</label></th><td><input type="text" name="remark" value="${product.remark}" 
+							class="ckValid" id="remark" placeholder="비고 입력" required></td></tr>
+				</table>
+				<button id="uptBtn" class="btn-secondary" type="button">수정</button>
+				<button id="returnBtn" class="btn-submit" type="button">닫기</button>
+			</form>
 		</div>
 	</div>
 </body>

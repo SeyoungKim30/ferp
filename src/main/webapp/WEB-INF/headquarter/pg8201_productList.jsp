@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="now" value="<%= new java.util.Date() %>" />
 <fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
 <html>
@@ -29,6 +31,7 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$("[name=stockDate]").val("${sch.stockDate}");
 		$("[name=productNum]").val("${sch.productNum}");
 		$("[name=category]").val("${sch.category}");
 		$("[name=productName]").val("${sch.productName}");
@@ -44,10 +47,12 @@
 	function goDetail(productNum) {
 		location.href="${path}/hproductInfo.do?productNum="+productNum;
 	}
+	
 	// 수정페이지로 이동
 	function goUpdate(productNum) {
 		location.href="${path}/hproductUpt.do?productNum="+productNum;
 	}
+	
 </script>
 </head>
 <body class="container">
@@ -55,23 +60,23 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
+		<button class="btn-primary" id="insBtn" type="button" style="float:right;"
+			onclick="location.href='${path}/hproductInsFrm.do'">자재등록</button> 
+		<button style="float:right;"
+			onclick="location.href='${path}/hInoutList.do'">재고 관리 내역</button>
 		<h2>본사 재고 조회</h2><br><hr><br>
+			
 			<div class="toolbox">
 			<form class="toolbar" method="post">
+				<input class="inputbox" type="date" name="stockDate" value="<fmt:formatDate value="${now}" pattern = "yyyy-MM-dd"/>"/>
 				<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
 				<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
 				<input class="inputbox" name="productName" value="${sch.productName}" placeholder="자재명 입력"/>
 				<input class="inputbox" name="opposite" value="${sch.opposite}" placeholder="거래처 입력"/>
-					<select name="orderState">
-				    	<option value="">발주상태선택</option>
-				    	<c:forEach var="orderState" items="${orderStateCom}">
-				    	<option>${orderState}</option>
-				    	</c:forEach>
-				    </select>
 				<button class="btn-secondary" type="submit">검색</button>
-			    <button class="btn-primary" id="insBtn" type="button" 
-			    	onclick="location.href='${path}/hproductInsFrm.do'">자재등록</button>
+			    
 			</form>
+			
 			</div>
 			
 			<div class="searchtab">
@@ -89,7 +94,7 @@
 			    	    	<td>${prod.productName}</td>
 			    	    	<td>${prod.opposite}</td>
 			    	    	<td><fmt:formatNumber value="${prod.price}" type='currency'/></td>
-			    	    	<td>${prod.amount}</td>
+			    	    	<td>${prod.remainAmount}</td>
 			    	    	<td>${prod.remark}</td>
 			    	    </tr>
 			    	</c:forEach>

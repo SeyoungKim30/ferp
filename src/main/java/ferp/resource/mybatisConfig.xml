@@ -29,6 +29,7 @@
 		<typeAlias alias="openTimeCalender" type="vo.OpenTimeCalender"/>
 		<typeAlias alias="prodProdOrder" type="vo.Prod_ProdOrder"/>
 		<typeAlias alias="clerkfile" type="vo.ClerkFile"/>
+		<typeAlias alias="pos" type="vo.Prod_order_stock"/>
 	</typeAliases>
 			
 <mappers>
