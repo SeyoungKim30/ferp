@@ -1,8 +1,12 @@
 package ferp.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +92,9 @@ public class C1_Service {
 	}
 	
 	public int r9203updateOrderState(ProdOrder prodOrder) {
+		/*if(prodOrder.getOrderStateUpdate().equals("")) {
+			//재고stock에 insert
+		} */
 		return dao.r9203updateOrderState(prodOrder);
 	}
 	
@@ -98,6 +105,23 @@ public class C1_Service {
 		return dao.r9310selectProdOrderPayState(prodOrder);
 	}
 	public int r9311updateProdOrderPayState(ProdOrder prodOrder) {
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString=dateFormat.format(date);
+		if(prodOrder.getPaymentState().equals("계산서 발행")&&!prodOrder.getDemander().equals("0000000000")) {
+			ACStatement ast= new ACStatement();
+			//계산서 발행 : 본사 미수수익
+			ast.setAcntNum("11600");
+			ast.setCredit(0);
+			ast.setDebit(prodOrder.getAmount());
+			ast.setFrRegiNum("9999999999");
+			ast.setLineNum(0);
+			ast.setRemark(prodOrder.getOrderDateMonth()+" "+prodOrder.getDemander());
+			ast.setStatementNum("AT");
+			ast.setStmtDate(dateString);
+			ast.setStmtOpposite(prodOrder.getDemander());
+		}
+		
 		return 	dao.r9311updateProdOrderPayState(prodOrder);
 	}
 	

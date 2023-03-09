@@ -15,6 +15,7 @@ import ferp.service.C1_Service;
 import ferp.service.C2_Service;
 import vo.Account;
 import vo.NoticeSch;
+import vo.ProductProdOrder;
 
 @Controller
 public class JsonController {
@@ -42,11 +43,14 @@ public class JsonController {
 		//model.addAttribute(); 추가예정
 		return "pageJsonReport";
 	}
-	
+
+	// http://localhost:6080/ferp/selectProdListJson.do
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@GetMapping("selectProdListJson.do")
 	public String selectProdListJson(Model model) {
-		//model.addAttribute("productList",servicec2.r8101ProductInfo("")); 번호검색 like아니라서 보류
+		ProductProdOrder ppo =new ProductProdOrder();
+		ppo.setFrRegiNum("9999999999");
+		model.addAttribute("productList",serviceC2.r8101ProductList(ppo));
 		return "pageJsonReport";
 	}
 	

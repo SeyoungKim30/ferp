@@ -52,6 +52,7 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')	-- 담당자
 	AND (pd.PRODUCTNUM LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%' OR pd.PRODUCTNAME LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%') --상품번호 또는 이름
 	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%' AND po.ORDERSTATE LIKE '%'||#{orderState,jdbcType=VARCHAR}||'%'
+	AND po.DEMANDER !='9999999999'
 ORDER BY po.ORDERDATE asc
 </select>
 
@@ -88,8 +89,16 @@ GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,empnum,po.PAYMENTSTATE
 <update id="r9311updateProdOrderPayState" parameterType="prodOrder">
 	UPDATE PRODORDER SET PAYMENTSTATE = #{paymentState} 
 	WHERE trunc(ORDERDATE,'month') = to_date(#{orderDateMonth},'yyyy-mm') 
-		<if test="demander!='0000000000' and demander!='0000000000'">
-		AND demander = #{demander}
+		<if test="demander!='0000000000'">
+		AND demander = #{demander}	--일괄업뎃 아닐때
+		</if>
+		<if test="demander=='0000000000'">
+		<if test="paymentState=='청구'">
+		AND PAYMENTSTATE = '정산전'
+		</if>
+		<if test="paymentState=='계산서 발행'">
+		AND PAYMENTSTATE = '청구'
+		</if>
 		</if>
 </update>
 

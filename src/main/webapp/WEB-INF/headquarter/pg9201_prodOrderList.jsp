@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
+
+<c:if test="${login.frRegiNum == 9999999999 }">
 <style>
 .main_wrapper td:nth-child(1),.main_wrapper td:nth-child(2),.main_wrapper td:nth-child(3),.main_wrapper td:nth-child(7),.main_wrapper td:nth-child(8){
 	text-align:center;
@@ -27,6 +29,20 @@
 	text-align:right;
 }
 </style>
+</c:if>
+
+<c:if test="${login.frRegiNum != 9999999999 }">
+<style>
+.main_wrapper td:nth-child(1),.main_wrapper td:nth-child(4),.main_wrapper td:nth-child(5),.modal-body td:nth-child(1){
+	text-align:center;
+	}
+.main_wrapper td:nth-child(3),.main_wrapper td:nth-child(6),.modal-body td:nth-child(3){
+	text-align:right;
+}
+
+</style>
+</c:if>
+
 </head>
 
 <script type="text/javascript">
@@ -137,12 +153,12 @@ form1.addEventListener('submit', (e) => {
 
 //fetch받아서 전체 목록 출력하고 상품별 수량 모달 만들기
 function selectProdOrderListJson(){
-   	let serial=$('#searchform').serialize()
  	var resultlist=[];
     fetchSelectPromise('#searchform',"${path }/productOrderListJson.do?").then(json=>{
     	resultlist=json.list
     	let htmls='';
     	resultlist.forEach(function(each){
+			console.log('resultlist.forEach 내부')
 			console.log(each)
 			htmls+=`<tr><td title="`+each.prodOrder.orderDate+`">`+each.prodOrder.orderDate.substr(0,10)
 			<c:if test="${login.frRegiNum == 9999999999 }">
@@ -157,23 +173,25 @@ function selectProdOrderListJson(){
 				+`</td><td>`+each.prodOrder.orderState
 				+`</td><td>`+each.prodOrder.paymentState
 				+`</td></tr>`;
-				printTotalAmountbyProd(resultlist,(json.prodOrder.orderDate!=null||json.prodOrder.orderNum!=null));
-				document.querySelector('tbody').innerHTML=htmls
-				$('#modalByProd [name=orderNum]').val(json.prodOrder.orderNum)
-				$('#modalByProd [name=orderDate]').val(json.prodOrder.orderDate)
-				$('#modalByProd [name=demander]').val(json.prodOrder.demander)
-				$('#modalByProd [name=supplier]').val(json.prodOrder.supplier)
-				$('#modalByProd [name=productNum]').val(json.prodOrder.productNum)
-				$('#modalByProd [name=orderState]').val(json.prodOrder.orderState)
-				$('#modalByProd [name=paymentState]').val(json.prodOrder.paymentState)
 		})
+		console.log('resultlist.forEach 끝')
+		printTotalAmountbyProd(resultlist,(json.prodOrder.orderDate!=null||json.prodOrder.orderNum!=null));
+		document.querySelector('tbody').innerHTML=htmls
+		console.log(htmls)
+		$('#modalByProd [name=orderNum]').val(json.prodOrder.orderNum)
+		$('#modalByProd [name=orderDate]').val(json.prodOrder.orderDate)
+		$('#modalByProd [name=demander]').val(json.prodOrder.demander)
+		$('#modalByProd [name=supplier]').val(json.prodOrder.supplier)
+		$('#modalByProd [name=productNum]').val(json.prodOrder.productNum)
+		$('#modalByProd [name=orderState]').val(json.prodOrder.orderState)
+		$('#modalByProd [name=paymentState]').val(json.prodOrder.paymentState)
     }).catch(function(err){console.log(err)})
 } 
 
 
 
 
-//모달에서 상품별 전체수량 볼때 배송상태 일괄변경 버튼에 이벤트 할당 
+//모달에서 상품별 전체수량 볼때 배송상태 일괄변경 버튼에 이벤트 할당하는 함수
 function totalUpdateBtn(){
 	$('#orderStateForm .btn-sm').on('click',function(){
 		let prodnum=$(this).attr('id');
@@ -257,7 +275,6 @@ $(function(){
 		$(".noDisplayForStores").css("display","none")
 		$('[name=demander]').val('${login.frRegiNum}')
 	}
-	
 	//로딩하자마자 오늘거 검색
 	selectProdOrderListJson();
 	

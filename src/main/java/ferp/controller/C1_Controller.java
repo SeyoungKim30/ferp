@@ -1,5 +1,9 @@
 package ferp.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ferp.service.A2_Service;
 import ferp.service.C1_Service;
 import vo.ACStatement;
 import vo.Account;
 import vo.ProdOrder;
+import vo.Prod_ProdOrder;
+import vo.Store;
 
 @Controller
 public class C1_Controller {
 
 	@Autowired
 	C1_Service service;
+	@Autowired
+	A2_Service service2;
 
 	// http://localhost:6080/ferp/selectAccount.do
 	@RequestMapping("selectAccount.do")
@@ -145,4 +154,17 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg9301_prodOrderPayDetail.jsp";
 	}
 	
+	@RequestMapping("insertProdOrder.do")
+	public String rrrr(Prod_ProdOrder ppo) {
+		service2.prodOrderReq(ppo);
+		return "";
+	}
+	
+	//http://localhost:6080/ferp/pnl.do
+	@GetMapping("pnl.do")
+	public String r7205() {
+		return "WEB-INF\\headquarter\\pg7205_PnL.jsp";
+	}
+	
+
 }
