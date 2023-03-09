@@ -43,10 +43,15 @@ input:focus{
 	padding-bottom: 20px;
 	border-bottom: 3px solid black;
 }
-.notice_title{
+
+.title_line{
+	display: flex;
+    align-items: center;
     border-bottom: 3px solid black;
-    margin-top: 15px;
-    padding-bottom: 15px;
+}
+.notice_title{
+	margin-top: 10px;
+    padding-bottom: 10px;
 }
 .content{
 	margin-bottom: 30px;
@@ -72,8 +77,8 @@ pre{
 }
 
 .notice_content{
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 600;
     margin-top: 30px;
     border-bottom: 1px solid black;
     padding-bottom: 30px;
@@ -95,7 +100,7 @@ pre{
     text-align: center;
     border-radius: 10px;
     color: white;
-    background: rgb(127, 127, 127);
+    background: rgb(96, 149, 160);
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
@@ -119,7 +124,7 @@ pre{
     text-align: center;
     border-radius: 10px;
     color: white;
-    background: rgb(52, 152, 219);
+    background: #6c757d;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
@@ -131,7 +136,7 @@ pre{
     text-align: center;
     border-radius: 10px;
     color: white;
-    background: rgb(192, 57, 43);
+    background: #dc3545;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;

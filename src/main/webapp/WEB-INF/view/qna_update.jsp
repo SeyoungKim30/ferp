@@ -9,17 +9,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 수정</title>
+<title>문의글 수정</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="/ferp/resource/css/notice_insert.css"/>
+<link rel="stylesheet" href="/ferp/resource/css/qna_insert.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 </head>
 <script type="text/javascript">
-	localStorage.setItem("pageIdx","5001")
+	localStorage.setItem("pageIdx","5103")
 	localStorage.setItem("eqIdx","6")
 </script>
 <body class="container">
@@ -27,62 +27,68 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-	        <form enctype="multipart/form-data" method="post">
-	        	<h2 class="insert_product">공지사항 수정</h2>
-	        	<div class="top_line">
-		        	<input type="hidden" name="noticeNum" value="${notice.noticeNum}">
-			        <input type="hidden" name="important" value="${notice.important}">
-		        	<input type="checkbox" id="important">
-		        	<span>중요공지사항</span>
-	        	</div>
-	    	    
-	        	<div class="content">
-	        		<!-- 작성자 value값에 로그인한 사원의 이름 mem.name -->
-					<div class="first_line">
-						<h3 class="notice_title">제목</h3>
-					</div>
-					<div class="second_line">
-						<input type="text" name="title" value="${notice.title}" placeholder="공지사항 제목 입력">
-					</div>
-					<div class="third_line">
-						<h3 class="notice_content">내용</h3>
-					</div>
-					<div class="fourth_line">
-						<textarea name="content" rows="15" cols="70" placeholder="공지사항 내용 입력">${notice.content}</textarea>
-					</div>
-					<div class="fifth_line">
-						<h3 class="notice_file">파일</h3>
-					</div>
-					<div class="sixth_line">
-						<div class="block">
-							<div class="img_block">
-								<input class="upload-name" name="fname" type="text" value="${notice.fname}" readonly="readonly"  style="width: 290px;">
-								
-				              	<label for="input_file">업로드</label> 
-	             				<input type="file" name="multipartfile" id="input_file" class="upload-hidden" > 
-							</div>
+        	<form enctype="multipart/form-data" method="post">
+     	        <h2 class="insert_product">문의글 수정</h2>
+     	        <input type="hidden" name="noticeNum" value="${qna.noticeNum}">
+	
+        	<div class="content">
+				<div class="first_line">
+					<h3 class="qna_title">제목</h3>
+					<h3 class="qna_category">문의유형</h3>
+				</div>
+				<div class="second_line">
+					<input type="text" name="title" value="${qna.title}" placeholder="제목 입력">
+					<input type="hidden" name="categoryHidden" value="${qna.category}">
+					<select name="category">
+					<c:if test="${qna.replyNum eq '0'}">
+						<c:forEach var="category" items="${noticeCategoryCombo}">
+							<option>${category}</option>
+						</c:forEach>
+					</c:if>
+					<c:if test="${qna.replyNum ne '0'}">
+						<option>${qna.category}</option>
+					</c:if>
+					</select>
+				</div>
+				<div class="third_line">
+					<h3 class="menu_info">내용</h3>
+				</div>
+				<div class="fourth_line">
+					<textarea name="content" rows="15" cols="70" placeholder="문의글 내용 입력">${qna.content}</textarea>
+				</div>
+				<div class="fifth_line">
+					<h3 class="menu_img">첨부파일</h3>
+				</div>
+				<div class="sixth_line">
+					<div class="block">
+						<div class="img_block">
+							<input class="upload-name" type="text" value="${notice.fname}" readonly="readonly" style="width: 290px;">
+							
+			              	<label for="input_file">업로드</label> 
+             				<input type="file" name="multipartfile" id="input_file" class="upload-hidden" > 
 						</div>
 					</div>
-					<div class="submit_line">
-						<button type="button" class="uptBtn">수 정</button>
-					</div>	
 				</div>
-			</form>
+				<div class="submit_line">
+					<button type="button" class="uptBtn">수 정</button>
+				</div>	
+			</div>
+			</form>	
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
-	if($("input[name=important]").val() == 'o'){
-		$("#important").attr("checked", "checked")
+	var replyNum = '${qna.replyNum}'
+	if(replyNum == '0'){
+		$("[name=category] option").each(function(idx, opt){
+			if( $("[name=categoryHidden]").val() == $(this).val() ){
+				$(this).attr("selected", "selected");
+			}
+		})
 	}
+
     $(".uptBtn").click(function(){
-		if($('#important').is(':checked')){
-			$("input[name=important]").attr('value','o');
-		}
-		if(!$('#important').is(':checked')){
-			$("input[name=important]").attr('value','x');
-		}
 		  Swal.fire({
 			  title: '수정하시겠습니까?',
 			  icon: 'question',
@@ -95,7 +101,7 @@ $(document).ready(function(){
 			  if (result.value) {
 				  if($("[name=title]").val() == ""){
 					  Swal.fire({
-						  title: '공지사항 제목을 입력해주세요.',
+						  title: '제목을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
@@ -107,9 +113,23 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
+				  else if($("[name=category]").val() == ""){
+					  Swal.fire({
+						  title: '카테고리를 선택해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=category]").focus()
+						      return;
+						  }
+					  })
+				  }
 				  else if($("[name=content]").val() == ""){
 					  Swal.fire({
-						  title: '공지사항 내용을 입력해주세요.',
+						  title: '내용을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
@@ -121,6 +141,7 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
+
 				  else{
 					  $("form").submit();
 				  }

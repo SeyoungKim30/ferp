@@ -1,88 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    import="java.util.*" 
-%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-<fmt:requestEncoding value="UTF-8" />
+<fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ferp 매장 관리</title>
-
-<!-- 제이쿼리 CDN -->
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<title>문의글 등록</title>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="/ferp/resource/css/qna_insert.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
-
 </head>
-
-<body>
-    <div class="container">
-        <header>  
-            <div class="logo">
-                <h1><a href="#"><img src="/ferp/resource/img/F.ERP.png" alt=""></a></h1>
-            </div>
-        </header>
-        <div class="main_wrapper">
-            <div class="lnb">
-                <ul>
-                    <li>
-                        <a href="#">공지 및 문의</a>
-                        <ul>
-                            <li><a href="#">- 공지사항 조회</a></li>
-                            <li><a href="#">- 문의글 등록</a></li>
-                            <li><a href="#">- 1:1 채팅</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">직원 관리</a>
-                        <ul>
-                            <li><a href="#">- 직원 정보 조회</a></li>
-                            <li><a href="#">- 근태 조회</a></li>
-                            <li><a href="#">- 스케쥴 관리</a></li>
-                            <li><a href="#">- 급여액 조회</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">재무 관리</a>
-                        <ul>
-                            <li><a href="#">- 전표 수기 입력</a></li>
-                            <li><a href="#">- 거래 내역 조회</a></li>
-                            <li><a href="#">- 손익 계산서 조회</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">물류 관리</a>
-                        <ul>
-                            <li><a href="#">- 발주 신청</a></li>
-                            <li><a href="#">- 배송 불량 신청</a></li>
-                            <li><a href="#">- 배송 불량 신청 현황</a></li>
-                            <li><a href="#">- 발주 계산서 조회</a></li>
-                            <li><a href="#">- 재고 관리</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">매장 관리</a>
-                        <ul>
-                            <li><a href="#">- 비밀번호 변경</a></li>
-                            <li><a href="#">- 매출 조회</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="contents">
-	        	<div>
-	        	<form enctype="multipart/form-data" method="post">
-	     	        <h2 class="insert_product">문의글 등록</h2>
-	     	        <input type="hidden" name="writer" value="매장">
-	     	        <input type="hidden" name="replyNum" value="0"/>
-	        	</div>
-		
+<script type="text/javascript">
+	localStorage.setItem("pageIdx","5101")
+	localStorage.setItem("eqIdx","6")
+</script>
+<body class="container">
+	<%@ include file="/resource/templates/header.jsp"%>
+	<div class="main_wrapper">
+		<%@ include file="/resource/templates/sidebar.jsp"%>
+		<div class="contents">
+        	<form enctype="multipart/form-data" method="post">
+     	        <h2 class="insert_product">문의글 등록</h2>
+     	        <input type="hidden" name="writer" value="매장">
+     	        <input type="hidden" name="replyNum" value="0"/>
+	
 	        	<div class="content">
 					<div class="first_line">
 						<h3 class="qna_title">제목</h3>
@@ -92,8 +41,9 @@
 						<input type="text" name="title" placeholder="제목 입력">
 						<select name="category">
 							<option disabled="disabled" selected="selected">문의유형 선택</option>
-							<option>로그인</option>
-							<option>매장관리</option>
+							<c:forEach var="category" items="${noticeCategoryCombo}">
+								<option>${category}</option>
+							</c:forEach>
 						</select>
 					</div>
 					<div class="third_line">
@@ -118,26 +68,12 @@
 					<div class="submit_line">
 						<button type="button" class="insBtn">등 록</button>
 					</div>	
-				</form>		
 				</div>
-            </div>
-        </div>
-    </div>
+			</form>	
+		</div>
+	</div>
 </body>
 <script type="text/javascript">
-$('.lnb > ul > li').click(function() {
-    if ( $(this).hasClass('active') ) {
-        $(this).find('> ul').stop().slideUp(300);
-        $(this).removeClass('active');
-    }
-    else {
-        $(this).find('> ul').stop().slideDown(300);
-        $(this).addClass('active');
-    }
-});
-
-$('.lnb > ul > li').eq(0).trigger("click");
-
 $(document).ready(function(){
 
     $(".insBtn").click(function(){
