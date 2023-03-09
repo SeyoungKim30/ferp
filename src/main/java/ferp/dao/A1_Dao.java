@@ -40,5 +40,5 @@ public interface A1_Dao {
 	public List<Menu> getAllMenu(Menu sch);
 	
 	// orders 추가 dao
-	public void insertOrdersList(List<Orders> ins);
+	public void insertOrdersList(Orders ins);
 }

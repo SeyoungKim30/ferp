@@ -358,6 +358,23 @@
 		    text-align: center;
 		    padding: 20px;
 		}
+		
+		.lanBtn{
+		    font-size: 20px;
+		    background: #fff;
+		    border: none;
+		    width: 100px;
+		    border-radius: 10px;
+		    height: 38px;
+		    color: #333;
+		    margin-left: 95px;
+		    margin-top: 20px;
+		    cursor: pointer;
+		}
+		
+		.lanBtn:hover{
+			color: #2262f3;
+		}
 </style>
 </head>
 
@@ -432,6 +449,7 @@
 			<li name="tab_list_4" class="tab_list list_4">음료</li>
 			<li name="tab_list_5" class="tab_list list_5">샌드위치</li>
 			<li name="tab_list_6" class="tab_list list_6">케이크</li>
+			<button class="lanBtn">English</button>
 		</ul>
 		<div class="con_wrap">
 			<div class="large_con">
@@ -692,7 +710,8 @@ var modal_btn_add = $(".modal_btn_add");
 	price = price.toLocaleString();
 	price += "￦";
 	
-	resultAddString += "<li class='list_item'><p class='list_item_info'><span class='list_item_name'><span class='menuNum' style='display:none;'>"+menuNum+"</span><span class='listItemName'>"
+	resultAddString += "<li class='list_item'><p class='list_item_info'><span class='list_item_name'><span class='menuNum' style='display:none;'>"
+	+menuNum+"</span><span class='listItemName'>"
 	+name+"</span>x<span class='listItemCnt'>"
 	+cnt+"</span>"+"</span><span class='list_item_option'>"+option+"</span></p><p class='list_item_price'>"+price+"</p></li>";
 	
@@ -704,16 +723,17 @@ var modal_btn_add = $(".modal_btn_add");
         "amount": Number($(".listItemCnt").last().text()),
         "payprice": Number($(".list_item_price").last().text().replace("￦","").replace(",","")),
         "orderOption": $(".list_item_option").last().text(),
-        "frRegiNum":${login.frRegiNum}
+        "frRegiNum":"${login.frRegiNum}"
     };
     orders.push(order);
 	
+    
+    
 	modalClose.trigger('click');
 	console.log(orders);
 	
 });
 
-	
 // 취소하기 버튼
 $(".delOrderBtn").click(function () {
 	var insHtml = "<li class='listdefalut'>주문하실 음료를<br> 선택해주세요.</li>"
@@ -756,10 +776,14 @@ $(".addOrderBtn").click(function () {
 		$.ajax({
 			type : "post",
 			url : "/ferp" + url,
+			headers:{
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType:'text',
 			data : JSON.stringify(orders),
-			contentType: "application/json",
 			success : function(data) {
-				location.href="/ferp/kiosquePay.do";
+				alert('DB저장 성공');
 			},
 			error : function(err) {
 				console.log(err)

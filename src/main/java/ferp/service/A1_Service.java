@@ -78,7 +78,7 @@ public class A1_Service {
 	}
 	
 	// orders ins
-    public void insertOrdersList(List<Orders> ins) {
+    public void insertOrdersList(Orders ins) {
         dao.insertOrdersList(ins);
     }
 	
