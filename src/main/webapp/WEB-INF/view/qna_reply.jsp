@@ -20,7 +20,7 @@
 </head>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","5101")
-	localStorage.setItem("eqIdx","6")
+	localStorage.setItem("eqIdx","5000")
 	
 </script>
 <body class="container">
