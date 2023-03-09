@@ -180,6 +180,7 @@ public class A1_Controller {
 			 * ins.setAmount(amount[i]); ins.setFrRegiNum(frRegiNum[i]);
 			 * ins.setMenuNum(menuNum[i]); ins.setPayprice(payprice[i]);
 			 * ins.setOrderOption(orderOption[i]);
+			 * 아니 내가 마이크 켜면 하울링 생
 			 */
 	   // 아니 지금 서비스단에서 sysout 안 뜨는거 보니까
 	   // 서비스단 호출이 아예 안 되는 것 같은데
@@ -200,5 +201,7 @@ public class A1_Controller {
    // http://localhost:6080/ferp/addOrder.do
    // 그러면 저거 nextval에서 로직 잘 짜서 currval로 바꾸면 돼
    // 한 번 호출 될 때 하나씩
+   // 아니 근데 숫자가 어떤식으로 나와야하는지를 모르겠엌ㅋㅋㅋㅋㅋㅋ
+   // 아 ㅇㅋ 쟤네 다 지워줘
    // 지금 31개 데이터이고
 }   
