@@ -38,7 +38,7 @@
 	        	<div class="content">
 	        	
 	        		<!-- 작성자 value값에 로그인한 사원의 이름 mem.name -->
-	        		<input type="hidden" name="writer" value="홍길동">
+	        		<input type="hidden" name="writer" value="본사">
 					<div class="first_line">
 						<h3 class="notice_title">제목</h3>
 					</div>

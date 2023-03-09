@@ -29,7 +29,7 @@
 		<div class="contents">
         	<form enctype="multipart/form-data" method="post">
      	        <h2 class="insert_product">문의글 등록</h2>
-     	        <input type="hidden" name="writer" value="매장">
+     	        <input type="hidden" name="writer" value="${login.frName}">
      	        <input type="hidden" name="replyNum" value="0"/>
 	
 	        	<div class="content">

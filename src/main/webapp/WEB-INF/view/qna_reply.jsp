@@ -21,6 +21,7 @@
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","5101")
 	localStorage.setItem("eqIdx","6")
+	
 </script>
 <body class="container">
 	<%@ include file="/resource/templates/header.jsp"%>
@@ -29,7 +30,7 @@
 		<div class="contents">
         	<form enctype="multipart/form-data" action="${path}/qnaInsert.do" method="post">
      	        <h2 class="insert_product">답변 등록</h2>
-     	        <input type="hidden" name="writer" value="본사">
+     	        <input type="hidden" name="writer" value="${not empty login.ename?'본사':login.frName}">
      	        <input type="hidden" name="replyNum" value="${empty param.replyNum?0:param.replyNum}"/>
 	
 	        	<div class="content">
