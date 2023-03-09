@@ -82,6 +82,7 @@ header{
 	display: flex;
 }
 
+
 </style>
 <header>
 	<div class="logo">

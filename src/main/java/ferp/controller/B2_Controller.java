@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ferp.download.ChatHandler;
 import ferp.service.B2_Service;
-import vo.HOemp;
+import vo.Emp;
 import vo.Menu;
+import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
 import vo.Store;
@@ -25,8 +27,16 @@ public class B2_Controller {
 	private B2_Service service;
 	
 	@ModelAttribute("empCombo")
-	public List<HOemp> getHOemp(){
+	public List<Emp> getHOemp(){
 		return service.getHOemp();
+	}
+	@ModelAttribute("noticeCategoryCombo")
+	public List<String> getNoticeCategory(){
+		return service.getNoticeCategory();
+	}
+	@ModelAttribute("menuCategoryCombo")
+	public List<String> getMenuCategory(){
+		return service.getMenuCategory();
 	}
 	
 	// 본사 홈페이지 controller
@@ -38,9 +48,9 @@ public class B2_Controller {
 	// 메뉴 조회 controller
 	// http://localhost:7080/ferp/menuList.do
 	@RequestMapping("/menuList.do")
-	public String menuList(@ModelAttribute("sch") Menu sch, Model d) {
+	public String menuList(@ModelAttribute("sch") MenuSch sch, Model d) {
 		d.addAttribute("menu", service.searchMenu(sch));
-		
+		 
 		return "WEB-INF\\view\\menu_list.jsp";
 	}
 	// 메뉴 등록 controller
@@ -52,12 +62,11 @@ public class B2_Controller {
 	@PostMapping("/menuInsert.do")
 	public String menuInsert(Menu ins, RedirectAttributes redirect) {
 		if( service.insertMenu(ins) != null ) {
-			redirect.addFlashAttribute("msg", "메뉴 등록 성공!");
+			redirect.addFlashAttribute("insMsg", "메뉴 등록 성공!");
 		}
 		// redirect로 본사 홈페이지로 이동
-		return "redirect:/mainpage.do";
+		return "redirect:/menuList.do";
 	}
-	
 	
 	// 매장정보등록 controller
 	// http://localhost:7080/ferp/storeInsert.do
@@ -90,16 +99,47 @@ public class B2_Controller {
 		// 매장 정보 조회 페이지로 redirect
 		return "";
 	}
-	// 매장 정보 삭제
+	// 매장 정보 비활성화
 	@RequestMapping("/storeDelete.do")
 	public String storeDelete(@RequestParam String frRegiNum, RedirectAttributes redirect) {
 		if( service.deleteStore(frRegiNum) != null ) {
-			redirect.addFlashAttribute("delMsg", "매장 정보 삭제 완료");
+			redirect.addFlashAttribute("delMsg", "매장 정보 비활성화 완료");
 		}
 		// 매장 정보 조회 페이지로 redirect
 		return "";
 	}
 	
+	
+	// 본사 직원 등록
+	// http://localhost:7080/ferp/insertEmp.do
+	@GetMapping("/insertEmp.do")
+	public String insertEmp() {
+		return "WEB-INF\\view\\emp_insert.jsp";
+	}
+	@PostMapping("/insertEmp.do")
+	public String insertEmp(Emp ins, RedirectAttributes redirect) {
+		if( service.insertEmp(ins)!=null ) {
+			redirect.addFlashAttribute("isgMsg", "등록 성공");
+		}
+		// 본사 메인페이지로 이동
+		return "WEB-INF\\view\\mainpage.jsp";
+	}
+	// 직원 비밀번호 변경
+	// http://localhost:7080/ferp/updateEmpPass.do
+	@GetMapping("/updateEmpPass.do")
+	public String updateEmpPass() {
+		
+		return "WEB-INF\\view\\emp_passUpdate.jsp";
+	}
+	@PostMapping("/updateEmpPass.do")
+	public String updateEmpPass(Emp upt, RedirectAttributes redirect) {
+		if( service.updateEmpPass(upt)!= null) {
+			redirect.addFlashAttribute("uptMsg", "수정 완료");
+		}
+		
+		// 본사 메인페이지로 이동
+		return "WEB-INF\\view\\mainpage.jsp";
+	}
 	
 	// 공지사항 조회
 	// http://localhost:7080/ferp/noticeList.do
@@ -179,12 +219,13 @@ public class B2_Controller {
 		
 		return "WEB-INF\\view\\qna_detail.jsp";
 	}
-	// 문의글 등록
+	// 문의글 등록폼
 	// http://localhost:7080/ferp/qnaInsert.do
 	@GetMapping("/qnaInsert.do")
 	public String qnaInsert() {
 		return "WEB-INF\\view\\qna_insert.jsp";
 	}
+	// 문의글 등록 & 답변
 	@PostMapping("/qnaInsert.do")
 	public String qnaInsert(Notice ins, RedirectAttributes redirect) {
 		if( service.insertQnA(ins)!=null ) {
@@ -198,4 +239,45 @@ public class B2_Controller {
 	public String qnaReply() {
 		return "WEB-INF\\view\\qna_reply.jsp";
 	}
+	// 문의글 수정
+	@GetMapping("/qnaUpdate.do")
+	public String qnaUpdate(@RequestParam String noticeNum, Model d) {
+		d.addAttribute("qna", service.detailQnA(noticeNum));
+		
+		return "WEB-INF\\view\\qna_update.jsp";
+	}
+	@PostMapping("/qnaUpdate.do")
+	public String qnaUpdate(Notice upt, RedirectAttributes redirect) {
+		if( service.updateQnA(upt)!=null ) {
+			redirect.addFlashAttribute("uptMsg", "수정 성공");
+		}
+		return "redirect:/qnaList.do";
+	}
+	// 문의글 삭제
+	@RequestMapping("/qnaDelete.do")
+	public String qnaDelete(@RequestParam String noticeNum, RedirectAttributes redirect) {
+		if( service.deleteQnA(noticeNum) != null ) {
+			redirect.addFlashAttribute("delMsg", "문의글 삭제 완료");
+		}
+		
+		return "redirect:/qnaList.do";
+	}	
+	
+	
+	@Autowired(required = false)
+	private ChatHandler chHandl;
+	
+	// http://localhost:7080/ferp/chatting.do
+	@RequestMapping("/chatting.do")
+	public String chatting(Model d) {
+		d.addAttribute("important", service.importantNotice());
+		
+		return "WEB-INF\\view\\chatting.jsp";
+	}
+	@GetMapping("/chGroup.do")
+	public String chGroup(Model d) {
+		d.addAttribute("group", chHandl.getIdx());
+		return "pageJsonReport";
+	}
+	
 }

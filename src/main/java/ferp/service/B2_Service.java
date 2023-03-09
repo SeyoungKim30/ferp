@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import ferp.dao.B2_Dao;
-import vo.HOemp;
+import vo.Emp;
 import vo.Menu;
+import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
 import vo.Store;
@@ -26,9 +27,29 @@ public class B2_Service {
 	private String upload;
 	
 	// 메뉴 조회
-	public List<Menu> searchMenu(Menu sch){
+	public List<Menu> searchMenu(MenuSch sch){
 		if(sch.getMenuName()==null) sch.setMenuName("");
 		
+		sch.setCount(dao.totCntMenu(sch));
+		
+		if(sch.getCurPage()==0) sch.setCurPage(1);
+		
+		if(sch.getPageSize()==0) sch.setPageSize(15);
+		
+		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
+		
+		if(sch.getCurPage()>sch.getPageCount()) sch.setCurPage(sch.getPageCount());
+		
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getPageSize()*sch.getCurPage());
+		sch.setBlockSize(5);
+		
+		int blocknum = (int)Math.ceil((double)sch.getCurPage()/sch.getBlockSize());
+		int endBlock = blocknum*sch.getBlockSize();
+		if(endBlock > sch.getPageCount()) endBlock = sch.getPageCount();
+		sch.setEndBlock(endBlock);
+
+		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.searchMenu(sch);
 	}
 	
@@ -89,7 +110,24 @@ public class B2_Service {
 	}
 	
 	
+	// 본사 직원 등록
+	public String insertEmp(Emp ins) {
+		
+		dao.insertEmp(ins);
+		
+		return ins.getEmpnum();
+	}
+	// 본사 직원 비밀번호 변경
+	public String updateEmpPass(Emp upt) {
+		dao.updateEmpPass(upt);
+		
+		return upt.getEmpnum();
+	}
 	
+	// 중요 공지사항
+	public Notice importantNotice() {
+		return dao.importantNotice();
+	}
 	// 공지사항 조회
 	public List<Notice> searchNotice(NoticeSch sch){
 		if(sch.getTitle()==null) sch.setTitle("");
@@ -98,7 +136,7 @@ public class B2_Service {
 		
 		if(sch.getCurPage()==0) sch.setCurPage(1);
 		
-		if(sch.getPageSize()==0) sch.setPageSize(5);
+		if(sch.getPageSize()==0) sch.setPageSize(10);
 		
 		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
 		
@@ -160,10 +198,17 @@ public class B2_Service {
 	}
 	
 	// 직원 콤보박스
-	public List<HOemp> getHOemp(){
+	public List<Emp> getHOemp(){
 		return dao.getHOemp();
 	}
-	
+	// 문의글 카테고리 콤보
+	public List<String> getNoticeCategory(){
+		return dao.getNoticeCategory();
+	}
+	// 메뉴 카테고리 콤보
+	public List<String> getMenuCategory(){
+		return dao.getMenuCategory();
+	}
 	
 	
 	// 문의글 조회
@@ -171,24 +216,17 @@ public class B2_Service {
 		if(sch.getTitle()==null) sch.setTitle("");
 		
 		sch.setCount(dao.totCntQnA(sch));
-		
 		if(sch.getCurPage()==0) sch.setCurPage(1);
-		
-		if(sch.getPageSize()==0) sch.setPageSize(5);
-		
+		if(sch.getPageSize()==0) sch.setPageSize(10);
 		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
-		
 		if(sch.getCurPage()>sch.getPageCount()) sch.setCurPage(sch.getPageCount());
-		
 		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
 		sch.setEnd(sch.getPageSize()*sch.getCurPage());
-		
 		sch.setBlockSize(5);
 		int blocknum = (int)Math.ceil((double)sch.getCurPage()/sch.getBlockSize());
 		int endBlock = blocknum*sch.getBlockSize();
 		if(endBlock > sch.getPageCount()) endBlock = sch.getPageCount();
 		sch.setEndBlock(endBlock);
-
 		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		
 		return dao.searchQnA(sch);
@@ -199,21 +237,36 @@ public class B2_Service {
 		
 		return dao.detailQnA(noticeNum);
 	}
-	// 문의글 등록
+	// 문의글 등록 & 답변
 	public String insertQnA(Notice ins) {
 		if( ins.getMultipartfile() != null) {
 			String fname = upload(ins.getMultipartfile());
-			
 			ins.setFname(fname);
 		}
 		if( ins.getMultipartfile() == null ) {
-			
 			ins.setFname("");
 		}
 		dao.insertQnA(ins);
 		
 		return ins.getTitle();
 	}
-	
+	// 문의글 수정
+	public String updateQnA(Notice upt) {
+		if( upload(upt.getMultipartfile())!=null && !upload(upt.getMultipartfile()).equals("")){
+			String fname = upload(upt.getMultipartfile());
+			upt.setFname(fname);
+		}
+		if(upt.getFname()==null) upt.setFname("");
+		
+		dao.updateQnA(upt);
+		
+		return upt.getNoticeNum();
+	}
+	// 문의글 삭제
+	public String deleteQnA(String noticeNum) {
+		dao.deleteQnA(noticeNum);
+		
+		return noticeNum;
+	}
 }
 

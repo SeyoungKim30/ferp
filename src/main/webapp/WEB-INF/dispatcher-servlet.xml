@@ -92,5 +92,24 @@
     <bean id="multipartResolver"
 			class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	<bean id="downloadViewer" class="ferp.download.DownloadView"></bean>
-
+	
+	<!-- 
+		# 웹 소켓 통신을 위한 객체 선언.
+		1. handlermapping, adpater
+	-->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean>
+	
+	<!-- 
+		# 특정 url주소를 통해서 handler 객체 호출 및 소켓 session 처리
+			클라이언트 : 웹 소켓 js객체 chat-ws.do 서버에 핸들러객체 호출
+	-->
+	<mvc:default-servlet-handler/>
+	<websocket:handlers>
+		<websocket:mapping handler="chatHandler" path="/chat-ws.do"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
 </beans>

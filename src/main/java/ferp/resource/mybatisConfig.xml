@@ -21,9 +21,9 @@
 		<typeAlias alias="emp" type="vo.Emp"/>
 		<typeAlias alias="menu" type="vo.Menu"/>
 		<typeAlias alias="productProdOrder" type="vo.ProductProdOrder"/>
+		<typeAlias alias="menuSch" type="vo.MenuSch"/>
 		<typeAlias alias="notice" type="vo.Notice"/>
 		<typeAlias alias="noticeSch" type="vo.NoticeSch"/>
-		<typeAlias alias="hoemp" type="vo.HOemp"/>
 		<typeAlias alias="scheduleCalender" type="vo.ScheduleCalender"/>
 		<typeAlias alias="onsale" type="vo.Onsale"/>
 		<typeAlias alias="openTimeCalender" type="vo.OpenTimeCalender"/>
