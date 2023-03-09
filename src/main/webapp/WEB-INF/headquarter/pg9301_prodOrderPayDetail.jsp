@@ -54,12 +54,21 @@ tfoot td:not(:nth-child(1)){
 .infotable{width:65%;}
 @page {margin:0}
 @media print{
-  html, body { -webkit-print-color-adjust:exact; width: 210mm; height: 297mm; }
-  header,header *,.lnb,.lnb *,.toolbox,hr,h2{display:none;}
-	.main_wrapper,.contents,.container{padding:0;margin:0;}
+  html, body { 
+  	-webkit-print-color-adjust:exact; 
+ 	 width: 210mm; 
+ 	 height: 297mm;
+ 	 }
+  header,header *,.lnb,.lnb *,.toolbox,hr,h2{
+  	display:none;
+  }
+	.main_wrapper,.contents,.container{
+	padding:0;
+	margin:0;
+	}
 	.print{
-		margin:0;
-		padding:1em;
+	margin:0;
+	padding:1em;
 		}
 }
 </style>

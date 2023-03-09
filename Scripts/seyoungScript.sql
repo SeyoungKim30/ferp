@@ -107,7 +107,7 @@ UPDATE ACSTATEMENT SET acntnum= 10100, debit=3000, credit=0,STMTOPPOSITE ='정�
 
 
 SELECT * FROM Account where acntNum Like '%'||''||'%' And acntTitle LIKE '%'||'현'||'%';
-DROP TABLE ACSTATEMENT ;
+
 
 --전표목록 aka 거래내역
 SELECT a.ACNTGROUP, s.* FROM ACSTATEMENT s, ACCOUNT a 
@@ -205,6 +205,7 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 	AND (se.ename LIKE '%'||''||'%' OR se.empNum LIKE '%'||''||'%')	--담당자
 	AND (pd.PRODUCTNUM LIKE '%'||''||'%' OR pd.PRODUCTNAME LIKE '%'||''||'%') --상품번호 또는 이름
 	AND po.PAYMENTSTATE LIKE '%'||''||'%' AND po.ORDERSTATE LIKE '%'||''||'%'
+	AND po.demander != '9999999999'
 ORDER BY po.ORDERDATE asc ;
 ;
 
@@ -215,7 +216,7 @@ UPDATE PRODORDER SET PAYMENTSTATE ='계산서 발행' WHERE ORDERDATE < to_date(
 UPDATE PRODORDER SET PAYMENTSTATE ='완료' WHERE ORDERDATE < to_date('2023-01-31','yyyy-mm-dd');
 
 UPDATE PRODORDER SET ORDERSTATE  ='요청' WHERE ORDERDATE < sysdate;
-UPDATE PRODORDER SET ORDERSTATE ='배송' WHERE ORDERDATE < to_date('2023-03-07','yyyy-mm-dd');
+UPDATE PRODORDER SET ORDERSTATE ='배송중' WHERE ORDERDATE < to_date('2023-03-07','yyyy-mm-dd');
 UPDATE PRODORDER SET ORDERSTATE ='완료' WHERE ORDERDATE < to_date('2023-03-06','yyyy-mm-dd');
 --발주상태 변경
 /*UPDATE PRODORDER SET ORDERSTATE ='완료' WHERE (ORDERNUM,PRODUCTNUM) IN (SELECT po.ORDERNUM,po.PRODUCTNUM  FROM PRODORDER po, product pd, 
