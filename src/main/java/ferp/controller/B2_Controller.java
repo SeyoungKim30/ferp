@@ -65,7 +65,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("insMsg", "메뉴 등록 성공!");
 		}
 		// redirect로 본사 홈페이지로 이동
-		return "redirect:/menuList.do";
+		return "redirect:/goEmpMainPage.do";
 	}
 	
 	// 매장정보등록 controller
@@ -138,7 +138,7 @@ public class B2_Controller {
 		}
 		
 		// 본사 메인페이지로 이동
-		return "WEB-INF\\view\\mainpage.jsp";
+		return "redirect:/goEmpMainPage.do";
 	}
 	
 	// 공지사항 조회
