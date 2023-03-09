@@ -19,8 +19,8 @@
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 </head>
 <script type="text/javascript">
-	localStorage.setItem("pageIdx","4104")
-	localStorage.setItem("eqIdx","7")
+	localStorage.setItem("pageIdx","4101")
+	localStorage.setItem("eqIdx","4000")
 </script>
 <body class="container">
 	<%@ include file="/resource/templates/header.jsp"%>

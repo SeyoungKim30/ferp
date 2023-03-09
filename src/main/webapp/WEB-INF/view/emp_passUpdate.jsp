@@ -21,7 +21,7 @@
 </head>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","4104")
-	localStorage.setItem("eqIdx","7")
+	localStorage.setItem("eqIdx","4100")
 </script>
 <body class="container">
 	<%@ include file="/resource/templates/header.jsp"%>
@@ -67,7 +67,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("[name=nowPass]").keyup(function(){
-		if($(this).val() != '1234'){
+		if($(this).val() != '${login.pass}'){
 			$(this).addClass("isNotPass")
 			$(".nowPass").text("비밀번호가 다릅니다.")
 		}else{

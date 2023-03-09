@@ -56,7 +56,7 @@
                             <li><a>- 재고 관리</a></li>
                         </ul>
                     </li>
-                    <li id="">
+                    <li id="4000">
                         <a href="#">매장 관리</a>
                         <ul>
                             <li id="4001"><a href="${path}/storeInsert.do">- 매장 정보 등록</a></li>
@@ -80,17 +80,24 @@
                         </ul>
                     </li>
                     
-                     <li>
+                     <li id="5000">
                         <a href="#">공지 및 문의</a>
                         <ul>
                             <li id="5002"><a href="${path}/noticeInsert.do">- 공지사항 등록</a></li>
                             <li id="5001"><a href="${path}/noticeList.do">- 공지사항 조회</a></li>
                             <li id="5101"><a href="${path}/qnaInsert.do">- 문의글 등록</a></li>
                             <li id="5103"><a href="${path}/qnaList.do">- 문의글 조회</a></li>
-                            <li id="5201"><a href="#">- 1:1 채팅</a></li>
+                            <li id="5201"><a href="${path}/chatting.do">- 1:1 채팅</a></li>
                         </ul>
                     </li>
-                     <li>
+                     <li id="4300">
+                        <a href="#">메뉴 등록</a>
+                        <ul>
+                            <li id="4302"><a href="${path}/noticeInsert.do">- 메뉴 등록</a></li>
+                            <li id="4301"><a href="${path}/noticeList.do">- 메뉴 조회</a></li>
+                        </ul>
+                    </li>
+                     <li id="4100">
                         <a href="#">본사 직원 관리</a>
                         <ul>
                             <li id="4101"><a href="${path}/insertEmp.do">- 아이디 발급</a></li>
