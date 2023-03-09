@@ -84,6 +84,14 @@
     	display: block;
    	    line-height: 40px;
     }
+    
+    .pwText{
+    	text-align: center;
+	    padding: 60px;
+	    line-height: 30px;
+	    font-size: 17px;
+    	color: #666;
+    }
 	
 </style>
 </head>
@@ -110,6 +118,10 @@
 				<button type="submit" class="loginBtn">로그인</button>
         	</form>
         </div>
+        <p class="pwText">
+        비밀번호 분실 시, 담당자에게 문의 메일을 주시면 본인 확인 후 안내를 도와 드리겠습니다.<br>
+        담당자 : 이지원 (leezzzzwon@frep.co.kr)
+        </p>
 		</div>
     </div>
 </body>

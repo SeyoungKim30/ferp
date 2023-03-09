@@ -17,7 +17,6 @@
 <style>
 .headerTop {
 	justify-content: space-between;
-	margin: auto;
 	padding-bottom: 20px;
 }
 
@@ -28,6 +27,7 @@
 .nameText {
 	font-size: 20px;
 	line-height: 33px;
+    padding-top: 20px;
 }
 
 .logoutBtn:hover {
@@ -80,6 +80,7 @@
 }
 header{
 	display: flex;
+	justify-content: end;
 }
 
 

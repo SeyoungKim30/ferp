@@ -84,6 +84,15 @@
     	display: block;
    	    line-height: 40px;
     }
+    
+        
+    .pwText{
+    	text-align: center;
+	    padding: 60px;
+	    line-height: 30px;
+	    font-size: 17px;
+	    color: #666;
+    }
 	
 </style>
 </head>
@@ -110,6 +119,9 @@
 				<button type="submit" class="loginBtn">로그인</button>
         	</form>
         </div>
+        <p class="pwText">
+        비밀번호 분실 시, 회사 인사팀 직원에게 직접 문의 부탁 드립니다.
+        </p>
 		</div>
     </div>
 </body>
