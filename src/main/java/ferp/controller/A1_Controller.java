@@ -1,15 +1,15 @@
 package ferp.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ferp.service.A1_Service;
 import vo.ClerkSchedule;
@@ -167,12 +167,38 @@ public class A1_Controller {
 	   return "WEB-INF\\customer\\pg2102_kiosquePay.jsp";
    }
    
-   // 키오스크 추가
+   // 키오스크 추가 
    @RequestMapping("/addOrder.do")
-   public String addOrder(Orders orders) {
-       return "pageJsonReport";
+   public String addOrder(
+		   @RequestParam("menuNum") String[] menuNum,
+		   @RequestParam("amount") int[] amount,
+		   @RequestParam("payprice") int[] payprice,
+		   @RequestParam("frRegiNum") String[] frRegiNum,
+		   @RequestParam("orderOption") String[] orderOption
+		   ) {
+			/*
+			 * ins.setAmount(amount[i]); ins.setFrRegiNum(frRegiNum[i]);
+			 * ins.setMenuNum(menuNum[i]); ins.setPayprice(payprice[i]);
+			 * ins.setOrderOption(orderOption[i]);
+			 */
+	   // 아니 지금 서비스단에서 sysout 안 뜨는거 보니까
+	   // 서비스단 호출이 아예 안 되는 것 같은데
+	   // 아냐 근데 가능해
+	   // ㅠㅠ 나는 맨날 그렇게 테스트 해
+	   // 저새끼 때문 같애
+	   // 봐봐 이제 500에러 뜨거나 되거나
+		   service.insertOrdersList(
+				   menuNum,
+				   frRegiNum,
+				   amount,
+				   payprice,
+				   orderOption);
+	   return "redirect:/kiosquePay.do";
    }
+   //
    // http://localhost:6080/ferp/storeLogin.do
    // http://localhost:6080/ferp/addOrder.do
-   
-}
+   // 그러면 저거 nextval에서 로직 잘 짜서 currval로 바꾸면 돼
+   // 한 번 호출 될 때 하나씩
+   // 지금 31개 데이터이고
+}   

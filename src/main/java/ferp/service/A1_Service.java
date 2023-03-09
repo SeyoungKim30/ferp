@@ -77,9 +77,27 @@ public class A1_Service {
 		return dao.getAllMenu(sch);
 	}
 	
+	
 	// orders ins
-    public void insertOrdersList(Orders ins) {
-        dao.insertOrdersList(ins);
+    public void insertOrdersList(
+    		String[] menuNum,
+			String[] frRegiNum,
+			int[] amount,
+			int[] payprice,
+			String[] orderOption
+    		) {
+    	System.out.println(menuNum[0]);
+    	int totCnt = dao.totCnt();
+    	for(int i=0;i<menuNum.length;i++) {
+    		System.out.println(menuNum[i]);
+    		Orders ins = new Orders();
+    		ins.setTotCnt(totCnt);
+        	ins.setAmount(amount[i]); ins.setFrRegiNum(frRegiNum[i]);
+    		ins.setMenuNum(menuNum[i]); ins.setPayprice(payprice[i]);
+    		ins.setOrderOption(orderOption[i]);
+            dao.insertOrdersList(ins);
+    	}
+    	
     }
 	
 }

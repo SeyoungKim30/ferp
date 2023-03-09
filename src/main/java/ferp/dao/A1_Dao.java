@@ -39,6 +39,8 @@ public interface A1_Dao {
 	// 본사 제공 전체 메뉴
 	public List<Menu> getAllMenu(Menu sch);
 	
+	public int totCnt();
+	
 	// orders 추가 dao
 	public void insertOrdersList(Orders ins);
 }

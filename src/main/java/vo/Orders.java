@@ -1,7 +1,8 @@
 package vo;
 
 public class Orders {
-
+	// 금일 전체 주문 개수
+	private int totCnt;
 	//orders테이블의 기본컬럼
 	private String orderNum;
 	private String orderDate;
@@ -197,7 +198,26 @@ public class Orders {
 
 	public void setFrRegiNum(String frRegiNum) {
 		this.frRegiNum = frRegiNum;
+	}
+
+	public Orders(String menuNum, String frRegiNum, int amount, int payprice, String orderOption) {
+		super();
+		this.menuNum = menuNum;
+		this.frRegiNum = frRegiNum;
+		this.amount = amount;
+		this.payprice = payprice;
+		this.orderOption = orderOption;
+		
+	}
+
+	public int getTotCnt() {
+		return totCnt;
+	}
+
+	public void setTotCnt(int totCnt) {
+		this.totCnt = totCnt;
 	} 
+	
 	
 	
 

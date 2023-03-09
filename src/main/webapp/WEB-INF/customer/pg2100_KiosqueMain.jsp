@@ -667,8 +667,10 @@ $(".btn_minus").click(function () {
 });
 
 // 추가하기 버튼
+var od = "";
 var resultAddString = "";
 var modal_btn_add = $(".modal_btn_add");
+
 	modal_btn_add.click(function () {
 	var name = $(".modal_product_name").text();
 	var cnt = $(".product_number").val();
@@ -718,17 +720,23 @@ var modal_btn_add = $(".modal_btn_add");
 	$(".result_list_wrap").html(resultAddString);
 	
     // JSON 객체 생성 및 orders 배열에 추가
-    var order = {
+    if(od!=""){
+    	od += "&menuNum="+$(".menuNum").last().text()
+    }else{
+    	od += "menuNum="+$(".menuNum").last().text()
+    }
+    od += "&amount="+Number($(".listItemCnt").last().text())
+    od += "&payprice="+Number($(".list_item_price").last().text().replace("￦","").replace(",",""))
+    od += "&orderOption="+$(".list_item_option").last().text()
+    od += "&frRegiNum=${login.frRegiNum}"
+    <%-- var order = {
         "menuNum": $(".menuNum").last().text(),
         "amount": Number($(".listItemCnt").last().text()),
         "payprice": Number($(".list_item_price").last().text().replace("￦","").replace(",","")),
         "orderOption": $(".list_item_option").last().text(),
         "frRegiNum":"${login.frRegiNum}"
-    };
-    orders.push(order);
-	
-    
-    
+    }; --%>
+    // orders.push(order);
 	modalClose.trigger('click');
 	console.log(orders);
 	
@@ -739,11 +747,10 @@ $(".delOrderBtn").click(function () {
 	var insHtml = "<li class='listdefalut'>주문하실 음료를<br> 선택해주세요.</li>"
 	$(".result_list_wrap").html(insHtml);
 	resultAddString = "";
-	orders = [];
+	od = "";
 });
 
 $(".addOrderBtn").click(function () {
-	// var listItemIndex = $(".list_item").length;
 	Swal.fire({
 			  title: '결제하시겠습니까?',
 			  icon: 'question',
@@ -753,7 +760,7 @@ $(".addOrderBtn").click(function () {
 			  confirmButtonText: '결제',
 			  cancelButtonText: '취소'
 			}).then((result) => {
-				if(orders.length == 0){
+				if(od == ""){
 					  Swal.fire({
 						  title: '주문하실 음료를 추가해주세요',
 						  icon: 'warning',
@@ -767,7 +774,8 @@ $(".addOrderBtn").click(function () {
 						  }
 					  })
 				}else{
-					addAjax("/addOrder.do");					
+					location.href="${path}/addOrder.do?"+od
+					// addAjax("/addOrder.do");					
 				}
 			})
 });
@@ -776,12 +784,9 @@ $(".addOrderBtn").click(function () {
 		$.ajax({
 			type : "post",
 			url : "/ferp" + url,
-			headers:{
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "POST"
-			},
-			dataType:'text',
-			data : JSON.stringify(orders),
+			dataType:'json',
+			data : od,
+			traditional: true,
 			success : function(data) {
 				alert('DB저장 성공');
 			},
