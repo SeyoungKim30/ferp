@@ -100,7 +100,7 @@
 		<div class="thDiv" style="width: 14%;">신청날짜</div>
 		<div class="thDiv" style="width: 7%;">요청수량</div>
 		<div class="thDiv" style="width: 10%;">결제상태</div>
-		<div class="thDiv" style="width: 7%;">발주상태</div>
+		<div class="thDiv" style="width: 7%;">발주상태</div> 
 	</div>
 	<div>
 	<c:forEach var="req" items="${reqlist }">
