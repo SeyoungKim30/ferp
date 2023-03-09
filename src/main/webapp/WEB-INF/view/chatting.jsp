@@ -66,7 +66,8 @@ pre{
 				<div class="input-group-prepend">
 					<span class="input-group-text  justify-content-center">접속아이디</span>
 				</div>
-				<input id="id" class="form-control"  placeholder="접속할 아이디를 입력하세요"/>
+				<input id="id" class="form-control"  placeholder="접속할 아이디를 입력하세요" 
+					value="${not empty login.ename?'본사':login.frName}" readonly="readonly"/>
 				<button id="enterBtn" type="button" class="btn btn-success">입장</button>
 				<button id="exitBtn" type="button" class="btn btn-danger" >나가기</button>			
 			</div>	
@@ -208,29 +209,20 @@ function cKId(){
 
 // 소캩 통신 관련 공통메서드 처리
 function conn(){
-	// 스프링 컨테이너 안에 선언된 서버 핸들러 호출 객체 호출과 함께 소켓 서버 접속
 	wsocket = new WebSocket("ws:localhost:7080/${path}/chat-ws.do")
-//	wsocket = new WebSocket("ws:localhost:7080/${path}/chat-ws.do")
-	//   고정아이피 기준으로 원격서버 주소를 localhost로 처리하여야
-	//   1:다 관계 채팅이 가능하다.
-	// 이벤트 핸들러 메서드 선언
-	// 1. 접속될 때.. 서버상 afterConnectionEstablished() 메서드와 연동
+
 	wsocket.onopen=function(evt){
 		console.log(evt)
-		// 메시지 전송 메서드 호출 서버상 handleMessage() 메서드 연동
 		wsocket.send($("#id").val()+
 				":연결 접속했습니다.")
 	}
-	// 연결을 종료하였습니다.
-	// 연결 접속했습니다.
-	// 2. 메시지를 받을 때, 처리 내용.
-	//    서버 핸들러에 ws.sendMessage(message);에 의해 push방식으로 메시지
-	//    전달 받음..
+
 	wsocket.onmessage=function(evt){
 		var revMsg = evt.data
 		revMsgFun(revMsg)
 	}
 }
+
 function sendMsg(){
 	if($("#msg").val().length>0){
 		wsocket.send( $("#id").val()+":"+
@@ -241,37 +233,23 @@ function sendMsg(){
 	}
 	
 }	
+
 function revMsgFun(msg){
-	// 보내는사람아이디:메시지:받는사람아이디
-	// 보내는사람아이디:메시지:그룹
-	// 1:1
-	// 그룹채팅
-	// msgArr[2] : 해당 내용이면 메시지를 받게 처리..
-	
 	var alignOpt = "left"
-	// 모든 메시지 내용 ex)  김길동:연결 접속했습니다.
-	// 배열 = 문자열.split("구분자")
-	//   	해당 구분자로 배열을 만든다.
-	// msg[0] : 김길동
-	// msg[1] : 연결 접속했습니다.
+	var backgroundOpt = "#ddd"
 	var msgArr= msg.split(":");
-	console.log("# 메시지 배열 #")
-	console.log(msgArr)
 	var sndId = msgArr[0]
-	// 현재 접속한 아이디와 서버에서 전송하는 아이디 비교
-	// 같으면 내가 보낸 메시지 이므로 오른쪽 정렬
-	// 다르면 다른 사람의 메시지이므로 왼쪽 정렬
+
 	if($("#id").val()==sndId){
 		alignOpt="right"
+		backgroundOpt="#F9EB54"
 	}
-	// width를 설정해서 정렬 처리
-	//console.log("넓이:"+$("#chatArea").width());	
-	// $("요소객체").text("메시지내용")
-	// .attr("align","정렬속성")
-	// .css("width","넓이 속성")
-	var msgObj =$("<div></div>").text(msg
-			).attr("align",alignOpt).css("width",
-					$("#chatArea").width()-20)
+
+	var msgObj =$("<div></div>").text(""
+			).attr("align",alignOpt).css({"width":
+					$("#chatArea").width()-20, "padding":"10px 0px 5px 5px"})
+	var textObj = $("<span></span>").text(msg).css({"background":backgroundOpt, "border-radius":"10px", "padding":"3px 5px 2px 5px"})
+	msgObj.append(textObj)
 	$("#chatMessageArea").append(msgObj)
 
 	
@@ -297,14 +275,13 @@ function conUsers(){
 		success:function(data){
 			members = data.group
 			var add=""
-			$(data.group).each(function(idx,group ){
+			$(data.group).each(function(idx,group){
 				console.log(idx)
 				console.log(group)
 				add+="<button class='connectors'>"+group+"</button>"
 			})
 			$(".group").html(add)
-			//$("#group").val(data.group);
-			// <button class="group"  class="btn btn-success" ></button>
+
 		}
 	})		
 }

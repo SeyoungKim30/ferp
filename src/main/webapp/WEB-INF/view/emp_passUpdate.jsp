@@ -30,7 +30,7 @@
 		<div class="contents">
         	<form method="post">
      	        <h2 class="insert_emp">비밀번호 변경</h2>
-     	        <input type="hidden" name="empNum" value="23031002">
+     	        <input type="hidden" name="empnum" value="${login.empnum}">
 	
         	<div class="content">
 				<div class="first_line">
@@ -105,7 +105,11 @@ $(document).ready(function(){
         	$(".comment").text("같은 문자를 4번 이상 사용하실 수 없습니다.")
         	$(this).addClass("isNotPass")       	
 
-        }else {
+        } else if($(this).val() == '${login.pass}'){
+        	$(this).removeClass("isNotPass")
+        	$(".comment").text("현재 비밀번와 같은 비밀번호를 사용할 수 없습니다.")
+        	$(this).addClass("isNotPass") 
+        } else {
         	$(this).removeClass("isNotPass")
         	$(".comment").text("");
         	$(this).addClass("isPass") 

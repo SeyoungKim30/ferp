@@ -46,7 +46,7 @@ public interface B2_Dao {
 	public void insertNotice(Notice ins);
 	// 공지사항 수정
 	public void updateNotice(Notice upt);
-	// 공지사항 삭제
+	// 공지사항,문의글 삭제
 	public void deleteNotice(String noticeNum);
 	
 	// 직원 콤보
@@ -55,6 +55,8 @@ public interface B2_Dao {
 	public List<String> getNoticeCategory();
 	// 메뉴 카테고리 콤보
 	public List<String> getMenuCategory();
+	// 부서 콤보
+	public List<String> getDname();
 	
 	// 문의글 등록
 	public void insertQnA(Notice ins);
@@ -64,7 +66,5 @@ public interface B2_Dao {
 	public Notice detailQnA(String noticeNum);
 	// 문의글 수정
 	public void updateQnA(Notice upt);
-	// 문의글 삭제
-	public void deleteQnA(String noticeNum);
 	
 }

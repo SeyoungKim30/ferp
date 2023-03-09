@@ -38,6 +38,11 @@ public class B2_Controller {
 	public List<String> getMenuCategory(){
 		return service.getMenuCategory();
 	}
+	@ModelAttribute("dnameCombo")
+	public List<String> getDname(){
+		return service.getDname();
+	}
+	
 	
 	// 본사 홈페이지 controller
 	@RequestMapping("/mainpage.do")
@@ -83,7 +88,7 @@ public class B2_Controller {
 		return "redirect:/mainpage.do";
 	}
 	// 매장 정보 수정
-	// http://localhost:7080/ferp/storeUpdate.do?frRegiNum=132-1537-132
+	// http://localhost:7080/ferp/storeUpdate.do
 	@GetMapping("/storeUpdate.do")
 	public String storeUpdate(@RequestParam String frRegiNum, Model d) {
 		d.addAttribute("store", service.detailStore(frRegiNum));
@@ -122,10 +127,12 @@ public class B2_Controller {
 			redirect.addFlashAttribute("isgMsg", "등록 성공");
 		}
 		// 본사 메인페이지로 이동
-		return "WEB-INF\\view\\mainpage.jsp";
+		return "redirect:/goEmpMainPage.do";
 	}
-	// 직원 비밀번호 변경
+	
 	// http://localhost:7080/ferp/updateEmpPass.do
+	
+	// 본사 직원 비밀번호 변경
 	@GetMapping("/updateEmpPass.do")
 	public String updateEmpPass() {
 		
@@ -137,7 +144,6 @@ public class B2_Controller {
 			redirect.addFlashAttribute("uptMsg", "수정 완료");
 		}
 		
-		// 본사 메인페이지로 이동
 		return "redirect:/goEmpMainPage.do";
 	}
 	
@@ -268,6 +274,8 @@ public class B2_Controller {
 	private ChatHandler chHandl;
 	
 	// http://localhost:7080/ferp/chatting.do
+	
+	// 채팅
 	@RequestMapping("/chatting.do")
 	public String chatting(Model d) {
 		d.addAttribute("important", service.importantNotice());

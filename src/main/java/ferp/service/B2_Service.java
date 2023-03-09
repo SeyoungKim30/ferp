@@ -208,6 +208,10 @@ public class B2_Service {
 	// 메뉴 카테고리 콤보
 	public List<String> getMenuCategory(){
 		return dao.getMenuCategory();
+	}	
+	// 부서 콤보
+	public List<String> getDname(){
+		return dao.getDname();
 	}
 	
 	
@@ -264,7 +268,7 @@ public class B2_Service {
 	}
 	// 문의글 삭제
 	public String deleteQnA(String noticeNum) {
-		dao.deleteQnA(noticeNum);
+		dao.deleteNotice(noticeNum);
 		
 		return noticeNum;
 	}

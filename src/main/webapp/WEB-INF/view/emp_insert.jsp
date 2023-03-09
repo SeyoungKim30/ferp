@@ -48,7 +48,12 @@
 					<h3 class="emp_dname">부서명</h3>
 				</div>
 				<div class="sixth_line">
-					<input type="text" name="dname" placeholder="부서명 입력">				
+					<select name="dname">
+						<option disabled="disabled" selected="selected">부서명 선택</option>
+						<c:forEach var="dname" items="${dnameCombo}">
+							<option>${dname}</option>
+						</c:forEach>
+					</select>
 				</div>					
 
 				<div class="submit_line">

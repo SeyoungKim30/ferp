@@ -93,8 +93,8 @@
                      <li id="4300">
                         <a href="#">메뉴 등록</a>
                         <ul>
-                            <li id="4302"><a href="${path}/noticeInsert.do">- 메뉴 등록</a></li>
-                            <li id="4301"><a href="${path}/noticeList.do">- 메뉴 조회</a></li>
+                            <li id="4302"><a href="${path}/menuInsert.do">- 메뉴 등록</a></li>
+                            <li id="4301"><a href="${path}/menuList.do">- 메뉴 조회</a></li>
                         </ul>
                     </li>
                      <li id="4100">
