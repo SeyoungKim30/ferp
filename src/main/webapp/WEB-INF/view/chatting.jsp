@@ -32,12 +32,12 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	padding: 25px 25px 10px 25px;
+	padding: 30px 25px 10px 25px;
 }
 
 .popup_bottom{
     color: black;
-	padding: 10px 30px 3px 20px;
+	padding: 9px 30px 3px 20px;
     width: 100%;
     font-weight: bold;
     font-size: 14px;
