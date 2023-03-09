@@ -118,10 +118,27 @@
 		<insert id="insOnsale" parameterType="onsale">
 			INSERT INTO ONSALE VALUES(
 				#{menuNum},
-				#{frRegiNum}
+				#{FrRegiNum}
 			)
 		</insert>
 		
 		<!-- 판매할 메뉴 삭제 -->
+		
+		<!-- 키오스크에서 orders 테이블로 삽입할 때 -->
+			<insert id="insertOrdersList" parameterType="orders">
+			    INSERT INTO orders(orderNum, orderDate, menuNum, frRegiNum, state, amount, payprice, orderOption)
+			    VALUES (
+					TO_CHAR(sysdate, 'YYMMDD')||'1234567890'||NVL((SELECT COUNT(ORDERNUM)+1001
+																FROM ORDERS
+																WHERE TO_CHAR(SYSDATE, 'YYYYMMDD') = TO_CHAR(ORDERDATE, 'YYYYMMDD')), 1001),
+					sysdate,
+			        #{menuNum, jdbcType=VARCHAR}, 
+			        #{frRegiNum, jdbcType=VARCHAR, index=1}, 
+			        '결제 대기', 
+			        #{amount, jdbcType=INTEGER}, 
+			        #{payprice, jdbcType=INTEGER}, 
+			        #{orderOption, jdbcType=VARCHAR}
+			    )
+			</insert>
 		
     </mapper>

@@ -6,6 +6,7 @@ import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
 import vo.Onsale;
+import vo.Orders;
 import vo.Store;
 import vo.StoreClerk;
 
@@ -37,4 +38,7 @@ public interface A1_Dao {
 	
 	// 본사 제공 전체 메뉴
 	public List<Menu> getAllMenu(Menu sch);
+	
+	// orders 추가 dao
+	public void insertOrdersList(List<Orders> ins);
 }

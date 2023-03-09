@@ -10,6 +10,7 @@ import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
 import vo.Onsale;
+import vo.Orders;
 import vo.Store;
 import vo.StoreClerk;
 
@@ -75,5 +76,10 @@ public class A1_Service {
 		if(sch.getMenuName()==null) sch.setMenuName("");
 		return dao.getAllMenu(sch);
 	}
+	
+	// orders ins
+    public void insertOrdersList(List<Orders> ins) {
+        dao.insertOrdersList(ins);
+    }
 	
 }
