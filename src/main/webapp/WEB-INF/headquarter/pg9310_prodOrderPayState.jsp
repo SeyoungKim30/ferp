@@ -82,11 +82,11 @@ window.addEventListener('load',function(){
 	</div>
 	
 	
-	<form id="updateForm" style="display: none;">
+	<form id="updateForm"> style="display: none;"
 	<input name="orderDateMonth">
 	<input name="demander">
 	<input name="paymentState">
-	input name="amount" placeholder="적용금액, 전표입력할때 쓸거"
+	<input name="amount" placeholder="적용금액, 전표입력할때 쓸거">
 	</form>
 	
 <form id='prodOrderPayDetail' action="${path }/prodOrderPayDetail.do" method="post" style="display: none;">
@@ -110,21 +110,21 @@ form1.addEventListener('submit', function(e){
 			let whichbuttonshouldiprint=''
 		if(isHead){
 			switch(each.prodOrder.paymentState){
-				case '정산전' : whichbuttonshouldiprint=`<button id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`' class='btn-success'>청구</button>`;break;
-				case '청구' : whichbuttonshouldiprint=`<button id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`' class="btn-warning">계산서 발행</button>`;break;
-				case '계산서 발행' : whichbuttonshouldiprint=`<button id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`' class="btn-primary">완료</button>`;break;
-				case '완료' : whichbuttonshouldiprint=`<button id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`' class='btn-danger'>취소</button>`;break;	}
+				case '정산전' : whichbuttonshouldiprint=`<button id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`' class='btn-success'>청구</button>`;break;
+				case '청구' : whichbuttonshouldiprint=`<button id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`' class="btn-warning">계산서 발행</button>`;break;
+				case '계산서 발행' : whichbuttonshouldiprint=`<button id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`' class="btn-primary">완료</button>`;break;
+				case '완료' : whichbuttonshouldiprint=`<button id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`' class='btn-danger'>취소</button>`;break;	}
 		}else{
-			whichbuttonshouldiprint=`<button id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`'>정산서 조회</button>`
+			whichbuttonshouldiprint=`<button id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`'>정산서 조회</button>`
 		}
-			htmls+=`<tr><td title='클릭하면 정산서 조회 페이지로 이동합니다' id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`'>`+each.prodOrder.orderDateMonth
+			htmls+=`<tr><td title='클릭하면 정산서 조회 페이지로 이동합니다' id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`'>`+each.prodOrder.orderDateMonth
 		if(isHead){
-			htmls+=`</td><td title='클릭하면 정산서 조회 페이지로 이동합니다' id='`+each.store.frRegiNum+` `+each.prodOrder.orderDateMonth+`'>`+each.store.frName
+			htmls+=`</td><td title='클릭하면 정산서 조회 페이지로 이동합니다' id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`'>`+each.store.frName
 			+`</td><td id="`+each.emp.ename+`">`+each.emp.ename
 		}
-			htmls+=`</td><td>`+(each.product.price).toLocaleString()
-			+`</td><td>`+Number(each.product.remark).toLocaleString()
-			+`</td><td>`+(Number(each.product.price)+Number(each.product.remark)).toLocaleString()
+			htmls+=`</td><td id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`'>`+(each.product.price).toLocaleString()
+			+`</td><td id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`'>`+Number(each.product.remark).toLocaleString()
+			+`</td><td id='a`+each.store.frRegiNum+`_`+each.prodOrder.orderDateMonth+`'>`+(Number(each.product.price)+Number(each.product.remark)).toLocaleString()
 			+`</td><td>`+each.prodOrder.paymentState
 			+`</td><td>`+whichbuttonshouldiprint
 			+`</td></tr>`
@@ -135,7 +135,7 @@ form1.addEventListener('submit', function(e){
 		let foothtml=`<tr class="table-active"><th>총 공급가액</th><td>`+totalprice.toLocaleString()+`</td><th>총 부가세액</th><td>`+totaltax.toLocaleString()
 		+`</td><th>총 합계금액</th><td>`+(totaltax+totalprice).toLocaleString();
 	if(isHead){
-		foothtml+=`</td><th>`+result.prodOrder.orderDate+`<br>일괄 변경</th><td><button id='0000000000 `+result.prodOrder.orderDate+`' class="btn-sm btn-success">청구</button> <button id='0000000000 `+result.prodOrder.orderDate+`' class="btn-sm btn-warning">계산서 발행</button></td>`
+		foothtml+=`</td><th>`+result.prodOrder.orderDate+`<br>일괄 변경</th><td><button id='0000000000_`+result.prodOrder.orderDate+`' class="btn-sm btn-success">청구</button> <button id='0000000000 `+result.prodOrder.orderDate+`' class="btn-sm btn-warning">계산서 발행</button></td>`
 	}
 		foothtml+=`</td></tr>`
 		document.querySelector('tfoot').innerHTML=foothtml
@@ -151,24 +151,29 @@ form1.addEventListener('submit', function(e){
 })
 
 function updateClick(){	//fetch하고 테이블에 있는 버튼에 적용
-	let newstate=$(this).text()
+	let newstate=$(this).text();
+	let id=$(this).attr('id');
+	let sameid=document.querySelectorAll('#'+id)
+	sameid.forEach(function(each){
+		console.log(each.innerHTML);
+	})
 	if(newstate!='취소'){
 		document.querySelector('#updateForm [name=paymentState]').value = newstate;
 	}else{
 		document.querySelector('#updateForm [name=paymentState]').value = '계산서 발행';
 	}
-	document.querySelector('#updateForm [name=demander]').value = $(this).attr('id').substr(0,10)
-	document.querySelector('#updateForm [name=orderDateMonth]').value = $(this).attr('id').substr(11,13)
-	//document.querySelector('#updateForm [name=amount]').value = 가격을 어떻게 넣어야할까 
-	fetchUpdatePromise('#updateForm',"${path}/updateProdOrderPayState.do?").then(result=>{alert(result);}).catch(reject=>{console.error(reject)})
+	document.querySelector('#updateForm [name=demander]').value = id.substr(1,10)
+	document.querySelector('#updateForm [name=orderDateMonth]').value = id.substr(12,14)
+	document.querySelector('#updateForm [name=amount]').value = sameid[2].innerHTML.replace(/,/g,'')+"+"+sameid[3].innerHTML.replace(/,/g,'')
+	//fetchUpdatePromise('#updateForm',"${path}/updateProdOrderPayState.do?").then(result=>{alert(result);}).catch(reject=>{console.error(reject)})
 	//업뎃하고 새로고침
 	$('#searchform .btn-secondary').trigger('click');
 	}
 	
 function updateAllClick(){	//fetch하고 테이블에 있는 버튼에 적용
-	let yyyymm=$(this).attr('id').substr(11,13)
+	let yyyymm=$(this).attr('id').substr(11,14)
 	document.querySelector('#updateForm [name=paymentState]').value = $(this).text();
-	document.querySelector('#updateForm [name=demander]').value = $(this).attr('id').substr(0,10)
+	document.querySelector('#updateForm [name=demander]').value = $(this).attr('id').substr(1,10)
 	document.querySelector('#updateForm [name=orderDateMonth]').value = yyyymm
 	let gogo=confirm(yyyymm.substr(0,4)+'년 '+yyyymm.substr(5,6)+'월 전체 정산상태를 변경할까요?');
 	if(gogo){

@@ -104,6 +104,7 @@ public class C1_Service {
 		}
 		return dao.r9310selectProdOrderPayState(prodOrder);
 	}
+	
 	public int r9311updateProdOrderPayState(ProdOrder prodOrder) {
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
