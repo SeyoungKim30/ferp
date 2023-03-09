@@ -23,7 +23,7 @@ public class C2_Service {
 	// 업로드할 경로 지정
 	@Value("${upload2}")
 	private String upload;
-	
+	// 자재 이미지 업로드
 	public String upload(MultipartFile multipartfile) {
 		String img = multipartfile.getOriginalFilename();
 		if( img!=null && !img.equals("")) {
@@ -39,7 +39,7 @@ public class C2_Service {
 		return img;
 	}
 	
-	// 매장 재고 조회
+	// 본사/매장 재고 조회
 	public List<ProductProdOrder> r8101ProductList(ProductProdOrder sch){
 		if(sch.getStockDate()==null) sch.setStockDate("");
 		if(sch.getProductNum()==null) sch.setProductNum("");
@@ -48,24 +48,20 @@ public class C2_Service {
 		if(sch.getOpposite()==null) sch.setOpposite("");
 		return dao.r8101ProductList(sch);
 	}
-	// 매장 재고 상세 페이지 
+	
+	// 본사/매장 재고 상세 페이지 
 	public Product r8101ProductInfo(String productNum) {
 		return dao.r8101ProductInfo(productNum);
 	}
-		
-	// 본사 재고 조회
-	public List<ProductProdOrder> r8201ProductList(ProductProdOrder sch){
-		if(sch.getProductNum()==null) sch.setProductNum("");
-		if(sch.getCategory()==null) sch.setCategory("");
-		if(sch.getProductName()==null) sch.setProductName("");
-		if(sch.getOpposite()==null) sch.setOpposite("");
-		if(sch.getOrderState()==null) sch.setOrderState("");
-		return dao.r8201ProductList(sch);
-	}
-	// 본사 재고 상세 페이지 
-	public Product r8201ProductInfo(String productNum) {
-		return dao.r8201ProductInfo(productNum);
-	}
+	
+	// 매장 재고 관리 등록
+	
+	// 매장 재고 관리 조회
+	
+	// 매장 재고 관리 수정
+	
+	// 매장 재고 관리 삭제
+	
 	// 본사 재고 등록
 	public String r8202ProductIns(Product ins) {
 		if( ins.getMultipartfile() != null) {
@@ -78,24 +74,24 @@ public class C2_Service {
 		dao.r8202ProductIns(ins);
 		return ins.getProductNum();
 	}
+	
 	// 본사 재고 수정
 	public String r8203ProductUpt(Product upt) {
-		if( upload(upt.getMultipartfile())!=null && !upload(upt.getMultipartfile()).equals("")){
-			String img = upload(upt.getMultipartfile());
-			upt.setImg(img);
-		}
-		if(upt.getImg()==null) upt.setImg(null);
 		dao.r8203ProductUpt(upt);	
 		return upt.getProductNum();
 	}
+	
+	// 본사 재고 관리 조회
 	
 	// 발주 상태 콤보
 	public List<String> orderStateCom(){
 		return dao.orderStateCom();
 	}
 	
-	// 캘린더
+	// 직원스케줄 캘린더
 	public List<ScheduleCalender> sclerkschd(String writer){
 		return dao.sclerkschd(writer);
 	}
+	
+	
 }
