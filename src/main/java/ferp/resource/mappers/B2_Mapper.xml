@@ -12,6 +12,8 @@
 	<select id="totCntMenu" resultType="int" parameterType="menuSch">
 		select count(*)
 		from menu
+		where 1=1
+		and menuname like '%'||#{menuName}||'%'
 	</select>
 	<insert id="insertMenu" parameterType="menu">
 		INSERT INTO menu VALUES('M'||menu_seq.nextval, #{menuName}, #{price}, #{info}, #{img}, #{necessary}, #{category})
