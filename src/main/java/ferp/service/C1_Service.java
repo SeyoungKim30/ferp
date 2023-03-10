@@ -105,24 +105,54 @@ public class C1_Service {
 		return dao.r9310selectProdOrderPayState(prodOrder);
 	}
 	
-	public int r9311updateProdOrderPayState(ProdOrder prodOrder) {
+	public int r9311updateProdOrderPayState(ProdOrder prodOrder,int price,int tax) {
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString=dateFormat.format(date);
 		if(prodOrder.getPaymentState().equals("계산서 발행")&&!prodOrder.getDemander().equals("0000000000")) {
 			ACStatement ast= new ACStatement();
-			//계산서 발행 : 본사 미수수익
+			//계산서 발행 : 본사 미수수익(자산)
 			ast.setAcntNum("11600");
 			ast.setCredit(0);
-			ast.setDebit(prodOrder.getAmount());
+			ast.setDebit(price+tax);
 			ast.setFrRegiNum("9999999999");
 			ast.setLineNum(0);
 			ast.setRemark(prodOrder.getOrderDateMonth()+" "+prodOrder.getDemander());
 			ast.setStatementNum("AT");
 			ast.setStmtDate(dateString);
 			ast.setStmtOpposite(prodOrder.getDemander());
+			dao.r7210insertStatement(ast);
+			//본사 부가세
+			ast.setAcntNum("25500");
+			ast.setCredit(tax);
+			ast.setLineNum(1);
+			dao.r7210insertStatement(ast);
+			//본사 상품매출(수익)
+			ast.setAcntNum("40100");
+			ast.setCredit(price);
+			ast.setDebit(0);
+			ast.setLineNum(2);
+			dao.r7210insertStatement(ast);
+			//매장에 제품매출원가(비용)
+			ast.setAcntNum("45500");
+			ast.setCredit(0);
+			ast.setDebit(price);
+			ast.setFrRegiNum(prodOrder.getDemander());
+			ast.setLineNum(0);
+			ast.setStmtOpposite("9999999999");
+			dao.r7210insertStatement(ast);
+			//부가세대급금 (자산)
+			ast.setAcntNum("13500");
+			ast.setDebit(tax);
+			ast.setLineNum(1);
+			dao.r7210insertStatement(ast);
+			//부채 외상매입금
+			ast.setAcntNum("25100");
+			ast.setCredit(price+tax);
+			ast.setDebit(0);
+			ast.setLineNum(2);
+			dao.r7210insertStatement(ast);
 		}
-		
 		return 	dao.r9311updateProdOrderPayState(prodOrder);
 	}
 	

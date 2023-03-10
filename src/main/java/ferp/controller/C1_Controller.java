@@ -137,8 +137,10 @@ public class C1_Controller {
 	
 	@RequestMapping("updateProdOrderPayState.do")
 	@ResponseBody
-	public String r9311updateProdOrderPayState(Model model,ProdOrder prodOrder) {
-		int a=service.r9311updateProdOrderPayState(prodOrder);
+	public String r9311updateProdOrderPayState(Model model,ProdOrder prodOrder,
+								@RequestParam(value = "price",required = false,defaultValue = "0") int price,
+								@RequestParam(value = "tax",required = false,defaultValue = "0") int tax) {
+		int a=service.r9311updateProdOrderPayState(prodOrder,price,tax);
 		return a+"";
 	}
 

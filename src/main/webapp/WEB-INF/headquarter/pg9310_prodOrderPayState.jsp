@@ -86,7 +86,8 @@ window.addEventListener('load',function(){
 	<input name="orderDateMonth">
 	<input name="demander">
 	<input name="paymentState">
-	<input name="amount" placeholder="적용금액, 전표입력할때 쓸거">
+	<input name="price">
+	<input name="tax">
 	</form>
 	
 <form id='prodOrderPayDetail' action="${path }/prodOrderPayDetail.do" method="post" style="display: none;">
@@ -164,8 +165,9 @@ function updateClick(){	//fetch하고 테이블에 있는 버튼에 적용
 	}
 	document.querySelector('#updateForm [name=demander]').value = id.substr(1,10)
 	document.querySelector('#updateForm [name=orderDateMonth]').value = id.substr(12,14)
-	document.querySelector('#updateForm [name=amount]').value = sameid[2].innerHTML.replace(/,/g,'')+"+"+sameid[3].innerHTML.replace(/,/g,'')
-	//fetchUpdatePromise('#updateForm',"${path}/updateProdOrderPayState.do?").then(result=>{alert(result);}).catch(reject=>{console.error(reject)})
+	document.querySelector('#updateForm [name=price]').value = sameid[2].innerHTML.replace(/,/g,'')
+	document.querySelector('#updateForm [name=tax]').value = sameid[3].innerHTML.replace(/,/g,'')
+	fetchUpdatePromise('#updateForm',"${path}/updateProdOrderPayState.do?").then(result=>{alert(result);}).catch(reject=>{console.error(reject)})
 	//업뎃하고 새로고침
 	$('#searchform .btn-secondary').trigger('click');
 	}
