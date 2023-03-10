@@ -25,6 +25,7 @@ public class B1_Controller {
 	// http://localhost:6080/ferp/salesInfo.do
 	// http://localhost:6080/ferp/strOpenInfo.do
 	
+	/*매장정보조회*/
 	// 본사:정보조회페이지 가는 컨트롤러 
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@RequestMapping("salesInfo.do")
@@ -58,7 +59,26 @@ public class B1_Controller {
 	}
 	
 
+	// http://localhost:6080/ferp/qaManage.do
+	// http://localhost:6080/ferp/qaStore.do
+	// http://localhost:6080/ferp/qaStoreDetail.do
+	/*매장QA점검*/
+	//본사:품질관리표등록삭제
+	@RequestMapping("qaManage.do")
+	public String r6105qaMangement(){
+		return "WEB-INF\\headquarter\\pg6105_QAchecklist.jsp";
+	} 
+	@RequestMapping("qaStore.do")
+	public String r6104qaStore(){
+		return 	"WEB-INF\\headquarter\\pg6104_QAstore.jsp";
+	}
+	@RequestMapping("qaStoreDetail.do")
+	public String r6104qaStoreDetail(){
+		return 	"WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
+	} 
 	
+	
+	/*매장오픈점검*/
 	// 본사:전매장오픈시간조회페이지/검색
 	@RequestMapping("strOpenInfo.do")
 	public String r6202storeOpenInfo(@ModelAttribute("sch") Store otl,  Model d){

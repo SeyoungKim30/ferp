@@ -92,6 +92,42 @@
 	
 	
 	
+	<!-- 매장QA -->
+	<!-- 본사:품질관리점검표 출력 -->
+	<select id="qaList" resultType="qachecklist">
+		SELECT qanum, qaitem, usable FROM QACHECKLIST
+	</select>
+	
+	<!-- 본사:품질관리점검표 추가등록 -->
+	<insert id="qaListIns" parameterType="string">
+		INSERT INTO QACHECKLIST 
+		VALUES(qanum_seq.nextval||'', #{qaItem}, 'A')
+	</insert>
+	
+	<!-- 본사:품질관리점검표 비/활성화 -->
+	<update id="qaListUpt" parameterType="qachecklist">
+		UPDATE QACHECKLIST SET USABLE=#{usable} WHERE qanum=#{qaNum}
+	</update>
+	
+	<!-- 본사:이달qa 전매장 조회 -->
+	<select id="qaStoreList" resultType="qa">
+		SELECT s.frreginum, frname, FRREPNAME, ename, frtel, inspectdte, regdte
+		FROM store s, emp e, (  SELECT FRREGINUM, max(inspectdte) inspectdte, max(regdte) regdte
+								FROM QA 
+								WHERE trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')  
+								GROUP BY FRREGINUM) q
+		WHERE s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum(+)
+		AND s.frreginum!='9999999999'
+		ORDER BY inspectdte, frname
+	</select>
+	
+	<!-- 본사:이달qa 특정매장 상세조회 -->
+	<select id="qaDetailList">
+	
+	</select>
+	
+	
+	
 	<!-- 매장오픈점검 -->
 	<!-- 본사:전매장오픈시간조회 -->
 	<select id="storeOpenList" parameterType="store" resultType="store">

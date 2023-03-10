@@ -50,7 +50,7 @@
 	}
 	span.strifo_header {
     	font-weight: 600;
-    	width:87px;
+    	width:100px;
 	}	
 	span.strifo_rslt{
 		width:400px;

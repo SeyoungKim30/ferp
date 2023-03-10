@@ -211,36 +211,70 @@ SELECT * FROM qa;--qa한 기록
 --사용여부  A/DA
 
 --품질관리점검표
-SELECT qanum, qaitem, usable FROM QACHECKLIST;
+SELECT qanum, qaitem, usable FROM QACHECKLIST; --전체조회
 UPDATE QACHECKLIST SET USABLE='A' WHERE qanum='1005'; --활성화
 UPDATE QACHECKLIST SET USABLE='DA' WHERE qanum='1005'; --비활성화
 INSERT INTO QACHECKLIST VALUES(qanum_seq.nextval||'', '테이블과 의자는 청결하게 관리되고 있는가','A'); --항목추가
 
+--이달qa 전매장 조회
 SELECT s.frreginum, frname, FRREPNAME, ename, frtel, inspectdte, regdte
-FROM store s, emp e, QA q
-WHERE s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum; 
+FROM store s, emp e, (  SELECT FRREGINUM, max(inspectdte) inspectdte, max(regdte) regdte
+						FROM QA 
+						WHERE trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')  
+						GROUP BY FRREGINUM) q
+WHERE s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum(+)
+AND s.frreginum!='9999999999'
+ORDER BY inspectdte, frname; 
+
+--이달qa 특정매장 상세조회
+SELECT 
+
+
 
 SELECT * FROM QACHECKLIST;
 SELECT * FROM QA;
-SELECT * FROM STORE;
+SELECT * FROM STORE; 
+
+SELECT FRREGINUM, max(inspectdte), max(regdte)
+FROM QA 
+WHERE trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')  
+GROUP BY FRREGINUM;
+--WHERE trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')   --실제모드
+--WHERE trunc(inspectdte, 'MONTH') = trunc(to_date('2022/02/01', 'YYYY/MM/DD'), 'MONTH') --확인용
+
+
+
 
 --QA실행번호(QA||YYMMDD)  사업자번호 문항번호 결과  본사직원번호(점검한직원)  점검배정일자  점검등록일자(sysdate)  비고
---2월달 매장점검일배정 클릭하면 >> 매장점검일, 매장번호는 프론트 단에서 
-INSERT INTO QA VALUES('QA'||to_char(to_date('20220209', 'YYMMDD'), 'YYMMDD'), 
-'123457890','1004','',
-(SELECT empnum FROM store WHERE frreginum='1234567890'), --;
-to_date('20220209', 'YYMMDD'),null,''); --항목추가
 
-SELECT * FROM QACHECKLIST;
-SELECT * FROM QACHECKLIST WHERE usable='A';
+--매장점검일배정  //2월달 매장점검일배정 클릭하면 >> 매장점검일, 매장번호는 프론트 단에서 
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230215', 'YYMMDD'), 'YYMMDD'), 
+'123457891','1001','',
+(SELECT empnum FROM store WHERE frreginum='1234567891'), 
+to_date('20230215', 'YYMMDD'),null,''); --항목추가
 
-INSERT INTO QA VALUES('QA'||to_char(to_date('20220216', 'YYMMDD'), 'YYMMDD'), '123457891','테이블과 의자는 청결하게 관리되고 있는가','A'); --항목추가
+--매장담당자의 매장점검
+/*
+UPDATE QA 
+SET 
+WHERE 
+*/
 
 
 
+/*
+
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230314', 'YYMMDD'), 'YYMMDD'), 
+'1234567892','1008','',
+(SELECT empnum FROM store WHERE frreginum='1234567892'), 
+to_date('20230314', 'YYMMDD'), null,''); 
+
+SELECT * from qa
+
+*/
 
 
-SELECT to_char(to_date('20220220', 'YYMMDD'), 'YYMMDD') FROM dual;
+
 
 /*
 create sequence qanum_seq

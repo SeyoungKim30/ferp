@@ -245,9 +245,6 @@ public class Main {
 </body>
 <script type="text/javascript">
 	
-	// 정해진 오픈시간 지나면 칸 색칠	
-	
-	
 	//이전페이지 가기 클릭
 	function back(){
 		history.back();
