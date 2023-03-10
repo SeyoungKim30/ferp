@@ -38,7 +38,7 @@ public class A1_Controller {
          return "WEB-INF\\store\\pg1000_storeLogin.jsp";
       }else {
          session.setAttribute("login", service.storeLogin(st));
-         return "/storeMainMenu.do";
+         return "/goEmpMainPage.do";
       }
    }
    // 본사 로그인
@@ -60,17 +60,19 @@ public class A1_Controller {
    // 로그아웃(emp)
    @RequestMapping("/logoutEmp.do")
    public String logoutEmp(HttpSession session, Model d) {
-     session.removeAttribute("login");
+	 session.removeAttribute("login");
+     session.invalidate();
      d.addAttribute("logout","로그아웃");
-      return "forward:/empLogin.do";
+     return "redirect:/goEmpMainPage.do";
    }
    
    // 로그아웃(store)
    @RequestMapping("/logoutStore.do")
    public String logoutStore(HttpSession session, Model d) {
-      session.removeAttribute("login");
+	  session.removeAttribute("login");
+	  session.invalidate();
       d.addAttribute("logout","로그아웃");
-      return "forward:/storeLogin.do";
+      return "redirect:/goEmpMainPage.do";
       }
    
    @RequestMapping("/storeMainMenu.do")
@@ -83,6 +85,7 @@ public class A1_Controller {
       return "/pg0002.jsp";
    }
    
+   // http://localhost:6080/ferp/goEmpMainPage.do
    @RequestMapping("/goEmpMainPage.do")
    public String goEmpMainPage() {
       return "/index.jsp";
