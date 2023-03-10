@@ -19,6 +19,6 @@ public interface B1_Dao {
 	//매장오픈점검
 	public List<Store> storeOpenList(Store otl); //본사:전매장오픈시간-전체조회
 	
-	public Store storeDetailOpenTime(String frRegiNum); //본사:매장오픈상세조회
-	public List<OpenTimeCalender> openTimeDetailCalendar(String writer); //본사:매장오픈상세조회-캘린더
+	public OpenTimeCalender storeDetailOpenTime(String writer); //본사:매장오픈상세조회
+	public List<OpenTimeCalender> openTimeDetailCalendar(OpenTimeCalender otcd); //본사:매장오픈상세조회-캘린더
 }

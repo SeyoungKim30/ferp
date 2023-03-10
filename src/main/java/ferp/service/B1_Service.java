@@ -62,12 +62,12 @@ public class B1_Service {
 		return dao.storeOpenList(otl);
 	}
 	//본사:매장오픈시간상세조회
-	public Store storeDetailOpenTime(String frRegiNum){
-		return dao.storeDetailOpenTime(frRegiNum);
+	public OpenTimeCalender storeDetailOpenTime(String writer){
+		return dao.storeDetailOpenTime(writer);
 	}
 	//본사:매장오픈시간상세조회-캘린더
-	public List<OpenTimeCalender> openTimeDetailCalendar(String writer){
-		return dao.openTimeDetailCalendar(writer);
+	public List<OpenTimeCalender> openTimeDetailCalendar(OpenTimeCalender otcd){
+		return dao.openTimeDetailCalendar(otcd);
 
 	}
 	
