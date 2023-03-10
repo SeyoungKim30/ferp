@@ -109,8 +109,8 @@
 
 	//사이드바에 번호 매긴 것 
 	/*
-	localStorage.setItem("pageIdx","7501") //id값
-	localStorage.setItem("eqIdx","3")
+	localStorage.setItem("pageIdx","6202") //id값
+	localStorage.setItem("eqIdx","7000")
 	*/
 	
 	var frName = $("[name=frname]").val();
@@ -153,7 +153,7 @@
 	
 			
 	function goDetail(frRegiNum){
-		location.href="${path}/openTimeCalendar.do?frRegiNum="+frRegiNum
+		location.href="${path}/openTimeCalendar.do?writer="+frRegiNum
 	}
 
 </script>

@@ -47,8 +47,7 @@
 	
 	<!-- 본사:매장정보상세조회 -->
 	<select id="storeDetailInfo" parameterType="String" resultType="orders">
-		SELECT frname, s.frreginum, TO_char(FROPEN,'YYYY.MM.DD') AS fropen, 
-		fraddress, frtel, frrepname, ename
+		SELECT frname, s.frreginum, TO_char(FROPEN,'YYYY.MM.DD') AS fropen, fraddress, frtel, frrepname, ename
 		FROM store s, emp e
 		WHERE s.empnum=e.empnum
 		AND frRegiNum=#{frRegiNum}
@@ -112,24 +111,24 @@
 		ORDER BY frname
 	</select>
 	
-	<!-- 본사:매장오픈상세조회-기본정보 -->
-	<select id="storeDetailOpenTime" parameterType="string" resultType="store">
-		SELECT frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime 
-		FROM store s, emp e
-		WHERE s.empnum=e.EMPNUM
-		AND frRegiNum=#{frRegiNum}
-	</select>
 	
-	<!-- 본사:매장오픈상세조회-캘린더JSON -->
 	<resultMap type="openTimeCalender" id="calMap">
 		<result column="frRegiNum" property="writer"/>
 		<result column="startworkt" property="start"/>
 		<result column="lastworkt" property="end"/>
 	</resultMap>
-	<select id="openTimeDetailCalendar" resultMap="calMap">
+	<!-- 본사:매장오픈상세조회-기본정보 -->
+	<select id="storeDetailOpenTime" resultMap="calMap" parameterType="string" >
+		SELECT frRegiNum, frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime 
+		FROM store s, emp e
+		WHERE s.empnum=e.EMPNUM
+		AND frRegiNum=#{writer, jdbcType=VARCHAR}
+	</select>
+	<!-- 본사:매장오픈상세조회-캘린더JSON -->
+	<select id="openTimeDetailCalendar" resultMap="calMap" parameterType="string">
 		SELECT to_char(onTime, 'YYYY/MM/DD') wday, MIN(onTime) startworkt,  MAX(offTime) lastworkt
 		FROM EMPCHECKIN 
-		WHERE FRREGINUM=#{frRegiNum}
+		WHERE frRegiNum=#{writer, jdbcType=VARCHAR}
 		GROUP BY to_char(onTime, 'YYYY/MM/DD')
 	</select>
 
