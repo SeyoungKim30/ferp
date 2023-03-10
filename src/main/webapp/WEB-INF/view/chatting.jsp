@@ -302,8 +302,7 @@ var today = new Date();
     document.cookie = name + '=' + escape(value) + '; path=/; expires=' + today.toGMTString() + ';'
 }
 
-function getCookie(name) 
-{ 
+function getCookie(name) { 
 var cName = name + "="; 
 var x = 0; 
 while ( x <= document.cookie.length ) 
