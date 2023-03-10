@@ -20,7 +20,7 @@
 </head>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","5103")
-	localStorage.setItem("eqIdx","6")
+	localStorage.setItem("eqIdx","5000")
 </script>
 <body class="container">
 	<%@ include file="/resource/templates/header.jsp"%>
@@ -31,6 +31,7 @@
            		<h2 class="notice_main">문 의 글</h2>
            		<input type="hidden" name="noticeNum" value="${qna.noticeNum}">
            		<input type="hidden" name="replyNum" value="${qna.replyNum}">
+           		<input type="hidden" name="buttonChk" value="${not empty login.ename?'본사':'매장'}">
            		
            		<input type="hidden" name="title" value="${qna.title}">
            		<div class="title_line">
@@ -59,6 +60,11 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	var store = $("[name=buttonChk]").val()
+	if( store == '매장' ){
+		$("#uptBtn").hide()
+		$("#delBtn").hide()
+	}
 	<%-- 
 	
 	--%>	
@@ -103,7 +109,6 @@ $(document).ready(function(){
 			$("form").attr("action","${path}/qnaReply.do");
 			$("form").submit()
 	})
-
 	$("#uptBtn").click(function(){
 		  Swal.fire({
 			  title: '수정페이지로\n 이동하시겠습니까?',
@@ -123,7 +128,7 @@ $(document).ready(function(){
 	$("#delBtn").click(function(){
 		  Swal.fire({
 			  title: '해당 문의글을\n 삭제하시겠습니까?',
-			  icon: 'question',
+			  icon: 'warning',
 			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
 			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정

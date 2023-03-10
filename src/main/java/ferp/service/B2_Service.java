@@ -210,7 +210,10 @@ public class B2_Service {
 	public List<String> getMenuCategory(){
 		return dao.getMenuCategory();
 	}
-	
+	// 부서 콤보
+	public List<String> getDname(){
+		return dao.getDname();
+	}
 	
 	// 문의글 조회
 	public List<Notice> searchQnA(NoticeSch sch){

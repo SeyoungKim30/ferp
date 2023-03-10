@@ -55,6 +55,8 @@ public interface B2_Dao {
 	public List<String> getNoticeCategory();
 	// 메뉴 카테고리 콤보
 	public List<String> getMenuCategory();
+	// 부서 콤보
+	public List<String> getDname();
 	
 	// 문의글 등록
 	public void insertQnA(Notice ins);

@@ -152,7 +152,11 @@
 		SELECT *
 		FROM menuCategory
 	</select>
-	
+	<!-- 부서 combo -->
+	<select id="getDname" resultType="string">
+		SELECT *
+		FROM dnameCategory
+	</select>
 	
 	<!-- 문의글 조회 -->
 	<select id="searchQnA" resultType="notice" parameterType="noticeSch">

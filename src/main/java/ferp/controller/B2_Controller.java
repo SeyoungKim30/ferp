@@ -38,6 +38,10 @@ public class B2_Controller {
 	public List<String> getMenuCategory(){
 		return service.getMenuCategory();
 	}
+	@ModelAttribute("dnameCombo")
+	public List<String> getDname(){
+		return service.getDname();
+	}
 	
 	// 본사 홈페이지 controller
 	@RequestMapping("/mainpage.do")
