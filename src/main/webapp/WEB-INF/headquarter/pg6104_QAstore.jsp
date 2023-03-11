@@ -9,15 +9,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오픈 시간 점검</title>
+<title>점검결과조회</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
-
 <style>
-
 	.hdq_search{
 		display:flex;
 	 	background-color: rgba( 204, 204, 204, 0.2 );
@@ -46,8 +44,10 @@
    	 	border-radius: 5px;
    	 	border:0px;
 	}
-	#frs_salesInfo_table>h3{
-		 margin: 35px 0px 8px 5px;
+	
+	
+	#h3title{
+		margin: 35px 0px 8px 5px;
 	}
 		   
 	tbody tr{
@@ -60,9 +60,7 @@
 		text-align: left;
 	}
 	
-	
 </style>
-
 </head>
 
 <body class="container">
@@ -70,7 +68,8 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-			<h2>오픈 시간 점검</h2><br><hr><br>
+			
+			<h2>이달의 점검결과 조회</h2><br><hr><br>
 			
 			<!-- 검색 시작 -->
 			<div class="hdq_search">
@@ -84,24 +83,30 @@
 			<!-- 검색칸 끝 -->
 			
 			<!-- 정보출력표 시작-->
-			<div id="frs_salesInfo_table">
-			<h3>오픈 시간 조회</h3>
+			<div>
+			<h3 id="h3title">이번 달 매장점검 결과</h3>
 				<table>
-					<col width="20%">
-					<col width="20%">
-					<col width="20%">
+					<col width="21%">
+					<col width="13%">
+					<col width="13%">
+					<col width="13%">
 					<col width="20%">
 					<col width="20%">
 					<thead>
-						<tr><th>매장명</th><th>오픈시간</th><th>매장전화번호</th><th>점주명</th><th>담당직원</th></tr>
+						<tr><th>매장명</th><th>매장번호</th><th>점주명</th><th>담당직원</th><th>점검예정일자</th><th>점검등록일자</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						<tr>
+							<td class="leftdata">wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 			<!-- 정보출력표 끝 -->
 			
 			
-
+			
+			
 		</div>
 	</div>
 </body>
@@ -112,32 +117,9 @@
 	localStorage.setItem("pageIdx","6202") //id값
 	localStorage.setItem("eqIdx","7000")
 	*/
-	
-	var frName = $("[name=frname]").val();
-	var frRepName = $("[name=frRepname]").val();
-	var ename = $("[name=ename]").val();
-	
-	//ajax fetch사용
-	function search(){
-		let url="${path}/strOpenInfoJson.do?frName="+frName+"&frRepName="+frRepName+"&ename="+ename  //검색값 넘기기
-		console.log(url);
-		
-		fetch(url).then(function(response){return response.json()}).then(function(json){
-			console.log(json);
-			var optimelist=json.optimelist;
-			var trtd='';
-		
-			optimelist.forEach(function(each){
-				trtd+="<tr onclick='goDetail("+each.frRegiNum+")'><td class='leftdata'>"+each.frName+"</td><td>"+each.frOperTime+"</td><td class='leftdata'>"+each.frTel+"</td><td>"+each.frRepName+"</td><td>"+each.ename+"</td></tr>"
-			})
-			$("table tbody").html(trtd);
-			console.log(trtd);
-		}).catch(function(err){console.log(err)})	
-
-	}
 
 	$(document).ready(function(){
-
+	
 		search();
 	
 		//엔터검색
@@ -148,13 +130,13 @@
 				}
 			}
 		});
-
+	
 	})
 	
 			
 	function goDetail(frRegiNum){
 		location.href="${path}/openTimeCalendar.do?writer="+frRegiNum
 	}
-
+	
 </script>
 </html>

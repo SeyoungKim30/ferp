@@ -27,7 +27,7 @@
 }
 
 input{
-	width: 63%;
+	width: 50%;
 	height: 40px;
 	border-radius: 7px;
 	border: 2px solid #dddddd;
@@ -98,12 +98,13 @@ input:focus, select:focus{
 
 
 .connectors{
-	color: #007bff;
-    background-color: transparent;
-    border-color: #007bff;
+	color: white;
+    background-color: lightsteelblue;
+    border: none;
     height: 40px;
     padding: 0.375rem 0.75rem;
-    border-radius: 10px;
+    border-radius: 20px;
+    font-weight: bolder;
 }
 #enterBtn{
     width: 90px;

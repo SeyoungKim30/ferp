@@ -274,7 +274,6 @@ public class B2_Controller {
 	private ChatHandler chHandl;
 	
 	// http://localhost:7080/ferp/chatting.do
-	
 	// 채팅
 	@RequestMapping("/chatting.do")
 	public String chatting(Model d) {

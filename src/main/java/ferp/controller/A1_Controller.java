@@ -1,7 +1,6 @@
 package ferp.controller;
 
-import java.util.List;
-
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 import ferp.service.A1_Service;
 import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
 import vo.Onsale;
-import vo.Orders;
 import vo.Store;
 
 
@@ -38,7 +37,7 @@ public class A1_Controller {
          return "WEB-INF\\store\\pg1000_storeLogin.jsp";
       }else {
          session.setAttribute("login", service.storeLogin(st));
-         return "/storeMainMenu.do";
+         return "/goEmpMainPage.do";
       }
    }
    // 본사 로그인
@@ -59,18 +58,27 @@ public class A1_Controller {
    }
    // 로그아웃(emp)
    @RequestMapping("/logoutEmp.do")
-   public String logoutEmp(HttpSession session, Model d) {
-     session.removeAttribute("login");
-     d.addAttribute("logout","로그아웃");
-      return "forward:/empLogin.do";
+   public String logoutEmp(SessionStatus status, HttpSession session, Model d) {
+	 session.removeAttribute("login");
+     session.invalidate();
+     status.setComplete(); // 세션 무효화
+     return "redirect:/goEmpMainPage.do";
    }
    
    // 로그아웃(store)
    @RequestMapping("/logoutStore.do")
-   public String logoutStore(HttpSession session, Model d) {
-      session.removeAttribute("login");
+   public String logoutStore(SessionStatus status, HttpSession session, Model d, HttpServletResponse response) {
+	  session.removeAttribute("login");
+	  session.invalidate();
+	  status.setComplete(); // 세션 무효화
       d.addAttribute("logout","로그아웃");
-      return "forward:/storeLogin.do";
+      
+      // 캐시 제어 헤더 설정
+      response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      response.setHeader("Pragma", "no-cache");
+      response.setHeader("Expires", "0");
+      
+      return "redirect:/goEmpMainPage.do";
       }
    
    @RequestMapping("/storeMainMenu.do")
@@ -83,6 +91,7 @@ public class A1_Controller {
       return "/pg0002.jsp";
    }
    
+   // http://localhost:6080/ferp/goEmpMainPage.do
    @RequestMapping("/goEmpMainPage.do")
    public String goEmpMainPage() {
       return "/index.jsp";

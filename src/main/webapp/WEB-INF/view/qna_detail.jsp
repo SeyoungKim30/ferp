@@ -129,7 +129,7 @@ $(document).ready(function(){
 	$("#delBtn").click(function(){
 		  Swal.fire({
 			  title: '해당 문의글을\n 삭제하시겠습니까?',
-			  icon: 'question',
+			  icon: 'warning',
 			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
 			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정

@@ -8,6 +8,7 @@
 		SELECT *
 		FROM menu
 		WHERE menuname LIKE '%'||#{menuName}||'%'
+		order BY category
 	</select>
 	<select id="totCntMenu" resultType="int" parameterType="menuSch">
 		select count(*)

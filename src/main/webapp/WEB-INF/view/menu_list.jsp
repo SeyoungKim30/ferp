@@ -35,41 +35,41 @@
 					<input type="hidden" name="curPage" value="${sch.curPage}"/>
 				</form>
          	</div>
-  		<div class="row">
-			<div class="thDiv" style="width: 25%;">메뉴명</div>
-			<div class="thDiv" style="width: 45%;">메뉴설명</div>
-			<div class="thDiv" style="width: 15%;">가격</div>
-			<div class="thDiv" style="width: 20%;">카테고리</div>
-		</div>
-		<div>
-			<c:forEach var="menu" items="${menu}">
-				<div class="row p${menu.menuNum}">
-					<div class="tdDiv" style="width: 25%;">${menu.menuName}</div>
-					<div class="tdDiv" style="width: 45%; text-align: left;">${menu.info}</div>
-					<div class="tdDiv" style="width: 15%; text-align: right; padding-right: 40px;">
-						<fmt:formatNumber value="${menu.price}" type='currency'/>
+	  		<div class="row">
+				<div class="thDiv" style="width: 25%;">메뉴명</div>
+				<div class="thDiv" style="width: 45%;">메뉴설명</div>
+				<div class="thDiv" style="width: 15%;">가격</div>
+				<div class="thDiv" style="width: 20%;">카테고리</div>
+			</div>
+			<div>
+				<c:forEach var="menu" items="${menu}">
+					<div class="row p${menu.menuNum}">
+						<div class="tdDiv" style="width: 25%;">${menu.menuName}</div>
+						<div class="tdDiv" style="width: 45%; text-align: left;">${menu.info}</div>
+						<div class="tdDiv" style="width: 15%; text-align: right; padding-right: 40px;">
+							<fmt:formatNumber value="${menu.price}" type='currency'/>
+						</div>
+						<div class="tdDiv" style="width: 20%;">${menu.category}</div>
 					</div>
-					<div class="tdDiv" style="width: 20%;">${menu.category}</div>
-				</div>
-				<img style="width: 120px; height: 120px;" src="${path}/resource/img/${menu.img}" class="p preview${menu.menuNum}"/>
-				<style>
-				.p${menu.menuNum}:hover ~ .preview${menu.menuNum}{
-					position:absolute;
-					display:block;
-				}
-				</style>
-				<script type="text/javascript">
-					$(".p${menu.menuNum}").mouseover(function(e){
-						$(".preview${menu.menuNum}").css({
-							left: e.pageX+50,
-						    top: e.pageY
-						 });
-					})
-
-				</script>
-			</c:forEach>
-		</div>       	
+					<img style="width: 120px; height: 120px;" src="${path}/resource/img/${menu.img}" class="p preview${menu.menuNum}"/>
+					<style>
+					.p${menu.menuNum}:hover ~ .preview${menu.menuNum}{
+						position:absolute;
+						display:block;
+					}
+					</style>
+					<script type="text/javascript">
+						$(".p${menu.menuNum}").mouseover(function(e){
+							$(".preview${menu.menuNum}").css({
+								left: e.pageX+50,
+							    top: e.pageY
+							 });
+						})
 	
+					</script>
+				</c:forEach>
+			</div>       	
+		
 			<div class="page_wrap">
 			   <div class="page_nation">
 			      <a class="arrow prev" href="javascript:goPage(${sch.startBlock-1});"></a>
@@ -79,6 +79,7 @@
 			      <a class="arrow next" href="javascript:goPage(${sch.endBlock+1});"></a>
 			   </div>
 			</div>
+			
 		</div>
 	</div>
 </body>

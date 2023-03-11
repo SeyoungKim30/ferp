@@ -30,6 +30,8 @@
 		<typeAlias alias="prodProdOrder" type="vo.Prod_ProdOrder"/>
 		<typeAlias alias="clerkfile" type="vo.ClerkFile"/>
 		<typeAlias alias="pos" type="vo.Prod_order_stock"/>
+		<typeAlias alias="qa" type="vo.QA"/>
+		<typeAlias alias="qachecklist" type="vo.QAchecklist"/>
 	</typeAliases>
 			
 <mappers>
