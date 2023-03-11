@@ -3,7 +3,7 @@ package vo;
 public class QA { //실제 실행한 QA
 	
 	private String inspectionNum;
-	private String frRegiNum;
+	private String frRegiNum; 
 	private String qaNum;
 	private String results;
 	private String empnum;
@@ -16,6 +16,10 @@ public class QA { //실제 실행한 QA
 	private String frRepName;
 	private String ename;
 	private String frtel;
+	
+	//qa결과출력
+	private String qaItem;
+	private String ynCnt;
 	
 	
 	public String getInspectionNum() {
@@ -90,6 +94,18 @@ public class QA { //실제 실행한 QA
 	}
 	public void setFrtel(String frtel) {
 		this.frtel = frtel;
+	}
+	public String getQaItem() {
+		return qaItem;
+	}
+	public void setQaItem(String qaItem) {
+		this.qaItem = qaItem;
+	}
+	public String getYnCnt() {
+		return ynCnt;
+	}
+	public void setYnCnt(String ynCnt) {
+		this.ynCnt = ynCnt;
 	}
 	
 	
