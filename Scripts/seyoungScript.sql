@@ -7,6 +7,8 @@ INSERT INTO ACCOUNT values('10100','자산','현금');
 ALTER TABLE statement RENAME TO ACStatement;
 ALTER TABLE ACSTATEMENT RENAME COLUMN debt TO debit;
 
+UPDATE store SET FRNAME ='투썸플레이스 본사', FRREPNAME ='김박박' WHERE frreginum='9999999999';
+
 UPDATE account SET ACNTUSING = 0 WHERE acntnum='10110';
 
 INSERT INTO acstatement values('A0001','10174252589','11100',1000,0,null,sysdate,null);
@@ -279,3 +281,16 @@ INSERT INTO stock VALUES ('PD10001','9999999999',sysdate,100,100,null);
 INSERT INTO stock VALUES ('PD10022','9999999999',sysdate,40,40,null);*/
 
 SELECT * FROM emp;
+
+SELECT * FROM stock s, PRODORDER p WHERE s.PRODUCTNUM =p.PRODUCTNUM ;
+
+--조건받아서 insert into acstmt
+SELECT * FROM prodOrder po,
+		product pd, 
+		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se
+WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
+	AND TRUNC(ORDERDATE,'month') = TO_DATE('2023-03','YYYY-MM')
+	AND empnum LIKE '%'||'22051002'||'%'
+	AND PAYMENTSTATE LIKE '%'||''||'%'
+	;
+

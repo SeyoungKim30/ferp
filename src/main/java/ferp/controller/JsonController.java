@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ferp.service.B2_Service;
 import ferp.service.C1_Service;
 import ferp.service.C2_Service;
+import vo.ACStatement;
 import vo.Account;
 import vo.NoticeSch;
 import vo.ProductProdOrder;
@@ -66,5 +69,5 @@ public class JsonController {
 		model.addAttribute("storeList",serviceC1.selectActiveStore());
 		return "pageJsonReport";
 	}
-	
+
 }

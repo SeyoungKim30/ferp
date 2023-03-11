@@ -85,6 +85,7 @@ window.addEventListener('load',function(){
 	<form id="updateForm"> style="display: none;"
 	<input name="orderDateMonth">
 	<input name="demander">
+	<input name="supplier">
 	<input name="paymentState">
 	<input name="price">
 	<input name="tax">
@@ -175,7 +176,8 @@ function updateClick(){	//fetch하고 테이블에 있는 버튼에 적용
 function updateAllClick(){	//fetch하고 테이블에 있는 버튼에 적용
 	let yyyymm=$(this).attr('id').substr(11,14)
 	document.querySelector('#updateForm [name=paymentState]').value = $(this).text();
-	document.querySelector('#updateForm [name=demander]').value = $(this).attr('id').substr(1,10)
+	document.querySelector('#updateForm [name=supplier]').value = $('#searchform [name=supplier]').val()
+	document.querySelector('#updateForm [name=demander]').value = $(this).attr('id').substr(0,10)
 	document.querySelector('#updateForm [name=orderDateMonth]').value = yyyymm
 	let gogo=confirm(yyyymm.substr(0,4)+'년 '+yyyymm.substr(5,6)+'월 전체 정산상태를 변경할까요?');
 	if(gogo){

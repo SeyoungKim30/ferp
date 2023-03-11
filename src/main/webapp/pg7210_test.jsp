@@ -33,37 +33,22 @@ localStorage.setItem("eqIdx","1")
 		
 		<div class="toolbox">
 			<div class="toolbar">
-				<div>
-				<c:set var="rronum" value="${stmtList[0].rronum }" scope="page" />
-				<c:if test="${stmtList[0].rronum < 1 }"> <c:set var="rronum" value="${stmtList[0].rronum *-1}" /></c:if>
-				<c:if test="${rronum > 1 }"><button class="btn-dark" type="button" id="prevStmt" value="${rronum-1 }">이전전표</button>	
-					<script>	//앞뒤로 가기: 라인넘버에다 앞으로 갈지+1 뒤로갈지 -1 넣어서 전달 
-					document.querySelector('#prevStmt').addEventListener('click',function(){
-						location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&rronum="+$('#prevStmt').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
-					})
-					</script>
-				</c:if>
-				<c:if test="${stmtList[0].rronum > 0 }"><button class="btn-dark" type="button" id="nextStmt" value="${stmtList[0].rronum+1 }">다음전표</button>	
-					<script>
-					document.querySelector('#nextStmt').addEventListener('click',function(){
-						location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&rronum="+$('#nextStmt').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
-					})
-					</script>
-				</c:if>
-				<c:remove var="rronum" scope="page"/>
-				</div>
-				<div>
+				<div><button class="btn-dark" type="button" @click='prevSelect' :style="prevbtn">이전전표</button>
+				<button class="btn-dark" type="button" @click='nextSelect' :style="nextbtn">다음전표</button></div>
+			<div>
 					<button class="btn-reset" title="저장되지 않은 내용을 모두 삭제하고 새 전표를 입력합니다." type="button">새 전표</button>
 					<button class="btn-danger" type="button">삭제하기</button>
 				</div>
 			</div>
 			<div class="toolbar">
 				<div title="전표번호가 비어있으면 새로운 전표로 입력하고, 그렇지 않으면 기존 전표가 수정됩니다.">
-					<label>전표일자<span id="stmtDateVFD" class="valid-feedback">날짜를 입력하세요</span><input type="date" name="stmtDate" required="required" value="${fn:substring(stmtList[0].stmtDate,0,10) }">
+				<fieldset id="forSelect">
+					<label>전표일자<span id="stmtDateVFD" class="valid-feedback">날짜를 입력하세요</span><input type="date" name="stmtDate" required="required" v-model='stmtDate'>
 					</label>
-					<label>전표번호<span id="stmtNumVFD" class="valid-feedback">전표번호를 입력하세요</span><input name="statementNum" value="${stmtList[0].statementNum }" placeholder="검색할때만 입력하세요" required></label>
-					<input name="frRegiNum" type="hidden" value="${login.frRegiNum }">
-					<button type="button" class="btn-secondary">검색</button>
+					<label>전표번호<span id="stmtNumVFD" class="valid-feedback">전표번호를 입력하세요</span><input name="statementNum" placeholder="검색할때만 입력하세요" required v-model="statementNum"></label>
+					<input name="frRegiNum" v-model="frRegiNum">
+				</fieldset>
+					<button type="button" class="btn-secondary" @click='select'>검색</button>
 				</div>
 				<div><button type="button" class="btn-primary">등록</button></div>
 			</div>
@@ -96,22 +81,26 @@ localStorage.setItem("eqIdx","1")
 var vm=	new Vue({
 		  el: '.contents',
 		  data: {
-			index:1,
+			index:0,
 			rronum:0,
 			frRegiNum:'',
 			totaldebit:0,
 			totalcredit:0,
 			debitCreditGap:0,
+			stmtDate:'',
+			statementNum:'',
 		    stmtlist: [
 		      { lineNum: 0, acntNum: '', debit: 0, acntTitle: '', credit: 0, stmtOpposite: '', remark: '' },
 		      { lineNum: 1, acntNum: '', debit: 0, acntTitle: '', credit: 0, stmtOpposite: '', remark: '' }
-		    ]
+		    ],
+		    prevbtn:'',
+		    nextbtn:''
 		  },
 		  methods: {
 		    addRow() {
 		      // 행 추가 로직 구현
-		      this.index++;
-		      let newrow={ lineNum: this.index , acntNum: '', debit: '', acntTitle: '', credit: '', stmtOpposite: '', remark: '' }
+		      this.index=this.stmtlist.length;
+		      let newrow={ lineNum: this.index , acntNum: '', debit: 0, acntTitle: '', credit: 0, stmtOpposite: '', remark: '' }
 		      this.stmtlist.push(newrow);
 		    },
 		   numinput(){
@@ -132,7 +121,56 @@ var vm=	new Vue({
 		         }
 		         this.totalcredit = creditSum;
 		         this.debitCreditGap=debitSum-creditSum;
-		    }
+		    },
+		    generalSelect(url){
+		    		fetch(url)
+		    		.then(response=>response.json())
+		    		.then(json=>{
+		    			console.log(json.stmtList)
+		    			//출력하고 총액구하기 
+		    			this.stmtlist=json.stmtList;
+		    			this.rronum=json.stmtList[0].rronum;
+		    			this.frRegiNum=json.stmtList[0].frRegiNum;
+		    			this.stmtDate=json.stmtList[0].stmtDate.substr(0,10);
+		    			this.statementNum=json.stmtList[0].statementNum;
+		    			this.numinput()
+		    			//앞뒤로 가는 버튼 
+		    			let rronum=this.rronum;
+		    			this.prevbtn=``;
+		    			this.nextbtn=``;
+		    			if(rronum!=1 && rronum!=-1 ){	//맨앞 아닐때 
+		    				this.prevbtn='display:inline-block;'
+		    			}else{
+		    				this.prevbtn='display:none;'
+		    			}
+		    			if(this.rronum>0){
+		    				this.nextbtn='display:inline-block;'
+		    			}else{
+		    				this.nextbtn='display:none;'
+		    			}
+		    		}).catch(error=>{console.error(error)})
+		    },
+		    select(){
+		    	if(document.querySelector('[name=stmtDate]').checkValidity()){
+		    		let serial=$('#forSelect').serialize()
+		    		this.generalSelect("${path }/selectACstatementJson.do?"+serial)
+		    	}else{
+		    		invalidClass('[name=stmtDate]','#stmtDateVFD')
+		    	}
+		   },
+		   prevSelect(){
+				let rronum=this.rronum;
+				if(rronum<0){rronum=rronum*(-1);}
+				rronum=rronum-1;
+			    let url="${path }/selectACstatementJson.do?stmtDate="+this.stmtDate+"&rronum="+rronum+"&frRegiNum="+this.frRegiNum;
+			    this.generalSelect(url)
+		   },
+		   nextSelect(){
+				let rronum=this.rronum;
+				rronum=Number(rronum)+1
+				let url="${path }/selectACstatementJson.do?stmtDate="+this.stmtDate+"&rronum="+rronum+"&frRegiNum="+this.frRegiNum;
+				this.generalSelect(url)
+		   }
 		  }
 		});
 		
@@ -147,16 +185,6 @@ document.querySelector('.btn-primary').addEventListener('click',function(){
 		multipathSubmit('form1',"${path }/updateACstatement.do");
 	}
 })
-
-//검색하기 눌렀을때는 쿼리스트링으로 제출
-document.querySelector('.btn-secondary').addEventListener('click',function(){
-	//날짜 유효성
-	if(document.querySelector('[name=stmtDate]').checkValidity()){
-		location.href="${path }/selectACstatement.do?stmtDate="+$('[name=stmtDate]').val()+"&statementNum="+$('[name=statementNum]').val()+"&frRegiNum="+$('[name=frRegiNum]').val()
-	}else{
-		invalidClass('[name=stmtDate]','#stmtDateVFD')
-		}
-	})
 
 
 //삭제

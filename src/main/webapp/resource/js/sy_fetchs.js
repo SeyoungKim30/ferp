@@ -41,6 +41,7 @@ var fetchUpdatePromise =function(formid, pathurl) {
 var fetchSelectPromise = function(formid,pathurl){
 	return new Promise(function(resolve,reject){
 		 let url = pathurl + $(formid).serialize();
+		 console.log(url)
 		 fetch(url).then(response=>response.json()).then(json=>{resolve(json)})
 		 .catch(error=>{reject(error)})
 	})

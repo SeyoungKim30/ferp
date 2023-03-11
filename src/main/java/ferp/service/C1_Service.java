@@ -110,6 +110,7 @@ public class C1_Service {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString=dateFormat.format(date);
 		if(prodOrder.getPaymentState().equals("계산서 발행")&&!prodOrder.getDemander().equals("0000000000")) {
+			//일괄 아니고 계산서 발행일때
 			ACStatement ast= new ACStatement();
 			//계산서 발행 : 본사 미수수익(자산)
 			ast.setAcntNum("11600");
@@ -139,7 +140,7 @@ public class C1_Service {
 			ast.setDebit(price);
 			ast.setFrRegiNum(prodOrder.getDemander());
 			ast.setLineNum(0);
-			ast.setStmtOpposite("9999999999");
+			ast.setStmtOpposite("본사");
 			dao.r7210insertStatement(ast);
 			//부가세대급금 (자산)
 			ast.setAcntNum("13500");
@@ -153,6 +154,40 @@ public class C1_Service {
 			ast.setLineNum(2);
 			dao.r7210insertStatement(ast);
 		}
+		if(prodOrder.getPaymentState().equals("완료")&&!prodOrder.getDemander().equals("0000000000")) {
+			//일괄 아니고 계산서 발행일때
+			ACStatement ast= new ACStatement();
+			//입금했을때 미수수익 사라짐
+			ast.setAcntNum("11600");
+			ast.setDebit(0);
+			ast.setCredit(price+tax);
+			ast.setFrRegiNum("9999999999");
+			ast.setLineNum(0);
+			ast.setRemark(prodOrder.getOrderDateMonth()+" "+prodOrder.getDemander());
+			ast.setStatementNum("AT");
+			ast.setStmtDate(dateString);
+			ast.setStmtOpposite(prodOrder.getDemander());
+			dao.r7210insertStatement(ast);
+			//본사 입금
+			ast.setAcntNum("10300");
+			ast.setDebit(price+tax);
+			ast.setCredit(0);
+			ast.setLineNum(1);
+			dao.r7210insertStatement(ast);
+			//매장에서 부채 사라지고 현금 빠짐
+			ast.setAcntNum("25100");
+			ast.setFrRegiNum(prodOrder.getDemander());
+			ast.setLineNum(0);
+			ast.setStmtOpposite("본사");
+			dao.r7210insertStatement(ast);
+			//자산 빠짐
+			ast.setAcntNum("10300");
+			ast.setCredit(price+tax);
+			ast.setDebit(0);
+			ast.setLineNum(1);
+			dao.r7210insertStatement(ast);
+		}
+		
 		return 	dao.r9311updateProdOrderPayState(prodOrder);
 	}
 	
