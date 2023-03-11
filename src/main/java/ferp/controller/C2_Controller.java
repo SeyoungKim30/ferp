@@ -106,7 +106,8 @@ public class C2_Controller {
 	// 본사 재고 관리 조회
 	// http://localhost:6080/ferp/hInoutList.do
 	@RequestMapping("/hInoutList.do")
-	public String r8204InoutList(@ModelAttribute("sch") ProductProdOrder sch){
+	public String r8204InoutList(ProductProdOrder sch, Model d){
+		d.addAttribute("list", service.r8204InoutList(sch));
 		return "WEB-INF\\headquarter\\pg8204_inoutList.jsp";
 	}
 	

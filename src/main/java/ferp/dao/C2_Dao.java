@@ -25,7 +25,7 @@ public interface C2_Dao {
 	// 본사 재고 수정
 	public void r8203ProductUpt(Product upt);
 	// 본사 재고 관리 조회
-	
+	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch);
 	// 발주 상태 콤보
 	public List<String> orderStateCom();
 	// 직원스케줄 캘린더

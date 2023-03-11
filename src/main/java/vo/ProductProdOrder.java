@@ -17,7 +17,14 @@ public class ProductProdOrder {
 	private String orderState;
 	private String stockDate;
 	private int remainAmount;
+	private int applyAmount;
 	private String frRegiNum;
+	public int getApplyAmount() {
+		return applyAmount;
+	}
+	public void setApplyAmount(int applyAmount) {
+		this.applyAmount = applyAmount;
+	}
 	public int getRemainAmount() {
 		return remainAmount;
 	}

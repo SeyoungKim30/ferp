@@ -49,6 +49,12 @@
 	</update>
 	
 	<!-- 본사 재고 관리 조회 -->
+	<select id="r8204InoutList" resultType="productProdOrder" parameterType="productProdOrder">
+		SELECT s.STOCKDATE ,p.PRODUCTNUM ,p.PRODUCTNAME ,p.PRICE ,s.APPLYAMOUNT 
+		FROM PRODUCT p, STOCK s
+		WHERE p.PRODUCTNUM = s.PRODUCTNUM
+		
+	</select>
 	
 	<!-- 발주 상태 콤보 -->
 	<select id="orderStateCom" resultType="string">
