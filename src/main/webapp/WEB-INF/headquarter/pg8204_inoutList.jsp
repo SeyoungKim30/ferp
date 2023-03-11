@@ -40,35 +40,19 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		<h2>본사 재고 관리 조회</h2><br><hr><br>
-			<div class="toolbox">
-			<form class="toolbar" method="post">
-				<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
-				<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
-				<input class="inputbox" name="productName" value="${sch.productName}" placeholder="자재명 입력"/>
-				<input class="inputbox" name="opposite" value="${sch.opposite}" placeholder="거래처 입력"/>
-				<button class="btn-secondary" type="submit">검색</button>
-			    <button class="btn-primary" id="insBtn" type="button" 
-			    	onclick="location.href='${path}/hproductInsFrm.do'">자재등록</button>
-			</form>
-			</div>
-			
 			<div class="searchtab">
 				<table>
 				<thead>
-					<tr><th>입고일자</th><th>자재코드</th><th>카테고리명</th><th>자재명</th>
-						<th>거래처</th><th>단가</th><th>수량</th><th>비고</th></tr>
+					<tr><th>일자</th><th>자재코드</th><th>자재명</th><th>단가</th><th>수량</th></tr>
 				</thead>
 				<tbody>
-					<c:forEach var="prod" items="${plist}">
-			    	    <tr onclick="goDetail('${prod.productNum}')">
+					<c:forEach var="prod" items="${list}">
+			    	    <tr>
 			    	    	<td>${prod.stockDate}</td>
 			    	    	<td>${prod.productNum}</td>
-			    	    	<td>${prod.category}</td>
 			    	    	<td>${prod.productName}</td>
-			    	    	<td>${prod.opposite}</td>
 			    	    	<td><fmt:formatNumber value="${prod.price}" type='currency'/></td>
-			    	    	<td>${prod.amount}</td>
-			    	    	<td>${prod.remark}</td>
+			    	    	<td>${prod.applyAmount}</td>
 			    	    </tr>
 			    	</c:forEach>
 				</tbody>
