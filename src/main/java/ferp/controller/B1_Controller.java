@@ -7,12 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ferp.service.B1_Service;
 import vo.OpenTimeCalender;
 import vo.Orders;
+import vo.QA;
 import vo.Store;
 
 
@@ -38,7 +40,7 @@ public class B1_Controller {
 	public int r7501salesInfo() {
 		return service.lastmonthAllSales();
 	}
-	// 본사:매장별매출 전체조회
+	// 본사:전매장매출 전체조회
 	@RequestMapping("salesInfoJson.do")
 	public String r7503SalesInfoJson(Orders ord, Model d){
 		d.addAttribute("sbslist", service.salesByStoreList(ord));
@@ -63,7 +65,6 @@ public class B1_Controller {
 
 	// http://localhost:6080/ferp/qaList.do
 	// http://localhost:6080/ferp/qaStore.do
-	// http://localhost:6080/ferp/qaStoreDetail.do
 	/*매장QA점검*/
 	//본사:qa표항목전체출력
 	@RequestMapping("qaList.do")
@@ -75,33 +76,56 @@ public class B1_Controller {
 		d.addAttribute("qalist", service.qaList());
 		return "pageJsonReport";
 	}
-	//qa표 항목추가
+	//qa표 항목추가	
 	@PostMapping("qaAdd.do")
 	public String r6105qaAdd(@RequestParam("qaItem") String qaItem,  Model d) {
 		service.qaListIns(qaItem);
 		return "redirect:/qaList.do";
 	}
 	
+	
+	
 	//이달qa 전매장 조회
 	@RequestMapping("qaStore.do")
-	public String r6104qaStore(){
+	public String r6104qaStore(@ModelAttribute("sch") QA qa, Model d){
+		d.addAttribute("qaStrlist", service.qaStoresList(qa));
 		return 	"WEB-INF\\headquarter\\pg6104_QAstore.jsp";
 	}
 	@RequestMapping("qaStoreJson.do")
-	public String r6104qaStoreJson(Model d){
-		d.addAttribute("qaStrlist", service.qaStoresList());
+	public String r6104qaStoreJson(QA qa, Model d){
+		d.addAttribute("qaStrlist", service.qaStoresList(qa));
 		return 	"pageJsonReport";
 	}
 	
 	//이달qa 특정매장 
-	//매장정보 json으로 넘기기
-	@RequestMapping("qaStoreDetail.do")
-	public String r6104qaStoreDetail(){
+	//매장정보
+	@RequestMapping("qaDetailInfo.do")
+	public String r6104qaStoreDetail(@RequestParam("frRegiNum") String frRegiNum, Model d){
+		d.addAttribute("qdinfo", service.qaDetailStrinfo(frRegiNum));		
 		return 	"WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
 	} 
-	//결과표
-	
-	
+	//결과표 
+	@RequestMapping("qaDetailList.do")
+	public String r6104qaStoreDetailJson(QA qa, Model d) {
+		d.addAttribute("qaResultList",service.qaDetailList(qa) );
+		return "pageJsonReport";
+	}
+	/*
+	@RequestMapping("qaDetailList.do")
+	public String r6104qaStoreDetailJson(@RequestBody String frRegiNum, Model d) {
+		d.addAttribute("qaResultList",service.qaDetailList(frRegiNum) );
+		return "pageJsonReport";
+	}
+	*/
+	/*
+	@ModelAttribute("qaScore")
+	public String r6104qaStoreScore(@RequestParam("frRegiNum") String frRegiNum, QA qa, Model d) {
+		return service.qaDetailScore(frRegiNum, qa);	
+	}
+	*/
+	// http://localhost:6080/ferp/qaDetailList.do
+	// http://localhost:6080/ferp/qaStore.do
+
 	
 	
 	

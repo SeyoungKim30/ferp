@@ -3,7 +3,7 @@ package vo;
 public class QA { //실제 실행한 QA
 	
 	private String inspectionNum;
-	private String frRegiNum;
+	private String frRegiNum; 
 	private String qaNum;
 	private String results;
 	private String empnum;

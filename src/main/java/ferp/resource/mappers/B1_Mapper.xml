@@ -111,8 +111,8 @@
 	
 	
 	<!-- 본사:이달qa 전매장 조회 -->
-	<select id="qaStoresList" resultType="qa">
-		SELECT s.frreginum, frname, FRREPNAME, ename, frtel, inspectdte, regdte
+	<select id="qaStoresList" parameterType="qa" resultType="qa">
+		SELECT s.frreginum, frname, frRepName, ename, frtel, to_char(inspectdte, 'YYYY-MM-DD') inspectdte, to_char(regdte, 'YYYY-MM-DD') regdte
 		FROM store s, emp e, (  SELECT FRREGINUM, max(inspectdte) inspectdte, max(regdte) regdte
 								FROM QA 
 								WHERE trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')  
@@ -122,8 +122,8 @@
 		<if test="frname!=null and !frname.equals('')">
 		AND frname LIKE '%'||#{frname, jdbcType=VARCHAR}||'%'
 		</if>
-		<if test="frRepname!=null and !frRepname.equals('')">
-		AND frRepname LIKE '%'||#{frRepName, jdbcType=VARCHAR}||'%'
+		<if test="frRepName!=null and !frRepName.equals('')">
+		AND frRepName LIKE '%'||#{frRepName, jdbcType=VARCHAR}||'%'
 		</if>
 		<if test="ename!=null and !ename.equals('')">
 		AND ename LIKE '%'||#{ename, jdbcType=VARCHAR}||'%'
@@ -134,19 +134,20 @@
 	<!-- 본사:이달qa 특정매장 상세조회 -->
 	<!-- 매장정보 -->
 	<select id="qaDetailStrinfo" parameterType="string" resultType="qa">
-		SELECT DISTINCT  q.frreginum, frname, frtel, inspectdte, regdte, frrepname, ename
+		SELECT DISTINCT q.frreginum, frname, frtel, to_char(inspectdte, 'YYYY-MM-DD') inspectdte, to_char(regdte, 'YYYY-MM-DD') regdte, frrepname, ename
 		FROM store s, emp e, QA q
 		WHERE e.empnum=q.empnum and s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum 
 		AND q.frreginum=#{frRegiNum, jdbcType=VARCHAR}
 		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
+	
 	</select>
 	
 	<!-- qa결과표 -->
-	<select id="qaDetailList" parameterType="string" resultType="qa">
-		SELECT qaitem, results, comments
+	<select id="qaDetailList" parameterType="qa" resultType="qa">
+		SELECT qaitem, results, nvl(comments,' ') comments
 		FROM QA q, QACHECKLIST qck
 		WHERE q.qanum=qck.qanum
-		AND frreginum=#{frRegiNum, jdbcType=VARCHAR}
+		AND frRegiNum=#{frRegiNum, jdbcType=VARCHAR}
 		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 	</select>
 	
@@ -155,7 +156,7 @@
 		SELECT results, count(results) yncnt
 		FROM QA q, QACHECKLIST qck
 		WHERE q.qanum = qck.qanum
-		AND frreginum=#{frRegiNum, jdbcType=VARCHAR}
+		AND frRegiNum=#{frRegiNum, jdbcType=VARCHAR}
 		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 		GROUP BY results
 	</select>

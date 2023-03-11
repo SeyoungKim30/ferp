@@ -234,8 +234,16 @@ FROM store s, emp e, QA q
 WHERE e.empnum=q.empnum and s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum 
 AND q.frreginum='1234567891'
 AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH');
+
+
+SELECT DISTINCT  q.frreginum, frname, frtel, to_char(inspectdte, 'YYYY-MM-DD') inspectdte, to_char(regdte, 'YYYY-MM-DD') regdte, frrepname, ename
+		FROM store s, emp e, QA q
+		WHERE e.empnum=q.empnum and s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum 
+		AND q.frreginum='1234567891'
+		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH');
+
 --qa점검결과표
-SELECT qaitem, results, comments
+SELECT qaitem, results, nvl(comments,' ') comments
 FROM QA q, QACHECKLIST qck
 WHERE q.qanum=qck.qanum
 AND frreginum='1234567891'

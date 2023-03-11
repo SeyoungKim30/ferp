@@ -75,20 +75,41 @@ public class B1_Service {
 	}
 	
 	//이달qa 전매장 조회
-	public List<QA> qaStoresList(){
-		return dao.qaStoresList();
+	public List<QA> qaStoresList(QA qa){
+		return dao.qaStoresList(qa);
 	}
-	//이달qa 특정매장-매장정보 //json으로 넘기기
-	public List<QA> qaDetailStrinfo(String frRegiNum){
+	//이달qa 특정매장-매장정보 
+	public QA qaDetailStrinfo(String frRegiNum){
 		return dao.qaDetailStrinfo(frRegiNum);
 	}
 	//이달qa 특정매장-결과표  //json으로 넘기기
-	public List<QA> qaDetailList(String frRegiNum){
-		return dao.qaDetailList(frRegiNum);
+	public List<QA> qaDetailList(QA qa){
+		return dao.qaDetailList(qa);
 	}
 	//이달qa 특정매장-결과점수
-	public QA qaDetailScore(String frRegiNum) {
-		return dao.qaDetailScore(frRegiNum);
+	public String qaDetailScore(String frRegiNum, QA qa) {
+		dao.qaDetailScore(frRegiNum);
+		
+		qa = new QA();
+		int result = 0;
+		String score = "";
+		
+		if(qa.getQaItem()==("Y")) {
+			int yncnt = Integer.parseInt(qa.getYnCnt());
+			int qacnt = Integer.parseInt(qa.getQaNum());
+			result = yncnt/qacnt;
+			System.out.println("yncnt값 이게 아마 y개수   "+yncnt);
+			System.out.println("qacnt값 이게 아마 qa개수   "+qacnt);
+		}
+		if(result>0.9) {
+			score="이상없음";
+		}else if(result>0.7) {
+			score="경미";
+		}else{
+			score="심각";
+		}
+		
+		return score;
 	}
 	
 	

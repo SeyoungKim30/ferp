@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <title>점검결과조회</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
@@ -74,7 +73,7 @@
 			<!-- 검색 시작 -->
 			<div class="hdq_search">
 				<form method="post">
-					<input class="infoSch" name="frname" value="${sch.frName}"  type="text" placeholder=" 매장명 입력"/>
+					<input class="infoSch" name="frname" value="${sch.frname}"  type="text" placeholder=" 매장명 입력"/>
 					<input class="infoSch" name="frRepName" value="${sch.frRepName}"  type="text" placeholder=" 점주명 입력"/>
 					<input class="infoSch" name="ename"  value="${sch.ename}" type="text" placeholder=" 담당직원 입력"/>
 					<button class="frsalesSchBtn" type="submit">검색</button>
@@ -95,11 +94,7 @@
 					<thead>
 						<tr><th>매장명</th><th>매장번호</th><th>점주명</th><th>담당직원</th><th>점검예정일자</th><th>점검등록일자</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td>
-						</tr>
-					</tbody>
+					<tbody></tbody>
 				</table>
 			</div>
 			<!-- 정보출력표 끝 -->
@@ -131,15 +126,19 @@
 			//console.log(json);
 			var qaStrlist=json.qaStrlist;
 			var trtd='';
+			var tdclick='';
 			var tdDte='';
 			
 			qaStrlist.forEach(function(each){
-				if(each.regDte!=null){
 				
+				if(each.regDte!=null){
+					tdclick="<tr onclick='goDetail("+each.frRegiNum+")'>"
+					tdDte="<td>"+each.inspectDte+"</td><td>"+each.regDte+"</td></tr>"
 				}else{
-					
+					tdclick="<tr onclick='goAlert()'>"
+					tdDte="<td></td><td></td></tr>"
 				}
-				trtd+="<tr onclick='goDetail("+each.frRegiNum+")'><td class='leftdata'>"+each.frname+"</td><td>"+each.frRegiNum+"</td><td>"+each.frRepName+"</td><td>"+each.ename+"</td><td>"+each.inspectDte+"</td><td>"+each.regDte+"</td></tr>"
+				trtd+=tdclick+"<td class='leftdata'>"+each.frname+"</td><td>"+each.frRegiNum+"</td><td>"+each.frRepName+"</td><td>"+each.ename+"</td>"+tdDte
 			})
 			
 			$("table tbody").html(trtd);
@@ -164,7 +163,10 @@
 	})
 	
 	function goDetail(frRegiNum){
-		location.href="${path}/qaStoreDetail.do?frRegiNum="+frRegiNum
+		location.href="${path}/qaDetailInfo.do?frRegiNum="+frRegiNum
+	}
+	function goAlert(){
+		alert("아직 점검이 시행되지 않은 매장입니다\n점검이 완료된 후 점검배정일과 점검등록일이 출력됩니다.")
 	}
 	
 </script>
