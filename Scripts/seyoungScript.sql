@@ -3,6 +3,7 @@ SELECT * FROM STORE s ;
 SELECT * FROM emp;
 SELECT * FROM ACSTATEMENT;
 
+INSERT INTO store values('1234567893','23031000','연남센트럴파크점',sysdate,'09:00-23:00','연중무휴','김박자','02-457-4145','서울특별시 마포구 연남로12','1234','kim_se_0@naver.com');
 INSERT INTO ACCOUNT values('10100','자산','현금');
 ALTER TABLE statement RENAME TO ACStatement;
 ALTER TABLE ACSTATEMENT RENAME COLUMN debt TO debit;
