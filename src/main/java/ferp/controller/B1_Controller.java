@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -58,24 +58,51 @@ public class B1_Controller {
 		return "pageJsonReport";
 	}
 	
+	
+	
 
-	// http://localhost:6080/ferp/qaManage.do
+	// http://localhost:6080/ferp/qaList.do
 	// http://localhost:6080/ferp/qaStore.do
 	// http://localhost:6080/ferp/qaStoreDetail.do
 	/*매장QA점검*/
-	//본사:품질관리표등록삭제
-	@RequestMapping("qaManage.do")
+	//본사:qa표항목전체출력
+	@RequestMapping("qaList.do")
 	public String r6105qaMangement(){
 		return "WEB-INF\\headquarter\\pg6105_QAchecklist.jsp";
 	} 
+	@RequestMapping("qaListJson.do")
+	public String r6105qaMangementJson(Model d){
+		d.addAttribute("qalist", service.qaList());
+		return "pageJsonReport";
+	}
+	//qa표 항목추가
+	@PostMapping("qaAdd.do")
+	public String r6105qaAdd(@RequestParam("qaItem") String qaItem,  Model d) {
+		service.qaListIns(qaItem);
+		return "redirect:/qaList.do";
+	}
+	
+	//이달qa 전매장 조회
 	@RequestMapping("qaStore.do")
 	public String r6104qaStore(){
 		return 	"WEB-INF\\headquarter\\pg6104_QAstore.jsp";
 	}
+	@RequestMapping("qaStoreJson.do")
+	public String r6104qaStoreJson(Model d){
+		d.addAttribute("qaStrlist", service.qaStoresList());
+		return 	"pageJsonReport";
+	}
+	
+	//이달qa 특정매장 
+	//매장정보 json으로 넘기기
 	@RequestMapping("qaStoreDetail.do")
 	public String r6104qaStoreDetail(){
 		return 	"WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
 	} 
+	//결과표
+	
+	
+	
 	
 	
 	/*매장오픈점검*/

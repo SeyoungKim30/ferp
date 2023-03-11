@@ -216,6 +216,7 @@ UPDATE QACHECKLIST SET USABLE='A' WHERE qanum='1005'; --활성화
 UPDATE QACHECKLIST SET USABLE='DA' WHERE qanum='1005'; --비활성화
 INSERT INTO QACHECKLIST VALUES(qanum_seq.nextval||'', '테이블과 의자는 청결하게 관리되고 있는가','A'); --항목추가
 
+
 --이달qa 전매장 조회
 SELECT s.frreginum, frname, FRREPNAME, ename, frtel, inspectdte, regdte
 FROM store s, emp e, (  SELECT FRREGINUM, max(inspectdte) inspectdte, max(regdte) regdte
@@ -227,7 +228,26 @@ AND s.frreginum!='9999999999'
 ORDER BY inspectdte, frname; 
 
 --이달qa 특정매장 상세조회
-SELECT 
+--매장정보출력
+SELECT DISTINCT  q.frreginum, frname, frtel, inspectdte, regdte, frrepname, ename
+FROM store s, emp e, QA q
+WHERE e.empnum=q.empnum and s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum 
+AND q.frreginum='1234567891'
+AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH');
+--qa점검결과표
+SELECT qaitem, results, comments
+FROM QA q, QACHECKLIST qck
+WHERE q.qanum=qck.qanum
+AND frreginum='1234567891'
+AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
+ORDER BY q.qanum;
+--qa점검결과
+SELECT results, count(results)
+FROM QA q, QACHECKLIST qck
+WHERE q.qanum = qck.qanum
+AND frreginum='1234567891'
+AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
+GROUP BY results;
 
 
 

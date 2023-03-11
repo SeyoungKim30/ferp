@@ -75,7 +75,7 @@
 			<div class="hdq_search">
 				<form method="post">
 					<input class="infoSch" name="frname" value="${sch.frName}"  type="text" placeholder=" 매장명 입력"/>
-					<input class="infoSch" name="frRepname" value="${sch.frRepName}"  type="text" placeholder=" 점주명 입력"/>
+					<input class="infoSch" name="frRepName" value="${sch.frRepName}"  type="text" placeholder=" 점주명 입력"/>
 					<input class="infoSch" name="ename"  value="${sch.ename}" type="text" placeholder=" 담당직원 입력"/>
 					<button class="frsalesSchBtn" type="submit">검색</button>
 				</form>
@@ -97,7 +97,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="leftdata">wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td>
+							<td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td><td>wefgkfekl;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -117,6 +117,36 @@
 	localStorage.setItem("pageIdx","6202") //id값
 	localStorage.setItem("eqIdx","7000")
 	*/
+	
+	var frname = $("[name=frname]").val();
+	var frRepName = $("[name=frRepName]").val();
+	var ename = $("[name=ename]").val();
+	
+	//ajax fetch사용
+	function search(){
+		let url="${path}/qaStoreJson.do?frname="+frname+"&frRepName="+frRepName+"&ename="+ename //검색값 넘기기
+		//console.log(url);
+		
+		fetch(url).then(function(response){return response.json()}).then(function(json){
+			//console.log(json);
+			var qaStrlist=json.qaStrlist;
+			var trtd='';
+			var tdDte='';
+			
+			qaStrlist.forEach(function(each){
+				if(each.regDte!=null){
+				
+				}else{
+					
+				}
+				trtd+="<tr onclick='goDetail("+each.frRegiNum+")'><td class='leftdata'>"+each.frname+"</td><td>"+each.frRegiNum+"</td><td>"+each.frRepName+"</td><td>"+each.ename+"</td><td>"+each.inspectDte+"</td><td>"+each.regDte+"</td></tr>"
+			})
+			
+			$("table tbody").html(trtd);
+			//console.log(trtd);
+		}).catch(function(err){console.log(err)})	
+
+	}
 
 	$(document).ready(function(){
 	
@@ -133,9 +163,8 @@
 	
 	})
 	
-			
 	function goDetail(frRegiNum){
-		location.href="${path}/openTimeCalendar.do?writer="+frRegiNum
+		location.href="${path}/qaStoreDetail.do?frRegiNum="+frRegiNum
 	}
 	
 </script>

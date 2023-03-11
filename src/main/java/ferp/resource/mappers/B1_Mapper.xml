@@ -109,8 +109,9 @@
 		UPDATE QACHECKLIST SET USABLE=#{usable} WHERE qanum=#{qaNum}
 	</update>
 	
+	
 	<!-- 본사:이달qa 전매장 조회 -->
-	<select id="qaStoreList" resultType="qa">
+	<select id="qaStoresList" resultType="qa">
 		SELECT s.frreginum, frname, FRREPNAME, ename, frtel, inspectdte, regdte
 		FROM store s, emp e, (  SELECT FRREGINUM, max(inspectdte) inspectdte, max(regdte) regdte
 								FROM QA 
@@ -118,13 +119,47 @@
 								GROUP BY FRREGINUM) q
 		WHERE s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum(+)
 		AND s.frreginum!='9999999999'
+		<if test="frname!=null and !frname.equals('')">
+		AND frname LIKE '%'||#{frname, jdbcType=VARCHAR}||'%'
+		</if>
+		<if test="frRepname!=null and !frRepname.equals('')">
+		AND frRepname LIKE '%'||#{frRepName, jdbcType=VARCHAR}||'%'
+		</if>
+		<if test="ename!=null and !ename.equals('')">
+		AND ename LIKE '%'||#{ename, jdbcType=VARCHAR}||'%'
+		</if>
 		ORDER BY inspectdte, frname
 	</select>
 	
 	<!-- 본사:이달qa 특정매장 상세조회 -->
-	<select id="qaDetailList">
-	
+	<!-- 매장정보 -->
+	<select id="qaDetailStrinfo" parameterType="string" resultType="qa">
+		SELECT DISTINCT  q.frreginum, frname, frtel, inspectdte, regdte, frrepname, ename
+		FROM store s, emp e, QA q
+		WHERE e.empnum=q.empnum and s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum 
+		AND q.frreginum=#{frRegiNum, jdbcType=VARCHAR}
+		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 	</select>
+	
+	<!-- qa결과표 -->
+	<select id="qaDetailList" parameterType="string" resultType="qa">
+		SELECT qaitem, results, comments
+		FROM QA q, QACHECKLIST qck
+		WHERE q.qanum=qck.qanum
+		AND frreginum=#{frRegiNum, jdbcType=VARCHAR}
+		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
+	</select>
+	
+	<!-- qa결과점수 -->
+	<select id="qaDetailScore" parameterType="string" resultType="qa">
+		SELECT results, count(results) yncnt
+		FROM QA q, QACHECKLIST qck
+		WHERE q.qanum = qck.qanum
+		AND frreginum=#{frRegiNum, jdbcType=VARCHAR}
+		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
+		GROUP BY results
+	</select>
+	
 	
 	
 	

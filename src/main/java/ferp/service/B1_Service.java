@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import ferp.dao.B1_Dao;
 import vo.OpenTimeCalender;
 import vo.Orders;
+import vo.QA;
+import vo.QAchecklist;
 import vo.Store;
 
 @Service
@@ -20,7 +22,7 @@ public class B1_Service {
 	@Autowired(required=false)
 	private B1_Dao dao;
 	
-	//매장정보조회	
+	/*매장정보조회*/	
 	//본사:지난달전체매장매출총액
 	public int lastmonthAllSales() {
 		return dao.lastmonthAllSales();
@@ -56,7 +58,42 @@ public class B1_Service {
 	}
 	
 	
-	//매장오픈점검
+	
+	/*매장qa점검*/
+	//qa표항목전체출력
+	public List<QAchecklist> qaList(){
+		return dao.qaList();
+	};
+	//qa표항목추가등록
+	public void qaListIns(String qaItem) {
+		dao.qaListIns(qaItem);
+	}
+	//qa표항목활성.비활성화
+	public String qaListUpt(QAchecklist upt) {
+		dao.qaListUpt(upt);
+		return upt.getUsable();
+	}
+	
+	//이달qa 전매장 조회
+	public List<QA> qaStoresList(){
+		return dao.qaStoresList();
+	}
+	//이달qa 특정매장-매장정보 //json으로 넘기기
+	public List<QA> qaDetailStrinfo(String frRegiNum){
+		return dao.qaDetailStrinfo(frRegiNum);
+	}
+	//이달qa 특정매장-결과표  //json으로 넘기기
+	public List<QA> qaDetailList(String frRegiNum){
+		return dao.qaDetailList(frRegiNum);
+	}
+	//이달qa 특정매장-결과점수
+	public QA qaDetailScore(String frRegiNum) {
+		return dao.qaDetailScore(frRegiNum);
+	}
+	
+	
+	
+	/*매장오픈점검*/
 	//본사:전매장오픈시간조회
 	public List<Store> storeOpenList(Store otl) {
 		return dao.storeOpenList(otl);

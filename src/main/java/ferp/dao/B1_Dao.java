@@ -21,11 +21,13 @@ public interface B1_Dao {
 	
 	//QA점검
 	public List<QAchecklist> qaList(); //qa표항목전체출력
-	public void qaListIns(QAchecklist ins); //qa표항목추가등록
+	public void qaListIns(String qaItem); //qa표항목추가등록
 	public void qaListUpt(QAchecklist upt); //qa표항목활성.비활성화
 	
-	public List<QA> qaStoreList(); //이달qa 전매장 조회
-	public List<QA> qaDetailList(); //이달qa 특정매장 상세조회
+	public List<QA> qaStoresList(); //이달qa 전매장 조회
+	public List<QA> qaDetailStrinfo(String frRegiNum); //이달qa 상세조회-매장정보
+	public List<QA> qaDetailList(String frRegiNum);  //이달qa 상세조회-결과표
+	public QA qaDetailScore(String frRegiNum); //이달qa 상세조회-점수
 	
 	
 	//매장오픈점검
