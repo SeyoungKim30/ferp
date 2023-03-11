@@ -38,4 +38,8 @@ public interface C1_Dao {
 	
 	//모든 store 리스트
 	public List<Store> selectActiveStore();
+	
+	//가맹점 비밀번호
+	public Store r1003tempPassword(Store store);
+	public int r1003updatePassword(Store store);
 }

@@ -219,5 +219,11 @@ ORDER BY CATEGORY
 	select * from store where frPass IS NOT NULL 
 	</select>
 	
-
+	<select id="r1003tempPassword" resultType="store" parameterType="store">
+	select * from store where frRegiNum = #{frRegiNum} and frRepName=#{frRepName} and email=#{email}
+	</select>
+	
+	<update id="r1003updatePassword" parameterType="store">
+	update store set frPass =#{frPass} where frRegiNum = #{frRegiNum} and frRepName=#{frRepName}
+	</update>
 </mapper>
