@@ -82,6 +82,9 @@ public class C2_Service {
 	}
 	
 	// 본사 재고 관리 조회
+	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch){
+		return dao.r8204InoutList(sch);
+	}
 	
 	// 발주 상태 콤보
 	public List<String> orderStateCom(){

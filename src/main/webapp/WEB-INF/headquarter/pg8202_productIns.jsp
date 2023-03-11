@@ -62,17 +62,23 @@ body{
 			<form method="post" enctype="multipart/form-data"
 				action="${path}/hproductIns.do" novalidate>
 				<table>
-					<tr><th><label for="category">카테고리명</label></th><td><input type="text" name="category" value="${param.category}" 
-						class="ckValid" id="category" placeholder="카테고리명 입력" required></td></tr>
-					<tr><th><label for="productName">자재명</label></th><td><input type="text" name="productName" value="${param.productName}" 
-						class="ckValid" id="productName" placeholder="자재명 입력" required></td></tr>
-					<tr><th><label for="opposite">거래처</label></th><td><input type="text" name="opposite" value="${param.opposite}"
-						class="ckValid"	id="opposite" placeholder="거래처 입력" required></td></tr>
-					<tr><th><label for="price">단가</label></th><td><input type="text" name="price" value="${param.price}"
-						class="ckValid" id="price" placeholder="단가 입력" required></td></tr>
-					<tr><th><label class="custom-file-label" for="file01">이미지</label></th><td><input type="file" name="multipartfile" id="file01"></td></tr>
-					<tr><th><label for="remark">비고</label></th><td><input type="text" name="remark" value="${param.remark}" 
-						class="ckValid" id="remark" placeholder="비고 입력" required></td></tr>
+					<tr><th><label for="category">카테고리명</label></th>
+						<td><input type="text" name="category" value="${param.category}" 
+							class="ckValid" id="category" placeholder="카테고리명 입력" required></td></tr>
+					<tr><th><label for="productName">자재명</label></th>
+						<td><input type="text" name="productName" value="${param.productName}" 
+							class="ckValid" id="productName" placeholder="자재명 입력" required></td></tr>
+					<tr><th><label for="opposite">거래처</label></th>
+						<td><input type="text" name="opposite" value="${param.opposite}"
+							class="ckValid"	id="opposite" placeholder="거래처 입력" required></td></tr>
+					<tr><th><label for="price">단가</label></th>
+						<td><input type="text" name="price" value="${param.price}"
+							class="ckValid" id="price" placeholder="단가 입력" required></td></tr>
+					<tr><th><label for="remark">비고</label></th>
+						<td><input type="text" name="remark" value="${param.remark}" 
+							id="remark" placeholder="비고 입력"></td></tr>
+					<tr><th><label class="custom-file-label" for="file01">이미지</label></th>
+						<td><input type="file" name="multipartfile" id="file01"></td></tr>
 				</table>
 				<!-- 
 				<div>
