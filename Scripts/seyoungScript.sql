@@ -3,9 +3,12 @@ SELECT * FROM STORE s ;
 SELECT * FROM emp;
 SELECT * FROM ACSTATEMENT;
 
+INSERT INTO store values('1234567893','23031000','연남센트럴파크점',sysdate,'09:00-23:00','연중무휴','김박자','02-457-4145','서울특별시 마포구 연남로12','1234','kim_se_0@naver.com');
 INSERT INTO ACCOUNT values('10100','자산','현금');
 ALTER TABLE statement RENAME TO ACStatement;
 ALTER TABLE ACSTATEMENT RENAME COLUMN debt TO debit;
+
+UPDATE store SET FRNAME ='투썸플레이스 본사', FRREPNAME ='김박박' WHERE frreginum='9999999999';
 
 UPDATE account SET ACNTUSING = 0 WHERE acntnum='10110';
 
@@ -279,3 +282,16 @@ INSERT INTO stock VALUES ('PD10001','9999999999',sysdate,100,100,null);
 INSERT INTO stock VALUES ('PD10022','9999999999',sysdate,40,40,null);*/
 
 SELECT * FROM emp;
+
+SELECT * FROM stock s, PRODORDER p WHERE s.PRODUCTNUM =p.PRODUCTNUM ;
+
+--조건받아서 insert into acstmt
+SELECT * FROM prodOrder po,
+		product pd, 
+		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se
+WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
+	AND TRUNC(ORDERDATE,'month') = TO_DATE('2023-03','YYYY-MM')
+	AND empnum LIKE '%'||'22051002'||'%'
+	AND PAYMENTSTATE LIKE '%'||''||'%'
+	;
+

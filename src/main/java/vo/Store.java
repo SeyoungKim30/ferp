@@ -11,7 +11,8 @@ public class Store {
 	private String frTel;
 	private String frAddress;
 	private String frPass;
-	
+	private String email;
+
 	// 본사:매장오픈시간조회
 	private String ename;
 	private String opentime;
@@ -107,5 +108,11 @@ public class Store {
 		this.opentime = opentime;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 }

@@ -74,6 +74,12 @@ public class C1_Controller {
 		model.addAttribute("stmtList",service.r7211selectACStatement(acstmt));
 		return "WEB-INF\\headquarter\\pg7210_ACstatement.jsp";
 	}
+	//http://localhost:6080/ferp/selectACstatementJson.do
+	@RequestMapping("selectACstatementJson.do")
+	public String r7211selectACStatementJson(ACStatement acstmt,Model model) {
+		model.addAttribute("stmtList",service.r7211selectACStatement(acstmt));
+		return "pageJsonReport";
+	}
 	
 	@RequestMapping("updateACstatement.do")
 	public String r7212updateACStatement(ACStatement acstmt) {
@@ -137,8 +143,10 @@ public class C1_Controller {
 	
 	@RequestMapping("updateProdOrderPayState.do")
 	@ResponseBody
-	public String r9311updateProdOrderPayState(Model model,ProdOrder prodOrder) {
-		int a=service.r9311updateProdOrderPayState(prodOrder);
+	public String r9311updateProdOrderPayState(Model model,ProdOrder prodOrder,
+								@RequestParam(value = "price",required = false,defaultValue = "0") int price,
+								@RequestParam(value = "tax",required = false,defaultValue = "0") int tax) {
+		int a=service.r9311updateProdOrderPayState(prodOrder,price,tax);
 		return a+"";
 	}
 
