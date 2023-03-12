@@ -74,6 +74,8 @@ input{
 
 pre{
 	white-space: pre-line;
+	font-family: '맑은 고딕';
+    font-size: 15px;
 }
 
 .notice_content{

@@ -45,7 +45,7 @@ public class B2_Controller {
    @ModelAttribute("noticeCombo")
    public List<Notice> getNotice(){
 	   return service.getNotice();
-   }
+   }	
 	
 	// 본사 홈페이지 controller
 	@RequestMapping("/mainpage.do")
