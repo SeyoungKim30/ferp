@@ -118,7 +118,7 @@
 		<insert id="insOnsale" parameterType="onsale">
 			INSERT INTO ONSALE VALUES(
 				#{menuNum},
-				#{FrRegiNum}
+				#{frRegiNum}
 			)
 		</insert>
 		
@@ -130,6 +130,11 @@
 		</select>
 		
 		<!-- 판매할 메뉴 삭제 -->
+		<delete id="delOnsale" parameterType="onsale">
+		DELETE ONSALE 
+		WHERE MENUNUM = #{menuNum}
+		AND FRREGINUM = #{frRegiNum}
+		</delete>
 		
 		<!-- 키오스크에서 orders 테이블로 삽입할 때 -->
 			<insert id="insertOrdersList" parameterType="orders">

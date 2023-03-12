@@ -157,12 +157,26 @@ public class A1_Controller {
    @RequestMapping("/insOnsale.do")
    public String insOnsale(Onsale ins, 
 		   				@RequestParam("menuNum")String menuNum,
-		   				@RequestParam("frRegiNum")String frRegiNum
+		   				HttpSession session
 		   ) {
-	  ins.setFrRegiNum(frRegiNum);
+	  Store st = (Store)session.getAttribute("login");
+	  ins.setFrRegiNum(st.getFrRegiNum());
 	  ins.setMenuNum(menuNum);
       service.insOnsale(ins);
-      return "redirect:/showMenu.do";
+      return "redirect:/onsaleList.do";
+   }
+   
+   // 판매 삭제할 메뉴
+   @RequestMapping("/delOnsale.do")
+   public String delOnsale(Onsale ins, 
+		   @RequestParam("menuNum")String menuNum,
+		   HttpSession session
+		   ) {
+	   Store st = (Store)session.getAttribute("login");
+	   ins.setFrRegiNum(st.getFrRegiNum());
+	   ins.setMenuNum(menuNum);
+	   service.delOnsale(ins);
+	   return "redirect:/onsaleList.do";
    }
    
    // 키오스크 결제 페이지 호출

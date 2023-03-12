@@ -58,24 +58,21 @@
 				<tbody>
 					<c:forEach var="mn" items="${showAllMenu}">
 						<tr>
-							<!-- 
-							<form class="menuaddFm">
-							<input name="menuNum" type="hidden" value="${mn.menuNum}">
-							</form>
-							 -->
-								<td>${mn.menuName}</td>
-								<td>
-									<fmt:formatNumber value="${mn.price }" pattern="#,###" />￦
-								</td>
-								<td class="infoTextTd">${mn.info}</td>
-								<td>
-									<c:if test="${mn.necessary == 'N'}">
-									<button class="addMenu btn-primary">등록</button>
-									</c:if>
-									<c:if test="${mn.necessary == 'Y'}">
-									<span class="necessarySpan">필수 판매 메뉴입니다.</span>
-									</c:if>
-								</td>
+							<td>${mn.menuName}</td>
+							
+							<td>
+								<fmt:formatNumber value="${mn.price }" pattern="#,###" />￦
+							</td>
+							<td class="infoTextTd">${mn.info}</td>
+							<td>
+								<input name="menuNum" type="hidden" value="${mn.menuNum}">
+								<c:if test="${mn.necessary == 'N'}">
+								<button class="addMenu btn-primary">등록</button>
+								</c:if>
+								<c:if test="${mn.necessary == 'Y'}">
+								<span class="necessarySpan">필수 판매 메뉴입니다.</span>
+								</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -91,7 +88,7 @@ $(document).ready(function() {
 	
 	$(".addMenu").click(function () {
 		var menuNum = $(this).closest('tr').find('input[name="menuNum"]').val();
-		
+		console.log(menuNum);
 		  Swal.fire({
 			  title: '메뉴를 추가하시겠습니까?',
 			  icon: 'question',
@@ -101,13 +98,12 @@ $(document).ready(function() {
 			  confirmButtonText: '등록',
 			  cancelButtonText: '취소'
 			}).then((result) => {
-				if(result.value){					
+				if(result.value){				
 					location.href='${path}/insOnsale.do?menuNum='+menuNum+'&frRegiNum='+fn;
 				}
-			})
-	})
+			});
+	});
 	
-
 });
 
 </script>

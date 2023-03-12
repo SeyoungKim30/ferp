@@ -60,8 +60,9 @@
 								</td>
 								<td class="infoText">${mn.info}</td>
 								<td>
+									<input name="menuNum" type="hidden" value="${mn.menuNum}">
 									<c:if test="${mn.necessary == 'N'}">
-									<button class="btn-primary">삭제</button>
+									<button class="delBtn btn-primary">삭제</button>
 									</c:if>
 									<c:if test="${mn.necessary == 'Y'}">
 									<span class="necessarySpan">필수 판매 메뉴입니다.</span>
@@ -76,6 +77,29 @@
 </body>
 <script type="text/javascript">
 
-
+$(document).ready(function() {
+	
+	var fn = ${login.frRegiNum};
+	
+	
+	$(".delBtn").click(function () {
+		var menuNum = $(this).closest('tr').find('input[name="menuNum"]').val();
+		console.log(menuNum);
+		  Swal.fire({
+			  title: '메뉴를 삭제하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#2262F3',
+			  cancelButtonColor: '#888',
+			  confirmButtonText: '삭제',
+			  cancelButtonText: '취소'
+			}).then((result) => {
+				if(result.value){				
+					location.href='${path}/delOnsale.do?menuNum='+menuNum;
+				}
+			});
+	});
+	
+});
 </script>
 </html>

@@ -19,6 +19,7 @@ public class Onsale {
 	public void setFrRegiNum(String frRegiNum) {
 		this.frRegiNum = frRegiNum;
 	}
+
 	
 	
 	

@@ -71,6 +71,11 @@ public class A1_Service {
 		dao.insOnsale(ins);
 	}
 	
+	// 판매 메뉴 삭제
+	public void delOnsale(Onsale del) {
+		dao.delOnsale(del);
+	}
+	
 	// 본사 제공 전체 메뉴
 	public List<Menu> getAllMenu(Menu sch){
 		if(sch.getMenuName()==null) sch.setMenuName("");
