@@ -32,6 +32,7 @@
 		<typeAlias alias="pos" type="vo.Prod_order_stock"/>
 		<typeAlias alias="qa" type="vo.QA"/>
 		<typeAlias alias="qachecklist" type="vo.QAchecklist"/>
+		<typeAlias alias="defectorder" type="vo.DefectOrder"/>
 	</typeAliases>
 			
 <mappers>

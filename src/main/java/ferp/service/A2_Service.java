@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ferp.dao.A2_Dao;
 import vo.ClerkFile;
+import vo.DefectOrder;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
@@ -123,5 +124,10 @@ public class A2_Service {
 	}
 	public void clerkFileDel(ClerkFile del) {
 		dao.clerkFileDel(del);
+	}
+	public List<DefectOrder> viewDefectorder(DefectOrder sch){
+		if(sch.getOrderNum() == null) sch.setOrderNum("");
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
+		return dao.viewDefectorder(sch);
 	}
 }

@@ -128,14 +128,14 @@
 		AND CLERKNUM = #{clerkNum}
 		AND FRREGINUM  = #{frRegiNum}
 	</delete>
-	<select id="" parameterType="" resultType="">
+	<select id="viewDefectorder" parameterType="defectorder" resultType="defectorder">
 		SELECT p.ORDERNUM, p2.productName
 		FROM DEFECTORDER d, PRODORDER p, PRODUCT p2 
 		WHERE d.ORDERNUM = p.ORDERNUM 
 		AND d.ORDERDATE = p.ORDERDATE 
 		AND p.PRODUCTNUM = p2.PRODUCTNUM 
-		AND frreginum = '1234567891'
-		AND p.ORDERNUM LIKE '%'||''||'%' 
-		AND p.orderdate LIKE '%'||''||'%'
+		AND frreginum = #{frRegiNum}
+		AND p.ORDERNUM LIKE '%'||#{orderNum}||'%' 
+		AND p.orderdate LIKE '%'||to_date(#{orderDate},'yyyy-mm-dd hh24:mi:ss')||'%'
 	</select>
 </mapper>

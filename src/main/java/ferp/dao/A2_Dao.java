@@ -3,6 +3,7 @@ package ferp.dao;
 import java.util.List;
 
 import vo.ClerkFile;
+import vo.DefectOrder;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
@@ -26,4 +27,5 @@ public interface A2_Dao {
 	public List<ClerkFile> viewClerkFileInfo(ClerkFile sch);
 	public void clerkFileUpt(ClerkFile upt);
 	public void clerkFileDel(ClerkFile del);
+	public List<DefectOrder> viewDefectorder(DefectOrder sch);
 }

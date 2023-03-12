@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ferp.service.A2_Service;
 import vo.ClerkFile;
+import vo.DefectOrder;
 import vo.Emp;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
@@ -172,16 +173,6 @@ public class A2_Controller {
 		return "redirect:storeClerkList.do";
 	}
 //	직원 서류 리스트 조회
-//	@ModelAttribute("flist")
-//	public List<ClerkFile> pg3104_view(ClerkFile sch, HttpSession session) {
-//		Store s = (Store)session.getAttribute("login");
-//		sch.setFrRegiNum(s.getFrRegiNum());
-//		return service.viewClerkFileInfo(sch);
-//	}
-//	@GetMapping("/fileListAjax.do")
-//	public String pg3104_test1(ClerkFile sch) {
-//		return "/WEB-INF/storeclerk/A2_storeClerkListCon.jsp";
-//	}
 	@PostMapping("/fileListAjaxSch.do")
 	public String pg3104_test2(ClerkFile sch, HttpSession session, Model d) {
 		Store s = (Store)session.getAttribute("login");
@@ -208,5 +199,13 @@ public class A2_Controller {
 			d.addAttribute("msg", "파일이 존재하지 않습니다.");
 		}
 		return "redirect:storeClerkList.do";
+	}
+//	오배송/누락/자재 파손 처리 신청
+	
+//	오배송/누락/자재 파손 처리 신청 상태 조회
+	@GetMapping("/viewDefectProd.do")
+	public String pg9402(DefectOrder sch, Model d) {
+		d.addAttribute("defectlist", service.viewDefectorder(sch));
+		return "/WEB-INF/storeclerk/A2_defectOrderCon.jsp";
 	}
 }
