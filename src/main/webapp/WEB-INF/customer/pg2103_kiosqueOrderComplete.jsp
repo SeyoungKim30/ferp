@@ -43,21 +43,18 @@
 	}
 	
 	
-	.howbox{
-		text-align: center;
-		cursor: pointer;
+	p{
+	    text-align: center;
+	    font-size: 30px;
+	    color: #2262F3;
+	    font-weight: 500;
+	    line-height: 55px;
+	    padding: 100px 0;
 	}
 	
-	.howtoPay{
-		display: flex;
-		justify-content: center;
-	    gap: 140px;
-	    padding: 50px 0;
-	}
-	
-	.howbox>span{
-	    font-size: 20px;
-    	line-height: 45px;
+	.orderNum{
+		font-size: 45px;
+		font-weight: 600;
 	}
 </style>
 </head>
@@ -65,27 +62,19 @@
 <body>
 	<div class="wrap_container">
 		<div class="headerTop">
-			결제하기
+			결제 완료
 		</div>
-		<div class="howtoPay">
-			<div class="howbox kakao">
-				<img alt="" src="${path}/resource/img/kakao.png"><br>
-				<span>카카오페이</span>
-			</div>
-			<div class="howbox card">
-				<img alt="" src="${path}/resource/img/card.png"><br>
-				<span>카드 결제</span>
-			</div>
-			<div class="howbox cash">
-				<img alt="" src="${path}/resource/img/cash.png"><br>
-				<span>현금 결제</span>
-			</div>
-		</div>
-		<p>${orderNum}</p>
+		<p>감사합니다.<br>
+		결제가 완료되었습니다.<br>
+		주문번호 : <span class="orderNum">${orderNum}</span></p>
 	</div>	
 </body>
 <script type="text/javascript">
 'use strict';
 
+var orderNum = $(".orderNum").text();
+orderNum = orderNum.substr(-4);
+
+$(".orderNum").text(orderNum);
 </script>
 </html>
