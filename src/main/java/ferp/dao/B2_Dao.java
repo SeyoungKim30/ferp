@@ -67,4 +67,7 @@ public interface B2_Dao {
 	// 문의글 수정
 	public void updateQnA(Notice upt);
 	
+	// 메인 페이지에서 최근 10개 공지사항 combo
+	public List<Notice> getNotice();
+	
 }

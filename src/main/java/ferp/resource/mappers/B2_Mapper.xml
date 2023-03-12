@@ -201,4 +201,18 @@
 			category = #{category}
 		WHERE noticeNum = #{noticeNum}
 	</update>
+	
+	<!-- 최근 10개 공지사항만 출력 -->
+	<select id="getNotice" resultType="notice">
+	<![CDATA[
+		SELECT *
+		FROM (
+			SELECT rownum cnt, n.*
+			FROM notice n
+			WHERE noticenum LIKE '%'||'N'||'%'
+			ORDER BY regdte DESC
+		)
+		WHERE rownum <= 10
+	]]>
+	</select>
 </mapper>

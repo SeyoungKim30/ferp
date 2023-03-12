@@ -272,5 +272,10 @@ public class B2_Service {
 		
 		return noticeNum;
 	}
+	
+	// 메인 페이지에서 최근 10개 공지사항 combo
+	public List<Notice> getNotice(){
+		return dao.getNotice();
+	}
 }
 
