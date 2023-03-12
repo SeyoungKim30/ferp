@@ -295,8 +295,9 @@ function closePopupNotToday(){
 	setCookie('notToday','Y', 1);
 	$("#main_popup").hide('fade');
 }
+
 function setCookie(name, value, expiredays) {
-var today = new Date();
+	var today = new Date();
     today.setDate(today.getDate() + expiredays);
 
     document.cookie = name + '=' + escape(value) + '; path=/; expires=' + today.toGMTString() + ';'

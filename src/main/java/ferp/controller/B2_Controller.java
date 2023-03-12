@@ -42,7 +42,10 @@ public class B2_Controller {
 	public List<String> getDname(){
 		return service.getDname();
 	}
-	
+   @ModelAttribute("noticeCombo")
+   public List<Notice> getNotice(){
+	   return service.getNotice();
+   }
 	
 	// 본사 홈페이지 controller
 	@RequestMapping("/mainpage.do")

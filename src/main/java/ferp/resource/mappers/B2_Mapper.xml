@@ -24,7 +24,7 @@
 	<!-- 매장정보 등록 -->
 	<insert id="insertStore" parameterType="store">
 		INSERT INTO store VALUES(#{frRegiNum}, #{eno}, #{frName}, #{frOpen}, 
-			#{frOperTime}, #{frClosedDte}, #{frRepName}, #{frTel}, #{frAddress}, #{frPass})
+			#{frOperTime}, #{frClosedDte}, #{frRepName}, #{frTel}, #{frAddress}, #{frPass}, #{email})
 	</insert>
 	<!-- 매장정보 수정 -->
 	<update id="updateStore" parameterType="store">
@@ -201,4 +201,18 @@
 			category = #{category}
 		WHERE noticeNum = #{noticeNum}
 	</update>
+	
+	<!-- 최근 10개 공지사항만 출력 -->
+	<select id="getNotice" resultType="notice">
+	<![CDATA[
+		SELECT *
+		FROM (
+			SELECT rownum cnt, n.*
+			FROM notice n
+			WHERE noticenum LIKE '%'||'N'||'%'
+			ORDER BY regdte DESC
+		)
+		WHERE rownum <= 10
+	]]>
+	</select>
 </mapper>
