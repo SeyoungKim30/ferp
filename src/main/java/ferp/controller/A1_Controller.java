@@ -155,12 +155,14 @@ public class A1_Controller {
    
    // 판매할 메뉴 등록
    @RequestMapping("/insOnsale.do")
-   public String insOnsale(Onsale ins, Model d, HttpSession session) {
-      Store st = (Store)session.getAttribute("login");
-      ins.setFrRegiNum(st.getFrRegiNum());
+   public String insOnsale(Onsale ins, 
+		   				@RequestParam("menuNum")String menuNum,
+		   				@RequestParam("frRegiNum")String frRegiNum
+		   ) {
+	  ins.setFrRegiNum(frRegiNum);
+	  ins.setMenuNum(menuNum);
       service.insOnsale(ins);
-      d.addAttribute("msg","판매 메뉴가 추가되었습니다.");
-      return "pageJsonReport";
+      return "redirect:/showMenu.do";
    }
    
    // 키오스크 결제 페이지 호출

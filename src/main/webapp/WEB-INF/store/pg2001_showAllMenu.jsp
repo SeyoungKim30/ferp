@@ -70,7 +70,7 @@
 								<td class="infoTextTd">${mn.info}</td>
 								<td>
 									<c:if test="${mn.necessary == 'N'}">
-									<button class="btn-primary">등록</button>
+									<button class="addMenu btn-primary">등록</button>
 									</c:if>
 									<c:if test="${mn.necessary == 'Y'}">
 									<span class="necessarySpan">필수 판매 메뉴입니다.</span>
@@ -84,7 +84,31 @@
 	</div>
 </body>
 <script type="text/javascript">
+$(document).ready(function() {
+	
+	var fn = ${login.frRegiNum};
+	
+	
+	$(".addMenu").click(function () {
+		var menuNum = $(this).closest('tr').find('input[name="menuNum"]').val();
+		
+		  Swal.fire({
+			  title: '메뉴를 추가하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true,
+			  confirmButtonColor: '#2262F3',
+			  cancelButtonColor: '#888',
+			  confirmButtonText: '등록',
+			  cancelButtonText: '취소'
+			}).then((result) => {
+				if(result.value){					
+					location.href='${path}/insOnsale.do?menuNum='+menuNum+'&frRegiNum='+fn;
+				}
+			})
+	})
+	
 
+});
 
 </script>
 </html>
