@@ -13,6 +13,7 @@ import ferp.dao.C2_Dao;
 import vo.Product;
 import vo.ProductProdOrder;
 import vo.ScheduleCalender;
+import vo.Stock;
 
 @Service
 public class C2_Service {
@@ -23,6 +24,7 @@ public class C2_Service {
 	// 업로드할 경로 지정
 	@Value("${upload2}")
 	private String upload;
+	
 	// 자재 이미지 업로드
 	public String upload(MultipartFile multipartfile) {
 		String img = multipartfile.getOriginalFilename();
@@ -54,11 +56,21 @@ public class C2_Service {
 		return dao.r8101ProductInfo(productNum);
 	}
 	
-	// 매장 재고 관리 등록
+	// 본사/매장 재고 관리 조회
+	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch){
+		return dao.r8204InoutList(sch);
+	}
 	
-	// 매장 재고 관리 조회
+	// 매장 재고 관리 등록
+	public void r8103InoutIns(Stock ins) {
+		dao.r8103InoutIns(ins);
+	}
 	
 	// 매장 재고 관리 수정
+	public String r8104InoutIns(Stock upt) {
+		dao.r8104InoutIns(upt);	
+		return upt.getProductNum();
+	}
 	
 	// 매장 재고 관리 삭제
 	
@@ -81,16 +93,13 @@ public class C2_Service {
 		return upt.getProductNum();
 	}
 	
-	// 본사 재고 관리 조회
-	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch){
-		return dao.r8204InoutList(sch);
-	}
-	
 	// 발주 상태 콤보
 	public List<String> orderStateCom(){
 		return dao.orderStateCom();
 	}
 	
+	// 직원스케줄 캘린더 등록	
+
 	// 직원스케줄 캘린더
 	public List<ScheduleCalender> sclerkschd(String writer){
 		return dao.sclerkschd(writer);

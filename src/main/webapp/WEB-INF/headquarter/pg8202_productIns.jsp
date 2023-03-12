@@ -80,44 +80,6 @@ body{
 					<tr><th><label class="custom-file-label" for="file01">이미지</label></th>
 						<td><input type="file" name="multipartfile" id="file01"></td></tr>
 				</table>
-				<!-- 
-				<div>
-					<label for="productNum">자재코드</label> 
-					<input name="productNum" type="text" value="${param.productNum}" 
-						class="ckValid" id="productNum" placeholder="자재코드 입력" required>
-				</div>
-				<div>
-					<label for="category">카테고리명</label> 
-					<input type="text" name="category" value="${param.category}" 
-						class="ckValid" id="category" placeholder="카테고리명 입력" required>
-				</div>
-				<div>
-					<label for="productName">자재명</label> 
-					<input type="text" name="productName" value="${param.productName}" 
-						class="ckValid" id="productName" placeholder="자재명 입력" required>
-				</div>
-				<div>
-					<label for="opposite">거래처</label> 
-					<input type="text" name="opposite" value="${param.opposite}"
-						class="ckValid"	id="opposite" placeholder="거래처 입력" required>
-				</div>
-				<div>
-					<label for="price">단가</label> 
-					<input type="text" name="price" value="${param.price}"
-						class="ckValid" id="price" placeholder="단가 입력" required>
-				</div>
-				<div>
-					<label for="remark">비고</label> 
-					<input type="text" name="remark" value="${param.remark}" 
-						class="ckValid" id="remark" placeholder="비고 입력" required>
-				</div>
-				<div>
-					<div class="custom-file">
-						<label class="custom-file-label" for="file01">이미지</label>
-						<input type="file" name="multipartfile" id="file01"> 
-					</div>
-				</div><br>
-				 -->
 				<button id="insBtn" class="btn-primary" type="button">등록</button>
 				<button id="returnBtn" class="btn-submit" type="button">닫기</button>
 			</form>

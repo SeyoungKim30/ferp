@@ -43,16 +43,17 @@
 			<div class="searchtab">
 				<table>
 				<thead>
-					<tr><th>일자</th><th>자재코드</th><th>자재명</th><th>단가</th><th>수량</th></tr>
+					<tr><th>자재코드</th><th>카테고리명</th><th>자재명</th><th>일자</th><th>단가</th><th>수량</th></tr>
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${list}">
 			    	    <tr>
-			    	    	<td>${prod.stockDate}</td>
-			    	    	<td>${prod.productNum}</td>
+			    	    	<td style="text-align:center">${prod.productNum}</td>
+			    	    	<td style="text-align:center">${prod.category}</td>
 			    	    	<td>${prod.productName}</td>
-			    	    	<td><fmt:formatNumber value="${prod.price}" type='currency'/></td>
-			    	    	<td>${prod.applyAmount}</td>
+			    	    	<td style="text-align:center">${prod.stockDate}</td>
+			    	    	<td style="text-align:right"><fmt:formatNumber value="${prod.price}" type='currency'/></td>
+			    	    	<td style="text-align:center">${prod.applyAmount}</td>
 			    	    </tr>
 			    	</c:forEach>
 				</tbody>

@@ -22,7 +22,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width : 800px;
+	width : 500px;
 	padding: 25px;
 	border: 1px solid #FFFFFF;
 	border-radius: 5px;
