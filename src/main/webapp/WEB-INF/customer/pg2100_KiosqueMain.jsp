@@ -403,7 +403,7 @@
 							<p class="option_name">옵션 선택</p>
 							<div class="option_radio">
 								<label for="menu_opt_1">
-									<input type="radio" name="option_1" id="menu_opt_1" value="option_ice">
+									<input checked="checked" type="radio" name="option_1" id="menu_opt_1" value="option_ice">
 									<span class="custom_checkbox"><i class="ri-check-line"></i></span>
 									<span class="menu_opt radio01">아이스</span>
 								</label>
@@ -601,6 +601,7 @@ tabContent.click(function () {
 			$(".sizeUp").css('display','flex');
 			$(".radio01").text("Ice");
 			$(".radio02").text("Hot");
+			$('.radio01').prop('checked', true);
 		}else if(MenuCategory == "coffee"){
 			$(".option_radio").css('display','flex');
 			$(".delS").css('display','flex');
@@ -608,6 +609,7 @@ tabContent.click(function () {
 			$(".sizeUp").css('display','flex');
 			$(".radio01").text("Ice");
 			$(".radio02").text("Hot");
+			$('.radio01').prop('checked', true);
 		}else if(MenuCategory == "sandwich" || MenuCategory == "cake" ){
 			$(".option_radio").css('display','flex');
 			$(".delS").css('display','none');
@@ -615,6 +617,7 @@ tabContent.click(function () {
 			$(".sizeUp").css('display','none');
 			$(".radio01").text("매장");
 			$(".radio02").text("포장");
+			$('.radio01').prop('checked', true);
 		}else{
 			$(".option_radio").css('display','flex');
 			$(".delS").css('display','none');
@@ -622,6 +625,7 @@ tabContent.click(function () {
 			$(".sizeUp").css('display','flex');
 			$(".radio01").text("Ice");
 			$(".radio02").text("Hot");
+			$('.radio01').prop('checked', true);
 		}
 });
 
@@ -635,7 +639,7 @@ modalClose.click(function () {
 	dimmed.removeClass('on');
 	modalContainer.removeClass('on');
 	$(".product_number").val(1);
-	$('.modal_product_option input[type="checkbox"], .modal_product_option input[type="radio"]').prop('checked', false);
+	$('.modal_product_option input[type="checkbox"]').prop('checked', false);
 })
 
 
