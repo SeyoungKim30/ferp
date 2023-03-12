@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 
+<link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
+
 <!-- 알럿창 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
@@ -56,6 +58,20 @@
 		font-size: 45px;
 		font-weight: 600;
 	}
+	
+	.mainBtn{
+		cursor: pointer;
+	}
+	
+	.goMain{
+		font-size: 25px;
+	    color: #333;
+	    text-align: center;
+        line-height: 56px;
+	}
+	button {
+		font-size: 20px;
+	}
 </style>
 </head>
 
@@ -64,13 +80,32 @@
 		<div class="headerTop">
 			결제 완료
 		</div>
-		<p>감사합니다.<br>
-		결제가 완료되었습니다.<br>
-		주문번호 : <span class="orderNum">${orderNum}</span></p>
-	</div>	
+		<p>
+			감사합니다.<br>
+			결제가 완료되었습니다.<br>
+			주문번호 : <span class="orderNum">${orderNum}</span>
+		</p>
+		<div class="goMain">
+			<span class="goMainS">10</span>초 후에 메인으로 돌아갑니다.<br>
+			<button class="mainBtn" onclick="location.href='${path}/kiosqueMainForCustomer.do'">메인으로</button>
+		</div>
+	</div>
+	
 </body>
 <script type="text/javascript">
 'use strict';
+
+$(document).ready(function() {
+	  var count = 10; // 타이머 초기값
+	  var timer = setInterval(function() {
+	    count--;
+	    $('.goMainS').text(count); // 타이머 값 변경
+	    if (count === 0) {
+	      clearInterval(timer); // 타이머 종료
+	      location.href = "${path}/kiosqueMainForCustomer.do"; // 메인 페이지로 이동
+	    }
+	  }, 1000); // 1초마다 타이머 실행
+	});
 
 var orderNum = $(".orderNum").text();
 orderNum = orderNum.substr(-4);

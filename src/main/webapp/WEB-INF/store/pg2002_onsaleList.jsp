@@ -24,6 +24,10 @@
 		text-align: center;
 	    line-height: 35px;
 	}
+	
+	.infoText{
+		text-align: left;
+	}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","2002")
@@ -54,7 +58,7 @@
 								<td>
 									<fmt:formatNumber value="${mn.price }" pattern="#,###" />￦
 								</td>
-								<td>${mn.info}</td>
+								<td class="infoText">${mn.info}</td>
 								<td>
 									<c:if test="${mn.necessary == 'N'}">
 									<button class="btn-primary">삭제</button>
