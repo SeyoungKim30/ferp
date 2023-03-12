@@ -99,6 +99,21 @@ public class A1_Service {
     	}
     	
  
+    	
     }
 	
+    // maxOrderNum
+    public String getMaxOrderNum() {
+    	return dao.getMaxOrderNum();
+    }
+    
+    public List<Orders> getPayPrice(Orders order){
+    	return dao.getPayPrice(order);
+    }
+    
+ // 결제대기에서 제조대기로
+ 	public void uptOrderStatePay(String orderNum) {
+ 		dao.uptOrderStatePay(orderNum);
+ 	}
+    
 }

@@ -47,10 +47,6 @@
 		cursor: pointer;
 	}
 	
-	.howbox:hover span{
-		color: #2262F3;
-	}
-	
 	.howtoPay{
 		display: flex;
 		justify-content: center;
@@ -59,28 +55,9 @@
 	}
 	
 	.howbox>span{
-	    font-size: 22px;
+	    font-size: 20px;
     	line-height: 45px;
 	}
-	
-	.price{
-	    text-align: center;
-	    font-size: 45px;
-	    padding: 90px 0 70px;
-        color: #2262f3;
-		font-weight: 700;
-	}
-	
-	.payprice{
-		display: none;
-	}
-	
-	h3{
-		font-size: 30px;
-		font-weight: 500;
-	    color: #444;
-	}
-
 </style>
 </head>
 
@@ -89,8 +66,6 @@
 		<div class="headerTop">
 			결제하기
 		</div>
-		<p class="price">가격</p>
-		<h3>* 원하시는 결제 수단을 선택해 주세요.</h3>
 		<div class="howtoPay">
 			<div class="howbox kakao">
 				<img alt="" src="${path}/resource/img/kakao.png"><br>
@@ -105,39 +80,11 @@
 				<span>현금 결제</span>
 			</div>
 		</div>
-		<c:forEach var="no" items="${NowOrders}">
-			<div class="payprice">${no. payprice}</div>
-		</c:forEach>
-		<p class="orderNum">${orderNum }</p>
-
+		<p>${orderNum}</p>
 	</div>	
 </body>
 <script type="text/javascript">
 'use strict';
-
-var payprices = document.querySelectorAll('.payprice');
-var total = 0;
-for (var i = 0; i < payprices.length; i++) {
-  total += parseInt(payprices[i].textContent);
-}
-
-$(".price").text("결제 금액 : "+total.toLocaleString()+"￦");
-
-var orderNum = $(".orderNum").text();
-$(".howbox").click(function () {
-	var pay = $(this).find("span").text();
-	Swal.fire({
-		  title: pay+'로 결제하시겠습니까?',
-		  icon: 'question',
-		  showCancelButton: true,
-		  confirmButtonColor: '#2262F3',
-		  cancelButtonColor: '#888',
-		  confirmButtonText: '결제',
-		  cancelButtonText: '취소'
-		}).then((result) => {
-			location.href="payState.do?orderNum="+orderNum;
-		});
-});
 
 </script>
 </html>

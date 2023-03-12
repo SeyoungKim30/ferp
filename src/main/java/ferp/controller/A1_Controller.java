@@ -1,6 +1,5 @@
 package ferp.controller;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
 import vo.Onsale;
+import vo.Orders;
 import vo.Store;
 
 
@@ -165,10 +165,28 @@ public class A1_Controller {
    
    // 키오스크 결제 페이지 호출
    @RequestMapping("/kiosquePay.do")
-   public String pg2102kiosquePay() {
+   public String pg2102kiosquePay(Orders orders, Model d) {
+	   String orderNum = service.getMaxOrderNum();
+	   orders.setOrderNum(orderNum);
+	   // 이전 페이지의 주문번호 정보 가져오기
+	   d.addAttribute("NowOrders", service.getPayPrice(orders));
+	   d.addAttribute("orderNum",orderNum);
 	   return "WEB-INF\\customer\\pg2102_kiosquePay.jsp";
    }
    
+   // 결제 상태 변경 do
+   @RequestMapping("/payState.do")
+   public String payStateChange(@RequestParam("orderNum") String orderNum) {
+	   service.uptOrderStatePay(orderNum);
+	   return "redirect:/orderCom.do?orderNum="+orderNum;
+   }
+   
+   // 주문 완료 페이지
+   @RequestMapping("/orderCom.do")
+   public String orderCom(@RequestParam("orderNum") String orderNum, Model d) {
+	   d.addAttribute("orderNum", orderNum);
+	   return "WEB-INF\\customer\\pg2103_kiosqueOrderComplete.jsp";
+   }
    // 키오스크 추가 
    @RequestMapping("/addOrder.do")
    public String addOrder(

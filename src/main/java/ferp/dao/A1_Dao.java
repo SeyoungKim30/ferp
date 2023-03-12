@@ -44,5 +44,8 @@ public interface A1_Dao {
 	// orders 추가 dao
 	public void insertOrdersList(Orders ins);
 	// orderNum 가져오기
-	public String getOrderNum();
+	public String getMaxOrderNum();
+	public List<Orders> getPayPrice(Orders order);
+	// 결제대기에서 제조대기로
+	public void uptOrderStatePay(String orderNum);
 }
