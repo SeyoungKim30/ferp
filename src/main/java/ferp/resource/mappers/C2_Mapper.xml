@@ -7,16 +7,21 @@
 
 	<!-- 본사/매장 재고 조회 -->
 	<select id="r8101ProductList" resultType="productProdOrder" parameterType="productProdOrder">
-		SELECT p.*, s.stockDate, s.REMAINAMOUNT 
+		SELECT p.*, s.stockDate, s.REMAINAMOUNT, s.FRREGINUM 
 		FROM PRODUCT p, STOCK s
 		WHERE p.PRODUCTNUM = s.PRODUCTNUM
-		AND s.STOCKDATE = (SELECT MAX(STOCKDATE) FROM STOCK s2 WHERE s2.PRODUCTNUM = p.PRODUCTNUM)
-		AND stockDate LIKE '%'|| to_date(#{stockDate},'YYYY-MM-DD')||'%'
+		AND s.FRREGINUM = #{frRegiNum,jdbcType=VARCHAR, index=1}
+		AND (s.PRODUCTNUM, s.STOCKDATE) IN (
+		    SELECT PRODUCTNUM, MAX(STOCKDATE)
+		    FROM STOCK
+		    WHERE FRREGINUM = #{frRegiNum,jdbcType=VARCHAR, index=1}
+		    GROUP BY PRODUCTNUM
+		)
+		AND s.stockDate LIKE '%'|| to_date(#{stockDate},'YYYY-MM-DD')||'%'
 		AND p.productNum LIKE '%'||upper(#{productNum})||'%'
 		AND category LIKE '%'||#{category}||'%'
 		AND productName LIKE '%'||#{productName}||'%'
 		AND opposite LIKE '%'||#{opposite}||'%'
-		AND s.frRegiNum = #{frRegiNum,jdbcType=VARCHAR}
 	</select>
 	
 	<!-- 본사/매장 재고 상세 페이지 -->
@@ -26,11 +31,42 @@
 		WHERE productNum like '%'||#{productNum,jdbcType=VARCHAR}||'%'
 	</select>
 	
-	<!-- 매장 재고 관리 등록 -->
+	<!-- 본사/매장 재고 관리 조회 -->
+	<select id="r8204InoutList" resultType="productProdOrder" parameterType="productProdOrder">
+		SELECT s.STOCKDATE ,p.category ,p.PRODUCTNUM ,p.PRODUCTNAME ,p.PRICE ,s.APPLYAMOUNT 
+		FROM PRODUCT p, STOCK s
+		WHERE p.PRODUCTNUM = s.PRODUCTNUM
+		AND s.FrRegiNum = #{frRegiNum,jdbcType=VARCHAR}
+	</select>
 	
-	<!-- 매장 재고 관리 조회 -->
+	<!-- 매장 재고 관리 등록 -->
+	<insert id="r8102InoutIns" parameterType="stock">
+		INSERT INTO STOCK 
+		VALUES (#{productNum,jdbcType=VARCHAR, index=1}, #{frRegiNum,jdbcType=VARCHAR}, sysdate, -#{applyAmount}, 
+        (SELECT REMAINAMOUNT - #{applyAmount}
+        	FROM STOCK 
+			WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1} 
+			AND STOCKDATE = (SELECT MAX(STOCKDATE) 
+	         	FROM STOCK 
+	         	WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1})), null)
+	</insert>
 	
 	<!-- 매장 재고 관리 수정 -->
+	<update id="" parameterType="product">
+		UPDATE STOCK 
+		SET APPLYAMOUNT = #{applyAmount,jdbcType=NUMBER,INDEX=1},
+		    REMAINAMOUNT = (
+		        SELECT REMAINAMOUNT + #{applyAmount,jdbcType=NUMBER,INDEX=1} - APPLYAMOUNT 
+		        FROM (
+		            SELECT REMAINAMOUNT, ROW_NUMBER() OVER (ORDER BY STOCKDATE DESC) AS RN 
+		            FROM STOCK 
+		            WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2}
+		        ) T 
+		        WHERE RN = 1
+		    )
+		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2} 
+		AND STOCKDATE = (SELECT MAX(STOCKDATE) FROM STOCK WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2})
+	</update>
 	
 	<!-- 매장 재고 관리 삭제 -->
 	
@@ -47,20 +83,14 @@
 		SET REMARK  = #{remark}
 		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR}
 	</update>
-	
-	<!-- 본사 재고 관리 조회 -->
-	<select id="r8204InoutList" resultType="productProdOrder" parameterType="productProdOrder">
-		SELECT s.STOCKDATE ,p.PRODUCTNUM ,p.PRODUCTNAME ,p.PRICE ,s.APPLYAMOUNT 
-		FROM PRODUCT p, STOCK s
-		WHERE p.PRODUCTNUM = s.PRODUCTNUM
 		
-	</select>
-	
 	<!-- 발주 상태 콤보 -->
 	<select id="orderStateCom" resultType="string">
 		SELECT DISTINCT orderState
 		FROM PRODORDER
 	</select>
+	
+	<!-- 직원스케줄 캘린더 등록 -->
 	
 	<!-- 직원스케줄 캘린더 -->
 	<resultMap type="scheduleCalender" id="calMap">

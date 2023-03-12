@@ -63,7 +63,8 @@ label{
 					<tr><th>자재명</th><td>${product.productName}</td></tr>
 					<tr><th>거래처</th><td>${product.opposite}</td></tr>
 					<tr><th>단가</th><td><fmt:formatNumber value="${product.price}" type='currency'/></td></tr>
-					<tr><th><label for="remark">비고</label></th><td><input type="text" name="remark" value="${product.remark}" 
+					<tr><th><label for="remark">비고</label></th>
+						<td><input type="text" name="remark" value="${product.remark}" 
 							class="ckValid" id="remark" placeholder="비고 입력" required></td></tr>
 				</table>
 				<button id="uptBtn" class="btn-secondary" type="button">수정</button>

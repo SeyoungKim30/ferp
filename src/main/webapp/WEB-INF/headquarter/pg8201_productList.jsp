@@ -37,22 +37,11 @@
 		$("[name=productName]").val("${sch.productName}");
 		$("[name=opposite]").val("${sch.opposite}");
 		$("[name=orderState]").val("${sch.orderState}");	
-		<%--
-		$("#insBtn").click(function(){
-			location.href="${path}/hproductInsFrm.do" 
-		})
-		--%>
 	});
 	// 상세페이지로 이동
 	function goDetail(productNum) {
 		location.href="${path}/hproductInfo.do?productNum="+productNum;
 	}
-	
-	// 수정페이지로 이동
-	function goUpdate(productNum) {
-		location.href="${path}/hproductUpt.do?productNum="+productNum;
-	}
-	
 </script>
 </head>
 <body class="container">
@@ -60,41 +49,38 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		<button class="btn-primary" id="insBtn" type="button" style="float:right;"
-			onclick="location.href='${path}/hproductInsFrm.do'">자재등록</button> 
-		<button style="float:right;"
-			onclick="location.href='${path}/hInoutList.do'">재고 관리 내역</button>
-		<h2>본사 재고 조회</h2><br><hr><br>
-			
+			<button class="btn-primary" id="insBtn" type="button" style="float:right;"
+				onclick="location.href='${path}/hproductInsFrm.do'">자재등록</button> 
+			<button style="float:right;"
+				onclick="location.href='${path}/hInoutList.do'">재고 관리 내역</button>
+			<h2>본사 재고 조회</h2><br><hr><br>
 			<div class="toolbox">
-			<form class="toolbar" method="post">
-				<input class="inputbox" type="date" name="stockDate" value="<fmt:formatDate value="${now}" pattern = "yyyy-MM-dd"/>"/>
-				<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
-				<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
-				<input class="inputbox" name="productName" value="${sch.productName}" placeholder="자재명 입력"/>
-				<input class="inputbox" name="opposite" value="${sch.opposite}" placeholder="거래처 입력"/>
-				<button class="btn-secondary" type="submit">검색</button>
-			    
-			</form>
-			
+				<form class="toolbar" method="post">
+					<input class="inputbox" type="date" name="stockDate" value="<fmt:formatDate value="${now}" pattern = "yyyy-MM-dd"/>"/>
+					<input class="inputbox" name="productNum" value="${sch.productNum}" placeholder="자재코드 입력"/>
+					<input class="inputbox" name="category" value="${sch.category}" placeholder="카테고리명 입력"/>
+					<input class="inputbox" name="productName" value="${sch.productName}" placeholder="자재명 입력"/>
+					<input class="inputbox" name="opposite" value="${sch.opposite}" placeholder="거래처 입력"/>
+					<button class="btn-secondary" type="submit">검색</button>
+				</form>
 			</div>
-			
 			<div class="searchtab">
 				<table>
 				<thead>
-					<tr><th>입고일자</th><th>자재코드</th><th>카테고리명</th><th>자재명</th>
+					<tr><th>최근입고일자</th><th>자재코드</th><th>카테고리명</th><th>자재명</th>
 						<th>거래처</th><th>단가</th><th>수량</th><th>비고</th></tr>
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
 			    	    <tr onclick="goDetail('${prod.productNum}')">
-			    	    	<td>${prod.stockDate}</td>
-			    	    	<td>${prod.productNum}</td>
-			    	    	<td>${prod.category}</td>
+			    	    	<td style="text-align:center">${prod.stockDate}</td>
+			    	    	<td style="text-align:center">${prod.productNum}</td>
+			    	    	<td style="text-align:center">${prod.category}</td>
 			    	    	<td>${prod.productName}</td>
 			    	    	<td>${prod.opposite}</td>
-			    	    	<td><fmt:formatNumber value="${prod.price}" type='currency'/></td>
-			    	    	<td>${prod.remainAmount}</td>
+			    	    	<td style="text-align:right">
+			    	    		<fmt:formatNumber value="${prod.price}" type='currency'/></td>
+			    	    	<td style="text-align:center">${prod.remainAmount}</td>
 			    	    	<td>${prod.remark}</td>
 			    	    </tr>
 			    	</c:forEach>

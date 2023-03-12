@@ -43,18 +43,24 @@ public class C2_Controller {
 		return "WEB-INF\\store\\pg8101_productInfo.jsp";
 	}	
 	
-	// 매장 재고 관리 등록
-	
-	
 	// 매장 재고 관리 조회
 	// http://localhost:6080/ferp/sInoutList.do
 	@RequestMapping("/sInoutList.do")
-	public String r8102InoutList(@ModelAttribute("sch") ProductProdOrder sch){
+	public String r8102InoutList(ProductProdOrder sch, Model d, HttpSession session){
+		Store st = (Store)session.getAttribute("login");
+		sch.setFrRegiNum(st.getFrRegiNum());
+		d.addAttribute("list", service.r8204InoutList(sch));
 		return "WEB-INF\\store\\pg8102_inoutList.jsp";
 	}
 	
-	// 매장 재고 관리 수정
+	// 매장 재고 관리 등록
+	@RequestMapping("/sinoutInsFrm.do")
+	public String r8103InoutInsFrm(){
+		return "WEB-INF\\store\\pg8103_inoutIns.jsp";
+	}
 	
+	// 매장 재고 관리 수정
+
 	
 	// 매장 재고 관리 삭제
 	
@@ -106,7 +112,9 @@ public class C2_Controller {
 	// 본사 재고 관리 조회
 	// http://localhost:6080/ferp/hInoutList.do
 	@RequestMapping("/hInoutList.do")
-	public String r8204InoutList(ProductProdOrder sch, Model d){
+	public String r8204InoutList(ProductProdOrder sch, Model d, HttpSession session) {
+		Emp st = (Emp)session.getAttribute("login");
+		sch.setFrRegiNum(st.getFrRegiNum());
 		d.addAttribute("list", service.r8204InoutList(sch));
 		return "WEB-INF\\headquarter\\pg8204_inoutList.jsp";
 	}
@@ -116,6 +124,8 @@ public class C2_Controller {
 	public List<String> orderStateCom() {
 		return service.orderStateCom();
 	}
+	
+	// 직원스케줄 캘린더 등록
 	
 	// 직원스케줄 캘린더
 	// http://localhost:6080/ferp/sclerkschd.do
