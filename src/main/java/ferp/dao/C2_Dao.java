@@ -2,6 +2,7 @@ package ferp.dao;
 
 import java.util.List;
 
+import vo.ClerkSchedule;
 import vo.Product;
 import vo.ProductProdOrder;
 import vo.ScheduleCalender;
@@ -18,9 +19,9 @@ public interface C2_Dao {
 	// 매장 재고 관리 등록
 	public void r8103InoutIns(Stock ins);
 	// 매장 재고 관리 수정
-	public void r8104InoutIns(Stock upt);
+	public void r8104InoutUpt(Stock upt);
 	// 매장 재고 관리 삭제
-
+	public void r8105InoutDel(Stock del);
 	// 본사 재고 등록
 	public void r8202ProductIns(Product ins);
 	// 본사 재고 수정
@@ -28,7 +29,7 @@ public interface C2_Dao {
 	// 발주 상태 콤보
 	public List<String> productNumCom();
 	// 직원스케줄 캘린더 등록
-	
+	public void sclerkschdIns(ClerkSchedule ins);
 	// 직원스케줄 캘린더
 	public List<ScheduleCalender> sclerkschd(String writer);
 	

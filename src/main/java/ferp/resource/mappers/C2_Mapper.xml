@@ -42,7 +42,8 @@
 	<!-- 매장 재고 관리 등록 -->
 	<insert id="r8103InoutIns" parameterType="stock">
 		INSERT INTO STOCK 
-		VALUES (#{productNum,jdbcType=VARCHAR, index=1}, #{frRegiNum,jdbcType=VARCHAR, index=3}, sysdate, -#{applyAmount, index=2}, 
+		VALUES (#{productNum,jdbcType=VARCHAR, index=1}, 
+		#{frRegiNum,jdbcType=VARCHAR, index=3}, sysdate, -#{applyAmount, index=2}, 
         (SELECT REMAINAMOUNT - #{applyAmount, index=2}
         	FROM STOCK 
 			WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1} 
@@ -53,7 +54,7 @@
 	</insert>
 	
 	<!-- 매장 재고 관리 수정 -->
-	<update id="" parameterType="stock">
+	<update id="r8104InoutUpt" parameterType="stock">
 		UPDATE STOCK 
 		SET APPLYAMOUNT = #{applyAmount,jdbcType=NUMBER,INDEX=1},
 		    REMAINAMOUNT = (
@@ -71,7 +72,7 @@
 	</update>
 	
 	<!-- 매장 재고 관리 삭제 -->
-	<delete id="inoutDelete">
+	<delete id="r8105InoutDel">
 		DELETE FROM STOCK 
 		WHERE PRODUCTNUM = #{productNum}
 		AND APPLYAMOUNT = #{applyAmount} 
@@ -99,16 +100,22 @@
 	</select>
 	
 	<!-- 직원스케줄 캘린더 등록 -->
+	<insert id="sclerkschdIns" parameterType="clerkschedule">
+		INSERT INTO CLERKSCHEDULE values(#{onDay},#{offDay},#{clerkNum},#{FrRegiNum});
+	</insert>
 	
 	<!-- 직원스케줄 캘린더 -->
 	<resultMap type="scheduleCalender" id="calMap">
+		<result column="clerkName" property="title"/>
 		<result column="frRegiNum" property="writer"/>
 		<result column="onDay" property="start"/>
 		<result column="offDay" property="end"/>
 	</resultMap>
 	<select id="sclerkschd" resultMap="calMap">
-	SELECT * FROM clerkSchedule
-	WHERE frRegiNum = #{writer}
+		SELECT c.*, clerkName 
+		FROM CLERKSCHEDULE c ,STORECLERK s 
+		WHERE c.CLERKNUM = s.CLERKNUM 
+		AND c.FRREGINUM = #{writer}
 	</select>
 	
 </mapper>

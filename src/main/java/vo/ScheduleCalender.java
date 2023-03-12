@@ -1,9 +1,16 @@
 package vo;
 
 public class ScheduleCalender {
+	private String title;
 	private String writer;
 	private String start;
 	private String end;
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public String getWriter() {
 		return writer;
 	}

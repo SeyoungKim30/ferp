@@ -43,7 +43,15 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('.udButton').each(function() {
+		$('.uptbtn').each(function() {
+		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
+		    if (!isNaN(applyAmount) && applyAmount >= 0) {
+				$(this).hide();
+			} else {
+				$(this).show();
+			}
+		});
+		$('.delbtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
 		    if (!isNaN(applyAmount) && applyAmount >= 0) {
 				$(this).hide();
@@ -107,7 +115,8 @@
 			    	    	<td style="text-align:right"><fmt:formatNumber value="${prod.price}" type='currency'/></td>
 			    	    	<td style="text-align:center">${prod.applyAmount}</td>
 					        <td style="text-align:center">
-					            <button class="udButton" type="button">수정/삭제</button></td>
+					            <button class="uptbtn btn-secondary" type="button">수정</button>
+					            <button class="delbtn btn-danger" type="button">삭제</button></td>
 			    	    </tr>
 			    	</c:forEach>
 				</tbody>

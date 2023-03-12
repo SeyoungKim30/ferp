@@ -67,12 +67,15 @@ public class C2_Service {
 	}
 	
 	// 매장 재고 관리 수정
-	public String r8104InoutIns(Stock upt) {
-		dao.r8104InoutIns(upt);	
+	public String r8104InoutUpt(Stock upt) {
+		dao.r8104InoutUpt(upt);	
 		return upt.getProductNum();
 	}
 	
 	// 매장 재고 관리 삭제
+	public void r8105InoutDel(Stock del) {
+		dao.r8105InoutDel(del);
+	}
 	
 	// 본사 재고 등록
 	public String r8202ProductIns(Product ins) {
