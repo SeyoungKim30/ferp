@@ -120,5 +120,10 @@ public class A1_Service {
  	public void uptOrderStatePay(String orderNum) {
  		dao.uptOrderStatePay(orderNum);
  	}
+ 	
+ 	// 제조 대기 리스트
+ 	public List<Orders> getStandByList(Orders orders){
+ 		return dao.getStandByList(orders);
+ 	}
     
 }

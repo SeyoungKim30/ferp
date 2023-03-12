@@ -93,9 +93,14 @@ public class A1_Controller {
       return "/index.jsp";
    }
    
-   // http://localhost:6080/ferp/goOrderCheck.do
+   // 주문 체크 페이지
+   // http://localhost:6080/ferp/storeLogin.do
    @RequestMapping("/goOrderCheck.do")
-   public String goOrderCheck() {
+   public String goOrderCheck(Orders orders, Model d, HttpSession session) {
+	   Store st = (Store)session.getAttribute("login");
+	   orders.setFrRegiNum(st.getFrRegiNum());
+	   d.addAttribute("slist",service.getStandByList(orders));
+	   
       return "WEB-INF\\store\\pg2200_orderCheck.jsp";
    }
    // http://localhost:6080/ferp/kiosqueMainForCustomer.do

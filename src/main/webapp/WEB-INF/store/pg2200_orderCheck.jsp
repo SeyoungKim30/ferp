@@ -39,9 +39,10 @@
 }
 
 .orderBox h3{
-    font-size: 30px;
+    font-size: 45px;
     text-align: center;
-    line-height: 70px;
+    line-height: 50px;
+    color: #2262F3;
 }
 
 .btn-primary{
@@ -64,15 +65,23 @@
 
 .menuName{
 	font-size: 24px;
+    padding-top: 25px;
 }
 
-.menuName{
-	font-size: 24px;
-}
 
 .option{
-	font-size: 24px;
+	font-size: 20px;
 	color: #999;
+}
+
+.btnWrapper{
+	display: flex;
+    justify-content: center;
+    padding: 20px 0px;
+}
+
+.orderList{
+	text-align: center;
 }
 
 </style>
@@ -87,126 +96,35 @@
         </header>
 		<div class="orderWrapper">
 		
-			<div class="orderBox">
-				<h3>주문번호 1</h3>
-				<ul class="orderList">
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-				</ul>
-				<button class="btn-primary clearBtn">제조 완료</button>
-			</div>
-		
-			<div class="orderBox">
-				<h3>주문번호 1</h3>
-				<ul class="orderList">
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-				</ul>
-				<button class="btn-primary clearBtn">제조 완료</button>
-			</div>
-		
-			<div class="orderBox">
-				<h3>주문번호 1</h3>
-				<ul class="orderList">
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-				</ul>
-				<button class="btn-primary clearBtn">제조 완료</button>
-			</div>
-		
-			<div class="orderBox">
-				<h3>주문번호 1</h3>
-				<ul class="orderList">
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-				</ul>
-				<button class="btn-primary clearBtn">제조 완료</button>
-			</div>
-		
-			<div class="orderBox">
-				<h3>주문번호 1</h3>
-				<ul class="orderList">
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-				</ul>
-				<button class="btn-primary clearBtn">제조 완료</button>
-			</div>
-		
-			<div class="orderBox">
-				<h3>주문번호 1</h3>
-				<ul class="orderList">
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-					<li class="menuName">아메리카노 x 2</li>
-					<li class="option">ㄴ연하게</li>
-					<li class="menuName">티라미수 x 1</li>
-					<li class="option">ㄴ매장</li>
-				</ul>
-				<button class="btn-primary clearBtn">제조 완료</button>
-			</div>
-
+<c:forEach var="sl" items="${slist}" varStatus="status">
+  <c:if test="${status.index == 0 || sl.orderNum != slist[status.index - 1].orderNum}">
+    <div class="orderBox">
+      <div class="btnWrapper">
+	      <button class="btn-primary delBtn">결제 취소</button>
+	      <button class="btn-primary clearBtn">제조 완료</button>
+      </div>
+      <h3>${sl.orderNum}</h3>
+      <ul class="orderList">
+        <li class="menuName">${sl.menuName} x ${sl.amount}</li>
+        <li class="option">${sl.orderOption}</li>
+      </ul>
+    </div>
+  </c:if>
+  <c:if test="${status.index != 0 && sl.orderNum == slist[status.index - 1].orderNum}">
+    <script type="text/javascript">
+    $('.orderList').last().append(`
+    	    <li class="menuName">${sl.menuName} x ${sl.amount}</li>
+    	    <li class="option">${sl.orderOption}</li>
+    	`);
+    </script>
+  </c:if>
+</c:forEach>
 		</div>
-		
-		<button class="btn-primary menuSetBtn">노출 메뉴 수정</button>
 	</div>
 </body>
 <script type="text/javascript">
-
+$('h3').text(function(index, text) {
+	  return text.slice(-4);
+	});
 </script>
 </html>

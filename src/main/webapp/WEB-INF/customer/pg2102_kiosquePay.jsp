@@ -81,6 +81,9 @@
 	    color: #444;
 	}
 
+.orderNum{
+	display: none;
+}
 </style>
 </head>
 

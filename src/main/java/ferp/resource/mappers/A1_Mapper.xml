@@ -170,5 +170,14 @@
 			SET STATE = '제조 대기'
 		WHERE ORDERNUM = #{orderNum}
 		</update>
+		
+		<!-- 주문 현황 -->
+		<select id="getStandByList" parameterType="orders" resultType="orders">
+		SELECT o.*, m.MENUNAME
+		FROM MENU m, ORDERS o 
+		WHERE m.MENUNUM = o.MENUNUM 
+		AND o.STATE = '제조 대기'
+		AND o.FRREGINUM = #{frRegiNum}
+		</select>
 
     </mapper>
