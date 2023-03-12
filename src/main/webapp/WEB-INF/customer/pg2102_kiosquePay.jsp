@@ -110,6 +110,7 @@
 		</c:forEach>
 		<p class="orderNum">${orderNum }</p>
 
+
 	</div>	
 </body>
 <script type="text/javascript">
