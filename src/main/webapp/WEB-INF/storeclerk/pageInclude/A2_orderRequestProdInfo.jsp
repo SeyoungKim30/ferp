@@ -29,8 +29,7 @@
 <body>
 	<div class="listCon">
 		<h2 class="h2Title">
-			&nbsp;&nbsp;&nbsp; 발주번호 : <span class="orderNum"></span><span
-				class="orderDate"></span>
+			&nbsp;&nbsp;&nbsp; 발주번호 : <span class="orderNum"></span><span class="orderDate"></span>
 		</h2>
 		<br>
 		<div>
@@ -83,6 +82,9 @@
 			</div>
 			<hr>
 			<div class="orderDate2" style="display: none;"></div>
+			<div>
+				<button type="button" class="wdBtn">교환/취소 신청</button>				
+			</div>
 			<div class="right margin">
 				<button type="button" class="uBtn">수정</button>
 				<button type="button" class="dBtn">신청 취소</button>
@@ -144,7 +146,7 @@
 		if ((num1 - 1) > 0) {
 			$(".amount").text(num1 - 1)
 		} else {
-			alert("ㅁㄴㅇ")
+			alert("요청수량을 확인해주세요.")
 		}
 
 	})
@@ -153,7 +155,7 @@
 		if ((num1 - 10) > 0) {
 			$(".amount").text(num1 - 10)
 		} else {
-			alert("ㅁㄴㅇ")
+			alert("요청수량을 확인해주세요.")
 		}
 	})
 	$(".plus1").click(function() {
@@ -175,5 +177,15 @@
 	$("#closeBtn2").click(function() {
 		$("#modal2").attr("style", "display:none");
 	});
+	$(".wdBtn").click(function(){
+		var orderNumQS = $(".orderNum").text()
+		var prodNameQS = $("div.productName").text()
+		console.log(orderNumQS)
+	})
+	
+	/*  
+	자재명 선택, 종류(오배/누송락/파손) 선택, 처리 방식(환불/재배송) 선택, 이미지 첨부(필요 시)
+
+	*/
 </script>
 </html>
