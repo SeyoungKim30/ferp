@@ -94,8 +94,8 @@ public class C2_Service {
 	}
 	
 	// 발주 상태 콤보
-	public List<String> orderStateCom(){
-		return dao.orderStateCom();
+	public List<String> productNumCom(){
+		return dao.productNumCom();
 	}
 	
 	// 직원스케줄 캘린더 등록	

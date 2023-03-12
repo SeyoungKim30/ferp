@@ -18,6 +18,7 @@ import ferp.service.C2_Service;
 import vo.Emp;
 import vo.Product;
 import vo.ProductProdOrder;
+import vo.Stock;
 import vo.Store;
 
 @Controller
@@ -54,9 +55,12 @@ public class C2_Controller {
 	}
 	
 	// 매장 재고 관리 등록
-	@RequestMapping("/sinoutInsFrm.do")
-	public String r8103InoutInsFrm(){
-		return "WEB-INF\\store\\pg8103_inoutIns.jsp";
+	@RequestMapping("/sinoutIns.do")
+	public String r8103InoutIns(Stock ins, Model d, HttpSession session){
+		Store st = (Store)session.getAttribute("login");
+		ins.setFrRegiNum(st.getFrRegiNum());
+		service.r8103InoutIns(ins);
+		return "redirect:/sInoutList.do";
 	}
 	
 	// 매장 재고 관리 수정
@@ -120,9 +124,9 @@ public class C2_Controller {
 	}
 	
 	// 발주 상태 콤보
-	@ModelAttribute("orderStateCom")
-	public List<String> orderStateCom() {
-		return service.orderStateCom();
+	@ModelAttribute("productNumCom")
+	public List<String> productNumCom() {
+		return service.productNumCom();
 	}
 	
 	// 직원스케줄 캘린더 등록

@@ -40,19 +40,20 @@
 	</select>
 	
 	<!-- 매장 재고 관리 등록 -->
-	<insert id="r8102InoutIns" parameterType="stock">
+	<insert id="r8103InoutIns" parameterType="stock">
 		INSERT INTO STOCK 
-		VALUES (#{productNum,jdbcType=VARCHAR, index=1}, #{frRegiNum,jdbcType=VARCHAR}, sysdate, -#{applyAmount}, 
-        (SELECT REMAINAMOUNT - #{applyAmount}
+		VALUES (#{productNum,jdbcType=VARCHAR, index=1}, #{frRegiNum,jdbcType=VARCHAR, index=3}, sysdate, -#{applyAmount, index=2}, 
+        (SELECT REMAINAMOUNT - #{applyAmount, index=2}
         	FROM STOCK 
 			WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1} 
 			AND STOCKDATE = (SELECT MAX(STOCKDATE) 
 	         	FROM STOCK 
-	         	WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1})), null)
+	         	WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1}
+	         	and frRegiNum = #{frRegiNum,jdbcType=VARCHAR, index=3})), null)
 	</insert>
 	
 	<!-- 매장 재고 관리 수정 -->
-	<update id="" parameterType="product">
+	<update id="" parameterType="stock">
 		UPDATE STOCK 
 		SET APPLYAMOUNT = #{applyAmount,jdbcType=NUMBER,INDEX=1},
 		    REMAINAMOUNT = (
@@ -65,10 +66,17 @@
 		        WHERE RN = 1
 		    )
 		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2} 
-		AND STOCKDATE = (SELECT MAX(STOCKDATE) FROM STOCK WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2})
+		AND STOCKDATE = (SELECT MAX(STOCKDATE) 
+			FROM STOCK WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2})
 	</update>
 	
 	<!-- 매장 재고 관리 삭제 -->
+	<delete id="inoutDelete">
+		DELETE FROM STOCK 
+		WHERE PRODUCTNUM = #{productNum}
+		AND APPLYAMOUNT = #{applyAmount} 
+		AND REMAINAMOUNT = #{remainAmount}
+	</delete>
 	
 	<!-- 본사 재고 등록 -->
 	<insert id="r8202ProductIns" parameterType="product">
@@ -85,9 +93,9 @@
 	</update>
 		
 	<!-- 발주 상태 콤보 -->
-	<select id="orderStateCom" resultType="string">
-		SELECT DISTINCT orderState
-		FROM PRODORDER
+	<select id="productNumCom" resultType="string">
+		SELECT DISTINCT productNum
+		FROM STOCK
 	</select>
 	
 	<!-- 직원스케줄 캘린더 등록 -->
