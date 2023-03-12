@@ -65,12 +65,12 @@
 				<table>
 				<thead>
 					<tr><th>최근입고일자</th><th>자재코드</th><th>카테고리명</th><th>자재명</th>
-						<th>거래처</th><th>단가</th><th>수량</th><th>비고</th><th>매출수량등록</th></tr>
+						<th>거래처</th><th>단가</th><th>수량</th><th>비고</th></tr>
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
-			    	    <tr onclick="goDetail('${prod.productNum}')">
-			    	    	<td style="text-align:center">${prod.stockDate}</td>
+			    	    <tr>
+			    	    	<td style="text-align:center" onclick="goDetail('${prod.productNum}')">${prod.stockDate}</td>
 			    	    	<td style="text-align:center">${prod.productNum}</td>
 			    	    	<td style="text-align:center">${prod.category}</td>
 			    	    	<td>${prod.productName}</td>
@@ -78,9 +78,6 @@
 			    	    	<td style="text-align:right"><fmt:formatNumber value="${prod.price}" type='currency'/></td>
 			    	    	<td style="text-align:center">${prod.remainAmount}</td>
 			    	    	<td>${prod.remark}</td>
-			    	    	<td style="text-align:center">
-			    	    		<button class="btn-primary" id="insBtn" type="button"
-			    	    		onclick="location.href='${path}/sinoutInsFrm.do'">등록</button></td>
 			    	    </tr>
 			    	</c:forEach>
 				</tbody>

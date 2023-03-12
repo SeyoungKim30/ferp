@@ -22,6 +22,20 @@
 	border: 1px solid lightgray;
 	margin-top: 10px;
 }
+#insertForm select,
+#insertForm input[type="hidden"],
+#insertForm input[type="number"],
+#insertForm button {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+#insertForm select {
+    width: 200px; /* 선택한 값의 길이에 따라 조절 */
+}
+#insertForm button {
+    margin-right: 0; /* 버튼과 인풋 요소 사이의 간격 없앰 */
+}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","8201")
@@ -37,6 +51,21 @@
 				$(this).show();
 			}
 		});
+		$("#insBtn").click(function(){
+			var isInValid = false
+			for(var idx=0;idx<$(".ckValid").length;idx++){
+				if($(".ckValid").eq(idx).val()==""){
+					alert("입력하여야 등록 가능합니다.")
+					$(".ckValid").eq(idx).focus()
+					isInValid = true
+					break;
+				}
+			}
+			if(isInValid){
+				return
+			}
+			$("form").submit()
+		})
 	});
 </script>
 </head>
@@ -46,6 +75,22 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		<h2>매장 재고 관리 조회</h2><br><hr><br>
+		<div class="toolbox">
+		<h3>매출 내역 등록</h3><br>
+			<form action="${path}/sinoutIns.do" id='insertForm'>
+				<select name="productNum" required>
+			    	<option value="">자재코드선택</option>
+			    	<c:forEach var="productNum" items="${productNumCom}">
+			    		<option>${productNum}</option>
+			    	</c:forEach>
+			    </select>
+			    <input type="hidden" name="frRegiNum" value="${login.frRegiNum}" id="frRegiNum">
+				<input type="number" name="applyAmount" value="${param.applyAmount}"
+					class="ckValid"	id="applyAmount" placeholder="수량 입력" min="0" 
+					oninput="if(this.value < 0) alert('음수는 입력할 수 없습니다.')" required>
+				<button id="insBtn" class="btn-primary" type="button">등록</button>
+			</form>
+		</div>
 			<div class="searchtab">
 				<table>
 				<thead>
