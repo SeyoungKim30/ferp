@@ -125,5 +125,16 @@ public class A1_Service {
  	public List<Orders> getStandByList(Orders orders){
  		return dao.getStandByList(orders);
  	}
+ 	
+	// 결제 취소
+	public void delOrder(String orderNum) {
+		dao.delOrder(orderNum);
+	}
+	// 제조 완료
+	public void clearOrder(String orderNum) {
+		dao.clearOrder(orderNum);
+		
+	}
+
     
 }

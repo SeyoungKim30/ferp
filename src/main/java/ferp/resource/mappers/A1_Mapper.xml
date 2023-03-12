@@ -179,5 +179,18 @@
 		AND o.STATE = '제조 대기'
 		AND o.FRREGINUM = #{frRegiNum}
 		</select>
+		
+		<!-- 결제 취소 -->
+		<update id="delOrder" parameterType="string">
+			UPDATE ORDERS
+				SET STATE = '결제취소'
+			WHERE ORDERNUM = #{orderNum}
+		</update>
 
+		<!-- 제조 완료 -->
+		<update id="clearOrder" parameterType="string">
+			UPDATE ORDERS
+				SET STATE = '완료'
+			WHERE ORDERNUM = #{orderNum}
+		</update>
     </mapper>

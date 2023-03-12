@@ -60,7 +60,9 @@
     font-family: inherit;
 }
 
-.clearBtn{
+
+
+button{
 	   font-family: inherit;
 }
 
@@ -105,6 +107,7 @@
 	      <button class="btn-primary clearBtn">제조 완료</button>
       </div>
       <h3>${sl.orderNum}</h3>
+      <input type="hidden" name="orderNum" value="${sl.orderNum }">
       <ul class="orderList">
         <li class="menuName">${sl.menuName} x ${sl.amount}</li>
         <li class="option">${sl.orderOption}</li>
@@ -126,6 +129,16 @@
 <script type="text/javascript">
 $('h3').text(function(index, text) {
 	  return text.slice(-4);
+	});
+	
+$('.delBtn').click(function() {
+	  var orderNum = $(this).closest('.orderBox').find('input[name=orderNum]').val();
+	  location.href="delOrder.do?orderNum="+orderNum;
+	});
+	
+$('.clearBtn').click(function() {
+	  var orderNum = $(this).closest('.orderBox').find('input[name=orderNum]').val();
+	  location.href="clearOrder.do?orderNum="+orderNum;
 	});
 </script>
 </html>

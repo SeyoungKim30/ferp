@@ -103,8 +103,23 @@ public class A1_Controller {
 	   
       return "WEB-INF\\store\\pg2200_orderCheck.jsp";
    }
-   // http://localhost:6080/ferp/kiosqueMainForCustomer.do
 
+   
+   // 결제 취소
+   @RequestMapping("/delOrder.do")
+   public String delOrder(@RequestParam ("orderNum") String OrderNum) {
+	  service.delOrder(OrderNum);
+      return "redirect:/goOrderCheck.do";
+   }   
+   
+   // 제조 완료
+   @RequestMapping("/clearOrder.do")
+   public String clearOrder(@RequestParam ("orderNum") String OrderNum) {
+	   service.clearOrder(OrderNum);
+      return "redirect:/goOrderCheck.do";
+   }
+   
+   // http://localhost:6080/ferp/kiosqueMainForCustomer.do
    @RequestMapping("/kiosqueMainForCustomer.do")
    public String pg2100kiosqueMain(Model d, HttpSession session) {
       Store st = (Store)session.getAttribute("login");

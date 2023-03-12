@@ -55,4 +55,9 @@ public interface A1_Dao {
 	// 제조 대기 리스트
 	public List<Orders> getStandByList(Orders orders);
 	
+	// 결제 취소
+	public void delOrder(String orderNum);
+	// 제조 완료
+	public void clearOrder(String orderNum);
+	
 }
