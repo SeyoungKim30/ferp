@@ -42,6 +42,7 @@
     	font-weight: 600;
 	}
 	
+	
 	.howbox{
 		text-align: center;
 		cursor: pointer;
