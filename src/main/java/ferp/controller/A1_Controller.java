@@ -67,17 +67,13 @@ public class A1_Controller {
    
    // 로그아웃(store)
    @RequestMapping("/logoutStore.do")
-   public String logoutStore(SessionStatus status, HttpSession session, Model d, HttpServletResponse response) {
+   public String logoutStore(SessionStatus status, HttpSession session, Model d) {
 	  session.removeAttribute("login");
 	  session.invalidate();
 	  status.setComplete(); // 세션 무효화
       d.addAttribute("logout","로그아웃");
       
-      // 캐시 제어 헤더 설정
-      response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-      response.setHeader("Pragma", "no-cache");
-      response.setHeader("Expires", "0");
-      
+ 
       return "redirect:/goEmpMainPage.do";
       }
    
@@ -102,9 +98,6 @@ public class A1_Controller {
    public String goOrderCheck() {
       return "WEB-INF\\store\\pg2200_orderCheck.jsp";
    }
-   
-   
-   
    // http://localhost:6080/ferp/kiosqueMainForCustomer.do
 
    @RequestMapping("/kiosqueMainForCustomer.do")
