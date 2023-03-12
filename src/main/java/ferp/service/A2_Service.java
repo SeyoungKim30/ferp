@@ -1,13 +1,9 @@
 package ferp.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import ferp.dao.A2_Dao;
 import vo.ClerkFile;
@@ -18,9 +14,6 @@ import vo.StoreClerk;
 
 @Service
 public class A2_Service {
-	
-	@Value("${uploadJH}")
-	private String fileupload;
 	
 	@Autowired(required=false)
 	private A2_Dao dao;
@@ -111,25 +104,24 @@ public class A2_Service {
 	public List<Rq_Product> cateCombo() {
 		return dao.cateCombo();
 	}
-	public String clerkfileupl(ClerkFile upl) {
-		String fname =uploadFile(upl.getFile());
+	public void clerkfileupl(ClerkFile upl) {
+		if(upl.getFname() == null) upl.setFname("");
 		if(upl.getClerkNum() == null) upl.setClerkNum("");
 		if(upl.getFrRegiNum() == null) upl.setFrRegiNum("");
 		dao.clerkfileupl(upl);
-		return fname;
 	}
-	public String uploadFile(MultipartFile file) {
-		String fname = file.getOriginalFilename();
-		if(fname!=null && !fname.equals("")) {
-			File fObj = new File(fileupload+fname);	
-			try {
-				file.transferTo(fObj); 
-			} catch (IllegalStateException e) {
-				System.out.println("파일업로드 예외1:"+e.getMessage());
-			} catch (IOException e) {
-				System.out.println("파일업로드 예외2:"+e.getMessage());
-			}
-		}
-		return fname;
+	public List<ClerkFile> viewClerkFileInfo(ClerkFile sch){
+		if(sch.getClerkNum() == null) sch.setClerkNum("");
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
+		return dao.viewClerkFileInfo(sch);
+	}
+	public void clerkFileUpt(ClerkFile upt) {
+		if(upt.getFname() == null) upt.setFname("");
+		if(upt.getClerkNum() == null) upt.setClerkNum("");
+		if(upt.getFrRegiNum() == null) upt.setFrRegiNum("");
+		dao.clerkFileUpt(upt);
+	}
+	public void clerkFileDel(ClerkFile del) {
+		dao.clerkFileDel(del);
 	}
 }

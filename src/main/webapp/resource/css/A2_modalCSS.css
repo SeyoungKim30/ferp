@@ -7,12 +7,15 @@
 	height: 100%;
 	z-index: 1;
 }
+div.fileModal{
+	margin-top: -40%;
+}
 
 #modal2 {
 	display: none;
 	position : absolute;
 	margin:-40% 0 0 0;
-	width: 60%;
+	width: 55%;
 	height: 100%;
 	z-index: 1;
 }

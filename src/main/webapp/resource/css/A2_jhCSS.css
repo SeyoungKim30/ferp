@@ -107,9 +107,22 @@ input[type="text"].listInput {
 	border: none;
 	font-size: large;
 }
+.fileFrm > div > div >input[type="text"] {
+	width: 100%;
+	height: 40px;
+	border: none;
+	font-size: large;
+	text-align: center;
+}
+.fileFrm > div > div >input[type="text"]:disabled {
+	background-color:white;
+}
 
 input[type="text"].listInput:disabled {
 	background-color: white;
+}
+input[type="text"].listInput:focus {
+	outline:none;
 }
 
 .w25 {
@@ -259,4 +272,13 @@ input[type="text"].listInput:disabled {
 .activeDiv{
 	background-color:blue;
 	color:white;
+}
+h2.h2Title > span#clerkname{
+	font-size: xx-large;
+}
+h2.h2Title > span#clerknum{
+	font-size: large;
+}
+h2.h2Title > span.clerknum{
+	font-size: large;
 }

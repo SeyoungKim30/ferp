@@ -105,6 +105,37 @@
 	</select>
 	<!-- 직원 파일 업로드 -->
 	<insert id="clerkfileupl" parameterType="clerkfile">
-		INSERT INTO CLERKFILE values(#{fname},sysdate,sysdate,#{clerkNum},#{frRegiNum})
+		INSERT INTO CLERKFILE values(#{fname},sysdate,sysdate,#{clerkNum},#{frRegiNum},'')
 	</insert>
+	<select id="viewClerkFileInfo" parameterType="clerkfile" resultType="clerkfile">
+		SELECT * from(
+			SELECT rownum cnt, c.* 
+			FROM CLERKFILE c
+			WHERE CLERKNUM LIKE '%'||#{clerkNum}||'%'
+			AND FRREGINUM = #{frRegiNum})
+	</select>
+	<update id="clerkFileUpt" parameterType="clerkfile">
+		UPDATE CLERKFILE 
+			SET UPTDTE = SYSDATE,
+				fileinfo = #{fileInfo}
+		WHERE FNAME = #{fname}
+		AND CLERKNUM = #{clerkNum}
+		AND FRREGINUM  = #{frRegiNum}
+	</update>
+	<delete id="clerkFileDel" parameterType="clerkfile">
+		DELETE FROM clerkfile 
+		WHERE FNAME = #{fname}
+		AND CLERKNUM = #{clerkNum}
+		AND FRREGINUM  = #{frRegiNum}
+	</delete>
+	<select id="" parameterType="" resultType="">
+		SELECT p.ORDERNUM, p2.productName
+		FROM DEFECTORDER d, PRODORDER p, PRODUCT p2 
+		WHERE d.ORDERNUM = p.ORDERNUM 
+		AND d.ORDERDATE = p.ORDERDATE 
+		AND p.PRODUCTNUM = p2.PRODUCTNUM 
+		AND frreginum = '1234567891'
+		AND p.ORDERNUM LIKE '%'||''||'%' 
+		AND p.orderdate LIKE '%'||''||'%'
+	</select>
 </mapper>

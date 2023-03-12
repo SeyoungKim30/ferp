@@ -14,12 +14,11 @@
 <link rel="stylesheet" href="${path}/resource/css/reset.css">
 <link rel="stylesheet" href="${path}/resource/css/A2_jhCSS.css">
 <link rel="stylesheet" href="${path}/resource/css/A2_storeclerkJH.css">
+<link rel="stylesheet" href="${path}/resource/css/A2_modalCSS.css">
 <script src="${path}/a00_com/jquery.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script
-	src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api"
-	type="text/javascript"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".regBtn").click(function(){
@@ -147,7 +146,7 @@
 							<input type="text" class="listInput i${sc.clerkNum } right" name="hourlyPay" style="width: 100%;" value="<fmt:formatNumber value='${sc.hourlyPay }' type='currency'/>" disabled />
 						</div>
 						<div class="tdDiv" style="width: 7%;">
-							<button class="fileBtn">파일</button>
+							<button type="button" class="fileBtn" onclick="cFile('${sc.clerkName }','${sc.clerkNum }')">파일</button>
 						</div>
 						<div class="tdDiv" style="width: 10%;">
 							<button type="button" class="uptCfm" style="display: none;">완료</button>
@@ -170,98 +169,91 @@
 					&gt;
 				</button>
 			</div>
-			<script type="text/javascript">
-					function goPage(cnt){
-						$("[name=curPage]").val(cnt);
-						localStorage.setItem("sclistPg",cnt)
-						//localStorage.setItem("pageLoc","inDiv")
-						$("#frm01").submit()
-					}
-					if(${SCsch.curPage==1}){
-						$("[name=prev]").attr("disabled",true)
-					}
-					if(${SCsch.curPage==SCsch.endBlock}){
-						$("[name=next]").attr("disabled",true)
-					}
-					
-					$(".pg"+${SCsch.curPage}).css({
-						'background' : '#a4a4a4',
-						'color' : 'white'
-					})
-					
-					function activateInput(i){
-						if(confirm("수정하시겠습니까?")){
-							$(".i"+i).attr("disabled",false)
-							$(".uptCfm").css("display","inline")
-							$(".uptBtn").css("display","none")
-						}
-						$(".uptCfm").click(function(){
-							if(confirm("변경사항을 저장하시겠습니까?")){
-								uptAjax("uptStoreClerk.do",i)				
-							}
-						})
-					}
-					function uptAjax(url,i) {
-						$.ajax({
-							type : "post",
-							url : "/ferp/" + url,
-							data : $("#uptForm"+i).serialize(),
-							dataType : "json",
-							success : function(data) {
-								console.log(data)
-								location.reload()
-							},
-							error : function(err) {
-								console.log(err)
-							}
-						})
-					}
-					
-					function delInfo(i){
-						if(confirm("직원정보를 삭제하시겠습니까?")){
-							delAjax("delStoreClerk.do",i)				
-						}
-					}
-					function delAjax(url,i) {
-						$.ajax({
-							type : "post",
-							url : "/ferp/" + url,
-							data : $("#uptForm"+i).serialize(),
-							dataType : "json",
-							success : function(data) {
-								console.log(data)
-								alert(data.msg)
-								location.reload()
-							},
-							error : function(err) {
-								console.log($("#uptForm"+i).serialize())
-								console.log(err)
-							}
-						})
-					}
-					/* 
-					$(".schBtn").click(function(){
-						schAjax("storeClerkListSch.do")
-						console.log($("#frm01").serialize())
-					})
-					function schAjax(url) {
-						$.ajax({
-							type : "post",
-							url : "/ferp/" + url,
-							data : $("#frm01").serialize(),
-							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-							dataType : "json",
-							success : function(data) {
-								console.log(data)
-							},
-							error : function(err) {
-								console.log(err)
-							}
-						})
-					}
-					 */
-				</script>
+		</div>
+		<div id="modal" class="fileModal">
+			<div class="modal_content">
+				<%@ include file="/WEB-INF/storeclerk/pageInclude/A2_storeClerkFile.jsp"%>
+				<%@ include file="/WEB-INF/storeclerk/pageInclude/A2_storeClerkFileList.jsp"%>
+				<br>
+				<div style="text-align: right;">
+					<button id="closeBtn">닫기</button>
+				</div>
+			</div>
+			<div class="modal_layer"></div>
 		</div>
 	</div>
+<script type="text/javascript">
+	function goPage(cnt){
+		$("[name=curPage]").val(cnt);
+		localStorage.setItem("sclistPg",cnt)
+		$("#frm01").submit()
+	}
+	if(${SCsch.curPage==1}){
+		$("[name=prev]").attr("disabled",true)
+	}
+	if(${SCsch.curPage==SCsch.endBlock}){
+		$("[name=next]").attr("disabled",true)
+	}				
+	$(".pg"+${SCsch.curPage}).css({
+		'background' : '#a4a4a4',
+		'color' : 'white'
+	})				
+	function activateInput(i){
+		if(confirm("수정하시겠습니까?")){
+			$(".i"+i).attr("disabled",false)
+			$(".uptCfm").css("display","inline")
+			$(".uptBtn").css("display","none")
+		}
+		$(".uptCfm").click(function(){
+			if(confirm("변경사항을 저장하시겠습니까?")){
+				uptAjax("uptStoreClerk.do",i)				
+			}
+		})
+	}
+	function uptAjax(url,i) {
+		$.ajax({
+			type : "post",
+			url : "/ferp/" + url,
+			data : $("#uptForm"+i).serialize(),
+			dataType : "json",
+			success : function(data) {
+				console.log(data)
+				location.reload()
+			},
+			error : function(err) {
+				console.log(err)
+			}
+		})
+	}				
+	function delInfo(i){
+		if(confirm("직원정보를 삭제하시겠습니까?")){
+			delAjax("delStoreClerk.do",i)				
+		}
+	}
+	function delAjax(url,i) {
+		$.ajax({
+			type : "post",
+			url : "/ferp/" + url,
+			data : $("#uptForm"+i).serialize(),
+			dataType : "json",
+			success : function(data) {
+				console.log(data)
+				alert(data.msg)
+				location.reload()
+			},
+			error : function(err) {
+				console.log($("#uptForm"+i).serialize())
+				console.log(err)
+			}
+		})
+	}
+	function cFile(clerkName,clerkNum){
+		$("#modal").attr("style", "display:block");
+		$("#clerkname").text(clerkName)
+		$("#clerknum").text(clerkNum)
+		$(".fileip[name=clerkNum]").val(clerkNum)
+	}
+</script>
+<script src="${path}/resource/templates/A2_modalJS.js"></script>
 </body>
 </html>

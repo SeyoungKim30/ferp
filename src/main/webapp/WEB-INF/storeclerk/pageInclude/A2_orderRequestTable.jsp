@@ -72,7 +72,8 @@
 						<div class="col left" >
 							<label>카테고리</label>
 							<select name="category">
-								<option value="">---</option>
+								<option value="${rSch.category}">${rSch.category}</option>
+								<option disabled>-----</option>
 								<c:forEach var="c" items="${category }">
 									<option>${c.category}</option>
 								</c:forEach>
@@ -137,7 +138,7 @@
 			<div style="text-align: right;"></div>
 		</div>
 		<div class="modal_layer"></div>
-		</div>
+	</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -156,21 +157,26 @@
 		$(".orderState").text(orderState)
 		var today = new Date().toLocaleDateString()
 		var orderday = new Date($(".orderDate2").text()).toLocaleDateString()
-		if (today > orderday) {
-			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr(
-					"disabled", true)
+		var t = new Date(today)
+		var o = new Date(orderday)
+		console.log(t)
+		console.log(o)
+		console.log(t > o)
+		if(t>o){
+			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr("disabled", true)
 			$(".uBtn").css("backgroundColor", "#dc3545")
 			$(".uBtn").css("display", "none")
 			$(".dBtn").text("수정 기간 만료")
 			$(".dBtn").css("width", "25%")
-		} else {
-			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr(
-					"disabled", false)
+			console.log("1")
+		}else{
+			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr("disabled", false)
 			$(".uBtn").css("backgroundColor", "#6c757d")
 			$(".uBtn").text("수정")
 			$(".dBtn").text("삭제")
 			$(".uBtn").css("display", "inline-block")
 			$(".dBtn").css("width", "15%")
+			console.log("2")
 		}
 		$("#modal2").attr("style", "display:block");
 	}

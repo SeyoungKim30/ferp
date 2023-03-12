@@ -23,4 +23,7 @@ public interface A2_Dao {
 	public void delReqList(Prod_ProdOrder del);
 	public List<Rq_Product> cateCombo();
 	public void clerkfileupl(ClerkFile upl);
+	public List<ClerkFile> viewClerkFileInfo(ClerkFile sch);
+	public void clerkFileUpt(ClerkFile upt);
+	public void clerkFileDel(ClerkFile del);
 }
