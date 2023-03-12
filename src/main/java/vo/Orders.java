@@ -217,11 +217,7 @@ public class Orders {
 	public void setTotCnt(int totCnt) {
 		this.totCnt = totCnt;
 	} 
-	
-	// 이거 안 되면 강제종료하고 도망갑니다.
-	
 
-	
 	
 	
 }
