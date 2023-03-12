@@ -43,4 +43,6 @@ public interface A1_Dao {
 	
 	// orders 추가 dao
 	public void insertOrdersList(Orders ins);
+	// orderNum 가져오기
+	public String getOrderNum();
 }

@@ -178,7 +178,7 @@ public class A1_Controller {
 		   @RequestParam("frRegiNum") String[] frRegiNum,
 		   @RequestParam("orderOption") String[] orderOption
 		   ) {
-		   service.insertOrdersList(
+		  service.insertOrdersList(
 				   menuNum,
 				   frRegiNum,
 				   amount,
