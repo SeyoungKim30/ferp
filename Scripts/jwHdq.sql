@@ -259,17 +259,47 @@ GROUP BY results;
 
 
 
+--담당매장점검
+--점검일장 랜덤 배정
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230222', 'YYMMDD'), 'YYMMDD'), 
+'1234567891','1008','Y',
+(SELECT empnum FROM store WHERE frreginum='1234567891'), 
+to_date('20230222', 'YYMMDD'),to_date('20230222', 'YYMMDD'),'아이용 의자 비치 필요'); --항목추가
+
+--담당매장 등록
+
+--담당매장 목록
+SELECT frreginum, frname
+FROM STORE
+WHERE empnum='22051002';
+
+--담당매장 중 특정매장 점검정보
+SELECT q.inspectdte, REGDTE, qncnt, ycnt
+FROM (	SELECT inspectdte, REGDTE, count(qanum) qncnt
+		from qa
+		WHERE FRREGINUM ='1234567891'
+		AND empnum ='22051002'   --세션으로처리
+		GROUP BY INSPECTDTE , REGDTE ) q ,
+	(	SELECT inspectdte, count(results) ycnt
+		FROM qa
+		WHERE FRREGINUM ='1234567891'
+		AND empnum ='22051002'   --세션으로처리
+		AND results='Y'
+		GROUP BY INSPECTDTE) cy
+WHERE q.inspectdte=cy.inspectdte(+)
+ORDER BY q.INSPECTDTE desc ;
+
+
+
 
 SELECT * FROM QACHECKLIST;
 SELECT * FROM QA;
 SELECT * FROM STORE; 
 
-SELECT FRREGINUM, max(inspectdte), max(regdte)
-FROM QA 
-WHERE trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')  
-GROUP BY FRREGINUM;
---WHERE trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')   --실제모드
---WHERE trunc(inspectdte, 'MONTH') = trunc(to_date('2022/02/01', 'YYYY/MM/DD'), 'MONTH') --확인용
+
+
+
+
 
 
 
@@ -277,10 +307,10 @@ GROUP BY FRREGINUM;
 --QA실행번호(QA||YYMMDD)  사업자번호 문항번호 결과  본사직원번호(점검한직원)  점검배정일자  점검등록일자(sysdate)  비고
 
 --매장점검일배정  //2월달 매장점검일배정 클릭하면 >> 매장점검일, 매장번호는 프론트 단에서 
-INSERT INTO QA VALUES('QA'||to_char(to_date('20230215', 'YYMMDD'), 'YYMMDD'), 
-'123457891','1001','',
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230222', 'YYMMDD'), 'YYMMDD'), 
+'1234567891','1008','Y',
 (SELECT empnum FROM store WHERE frreginum='1234567891'), 
-to_date('20230215', 'YYMMDD'),null,''); --항목추가
+to_date('20230222', 'YYMMDD'),to_date('20230222', 'YYMMDD'),'아이용 의자 비치 필요'); --항목추가
 
 --매장담당자의 매장점검
 /*
@@ -288,31 +318,40 @@ UPDATE QA
 SET 
 WHERE 
 */
-
+SELECT * FROM store;
+   
 
 
 /*
-
-INSERT INTO QA VALUES('QA'||to_char(to_date('20230314', 'YYMMDD'), 'YYMMDD'), 
-'1234567892','1008','',
-(SELECT empnum FROM store WHERE frreginum='1234567892'), 
-to_date('20230314', 'YYMMDD'), null,''); 
-
-SELECT * from qa
-
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230313', 'YYMMDD'), 'YYMMDD'), 
+'1234567891','1008','',
+(SELECT empnum FROM store WHERE frreginum='1234567891'), 
+to_date('20230313', 'YYMMDD'), null,''); 
 */
+--to_date('20230302', 'YYMMDD'), null,''); 
+
+SELECT * from qa;
 
 
+--1234567890--점검일O 등록O 
+--1234567891--점검일O 등록X  --만들고 비워놓기
+--1234567892--점검일X
+
+SELECT * FROM QACHECKLIST;
+SELECT * FROM QA;
 
 
 /*
+DROP sequence qanum_seq;
+DROP TABLE qa;
+DROP TABLE QACHECKLIST;
+
 create sequence qanum_seq
 	increment by 1
 	start with 1001
 	maxvalue 9999
 	nocycle;
-*/	
-/*
+
 INSERT INTO QACHECKLIST VALUES(qanum_seq.nextval||'', '바닥의 청결이 유지되고 관리 상태가 양호한가','A');
 INSERT INTO QACHECKLIST VALUES(qanum_seq.nextval||'', '선반이 청결하고 준비상품이 잘 정리되어있는가','A');
 INSERT INTO QACHECKLIST VALUES(qanum_seq.nextval||'', '정수기 필터 교체 및 소독은 정기적으로 이뤄지는가','A');

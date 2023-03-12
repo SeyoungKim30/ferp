@@ -29,7 +29,13 @@ public interface B1_Dao {
 	public List<QA> qaDetailList(QA qa);  //이달qa 상세조회-결과표
 	public List<QA> qaDetailScore(String frRegiNum); //이달qa 상세조회-점수
 	
+	//담당 매장 점검
+	public List<QA> inchargeStore(String empNum); //담당매장 목록
+	public List<QA> inchargeStrQA(QA qa); //담당매장 목록-날짜랑 같이 출력
 
+	
+
+	
 	//매장오픈점검
 	public List<Store> storeOpenList(Store otl); //본사:전매장오픈시간-전체조회
 	

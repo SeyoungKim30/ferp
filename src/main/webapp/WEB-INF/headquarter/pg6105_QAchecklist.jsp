@@ -305,11 +305,24 @@ function changeA(qaNum) {
 		$(".form_control").on("input", function() {
 			if (qaItem.length > 0) {
 				$(".btn-primary").prop("disabled", false);
+				keyup:function(){
+					if(event.keyCode==13){
+						if(confirm("등록하시겠습니까?\n비활성화는 가능하지만 삭제는 불가능합니다")==true){
+							alert("항목이 등록되었습니다");
+					    	$(".modal").fadeOut();
+					   	 	print();
+						}
+					}
+				}
 		  	} else {
 		    	$(".btn-primary").prop("disabled", true);
 		  	}
 		});
 		
+		
+		
+		
+		/*
 		$(".form_control").on("keyup", function(event) {//이거뭔가이상한데
 		  	if (qaItem.length > 0 && event.keyCode === 13) { 
 		   		alert("항목이 등록되었습니다");
@@ -317,6 +330,7 @@ function changeA(qaNum) {
 		   	 	print();
 		  	}
 		});
+		*/
 		
 	})
 

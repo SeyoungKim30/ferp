@@ -21,6 +21,10 @@ public class QA { //실제 실행한 QA
 	private String qaItem;
 	private int ynCnt;
 	
+	//담당매장 목록
+	private int qncnt;
+	private int ycnt;
+	
 	
 	
 	public String getInspectionNum() {
@@ -108,8 +112,18 @@ public class QA { //실제 실행한 QA
 	public void setYnCnt(int ynCnt) {
 		this.ynCnt = ynCnt;
 	}
-	
-	
+	public int getQncnt() {
+		return qncnt;
+	}
+	public void setQncnt(int qncnt) {
+		this.qncnt = qncnt;
+	}
+	public int getYcnt() {
+		return ycnt;
+	}
+	public void setYcnt(int ycnt) {
+		this.ycnt = ycnt;
+	}
 	
 	
 }

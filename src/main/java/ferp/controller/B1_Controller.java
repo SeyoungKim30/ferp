@@ -1,6 +1,8 @@
 package ferp.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ferp.service.B1_Service;
+import vo.Emp;
 import vo.OpenTimeCalender;
 import vo.Orders;
 import vo.QA;
@@ -126,7 +129,7 @@ public class B1_Controller {
 		return "pageJsonReport";
 	}
 	*/
-	//결과점수 
+	//결과점수  ~포기
 	//1.
 	/*
 	@GetMapping("qaScore.do/{frRegiNum}")
@@ -149,9 +152,38 @@ public class B1_Controller {
 	}
 	
 	
-	// http://localhost:6080/ferp/qaDetailList.do
-	// http://localhost:6080/ferp/qaStore.do
+	
+	
+	// http://localhost:6080/ferp/inchargeStore.do
+	
+	/*담당 매장 점검*/
+	//담당매장 목록 
+	@RequestMapping("inchargeStore.do")
+	public String r6101inchargeStore(@ModelAttribute("login") Emp st, @RequestParam("empNum") String empNum, Model d, HttpSession session) {
+		//세션값받기
+		String empnum = (String) session.getAttribute("empnum"); // 세션에서 empnum 값을 받아옴
+		d.addAttribute("empnum", empnum );
+		d.addAttribute( "icStrlist", service.inchargeStore( st.getFrRegiNum() ) );
+		return "WEB-INF\\headquarter\\pg6101_QAinCharge.jsp";
+	}
+	
+	// 담당매장 중 특정매장 점검정보
+	@RequestMapping("InchargeStrQA.do")
+	public String r6101inchargeStrQA(QA qa, Model d) {
+		d.addAttribute("sQAinfo",service.inchargeStrQA(qa));
+		return "pageJsonReport";
+	}
+	
+	
 
+	
+	
+	
+	
+	//담당매장 중 특정매장 점검정보 --json
+	
+	
+	
 	
 	
 	

@@ -115,6 +115,20 @@ public class B1_Service {
 	
 	
 	
+	/*담당 매장 점검*/
+	//담당매장 목록
+	public List<QA> inchargeStore(String empNum){
+		return dao.inchargeStore(empNum);
+	}
+	//담당매장 중 특정매장 점검정보
+	public List<QA> inchargeStrQA(QA qa){
+		return dao.inchargeStrQA(qa);
+	}
+	
+	
+	
+	
+	
 	/*매장오픈점검*/
 	//본사:전매장오픈시간조회
 	public List<Store> storeOpenList(Store otl) {

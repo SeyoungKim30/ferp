@@ -140,8 +140,7 @@
 		AND q.frreginum=#{frRegiNum, jdbcType=VARCHAR}
 		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 	
-	</select>
-	
+	</select>	
 	<!-- qa결과표 -->
 	<select id="qaDetailList" parameterType="qa" resultType="qa">
 		SELECT qaitem, results, nvl(comments,' ') comments
@@ -149,8 +148,7 @@
 		WHERE q.qanum=qck.qanum
 		AND frRegiNum=#{frRegiNum, jdbcType=VARCHAR}
 		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
-	</select>
-	
+	</select>	
 	<!-- qa결과점수 --> 
 	<select id="qaDetailScore" parameterType="string" resultType="qa">
 		SELECT results, count(results) yncnt
@@ -160,6 +158,36 @@
 		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 		GROUP BY results
 	</select>
+	
+	
+	
+	
+	<!-- 담당 매장 점검 -->
+	<!-- 담당매장 목록 -->
+	<select id="inchargeStore" parameterType="string" resultType="store">
+		SELECT frreginum, frname
+		FROM STORE
+		WHERE empnum=#{empNum, jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 담당매장 중 특정매장 점검정보 -->
+	<select id="InchargeStrQA" parameterType="qa" resultType="qa">
+		SELECT q.inspectdte, REGDTE, qncnt, ycnt
+		FROM (	SELECT inspectdte, REGDTE, count(qanum) qncnt
+				from qa
+				WHERE FRREGINUM =#{frRegiNum, jdbcType=VARCHAR, index=1}
+				AND empnum =#{empnum, jdbcType=VARCHAR, index=2} 
+				GROUP BY INSPECTDTE , REGDTE ) q ,
+			(	SELECT inspectdte, count(results) ycnt
+				FROM qa
+				WHERE FRREGINUM =#{frRegiNum, jdbcType=VARCHAR, index=1}
+				AND empnum =#{empnum, jdbcType=VARCHAR, index=2}   
+				AND results='Y'
+				GROUP BY INSPECTDTE) cy
+		WHERE q.inspectdte=cy.inspectdte(+)
+		ORDER BY q.INSPECTDTE desc
+	</select>
+	
 	
 	
 	
