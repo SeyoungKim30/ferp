@@ -24,7 +24,7 @@
 	<!-- 매장정보 등록 -->
 	<insert id="insertStore" parameterType="store">
 		INSERT INTO store VALUES(#{frRegiNum}, #{eno}, #{frName}, #{frOpen}, 
-			#{frOperTime}, #{frClosedDte}, #{frRepName}, #{frTel}, #{frAddress}, #{frPass})
+			#{frOperTime}, #{frClosedDte}, #{frRepName}, #{frTel}, #{frAddress}, #{frPass}, #{email})
 	</insert>
 	<!-- 매장정보 수정 -->
 	<update id="updateStore" parameterType="store">

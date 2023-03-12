@@ -82,7 +82,7 @@ span{
     margin-right: 6%;
 }
 [name=frPass]{
-	width: 47%;
+	width: 48%;
 }
 
 /* 3번째 라인*/
@@ -105,7 +105,7 @@ span{
     margin-right: 6%;
 }
 [name=frOpen]{
-	width: 47%;
+	width: 48%;
 }
 
 /* 5번째 라인*/
@@ -128,7 +128,7 @@ span{
     margin-right: 6%;
 }
 [name=frClosedDte]{
-	width: 47%;
+	width: 48%;
 }
 /* 7번째 라인*/
 .seventh_line{
@@ -150,7 +150,7 @@ span{
     margin-right: 6%;
 }
 [name=frTel]{
-	width: 47%;
+	width: 48%;
 }
 
 
@@ -173,9 +173,25 @@ span{
     width: 47%;
     margin-right: 6%;
 }
-[name=frAddress]{
-	width: 47%;
+[name=email]{
+	width: 48%;
 }
+/* 11번째 라인*/
+.eleventh_line{
+	margin-top: 25px;
+}
+.eleventh_line .store_eno{
+	padding-right: 46.2%;
+}
+/* 12번째 라인*/
+.twelfth_line{
+	margin-top: 10px;	
+}
+[name=frAddress]{
+    width: 100%;
+}
+
+
 /* 등록 라인 */
 .submit_line{
 	margin-top: 40px;
