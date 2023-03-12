@@ -19,7 +19,8 @@ public class QA { //실제 실행한 QA
 	
 	//qa결과출력
 	private String qaItem;
-	private String ynCnt;
+	private int ynCnt;
+	
 	
 	
 	public String getInspectionNum() {
@@ -101,12 +102,14 @@ public class QA { //실제 실행한 QA
 	public void setQaItem(String qaItem) {
 		this.qaItem = qaItem;
 	}
-	public String getYnCnt() {
+	public int getYnCnt() {
 		return ynCnt;
 	}
-	public void setYnCnt(String ynCnt) {
+	public void setYnCnt(int ynCnt) {
 		this.ynCnt = ynCnt;
 	}
+	
+	
 	
 	
 }

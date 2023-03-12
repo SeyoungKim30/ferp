@@ -250,12 +250,13 @@ AND frreginum='1234567891'
 AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 ORDER BY q.qanum;
 --qa점검결과
-SELECT results, count(results)
+SELECT results, count(results) yncnt
 FROM QA q, QACHECKLIST qck
 WHERE q.qanum = qck.qanum
 AND frreginum='1234567891'
 AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 GROUP BY results;
+
 
 
 

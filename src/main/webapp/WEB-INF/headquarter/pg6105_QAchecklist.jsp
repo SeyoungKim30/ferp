@@ -124,17 +124,20 @@
 			
 			<!-- 표 시작 -->
 			<h1 id="h1ck">매장위생안전점검표 전체항목</h1>
-			
-			<table>
-				<col width="20%">
-				<col width="65%">
-				<col width="15%">
-				<thead>
-					<tr><th>항목번호</th><th>항목</th><th>&nbsp;</th></tr>
-				</thead>
-				<tbody></tbody>
-			
-			</table>
+			<form  method="post" action="${path}/qaUseable.do">
+				<input name="usable" type="hidden" value="">
+				<input name="qaNum" type="hidden" value="">
+					<table>
+						<col width="20%">
+						<col width="65%">
+						<col width="15%">
+						<thead>
+							<tr><th>항목번호</th><th>항목</th><th>&nbsp;</th></tr>
+						</thead>
+						<tbody></tbody>
+					
+					</table>
+			</form>
 			<!-- 표 끝 -->
 			
 			
@@ -187,9 +190,9 @@
 			
 			qalist.forEach(function(each){		
 				if(each.usable=='A'){
-					tdA="<td><span class='btn-danger' onclick='changeDA("+each.qaNum+")'>비활성화</span></td></tr>"
+					tdA="<td><span class='btn-danger' onclick='changeDA("+each.qaNum+")'>비활성화하기</span></td></tr>"
 				}else if(each.usable=='DA'){
-					tdA="<td><span class='btn-secondary' onclick='changeA("+each.qaNum+")'>활성화</span></td></tr>"
+					tdA="<td><span class='btn-secondary' onclick='changeA("+each.qaNum+")'>활성화하기</span></td></tr>"
 				}			
 				trtd+="<tr><td class='ctrdata'>"+each.qaNum+"</td><td>"+each.qaItem+"</td>"+tdA				
 				
@@ -199,11 +202,78 @@
 			
 		}).catch(function(err){console.log(err)})	
 	}
+	
+	$(document).ready(function(){	
+		//표출력
+		print();
+	})
+	
 		
+	
+	
+	
+	//활성화/비활성화
+	var form = document.querySelector('form');
+  	var usable = form.querySelector('[name=usable]');
+  	var qanum = form.querySelector('[name=qaNum]');	
+	
+  	function changeDA(qaNum){	
+		var cDAresult=confirm("해당 문항을 비활성화하시겠습니까?");  //DA로바뀜
+		if(cDAresult==true){
+			usable.value='DA';
+			qanum.value=qaNum;
+			form.submit();
+			alert("비활성화되었습니다")
+		}
+	}	
+	function changeA(qaNum){
+		var cAresult=confirm("해당 문항을 활성화하시겠습니까?"); //A로바뀜
+		if(cAresult==true){
+			usable.value='A';
+			qanum.value=qaNum;
+			form.submit();
+			alert("활성화되었습니다")
+		}
+	}
+	/*
+	//ajax로 하는 방식
+	function changeDA(qaNum) {
+    $.ajax({
+        url: '${path}/qaUseable.do',
+        type: 'post',
+        data: {qaNum: qaNum, usable: 'DA'},
+        success: function(response) {
+            console.log(response);
+            print();
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+function changeA(qaNum) {
+    $.ajax({
+        url: '${path}/qaUseable.do',
+        type: 'post',
+        data: {qaNum: qaNum, usable: 'A'},
+        success: function(response) {
+            console.log(response);
+            print();
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+	*/
+
+	
+	
 	
 	//항목등록
 	function add() {
-	  
+		
 	  var qaItem = $("#qaItem").val();
 	  $.ajax({
 	    type: "POST",
@@ -212,27 +282,13 @@
 	    success: function(data) {	    		    	
     		alert("항목이 등록되었습니다");
 	    	$(".modal").fadeOut();
-	    	print()    	
 	    },	    
 	    error: function(xhr, status, error) {
 	      alert("서버와의 통신에 실패했습니다.");
 	    }  
 	  });
+	  
 	}
-	
-	//활성화/비활성화
-	function changeDA(){
-		
-	}
-	function changeA(){
-		
-	}
-
-	
-	
-	$(document).ready(function(){		
-		print();
-	})
 	
 	$(function() {
 		
@@ -253,8 +309,9 @@
 		    	$(".btn-primary").prop("disabled", true);
 		  	}
 		});
-		$(".form_control").on("keyup", function(event) {
-		  	if (qaItem.length > 0 && event.keyCode === 13) {
+		
+		$(".form_control").on("keyup", function(event) {//이거뭔가이상한데
+		  	if (qaItem.length > 0 && event.keyCode === 13) { 
 		   		alert("항목이 등록되었습니다");
 		    	$(".modal").fadeOut();
 		   	 	print();
@@ -262,6 +319,7 @@
 		});
 		
 	})
+
 	
 
 </script>

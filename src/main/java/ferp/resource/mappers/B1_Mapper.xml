@@ -106,7 +106,7 @@
 	
 	<!-- 본사:품질관리점검표 비/활성화 -->
 	<update id="qaListUpt" parameterType="qachecklist">
-		UPDATE QACHECKLIST SET USABLE=#{usable} WHERE qanum=#{qaNum}
+		UPDATE QACHECKLIST SET USABLE=#{usable} WHERE qanum=#{qaNum, jdbcType=VARCHAR}
 	</update>
 	
 	
@@ -151,7 +151,7 @@
 		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 	</select>
 	
-	<!-- qa결과점수 -->
+	<!-- qa결과점수 --> 
 	<select id="qaDetailScore" parameterType="string" resultType="qa">
 		SELECT results, count(results) yncnt
 		FROM QA q, QACHECKLIST qck

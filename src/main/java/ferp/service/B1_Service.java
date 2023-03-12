@@ -69,9 +69,8 @@ public class B1_Service {
 		dao.qaListIns(qaItem);
 	}
 	//qa표항목활성.비활성화
-	public String qaListUpt(QAchecklist upt) {
-		dao.qaListUpt(upt);
-		return upt.getUsable();
+	public void qaListUpt(QAchecklist upt) {
+		dao.qaListUpt(upt); 
 	}
 	
 	//이달qa 전매장 조회
@@ -87,29 +86,31 @@ public class B1_Service {
 		return dao.qaDetailList(qa);
 	}
 	//이달qa 특정매장-결과점수
-	public String qaDetailScore(String frRegiNum, QA qa) {
-		dao.qaDetailScore(frRegiNum);
-		
-		qa = new QA();
-		int result = 0;
-		String score = "";
-		
-		if(qa.getQaItem()==("Y")) {
-			int yncnt = Integer.parseInt(qa.getYnCnt());
-			int qacnt = Integer.parseInt(qa.getQaNum());
-			result = yncnt/qacnt;
-			System.out.println("yncnt값 이게 아마 y개수   "+yncnt);
-			System.out.println("qacnt값 이게 아마 qa개수   "+qacnt);
+	public String qaDetailScore(String frRegiNum) {
+		Map<String, Integer> mapr = new HashMap<String, Integer>(); // 빈 map을 선언
+		List<QA> qlist = dao.qaDetailScore(frRegiNum); //리스트로 담아놓은 dao를
+		/*
+		(Y, 6)  >> Y가 key가 되고 6이 value
+		(N, 1)  >> N가 key가 되고 2이 value
+		*/
+		for(QA qa:qlist) { //map에 담고
+			mapr.put(qa.getResults(), qa.getYnCnt());
 		}
-		if(result>0.9) {
+		// 값을 각각 사용하기
+        int ycnt = mapr.get("Y")!=null?mapr.get("Y"):0;
+        int ncnt = mapr.get("N")!=null?mapr.get("N"):0;
+        double result = Math.round( ycnt/(ycnt+ncnt)*100 )/100.0;
+
+        String score = "";
+
+		if(result>=0.9) {
 			score="이상없음";
 		}else if(result>0.7) {
 			score="경미";
 		}else{
 			score="심각";
 		}
-		
-		return score;
+		return score;		
 	}
 	
 	
