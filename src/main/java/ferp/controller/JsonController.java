@@ -67,6 +67,7 @@ public class JsonController {
 	@GetMapping("selectActiveStoreJson.do")
 	public String selectActiveStore(Model model) {
 		model.addAttribute("storeList",serviceC1.selectActiveStore());
+		//한번에 가게,직원,상품 리스트 다 넣기
 		return "pageJsonReport";
 	}
 

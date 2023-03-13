@@ -217,6 +217,14 @@ ORDER BY CATEGORY
 	select * from store where frPass IS NOT NULL 
 	</select>
 	
+	<select id="selectActiveEmp" resultType="emp">
+	SELECT DISTINCT e.empnum, ename FROM emp e, store s WHERE e.EMPNUM =s.EMPNUM 
+	</select>
+	
+	<select id="selectProduct">
+	select productNum, productName from product
+	</select>
+	
 	<select id="r1003tempPassword" resultType="store" parameterType="store">
 	select * from store where frRegiNum = #{frRegiNum} and frRepName=#{frRepName} and email=#{email}
 	</select>
