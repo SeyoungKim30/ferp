@@ -14,5 +14,5 @@ public class Sales {
 	}
 	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
-	}
+	} 
 }
