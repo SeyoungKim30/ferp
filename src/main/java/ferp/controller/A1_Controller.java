@@ -38,7 +38,7 @@ public class A1_Controller {
    }
    
    // 가맹점 로그인
-   // http://localhost:6080/ferp/storeLogin.do
+   // http://localhost:6080/ferp/storeLogin.do 
    @RequestMapping("/storeLogin.do")
    public String pg1000storeLogin(Store st, Model d, HttpSession session){
       if(st.getFrRegiNum()==null) {
