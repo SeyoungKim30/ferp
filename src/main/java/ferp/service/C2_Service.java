@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import ferp.dao.C2_Dao;
+import vo.ClerkSchedule;
+import vo.Prod_order_stock;
 import vo.Product;
 import vo.ProductProdOrder;
 import vo.ScheduleCalender;
 import vo.Stock;
+import vo.StoreClerk;
 
 @Service
 public class C2_Service {
@@ -96,13 +99,21 @@ public class C2_Service {
 		return upt.getProductNum();
 	}
 	
-	// 발주 상태 콤보
-	public List<String> productNumCom(){
+	// 자재 코드 콤보
+	public List<Prod_order_stock> productNumCom(){
 		return dao.productNumCom();
 	}
 	
+	// 직원 번호 콤보
+	public List<StoreClerk> clerkNumCom(){
+		return dao.clerkNumCom();
+	}
+	
 	// 직원스케줄 캘린더 등록	
-
+	public void sclerkschdIns(ClerkSchedule ins) {
+		dao.sclerkschdIns(ins);
+	}
+	
 	// 직원스케줄 캘린더
 	public List<ScheduleCalender> sclerkschd(String writer){
 		return dao.sclerkschd(writer);

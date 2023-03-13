@@ -72,7 +72,7 @@
 					<h3 class="store_address">이메일</h3>
 				</div>
 				<div class="tenth_line">
-					<select name="eno">
+					<select name="empNum">
 						<option disabled="disabled" selected="selected">담당직원 선택</option>
 						<c:forEach var="emp" items="${empCombo}">
 							<c:if test="${emp.ename ne 'admin'}">

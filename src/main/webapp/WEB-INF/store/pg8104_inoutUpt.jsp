@@ -24,10 +24,6 @@
 }
 </style>
 <script type="text/javascript">
-	localStorage.setItem("pageIdx","8201")
-	localStorage.setItem("eqIdx","3")
-</script>
-<script type="text/javascript">
 	$(document).ready(function(){
 		
 	});

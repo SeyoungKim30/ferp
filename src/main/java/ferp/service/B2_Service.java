@@ -15,6 +15,7 @@ import vo.Menu;
 import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
+import vo.Onsale;
 import vo.Store;
 
 @Service
@@ -87,7 +88,15 @@ public class B2_Service {
 		if(ins.getEmpNum()==null) ins.setEmpNum("");
 		
 		dao.insertStore(ins);
-		
+		List<String> menuNum = dao.getnecessaryMenuNum();
+		for(String num : menuNum) {
+			// 필수 메뉴 등록
+			Onsale onsale = new Onsale();
+			onsale.setMenuNum(num);
+			onsale.setFrRegiNum(ins.getFrRegiNum());
+			dao.necessaryMenu(onsale);
+		}
+
 		return ins.getFrName();
 	}
 	// 매장 정보 수정

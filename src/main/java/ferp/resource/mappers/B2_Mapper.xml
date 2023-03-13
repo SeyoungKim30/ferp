@@ -23,9 +23,20 @@
 	
 	<!-- 매장정보 등록 -->
 	<insert id="insertStore" parameterType="store">
-		INSERT INTO store VALUES(#{frRegiNum}, #{eno}, #{frName}, #{frOpen}, 
+		INSERT INTO store VALUES(#{frRegiNum}, #{empNum}, #{frName}, #{frOpen}, 
 			#{frOperTime}, #{frClosedDte}, #{frRepName}, #{frTel}, #{frAddress}, #{frPass}, #{email})
 	</insert>
+	<!-- 필수 메뉴 출력 -->
+	<select id="getnecessaryMenuNum" resultType="string">
+		SELECT menuNum
+		FROM menu
+		WHERE necessary = 'N'
+	</select>
+	<!-- 매장 등록시 해당 메장 필수 메뉴 등록 -->
+	<insert id="necessaryMenu" parameterType="onsale">
+		INSERT INTO onsale VALUES(#{menuNum}, #{frRegiNum})
+	</insert>
+	
 	<!-- 매장정보 수정 -->
 	<update id="updateStore" parameterType="store">
 		UPDATE store
@@ -214,7 +225,7 @@
 				and noticeNum LIKE '%'||'N'||'%'
 				ORDER BY regdte DESC)n 
 		)
-		WHERE rownum <= 10
+		WHERE rownum <= 7
 	]]>
 	</select>
 </mapper>

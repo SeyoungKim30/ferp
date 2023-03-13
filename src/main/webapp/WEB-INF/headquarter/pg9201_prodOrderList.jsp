@@ -31,17 +31,14 @@
 </style>
 </c:if>
 
-<c:if test="${login.frRegiNum != 9999999999 }">
-<style>
+<c:if test="${login.frRegiNum != 9999999999 }"><style>
 .main_wrapper td:nth-child(1),.main_wrapper td:nth-child(4),.main_wrapper td:nth-child(5),.modal-body td:nth-child(1){
 	text-align:center;
 	}
 .main_wrapper td:nth-child(3),.main_wrapper td:nth-child(6),.modal-body td:nth-child(3){
 	text-align:right;
 }
-
-</style>
-</c:if>
+</style></c:if>
 
 </head>
 
@@ -66,7 +63,6 @@
 	<hr>
 	<br>
 	<div class="toolbox">
-	
 	<form id="searchform">
 	<h3>조회 기간 선택</h3>
 	<div class="toolbar" title="단일 주문일자,월별 조회, 발주번호 중 하나의 조건을 입력하세요">
@@ -84,7 +80,7 @@
 		<label>담당자<input name="supplier"></label>
 	</fieldset>
 		<label>상품 선택<input name="productNum"></label>
-		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
+		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송중</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
 		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
 	</div>
 	<button class="btn-secondary">발주조회</button>
@@ -95,7 +91,8 @@
 <table>
 <thead>
 	<c:if test="${login.frRegiNum == 9999999999 }">
-	<tr><th>주문일자</th><th>주문지점</th><th>담당자</th><th>자재 <button class="btn-sm">자재별 보기</button></th><th>수량</th><th>본사 재고</th><th>배송상태</th><th>결제상태</th></tr>
+	<tr><th class="sorted" onclick="sortList(this,'prodOrder','orderDate')">주문일자</th><th class="sorted" onclick="sortList(this,'store','frName')">주문지점</th><th class="sorted" onclick="sortList(this,'emp','ename')">담당자</th><th><span class="sorted" onclick="sortList(this,'product','productName')">자재</span> <button class="btn-sm">자재별 보기</button></th>
+	<th class="sorted" onclick="sortList(this,'prodOrder','amount')">수량</th><th class="sorted" onclick="sortList(this,'stock','remainAmount')">본사 재고</th><th class="sorted" onclick="sortList(this,'prodOrder','orderState')">배송상태</th><th class="sorted" onclick="sortList(this,'prodOrder','paymentState')">결제상태</th></tr>
 	</c:if>
 	
 	<c:if test="${login.frRegiNum != 9999999999 }">
@@ -108,23 +105,19 @@
 </table>
 		</div>
 	</div>
-	
 <div class="modal" id="modalByProd">
 <div class="modal-dialog">
 
  <div class="modal-header">
         <h3 class="modal-title">상품별 수량</h3>
-        <button class="btn-close">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/></svg>
-		완료
-		</button>
+        <button class="btn-close">&nbsp; &nbsp;</button>
       </div>
  <div class="modal-body">
 <form id="orderStateForm">
 <div style="display: none">
-<input name="orderNum">
-<input name="orderDate">
-<input name="demander">
+<input name="orderNum" placeholder="orderNum">
+<input name="orderDate" placeholder="orderDate">
+<input name="demander" placeholder="demander">
 <input name="supplier" placeholder="담당자">
 <input name="productNum" placeholder="productNum">
 <input name="orderState">
@@ -144,6 +137,7 @@
 	
 <script>
 //submit 비동기로 불러와서 표에 출력하기
+var resultlist=[];
 const form1= document.querySelector('#searchform')
 form1.addEventListener('submit', (e) => {
    e.preventDefault();
@@ -153,31 +147,12 @@ form1.addEventListener('submit', (e) => {
 
 //fetch받아서 전체 목록 출력하고 상품별 수량 모달 만들기
 function selectProdOrderListJson(){
- 	var resultlist=[];
     fetchSelectPromise('#searchform',"${path }/productOrderListJson.do?").then(json=>{
     	resultlist=json.list
-    	let htmls='';
-    	resultlist.forEach(function(each){
-			console.log('resultlist.forEach 내부')
-			console.log(each)
-			htmls+=`<tr><td title="`+each.prodOrder.orderDate+`">`+each.prodOrder.orderDate.substr(0,10)
-			<c:if test="${login.frRegiNum == 9999999999 }">
-				+`</td><td title="`+each.prodOrder.demander+`">`+each.store.frName
-				+`</td><td title="`+each.emp.empnum+`">`+each.emp.ename
-			</c:if>
-				+`</td><td title="`+each.prodOrder.productNum+`">`+each.product.productName
-				+`</td><td>`+each.prodOrder.amount
-				<c:if test="${login.frRegiNum == 9999999999 }">
-				+`</td><td>`+each.stock.remainAmount
-				</c:if>
-				+`</td><td>`+each.prodOrder.orderState
-				+`</td><td>`+each.prodOrder.paymentState
-				+`</td></tr>`;
-		})
-		console.log('resultlist.forEach 끝')
+    	let htmls=htmlPrint(resultlist)	//인쇄할 코드 만들기
 		printTotalAmountbyProd(resultlist,(json.prodOrder.orderDate!=null||json.prodOrder.orderNum!=null));
 		document.querySelector('tbody').innerHTML=htmls
-		console.log(htmls)
+		updateState();
 		$('#modalByProd [name=orderNum]').val(json.prodOrder.orderNum)
 		$('#modalByProd [name=orderDate]').val(json.prodOrder.orderDate)
 		$('#modalByProd [name=demander]').val(json.prodOrder.demander)
@@ -188,7 +163,36 @@ function selectProdOrderListJson(){
     }).catch(function(err){console.log(err)})
 } 
 
-
+function htmlPrint(list){
+	let htmls='';
+	list.forEach(function(each){
+		htmls+=`<tr><td title="`+each.prodOrder.orderDate+`">`+each.prodOrder.orderDate.substr(0,10)
+		<c:if test="${login.frRegiNum == 9999999999 }">
+			+`</td><td title="`+each.prodOrder.demander+`">`+each.store.frName
+			+`</td><td title="`+each.emp.empnum+`">`+each.emp.ename
+		</c:if>
+			+`</td><td title="`+each.prodOrder.productNum+`">`+each.product.productName
+			+`</td><td>`+each.prodOrder.amount
+		<c:if test="${login.frRegiNum == 9999999999 }">
+			+`</td><td>`+each.stock.remainAmount
+		</c:if>
+		<c:if test="${login.frRegiNum != 9999999999 }">
+			+`</td><td>`+each.prodOrder.orderState
+		</c:if>
+		<c:if test="${login.frRegiNum == 9999999999 }">
+			+`</td><td>`+`<select id='`+each.prodOrder.productNum+each.prodOrder.orderDate.substr(0,10)+each.prodOrder.demander+`'>`;	//id에 지점 일자 상품 들어가야됨
+			if(each.prodOrder.orderState=='요청'){htmls+=`<option selected>요청</option>`}else{htmls+=`<option>요청</option>`}
+			if(each.prodOrder.orderState=='배송중'){htmls+=`<option selected>배송중</option>`}else{htmls+=`<option>배송중</option>`}
+			if(each.prodOrder.orderState=='완료'){htmls+=`<option selected>완료</option>`}else{htmls+=`<option>완료</option>`}
+			if(each.prodOrder.orderState=='조정'){htmls+=`<option selected disabled>조정</option>`}else{htmls+=`<option disabled>조정</option>`}
+			if(each.prodOrder.orderState=='취소완료'){htmls+=`<option selected disabled>취소완료</option>`}else{htmls+=`<option disabled>취소완료</option>`}
+			htmls+=`</select>`
+		</c:if>
+			+`</td><td>`+each.prodOrder.paymentState
+			+`</td></tr>`;
+	})
+	return htmls;
+}
 
 
 //모달에서 상품별 전체수량 볼때 배송상태 일괄변경 버튼에 이벤트 할당하는 함수
@@ -208,11 +212,35 @@ function totalUpdateBtn(){
 			})
 	})
 }
+//개별 select로 상태 업뎃하는 이벤트 리스너도 추가
+function updateState(){
+	let selects=document.querySelectorAll('td select');
+	selects.forEach(function(each){
+		let productNum=(each.id.substr(0,7))
+		let orderDate=(each.id.substr(7,10))
+		let demander=(each.id.substr(17,10))
+		each.addEventListener('change',function(){
+			if(confirm('배송상태를 변경할까요?')){
+				$('#orderStateForm [name=productNum]').val(productNum)
+				$('#orderStateForm [name=orderDate]').val(orderDate)
+				$('#orderStateForm [name=demander]').val(demander)
+				$('#orderStateForm [name=orderStateUpdate]').val(this.value)
+				fetchUpdatePromise('#orderStateForm','${path}/updateOrderState.do?').then(function(result){
+					 alert(`배송상태 변경 `+result);
+					 selectProdOrderListJson();}).catch(function(reject){console.error(reject);
+					 	alert(`배송상태 변경에 실패했습니다.`)})
+			}else{
+				return false;
+			}
+		})
+	})
+	
+}
 
 //fetch결과로 상품별 총 주문량 보여주기(모달에 출력)
-function printTotalAmountbyProd(resultlist,isDaily){
+function printTotalAmountbyProd(list,isDaily){
 	var jsonprodAmount=[]
-	resultlist.forEach(function(each){
+	list.forEach(function(each){
 		let nullornot = jsonprodAmount.find(v => v.num === each.prodOrder.productNum)
 		if(nullornot!=null){
 			let amnt=nullornot.amount

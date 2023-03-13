@@ -27,15 +27,17 @@
 </style>
  <div class="lnb">
                 <ul>
+<c:if test="${login.frRegiNum != 9999999999 }">
                     <li id="3000">
                         <a href="#">직원 관리</a>
                         <ul>
 	                        <li id="3100" onclick="location.href='${path }/storeClerkList.do'"><a>- 직원 정보 조회</a></li>
                             <li><a>- 근태 조회</a></li>
-                            <li><a>- 스케쥴 관리</a></li>
+                            <li id="3204" onclick="location.href='${path }/sclerkschd.do'"><a>- 스케쥴 관리</a></li>
                             <li id="3300" onclick="location.href='${path }/clerkPayList.do'"><a>- 급여액 조회</a></li>
                         </ul>
                     </li>
+</c:if>
                     <li id="7000">
                         <a href="#">재무 관리</a>
                         <ul>
@@ -50,12 +52,22 @@
                         <ul>
                             <li id="9101" onclick="location.href='${path }/requestProd.do'"><a>- 발주 신청</a></li>
                             <li id="9201" onclick="location.href='${path }/productOrderList.do'"><a>- 발주 조회</a></li>
+ <c:if test="${login.frRegiNum != 9999999999 }">                          
                             <li><a>- 배송 불량 신청</a></li>
+</c:if>
+<c:if test="${login.frRegiNum == 9999999999 }">
                             <li><a>- 배송 불량 신청 현황</a></li>
                             <li id="9310" onclick="location.href='${path }/prodOrderPayState.do'"><a>- 발주 결제 관리</a></li>
-                            <li><a>- 재고 관리</a></li>
+</c:if>
+<c:if test="${login.frRegiNum != 9999999999 }"> 
+                            <li id="8101" onclick="location.href='${path }/sproductList.do'"><a>- 재고 관리</a></li>
+</c:if>                     
+<c:if test="${login.frRegiNum == 9999999999 }">       
+                            <li id="8201" onclick="location.href='${path }/hproductList.do'"><a>- 재고 관리</a></li>
+</c:if>                             
                         </ul>
                     </li>
+<c:if test="${login.frRegiNum == 9999999999 }">
                     <li id="4000">
                         <a href="#">매장 관리</a>
                         <ul>
@@ -72,6 +84,8 @@
                             <li><a>- 출근시간 점검</a></li>
                         </ul>
                     </li>
+</c:if>
+<c:if test="${login.frRegiNum != 9999999999 }">
                     <li id="2000">
                         <a href="#">메뉴 관리</a>
                         <ul>
@@ -79,17 +93,22 @@
                             <li id="2002" onclick="location.href='${path }/onsaleList.do'"><a>- 판매 메뉴 삭제</a></li>
                         </ul>
                     </li>
-                    
+</c:if>
                      <li id="5000">
                         <a href="#">공지 및 문의</a>
                         <ul>
-                            <li id="5002"><a href="${path}/noticeInsert.do">- 공지사항 등록</a></li>
+<c:if test="${login.frRegiNum == 9999999999 }">                        
+    						<li id="5002"><a href="${path}/noticeInsert.do">- 공지사항 등록</a></li>
+</c:if>
                             <li id="5001"><a href="${path}/noticeList.do">- 공지사항 조회</a></li>
+<c:if test="${login.frRegiNum == 9999999999 }">      
                             <li id="5101"><a href="${path}/qnaInsert.do">- 문의글 등록</a></li>
+</c:if>
                             <li id="5103"><a href="${path}/qnaList.do">- 문의글 조회</a></li>
                             <li id="5201"><a href="${path}/chatting.do">- 1:1 채팅</a></li>
                         </ul>
                     </li>
+<c:if test="${login.frRegiNum == 9999999999 }">                   
                      <li id="4300">
                         <a href="#">메뉴 등록</a>
                         <ul>
@@ -104,6 +123,8 @@
                             <li id="4104"><a href="${path}/updateEmpPass.do">- 비밀번호변경</a></li>
                    		</ul>
                     </li>
+</c:if>
+              
                 </ul>
             </div>
 <script type="text/javascript">
