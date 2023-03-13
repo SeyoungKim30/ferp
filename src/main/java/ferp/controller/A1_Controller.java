@@ -64,7 +64,7 @@ public class A1_Controller {
          return "WEB-INF\\headquarter\\pg4103_hqLogin.jsp";
       }else {
          session.setAttribute("login", service.empLogin(emp));
-         return "/pg0001.jsp";
+         return "forward:/goHqPage.do";
       }
       
    }
@@ -257,6 +257,13 @@ public class A1_Controller {
 				   payprice,
 				   orderOption);
 	   return "redirect:/kiosquePay.do";
+   }
+   
+   // 고객 호출 페이지
+   @RequestMapping("/callCustomer.do")
+   public String callCustomer() {
+      
+      return "WEB-INF\\customer\\pg2202_orderForCustomer.jsp";
    }
    // http://localhost:6080/ferp/storeLogin.do
    // http://localhost:6080/ferp/addOrder.do
