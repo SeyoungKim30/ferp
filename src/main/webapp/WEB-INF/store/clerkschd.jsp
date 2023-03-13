@@ -19,6 +19,10 @@
 	overflow: hidden !important;
 }
 </style>
+<script type="text/javascript">
+	localStorage.setItem("pageIdx","3204")
+	localStorage.setItem("eqIdx","3000")
+</script>
 <script>
   // 위 js를 사용할 수 있게 같은 폴드에 있는 dist 폴드를
   // 복사해서 webapp/a00_com 폴드하위에 넣어주세요.

@@ -38,10 +38,6 @@
 }
 </style>
 <script type="text/javascript">
-	localStorage.setItem("pageIdx","8201")
-	localStorage.setItem("eqIdx","3")
-</script>
-<script type="text/javascript">
 	$(document).ready(function(){
 		$('.uptbtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());

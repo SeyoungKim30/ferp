@@ -27,7 +27,7 @@
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","8101")
-	localStorage.setItem("eqIdx","3")
+	localStorage.setItem("eqIdx","9000")
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){
