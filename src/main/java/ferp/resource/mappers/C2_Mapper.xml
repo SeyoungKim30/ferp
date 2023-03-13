@@ -43,8 +43,8 @@
 	<insert id="r8103InoutIns" parameterType="stock">
 		INSERT INTO STOCK 
 		VALUES (#{productNum,jdbcType=VARCHAR, index=1}, 
-		#{frRegiNum,jdbcType=VARCHAR, index=3}, sysdate, -#{applyAmount, index=2}, 
-        (SELECT REMAINAMOUNT - #{applyAmount, index=2}
+		#{frRegiNum,jdbcType=VARCHAR, index=3}, sysdate, +#{applyAmount, index=2}, 
+        (SELECT REMAINAMOUNT + #{applyAmount, index=2}
         	FROM STOCK 
 			WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1} 
 			AND STOCKDATE = (SELECT MAX(STOCKDATE) 
@@ -93,15 +93,24 @@
 		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR}
 	</update>
 		
-	<!-- 발주 상태 콤보 -->
-	<select id="productNumCom" resultType="string">
-		SELECT DISTINCT productNum
-		FROM STOCK
+	<!-- 자재 코드 콤보 -->
+	<select id="productNumCom" resultType="pos">
+		SELECT DISTINCT s.productNum, p.PRODUCTNAME 
+		FROM STOCK s, PRODUCT p 
+		WHERE s.PRODUCTNUM = p.PRODUCTNUM
+		ORDER BY PRODUCTNAME
+	</select>
+	
+	<!-- 직원 번호 콤보 -->
+	<select id="clerkNumCom" resultType="storeclerk">
+		SELECT DISTINCT CLERKNUM, CLERKNAME 
+		FROM STORECLERK 
+		ORDER BY CLERKNAME
 	</select>
 	
 	<!-- 직원스케줄 캘린더 등록 -->
 	<insert id="sclerkschdIns" parameterType="clerkschedule">
-		INSERT INTO CLERKSCHEDULE values(#{onDay},#{offDay},#{clerkNum},#{FrRegiNum});
+		INSERT INTO CLERKSCHEDULE values(#{onDay},#{offDay},#{clerkNum},#{FrRegiNum})
 	</insert>
 	
 	<!-- 직원스케줄 캘린더 -->

@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ferp.service.C2_Service;
+import vo.ClerkSchedule;
 import vo.Emp;
+import vo.Prod_order_stock;
 import vo.Product;
 import vo.ProductProdOrder;
 import vo.Stock;
 import vo.Store;
+import vo.StoreClerk;
 
 @Controller
 public class C2_Controller {
@@ -51,6 +54,7 @@ public class C2_Controller {
 		Store st = (Store)session.getAttribute("login");
 		sch.setFrRegiNum(st.getFrRegiNum());
 		d.addAttribute("list", service.r8204InoutList(sch));
+		d.addAttribute("remainlist", service.r8101ProductList(sch));
 		return "WEB-INF\\store\\pg8102_inoutList.jsp";
 	}
 	
@@ -123,14 +127,26 @@ public class C2_Controller {
 		return "WEB-INF\\headquarter\\pg8204_inoutList.jsp";
 	}
 	
-	// 발주 상태 콤보
+	// 자재 코드 콤보
 	@ModelAttribute("productNumCom")
-	public List<String> productNumCom() {
+	public List<Prod_order_stock> productNumCom() {
 		return service.productNumCom();
 	}
 	
-	// 직원스케줄 캘린더 등록
+	// 직원 번호 콤보
+	@ModelAttribute("clerkNumCom")
+	public List<StoreClerk> clerkNumCom() {
+		return service.clerkNumCom();
+	}
 	
+	// 직원스케줄 캘린더 등록
+	@RequestMapping("/sclerkschdIns.do")
+	public String sclerkschdIns(ClerkSchedule ins, Model d, HttpSession session){
+		Store st = (Store)session.getAttribute("login");
+		ins.setFrRegiNum(st.getFrRegiNum());
+		service.sclerkschdIns(ins);
+		return "redirect:/sclerkschd.do";
+	}
 	
 	// 직원스케줄 캘린더
 	// http://localhost:6080/ferp/sclerkschd.do
