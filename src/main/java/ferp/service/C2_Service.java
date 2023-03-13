@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import ferp.dao.C2_Dao;
+import vo.ClerkSchedule;
 import vo.Product;
 import vo.ProductProdOrder;
 import vo.ScheduleCalender;
@@ -102,7 +103,10 @@ public class C2_Service {
 	}
 	
 	// 직원스케줄 캘린더 등록	
-
+	public void sclerkschdIns(ClerkSchedule ins) {
+		dao.sclerkschdIns(ins);
+	}
+	
 	// 직원스케줄 캘린더
 	public List<ScheduleCalender> sclerkschd(String writer){
 		return dao.sclerkschd(writer);
