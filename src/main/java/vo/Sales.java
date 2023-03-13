@@ -3,6 +3,7 @@ package vo;
 public class Sales {
 	private int tot;
 	private String orderdate;
+	private String frRegiNum;
 	public int getTot() {
 		return tot;
 	}
@@ -14,5 +15,11 @@ public class Sales {
 	}
 	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
+	}
+	public String getFrRegiNum() {
+		return frRegiNum;
+	}
+	public void setFrRegiNum(String frRegiNum) {
+		this.frRegiNum = frRegiNum;
 	} 
 }
