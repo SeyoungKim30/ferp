@@ -258,6 +258,13 @@ public class A1_Controller {
 				   orderOption);
 	   return "redirect:/kiosquePay.do";
    }
+   
+   // 고객 호출 페이지
+   @RequestMapping("/callCustomer.do")
+   public String callCustomer() {
+      
+      return "WEB-INF\\customer\\pg2202_orderForCustomer.jsp";
+   }
    // http://localhost:6080/ferp/storeLogin.do
    // http://localhost:6080/ferp/addOrder.do
 
