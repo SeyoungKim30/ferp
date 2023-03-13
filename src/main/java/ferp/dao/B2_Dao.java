@@ -7,6 +7,7 @@ import vo.Menu;
 import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
+import vo.Onsale;
 import vo.Store;
 
 public interface B2_Dao {
@@ -18,6 +19,10 @@ public interface B2_Dao {
 	
 	// 매장 정보 등록
 	public void insertStore(Store ins);
+	// 필수 메뉴 출력
+	public List<String> getnecessaryMenuNum();
+	// 필수 메뉴 등록
+	public void necessaryMenu(Onsale ins);
 	// 매장 정보 수정
 	public void updateStore(Store upt);
 	// 해당 매장 정보 조회

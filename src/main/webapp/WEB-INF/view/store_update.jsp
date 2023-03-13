@@ -73,12 +73,12 @@
 				</div>
 				<div class="tenth_line">
 					<input type="hidden" value="${store.eno}" id="enoHidden">
-					<select name="eno" id="eno">
+					<select name="empNum" id="eno">
 						<option disabled="disabled" selected="selected">담당직원 선택</option>
 						<option value="100">김개똥</option>
 					</select>				
 					<input type="text" name="frAddress" value="${store.frAddress}" placeholder="주소 입력">
-				</div>					
+				</div>
 						
 				<div class="submit_line">
 					<button type="button" class="uptBtn">수 정</button>

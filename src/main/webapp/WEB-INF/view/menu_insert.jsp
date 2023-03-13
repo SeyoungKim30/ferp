@@ -83,10 +83,10 @@ $(document).ready(function(){
 
     $(".insBtn").click(function(){
 		if($('#necessary').is(':checked')){
-			$("input[name=necessary]").attr('value','o');
+			$("input[name=necessary]").attr('value','Y');
 		}
 		if(!$('#necessary').is(':checked')){
-			$("input[name=necessary]").attr('value','x');
+			$("input[name=necessary]").attr('value','N');
 		}
 		console.log($('#necessary').is(':checked'))
 		console.log($("input[name=necessary]").val())
