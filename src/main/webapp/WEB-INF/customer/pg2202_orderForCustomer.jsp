@@ -18,19 +18,35 @@
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
 <style type="text/css">
-
-.topText{
-	display: flex;
-	justify-content: center;
-}
-
-.topCom, .btmCom{
-	width: 200px;
-	height: 100px;
-	background: #2262F3;
-	color: #fff;
-	font-size: 25px;
-}
+	.container{
+		padding: 60px 0;
+	}
+	.topText, .btmText{
+		display: flex;
+		justify-content: center;
+		gap: 50px;
+	}
+	
+	.topCom, .btmCom{
+		line-height: 100px;
+	    width: 500px;
+	    height: 100px;
+	    background: #2262F3;
+	    color: #fff;
+	    font-size: 42px;
+	    text-align: center;
+	}
+	
+	.btmText ul{
+	    width: 500px;
+	    border: 5px solid #2262F3;
+	    padding: 40px 0;
+	}
+	
+	.btmText li{
+	    font-size: 50px;
+	    text-align: center;
+	}
 
 </style>
 </head>

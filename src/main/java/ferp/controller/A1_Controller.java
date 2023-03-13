@@ -211,8 +211,10 @@ public class A1_Controller {
    
    // 키오스크 결제 페이지 호출
    @RequestMapping("/kiosquePay.do")
-   public String pg2102kiosquePay(Orders orders, Model d) {
-	   String orderNum = service.getMaxOrderNum();
+   public String pg2102kiosquePay(Orders orders, Model d, HttpSession session) {
+	   Store st = (Store)session.getAttribute("login");
+	   String frRegiNum = st.getFrRegiNum();
+	   String orderNum = service.getMaxOrderNum(frRegiNum);
 	   orders.setOrderNum(orderNum);
 	   // 이전 페이지의 주문번호 정보 가져오기
 	   d.addAttribute("NowOrders", service.getPayPrice(orders));
