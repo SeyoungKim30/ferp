@@ -208,9 +208,11 @@
 		SELECT *
 		FROM (
 			SELECT rownum cnt, n.*
-			FROM notice n
-			WHERE noticenum LIKE '%'||'N'||'%'
-			ORDER BY regdte DESC
+			FROM (
+				SELECT* FROM notice n
+				WHERE 1=1
+				and noticeNum LIKE '%'||'N'||'%'
+				ORDER BY regdte DESC)n 
 		)
 		WHERE rownum <= 10
 	]]>

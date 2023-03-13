@@ -24,7 +24,7 @@ public class A1_Controller {
    
    @Autowired(required = false)
    private A1_Service service;
-   
+
    // 가맹점 로그인
    // http://localhost:6080/ferp/storeLogin.do
    @RequestMapping("/storeLogin.do")
@@ -52,7 +52,7 @@ public class A1_Controller {
          return "WEB-INF\\headquarter\\pg4103_hqLogin.jsp";
       }else {
          session.setAttribute("login", service.empLogin(emp));
-         return "/goEmpMainPage.do";
+         return "/pg0001.jsp";
       }
       
    }

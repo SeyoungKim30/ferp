@@ -28,6 +28,7 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
           	<h2 class="notice_main">공 지 사 항</h2>
+          	<input type="hidden" name="buttonChk" value="${not empty login.ename?'본사':'매장'}">
           	<div class="title_line">
           		<h3 class="notice_title">${notice.title}</h3>
           		<span style="position: absolute; right: 19%;">등록일 : <fmt:formatDate value="${notice.regdte}" pattern="yyyy-MM-dd"/></span>
@@ -51,6 +52,11 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	var store = $("[name=buttonChk]").val()
+	if( store == '매장' ){
+		$("#uptBtn").hide()
+		$("#delBtn").hide()
+	}
 	<%-- 
 	
 	--%>	

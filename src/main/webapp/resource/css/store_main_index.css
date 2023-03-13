@@ -81,11 +81,10 @@ content: "";
 }
 
 .main_banner{
-    border: 1px solid #222;
+    /* border: 1px solid #222; */
     width: 1000px;
     height: 300px;
     margin: auto;
-    font-size: 50px;
 }
 
 .btm_content{
@@ -94,7 +93,13 @@ content: "";
     gap: 50px;
     padding-top: 50px;
 }
-
+.notice_content h3{
+	padding-left: 95px;
+    line-height: 50px;
+    font-weight: 400;
+    font-size: 25px;	
+    padding-right: 70%;
+}
 .btm_content h3{
     line-height: 50px;
     font-weight: 400;

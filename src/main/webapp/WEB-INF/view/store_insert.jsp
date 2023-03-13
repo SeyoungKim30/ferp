@@ -75,9 +75,11 @@
 					<select name="eno">
 						<option disabled="disabled" selected="selected">담당직원 선택</option>
 						<c:forEach var="emp" items="${empCombo}">
+							<c:if test="${emp.ename ne 'admin'}">
 							<option value="${emp.empnum}">${emp.ename}</option>
+							</c:if>
 						</c:forEach>
-					</select>				
+					</select>	
 					<input type="text" name="email" placeholder="이메일 입력">
 				</div>					
 				<div class="eleventh_line">
@@ -97,6 +99,8 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+
+	
     $(".insBtn").click(function(){
 		  Swal.fire({
 			  title: '등록하시겠습니까?',
