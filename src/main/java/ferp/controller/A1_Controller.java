@@ -64,7 +64,7 @@ public class A1_Controller {
          return "WEB-INF\\headquarter\\pg4103_hqLogin.jsp";
       }else {
          session.setAttribute("login", service.empLogin(emp));
-         return "/pg0001.jsp";
+         return "forward:/goHqPage.do";
       }
       
    }
