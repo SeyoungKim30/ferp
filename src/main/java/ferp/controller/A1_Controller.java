@@ -212,8 +212,16 @@ public class A1_Controller {
    
    // 결제 상태 변경 do
    @RequestMapping("/payState.do")
-   public String payStateChange(@RequestParam("orderNum") String orderNum) {
-	   service.uptOrderStatePay(orderNum);
+   public String payStateChange(
+		   @RequestParam("orderNum") String orderNum,
+		   @RequestParam("price") int price,
+		   @RequestParam("tax") int tax,
+		   @RequestParam("oppm") String oppm,
+		   HttpSession session
+		   ) {
+	   Store st = (Store)session.getAttribute("login");
+	   String frRegiNum = st.getFrRegiNum();
+	   service.uptOrderStatePay(orderNum, price, tax, frRegiNum, oppm);
 	   return "redirect:/orderCom.do?orderNum="+orderNum;
    }
    

@@ -95,17 +95,13 @@
 		<p class="price">가격</p>
 		<h3>* 원하시는 결제 수단을 선택해 주세요.</h3>
 		<div class="howtoPay">
-			<div class="howbox kakao">
+			<div class="howbox kakao" name="카카오">
 				<img alt="" src="${path}/resource/img/kakao.png"><br>
 				<span>카카오페이</span>
 			</div>
-			<div class="howbox card">
+			<div class="howbox card" name="빌게이트">
 				<img alt="" src="${path}/resource/img/card.png"><br>
 				<span>카드 결제</span>
-			</div>
-			<div class="howbox cash">
-				<img alt="" src="${path}/resource/img/cash.png"><br>
-				<span>현금 결제</span>
 			</div>
 		</div>
 		<c:forEach var="no" items="${NowOrders}">
@@ -124,12 +120,18 @@ var total = 0;
 for (var i = 0; i < payprices.length; i++) {
   total += parseInt(payprices[i].textContent);
 }
+var price = total;
+var tax = price*0.1;
 
 $(".price").text("결제 금액 : "+total.toLocaleString()+"￦");
 
 var orderNum = $(".orderNum").text();
 $(".howbox").click(function () {
+	var oppm = $(this).attr('name');
 	var pay = $(this).find("span").text();
+	console.log(oppm);
+	console.log(price);
+	console.log(tax);
 	Swal.fire({
 		  title: pay+'로 결제하시겠습니까?',
 		  icon: 'question',
@@ -139,7 +141,7 @@ $(".howbox").click(function () {
 		  confirmButtonText: '결제',
 		  cancelButtonText: '취소'
 		}).then((result) => {
-			location.href="payState.do?orderNum="+orderNum;
+			location.href="payState.do?orderNum="+orderNum+"&price="+price+"&tax="+tax+"&oppm="+oppm;
 		});
 });
 
