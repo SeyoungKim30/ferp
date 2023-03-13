@@ -49,8 +49,9 @@
 					<div class="tdDiv" style="width: 19%;">
 						<input type="hidden" class="opposite${p.productNum }" value="${p.opposite }"> ${p.opposite }
 					</div>
-					<input type="hidden" class="productNum${p.productNum }" value="${p.productNum }"> <input type="hidden" class="frRegiNum${p.productNum }" value="${p.frRegiNum }">
-					<div class="tdDiv" style="width: 14%;">₩ ${p.price }</div>
+					<input type="hidden" class="productNum${p.productNum }" value="${p.productNum }"> 
+					<input type="hidden" class="frRegiNum${p.productNum }" value="${p.frRegiNum }">
+					<div class="tdDiv" style="width: 14%;"><fmt:formatNumber value='${p.price }' type='currency'/></div>
 					<div class="tdDiv" style="width: 14%;">${p.remainAmount }</div>
 					<div class="tdDiv" style="width: 9%;">
 						<div class="row center">

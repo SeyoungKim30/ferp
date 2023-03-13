@@ -11,6 +11,7 @@ import vo.DefectOrder;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
+import vo.Sales;
 import vo.StoreClerk;
 
 @Service
@@ -80,7 +81,6 @@ public class A2_Service {
 	
 	public List<Rq_Product> availProd(Rq_Product plist){
 		if(plist.getProductName() == null) plist.setProductName("");
-		if(plist.getFrRegiNum() == null) plist.setFrRegiNum("9999999999");
 		return dao.availProd(plist);
 	}
 	public int clerkTot() {
@@ -126,8 +126,14 @@ public class A2_Service {
 		dao.clerkFileDel(del);
 	}
 	public List<DefectOrder> viewDefectorder(DefectOrder sch){
-		if(sch.getOrderNum() == null) sch.setOrderNum("");
+		if(sch.getProductName() == null) sch.setProductName("");
 		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
+		if(sch.getOrderDateMonth() == null) sch.setOrderDateMonth("");
+		if(sch.getCategory() == null) sch.setCategory("");
 		return dao.viewDefectorder(sch);
+	}
+	public List<Sales> salesGraph(Sales sch){
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
+		return dao.salesGraph(sch);
 	}
 }

@@ -7,6 +7,7 @@ import vo.DefectOrder;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
+import vo.Sales;
 import vo.StoreClerk;
 
 public interface A2_Dao {
@@ -28,4 +29,5 @@ public interface A2_Dao {
 	public void clerkFileUpt(ClerkFile upt);
 	public void clerkFileDel(ClerkFile del);
 	public List<DefectOrder> viewDefectorder(DefectOrder sch);
+	public List<Sales> salesGraph(Sales sch);
 }

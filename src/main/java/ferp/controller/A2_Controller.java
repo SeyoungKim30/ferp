@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import ferp.service.A2_Service;
@@ -28,10 +29,12 @@ import vo.Emp;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
+import vo.Sales;
 import vo.Store;
 import vo.StoreClerk;
 
 @Controller
+@SessionAttributes(value="salesGraph")
 public class A2_Controller {
 	
 	@Value("${uploadJH}")
@@ -203,9 +206,23 @@ public class A2_Controller {
 //	오배송/누락/자재 파손 처리 신청
 	
 //	오배송/누락/자재 파손 처리 신청 상태 조회
-	@GetMapping("/viewDefectProd.do")
-	public String pg9402(DefectOrder sch, Model d) {
+	@RequestMapping("/viewDefectProd.do")
+	public String pg9402(@ModelAttribute("dSch") DefectOrder sch, HttpSession session, Model d) {
+		Store s = (Store)session.getAttribute("login");
+		sch.setFrRegiNum(s.getFrRegiNum());
 		d.addAttribute("defectlist", service.viewDefectorder(sch));
 		return "/WEB-INF/storeclerk/A2_defectOrderCon.jsp";
+	}
+//	최근 일주일 매출 그래프
+	@ModelAttribute("salesGraph")
+	public List<Sales> salesGraph(Sales sch, HttpSession session){
+		Store s = (Store)session.getAttribute("login");
+		sch.setFrRegiNum(s.getFrRegiNum());
+		return service.salesGraph(sch);
+	}
+	
+	@RequestMapping("/asd.do")
+	public String asd() {
+		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
 	}
 }
