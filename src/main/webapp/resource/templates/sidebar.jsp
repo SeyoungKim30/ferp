@@ -27,6 +27,7 @@
 </style>
  <div class="lnb">
                 <ul>
+<c:if test="${login.frRegiNum != 9999999999 }">
                     <li id="3000">
                         <a href="#">직원 관리</a>
                         <ul>
@@ -36,6 +37,7 @@
                             <li id="3300" onclick="location.href='${path }/clerkPayList.do'"><a>- 급여액 조회</a></li>
                         </ul>
                     </li>
+</c:if>
                     <li id="7000">
                         <a href="#">재무 관리</a>
                         <ul>
@@ -49,29 +51,34 @@
                         <a href="#">물류 관리</a>
                         <ul>
                             <li id="9101" onclick="location.href='${path }/requestProd.do'"><a>- 발주 신청</a></li>
-                            <li id="9201" onclick="location.href='${path }/productOrderList.do'"><a>- 발주 조회</a></li>
-                            <li><a>- 배송 불량 신청</a></li>
-                            <li><a>- 배송 불량 신청 현황</a></li>
+                            <li id="9201" onclick="location.href='${path }/productOrderList.do'"><a>- 발주 관리</a></li>
+<c:if test="${login.frRegiNum != 9999999999 }"><li><a>- 배송 불량 신청</a></li>	</c:if>
+<c:if test="${login.frRegiNum == 9999999999 }">
+							<li><a>- 배송 불량 신청 현황</a></li>
                             <li id="9310" onclick="location.href='${path }/prodOrderPayState.do'"><a>- 발주 결제 관리</a></li>
+</c:if>
                             <li><a>- 재고 관리</a></li>
                         </ul>
                     </li>
-                    <li id="">
+<c:if test="${login.frRegiNum == 9999999999 }">
+                    <li id="7000">
                         <a href="#">매장 관리</a>
                         <ul>
                             <li><a>- 매장 정보 등록</a></li>
-                            <li><a>- 매장 정보 조회</a></li>
+                            <li id="7501"><a>- 매장 정보 조회</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="6000">
                         <a href="#">매장 점검</a>
                         <ul>
-                            <li><a>- 품질관리점검표</a></li>
-                            <li><a>- 품질관리점검 결과 조회</a></li>   
-                            <li><a>- 담당 매장 점검</a></li><!-- 담당자만 보이게 -->
-                            <li><a>- 출근시간 점검</a></li>
+                            <li id="6105"><a>- 품질관리점검표</a></li>
+                            <li id='6104'><a>- 품질관리점검 결과 조회</a></li>   
+                            <li id="6101"><a>- 담당 매장 점검</a></li><!-- 담당자만 보이게 -->
+                            <li id='6202'><a>- 출근시간 점검</a></li>
                         </ul>
                     </li>
+</c:if>
+<c:if test="${login.frRegiNum != 9999999999 }">                   
                     <li id="2000">
                         <a href="#">메뉴 관리</a>
                         <ul>
@@ -79,7 +86,7 @@
                             <li id="2002" onclick="location.href='${path }/onsaleList.do'"><a>- 판매 메뉴 삭제</a></li>
                         </ul>
                     </li>
-                    
+</c:if>                   
                      <li>
                         <a href="#">공지 및 문의</a>
                         <ul>
