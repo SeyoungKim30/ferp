@@ -3,6 +3,7 @@ SELECT * FROM STORE s ;
 SELECT * FROM emp;
 SELECT * FROM ACSTATEMENT;
 SELECT * FROM prodOrder;
+SELECT * FROM stock;
 
 INSERT INTO store values('1234567893','23031000','연남센트럴파크점',sysdate,'09:00-23:00','연중무휴','김박자','02-457-4145','서울특별시 마포구 연남로12','1234','kim_se_0@naver.com');
 UPDATE store SET frpass='1234' WHERE FRREGINUM ='1234567893';
