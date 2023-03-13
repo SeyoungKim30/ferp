@@ -225,6 +225,7 @@ public class A1_Controller {
 	   return "redirect:/orderCom.do?orderNum="+orderNum;
    }
    
+   
    // 주문 완료 페이지
    @RequestMapping("/orderCom.do")
    public String orderCom(@RequestParam("orderNum") String orderNum, Model d) {
