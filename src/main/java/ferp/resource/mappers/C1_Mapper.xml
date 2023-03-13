@@ -187,10 +187,16 @@ ORDER BY CATEGORY
 	
 	
 	
-	<update id="r7212updateACStatement" parameterType="acstmt">
-	UPDATE ACSTATEMENT SET acntnum= #{acntNum}, debit=#{debit}, 
-	credit=#{credit},STMTOPPOSITE =#{stmtOpposite,jdbcType=VARCHAR},REMARK =#{remark,jdbcType=VARCHAR}
-	WHERE STATEMENTNUM =#{statementNum} AND TO_CHAR(stmtdate,'YYYY-MM-DD') = #{stmtDate} AND lineNum=#{lineNum}
+<update id="r7212updateACStatement" parameterType="acstmt">
+MERGE INTO ACSTATEMENT t
+USING ( SELECT #{statementNum} AS STATEMENTNUM, #{frRegiNum} AS FRREGINUM, TO_DATE(#{stmtDate}, 'YYYY-MM-DD') AS STMTDATE,
+		#{lineNum} AS LINENUM, #{acntNum} AS ACNTNUM, #{debit} AS DEBIT, #{credit} AS CREDIT, 
+		#{stmtOpposite,jdbcType=VARCHAR} AS STMTOPPOSITE, #{remark,jdbcType=VARCHAR} AS REMARK FROM dual ) s
+ON (t.STATEMENTNUM = s.STATEMENTNUM AND t.FRREGINUM = s.FRREGINUM AND t.STMTDATE = s.STMTDATE AND t.LINENUM = s.LINENUM)
+WHEN MATCHED THEN UPDATE SET t.ACNTNUM = s.ACNTNUM, t.DEBIT = s.DEBIT, t.CREDIT = s.CREDIT, t.STMTOPPOSITE = s.STMTOPPOSITE, t.REMARK = s.REMARK 
+WHEN NOT MATCHED THEN
+  INSERT (STATEMENTNUM, FRREGINUM, LINENUM, STMTDATE, ACNTNUM, DEBIT, CREDIT, STMTOPPOSITE, REMARK)
+  VALUES (s.STATEMENTNUM, s.FRREGINUM, s.LINENUM, s.STMTDATE, s.ACNTNUM, s.DEBIT, s.CREDIT, s.STMTOPPOSITE, s.REMARK)
 	</update>
 	
 	<delete id="r7213deleteACStatement" parameterType="acstmt">

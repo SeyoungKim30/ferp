@@ -63,7 +63,7 @@ window.addEventListener('load',function(){
 		<label>종료월<input type="month" name="orderDate"></label>
 		<label for="demander">주문지점<input name="demander" list="storeList"></label><datalist id="storeList"></datalist>
 		<label for="supplier">담당자<input name="supplier" list="empList"></label><datalist id="empList"></datalist>
-		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
+		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option><option>취소</option></select></label>
 		</div>
 		<button class="btn-secondary">조회</button>
 	</div>
@@ -82,7 +82,7 @@ window.addEventListener('load',function(){
 	</div>
 	
 	
-	<form id="updateForm"> style="display: none;"
+	<form id="updateForm" style="display: none;">
 	<input name="orderDateMonth">
 	<input name="demander">
 	<input name="supplier">

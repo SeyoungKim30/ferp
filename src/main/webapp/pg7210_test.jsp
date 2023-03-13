@@ -75,6 +75,7 @@ localStorage.setItem("eqIdx","1")
 <datalist id="titleList"></datalist>
 </form>
 <button type="button" @click="addRow">addRow</button>
+<button type="button" @click="removeRow">removeRow</button>
 </div>
 <script>
 
@@ -102,6 +103,9 @@ var vm=	new Vue({
 		      this.index=this.stmtlist.length;
 		      let newrow={ lineNum: this.index , acntNum: '', debit: 0, acntTitle: '', credit: 0, stmtOpposite: '', remark: '' }
 		      this.stmtlist.push(newrow);
+		    },
+		   removeRow(){
+		    	this.stmtlist.pop();
 		    },
 		   numinput(){
 		    	 let debitSum = 0;
@@ -163,12 +167,14 @@ var vm=	new Vue({
 				if(rronum<0){rronum=rronum*(-1);}
 				rronum=rronum-1;
 			    let url="${path }/selectACstatementJson.do?stmtDate="+this.stmtDate+"&rronum="+rronum+"&frRegiNum="+this.frRegiNum;
+			    console.log(url)
 			    this.generalSelect(url)
 		   },
 		   nextSelect(){
 				let rronum=this.rronum;
 				rronum=Number(rronum)+1
 				let url="${path }/selectACstatementJson.do?stmtDate="+this.stmtDate+"&rronum="+rronum+"&frRegiNum="+this.frRegiNum;
+				console.log(url)
 				this.generalSelect(url)
 		   }
 		  }

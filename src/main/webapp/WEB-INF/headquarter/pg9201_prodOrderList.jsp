@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
+<script type="text/javascript" src="${path }/resource/js/sy_modal.js"></script>
 
 <c:if test="${login.frRegiNum == 9999999999 }">
 <style>
@@ -42,17 +43,6 @@
 
 </head>
 
-<script type="text/javascript">
-	localStorage.setItem("pageIdx","9201")
-	localStorage.setItem("eqIdx","9000")
-
-	//담당자 리스트
-	var empList=[];
-	
-	//상품리스트
-	var prodList=[];
-
-</script>
 
 <body class="container">
 	<%@ include file="/resource/templates/header.jsp"%>
@@ -81,7 +71,7 @@
 	</fieldset>
 		<label>상품 선택<input name="productNum" list="productList"></label><datalist id="productList"></datalist>
 		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송중</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
-		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
+		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option><option>취소</option></select></label>
 	</div>
 	<div style="position: relative;">
 <c:if test="${login.frRegiNum == 9999999999 }">
@@ -280,21 +270,6 @@ function printTotalAmountbyProd(list,isDaily){
 	</c:if>
 }
 
-
-//모달 버튼 할당
-function openModal(){
-	//모달 닫기버튼으로 닫기
-	$('.btn-close').on('click',function(){
-		$('#modalByProd').addClass('modal')
-		$('#modalByProd').removeClass('modal-open')
-	})
-	//4번째 열 누르면 모달 열리게
-	$('th .btn-sm').on('click',function(){
-		$('#modalByProd').addClass('modal-open')
-		$('#modalByProd').removeClass('modal')
-	})
-}
-
 $(function(){
 	//오늘 날짜 기본 입력
 	$('[type=date]').val(new Date().toISOString().slice(0, 10));
@@ -311,7 +286,7 @@ $(function(){
 	selectProdOrderListJson();
 	
 	//모달 버튼 할당
-	openModal()
+	openModal('#modalByProd','th .btn-sm')
 	
 	//셋 중 하나만 입력할 수 있게
 	$('.toolbar').first().find('label').each(function(){

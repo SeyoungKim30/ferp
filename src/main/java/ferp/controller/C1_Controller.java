@@ -165,6 +165,11 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg9301_prodOrderPayDetail.jsp";
 	}
 	
+	//http://localhost:6080/ferp/defectOrderHandler.do
+	@GetMapping("defectOrderHandler.do")
+	public String r9403() {
+		return "WEB-INF\\headquarter\\pg9403_defectOrderHandler.jsp";
+	}
 	
 	//http://localhost:6080/ferp/pnl.do
 	@GetMapping("pnl.do")
