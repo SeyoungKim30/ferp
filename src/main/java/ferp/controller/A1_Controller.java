@@ -49,7 +49,7 @@ public class A1_Controller {
          return "WEB-INF\\store\\pg1000_storeLogin.jsp";
       }else {
          session.setAttribute("login", service.storeLogin(st));
-         return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
+         return "forward:/asd.do";
       }
    }
    // 본사 로그인
