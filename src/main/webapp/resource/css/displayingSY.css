@@ -140,3 +140,15 @@ fieldset {
 .modal-body{
 	padding:1em;
 }
+.btn-close{position: relative;}
+.btn-close::after{
+	background-image: url("/ferp/resource/img/btn-close.png");
+	background-position:center;
+  	background-size:contain;
+	content: '';
+  	position: absolute;
+  	top: 0.6em;
+  	right: 0.6em;
+	width: 1em;
+	height: 1em;
+	}

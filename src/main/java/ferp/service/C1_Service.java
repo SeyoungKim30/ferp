@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ferp.dao.C1_Dao;
+import ferp.dao.C2_Dao;
 import vo.ACStatement;
 import vo.Account;
 import vo.ProdOrder;
@@ -21,6 +22,9 @@ public class C1_Service {
 
 	@Autowired
 	C1_Dao dao;
+	
+	@Autowired
+	C2_Dao daoC2;
 
 	public List<Account> r7100SelectAccount(Account ac) {
 		if(ac.getAcntNum()==null) {ac.setAcntNum("");}
@@ -91,9 +95,10 @@ public class C1_Service {
 	}
 	
 	public int r9203updateOrderState(ProdOrder prodOrder) {
-		/*if(prodOrder.getOrderStateUpdate().equals("")) {
+		if(prodOrder.getOrderStateUpdate().equals("배송중")) {
 			//재고stock에 insert
-		} */
+			//daoC2.r
+		} 
 		return dao.r9203updateOrderState(prodOrder);
 	}
 	

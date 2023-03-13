@@ -69,3 +69,23 @@ var fetchSelectPromise = function(formid,pathurl){
 	 	$(target).html(htmls)
 	}
 	
+	
+// 정렬하기 onclick="sortList(this,'prodOrder','orderDate')" class="sorted"
+function sortList(self,stand,field){
+	var thisclass=self.classList[0] ;
+	if(thisclass=='sorted'){
+		resultlist.sort(function(a,b){
+			return a[stand][field] < b[stand][field] ? -1 : a[stand][field] > b[stand][field] ? 1 : 0;
+			})
+		self.classList.add('reversed');
+		self.classList.remove('sorted');
+	}else{
+		resultlist.sort(function(a,b){
+			return a[stand][field] < b[stand][field] ? 1 : a[stand][field] > b[stand][field] ? -1 : 0;
+			})
+		self.classList.add('sorted');
+		self.classList.remove('reversed');
+	}
+	console.log(resultlist)
+	document.querySelector('.contents tbody').innerHTML=htmlPrint(resultlist);
+}
