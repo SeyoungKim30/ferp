@@ -115,7 +115,6 @@ public class A1_Controller {
       return "WEB-INF\\store\\pg2200_orderCheck.jsp";
    }
 
-   
    // 결제 취소
    @RequestMapping("/delOrder.do")
    public String delOrder(@RequestParam ("orderNum") String OrderNum) {

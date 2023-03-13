@@ -61,17 +61,24 @@
 	    justify-content: center;
     }
     
-    .loginBtn{
+    .btn{
 		display: block;
 	    font-size: 18px;
 	    font-family: inherit;
 	    width: 120px;
 	    height: 40px;
-	    margin: auto;
 	    background: #fff;
 	    border: 1px solid #000;
 	    border-radius: 5px;
 	    cursor: pointer;
+	    line-height: 40px;
+	    text-align: center;
+    }
+    
+    .loginBtn{
+    	background: #2262F3;
+    	border: none;
+    	color: #fff;
     }
     
     .loginBox{
@@ -92,6 +99,12 @@
 	    font-size: 17px;
     	color: #666;
     }
+    
+    .btnWrapper{
+    	display: flex;
+    	justify-content: center;
+	    gap: 60px;
+    }
 	
 </style>
 </head>
@@ -105,23 +118,22 @@
            	<h2>프랜차이즈 매장 관리 시스템</h1>
         </header>
         <div class="main_wrapper">
-        <div class="loginBox">
-        	<form method="post" id="loginForm">
-        		<div class="idBox">
-      				<span>사업자 번호</span>
-					<input type="text" name="frRegiNum" placeholder="'-'는 제외하고 입력하세요.">
-        		</div>
-        		<div class="passBox">
-        			<span>비밀번호</span>
-					<input type="password" name="frPass">
-				</div>
-				<button type="submit" class="loginBtn">로그인</button>
-        	</form>
-        </div>
-        <p class="pwText">
-        비밀번호 분실 시, 담당자에게 문의 메일을 주시면 본인 확인 후 안내를 도와 드리겠습니다.<br>
-        담당자 : 이지원 (leezzzzwon@frep.co.kr)
-        </p>
+	        <div class="loginBox">
+	        	<form method="post" id="loginForm">
+	        		<div class="idBox">
+	      				<span>사업자 번호</span>
+						<input type="text" name="frRegiNum" placeholder="'-'는 제외하고 입력하세요.">
+	        		</div>
+	        		<div class="passBox">
+	        			<span>비밀번호</span>
+						<input type="password" name="frPass">
+					</div>
+					<div class="btnWrapper">
+						<button type="submit" class="loginBtn btn">로그인</button>
+		        	</form>
+						<div class="btn" onclick="location.href='${path}/tempPassword.do'">비밀번호 찾기</div>
+					</div>
+	        </div>
 		</div>
     </div>
 </body>
