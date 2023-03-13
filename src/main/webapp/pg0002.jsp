@@ -114,7 +114,7 @@ const data = {
 				'rgba(75, 192, 192,0.2)',
 				'rgba(153, 102, 255,0.2)',
 				'rgba(255, 159, 64,0.2)',
-				'rgba(255, 99, 132,0.2)'
+				'rgba(205, 69, 102,0.2)'
 			],
 			borderColor: [
 				'rgba(255, 99, 132,1)',
@@ -123,8 +123,9 @@ const data = {
 				'rgba(75, 192, 192,1)',
 				'rgba(153, 102, 255,1)',
 				'rgba(255, 159, 64,1)',
-				'rgba(255, 99, 132,1)'
+				'rgba(205, 69, 102,1)'
 			],
+			borderWidth:2,
 			data: [arr[6].tot,arr[5].tot,arr[4].tot,arr[3].tot,arr[2].tot,arr[1].tot,arr[0].tot],
 		}
 	]

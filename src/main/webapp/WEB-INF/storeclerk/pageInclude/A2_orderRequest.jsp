@@ -86,8 +86,7 @@
 						<input type="text" name="amount" class="margin-tln regList" placeholder="수량" pattern="[0-9]+" required />
 					</div>
 					<input type="hidden" name="productNum" required />
-					<%-- <c:if test=""></c:if> --%>
-					<input type="hidden" name="supplier" required />
+					<input type="hidden" name="supplier" value="${not empty login.ename?'---':'9999999999' }" required/>
 					<div class="col margin-tn w25">
 						<button type="button" class="regBtn regList" style="margin-top: 19.5px;">등록</button>
 					</div>			

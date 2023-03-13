@@ -99,8 +99,7 @@
 		$(".supplierName").val($(".opposite${p.productNum }").val())
 		$(".productName").val($(".productName${p.productNum }").val())
 		$("[name=amount]").val($(".a${p.productNum }").val())	
-		$("[name=productNum]").val($(".productNum${p.productNum }").val())	
-		$("[name=supplier]").val($(".frRegiNum${p.productNum }").val())	
+		$("[name=productNum]").val($(".productNum${p.productNum }").val())
 		$(".adjustAmountText").val("0")
 		$("#modal").attr("style", "display:none");
 	})
