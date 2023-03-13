@@ -125,8 +125,16 @@ input[type="text"].listInput:focus {
 	outline:none;
 }
 
+.w20 {
+	width: 20%;
+}
+
 .w25 {
 	width: 25%;
+}
+
+.w65 {
+	width: 65%;
 }
 
 .w100 {

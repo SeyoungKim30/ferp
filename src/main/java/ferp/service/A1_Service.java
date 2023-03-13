@@ -115,8 +115,8 @@ public class A1_Service {
     }
 	
     // maxOrderNum
-    public String getMaxOrderNum() {
-    	return dao.getMaxOrderNum();
+    public String getMaxOrderNum(String frRegiNum) {
+    	return dao.getMaxOrderNum(frRegiNum);
     }
     
     public List<Orders> getPayPrice(Orders order){
@@ -125,9 +125,8 @@ public class A1_Service {
     
  // 결제대기에서 제조대기로
  	public void uptOrderStatePay(String orderNum, int price, int tax, String frRegiNum, String opp) {
- 		dao.uptOrderStatePay(orderNum);
 
- 		
+
  		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString=dateFormat.format(date);
@@ -167,6 +166,8 @@ public class A1_Service {
 		ast.setStmtDate(dateString); // 날짜
 		ast.setStmtOpposite("부가세"); // 공백이라도 넣을 것
 		daoC.r7210insertStatement(ast);
+		
+ 		dao.uptOrderStatePay(orderNum);
 		
  	}
  	

@@ -92,7 +92,7 @@ header{
 	<c:if test="${login.frRegiNum != '9999999999'}">
 		<div class="headerTop">
 			<h2 class="nameText">${login.frName }</h2>
-			<button class="logout logoutBtn" onclick="location.href='${path}/storeLogin.do'">로그아웃</button>
+			<button class="logout logoutBtn" onclick="location.href='${path}/logoutStore.do'">로그아웃</button>
 		</div>
 	</c:if>
 	<c:if test="${login.frRegiNum == '9999999999'}">

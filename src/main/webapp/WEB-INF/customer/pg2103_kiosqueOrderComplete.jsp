@@ -81,6 +81,7 @@
 			결제 완료
 		</div>
 		<p>
+		
 			감사합니다.<br>
 			결제가 완료되었습니다.<br>
 			주문번호 : <span class="orderNum">${orderNum}</span>

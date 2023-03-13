@@ -38,7 +38,7 @@ public class A1_Controller {
    }
    
    // 가맹점 로그인
-   // http://localhost:6080/ferp/storeLogin.do
+   // http://localhost:6080/ferp/storeLogin.do 
    @RequestMapping("/storeLogin.do")
    public String pg1000storeLogin(Store st, Model d, HttpSession session){
       if(st.getFrRegiNum()==null) {
@@ -49,7 +49,7 @@ public class A1_Controller {
          return "WEB-INF\\store\\pg1000_storeLogin.jsp";
       }else {
          session.setAttribute("login", service.storeLogin(st));
-         return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
+         return "forward:/asd.do";
       }
    }
    // 본사 로그인
@@ -64,7 +64,7 @@ public class A1_Controller {
          return "WEB-INF\\headquarter\\pg4103_hqLogin.jsp";
       }else {
          session.setAttribute("login", service.empLogin(emp));
-         return "/pg0001.jsp";
+         return "forward:/goHqPage.do";
       }
       
    }
@@ -84,7 +84,6 @@ public class A1_Controller {
 	  session.invalidate();
 	  status.setComplete(); // 세션 무효화
       d.addAttribute("logout","로그아웃");
-      
  
       return "redirect:/goEmpMainPage.do";
       }
@@ -116,7 +115,6 @@ public class A1_Controller {
       return "WEB-INF\\store\\pg2200_orderCheck.jsp";
    }
 
-   
    // 결제 취소
    @RequestMapping("/delOrder.do")
    public String delOrder(@RequestParam ("orderNum") String OrderNum) {
@@ -213,8 +211,10 @@ public class A1_Controller {
    
    // 키오스크 결제 페이지 호출
    @RequestMapping("/kiosquePay.do")
-   public String pg2102kiosquePay(Orders orders, Model d) {
-	   String orderNum = service.getMaxOrderNum();
+   public String pg2102kiosquePay(Orders orders, Model d, HttpSession session) {
+	   Store st = (Store)session.getAttribute("login");
+	   String frRegiNum = st.getFrRegiNum();
+	   String orderNum = service.getMaxOrderNum(frRegiNum);
 	   orders.setOrderNum(orderNum);
 	   // 이전 페이지의 주문번호 정보 가져오기
 	   d.addAttribute("NowOrders", service.getPayPrice(orders));
@@ -259,6 +259,13 @@ public class A1_Controller {
 				   payprice,
 				   orderOption);
 	   return "redirect:/kiosquePay.do";
+   }
+   
+   // 고객 호출 페이지
+   @RequestMapping("/callCustomer.do")
+   public String callCustomer() {
+      
+      return "WEB-INF\\customer\\pg2202_orderForCustomer.jsp";
    }
    // http://localhost:6080/ferp/storeLogin.do
    // http://localhost:6080/ferp/addOrder.do

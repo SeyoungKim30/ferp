@@ -4,8 +4,9 @@
     height: 40px;
     padding: 0 10px;
     vertical-align: middle;
-    border: 1px solid #dddddd;
-    width: 78%;
+    border: 1px solid #a4a4a4;
+    border-radius: 5px 0 0 5px;
+    width: 84%;
     color: #999999;
 }
 .filebox label {
@@ -34,6 +35,6 @@
 	vertical-align: middle;
 	color: #fff;
 	background-color:#999999;
-	margin-left: 10px;
+	margin-left: 5px;
 	border:1px solid #999999;
 }

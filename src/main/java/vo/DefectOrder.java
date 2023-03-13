@@ -1,18 +1,18 @@
 package vo;
 
-import java.util.Date;
-
 public class DefectOrder {
 	private String defNum;
 	private String orderNum;
 	private String productNum;
-	private Date orderDate;
-	private Date applyDate;
+	private String orderDate;
+	private String applyDate;
 	private String img;
 	private String state;
 	private String methods;
 	private String frRegiNum;
 	private String productName;
+	private String orderDateMonth;
+	private String category;
 	public String getDefNum() {
 		return defNum;
 	}
@@ -31,16 +31,16 @@ public class DefectOrder {
 	public void setProductNum(String productNum) {
 		this.productNum = productNum;
 	}
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
-	public Date getApplyDate() {
+	public String getApplyDate() {
 		return applyDate;
 	}
-	public void setApplyDate(Date applyDate) {
+	public void setApplyDate(String applyDate) {
 		this.applyDate = applyDate;
 	}
 	public String getImg() {
@@ -72,5 +72,17 @@ public class DefectOrder {
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+	public String getOrderDateMonth() {
+		return orderDateMonth;
+	}
+	public void setOrderDateMonth(String orderDateMonth) {
+		this.orderDateMonth = orderDateMonth;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }
