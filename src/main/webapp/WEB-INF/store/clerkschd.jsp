@@ -86,6 +86,10 @@
     margin: 0 auto;
   }
 
+	#insertForm {
+        display: flex;
+        flex-direction: row;
+    }
 </style>
 </head>
 <body class="container">
@@ -96,22 +100,40 @@
 		<h2>직원 스케줄 캘린더</h2><br><hr><br>
 			<div class="toolbox">
 			<h3>직원 스케줄 등록</h3><br>
-				<form action="${path}/sinoutIns.do" id='insertForm'>
-					<select name="productNum" required>
-				    	<option value="">자재코드선택</option>
-				    	<c:forEach var="productNum" items="${productNumCom}">
-				    		<option>${productNum}</option>
-				    	</c:forEach>
+				<form action="${path}/sclerkschdIns.do" id='insertForm' class="form-inline">
+				    <select name="clerkNum" required>
+				        <option value="">직원선택</option>
+				        <c:forEach var="clerkNum" items="${clerkNumCom}">
+				            <option>${clerkNum}</option>
+				        </c:forEach>
 				    </select>
 				    <input type="hidden" name="frRegiNum" value="${login.frRegiNum}" id="frRegiNum">
-					<input type="number" name="applyAmount" value="${param.applyAmount}"
-						class="ckValid"	id="applyAmount" placeholder="수량 입력" min="0" 
-						oninput="if(this.value < 0) alert('음수는 입력할 수 없습니다.')" required>
-					<button id="insBtn" class="btn-primary" type="button">등록</button>
+				    <input type="datetime-local" name="onDay" value="${param.onDay}" class="ckValid" id="onDay" placeholder="출근시간 입력" required>
+				    <input type="datetime-local" name="offDay" value="${param.offDay}" class="ckValid" id="offDay" placeholder="퇴근시간 입력" required>
+				    <button id="insBtn" class="btn-primary" type="button">등록</button>
 				</form>
 			</div>
   			<div id='calendar'></div>
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#insBtn").click(function(){
+			var isInValid = false
+			for(var idx=0;idx<$(".ckValid").length;idx++){
+				if($(".ckValid").eq(idx).val()==""){
+					alert("입력하여야 등록 가능합니다.")
+					$(".ckValid").eq(idx).focus()
+					isInValid = true
+					break;
+				}
+			}
+			if(isInValid){
+				return
+			}
+			$("form").submit()
+		})
+	});
+</script>
 </html>

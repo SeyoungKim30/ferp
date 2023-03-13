@@ -1,12 +1,11 @@
 package vo;
 
-import java.util.Date;
 
 public class ClerkSchedule {
 	private String FrRegiNum;
 	private String clerkNum;
-	private Date onDay;
-	private Date offDay;
+	private String onDay;
+	private String offDay;
 	
 	public ClerkSchedule() {
 		super();
@@ -29,21 +28,23 @@ public class ClerkSchedule {
 		this.clerkNum = clerkNum;
 	}
 
-	public Date getOnDay() {
+	public String getOnDay() {
 		return onDay;
 	}
 
-	public void setOnDay(Date onDay) {
+	public void setOnDay(String onDay) {
 		this.onDay = onDay;
 	}
 
-	public Date getOffDay() {
+	public String getOffDay() {
 		return offDay;
 	}
 
-	public void setOffDay(Date offDay) {
+	public void setOffDay(String offDay) {
 		this.offDay = offDay;
 	}
+
+	
 	
 	
 	
