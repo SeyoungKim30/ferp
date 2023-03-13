@@ -3,10 +3,12 @@ package ferp.dao;
 import java.util.List;
 
 import vo.ClerkSchedule;
+import vo.Prod_order_stock;
 import vo.Product;
 import vo.ProductProdOrder;
 import vo.ScheduleCalender;
 import vo.Stock;
+import vo.StoreClerk;
 
 public interface C2_Dao {
 	
@@ -26,8 +28,10 @@ public interface C2_Dao {
 	public void r8202ProductIns(Product ins);
 	// 본사 재고 수정
 	public void r8203ProductUpt(Product upt);
-	// 발주 상태 콤보
-	public List<String> productNumCom();
+	// 자재 코드 콤보
+	public List<Prod_order_stock> productNumCom();
+	// 직원 번호 콤보
+	public List<StoreClerk> clerkNumCom();
 	// 직원스케줄 캘린더 등록
 	public void sclerkschdIns(ClerkSchedule ins);
 	// 직원스케줄 캘린더

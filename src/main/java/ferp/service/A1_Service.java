@@ -1,11 +1,16 @@
 package ferp.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ferp.dao.A1_Dao;
+import ferp.dao.C1_Dao;
+import vo.ACStatement;
 import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
@@ -19,6 +24,8 @@ public class A1_Service {
 
 	@Autowired(required = false)
 	private A1_Dao dao;
+	@Autowired(required = false)
+	private C1_Dao daoC;
 	
 	public Store storeLogin(Store st) {
 		if(st.getFrRegiNum()==null) st.setFrRegiNum("");
@@ -117,8 +124,50 @@ public class A1_Service {
     }
     
  // 결제대기에서 제조대기로
- 	public void uptOrderStatePay(String orderNum) {
+ 	public void uptOrderStatePay(String orderNum, int price, int tax, String frRegiNum, String opp) {
  		dao.uptOrderStatePay(orderNum);
+
+ 		
+ 		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString=dateFormat.format(date);
+		
+ 		ACStatement ast = new ACStatement();
+		
+		//미수수익(자산) 총 금액
+		ast.setAcntNum("11600"); // 계정코드
+		ast.setCredit(0); 
+		ast.setDebit(price); // 총 금액
+		ast.setFrRegiNum(frRegiNum); // 사업자
+		ast.setLineNum(0); 
+		ast.setRemark(orderNum); // 리마크
+		ast.setStatementNum("SC"); // auto Store-Customer
+		ast.setStmtDate(dateString); // 날짜
+		ast.setStmtOpposite(opp); // 거래처 (카카오/빌게이트 등)
+		daoC.r7210insertStatement(ast);
+		
+		//매출(자산)
+		ast.setAcntNum("40400"); // 제품 매출
+		ast.setCredit(price-tax); // 총 금액의 0.9%
+		ast.setDebit(0); 
+		ast.setFrRegiNum(frRegiNum); // 사업자
+		ast.setLineNum(1); 
+		ast.setRemark(orderNum); // 리마크
+		ast.setStmtDate(dateString); // 날짜
+		ast.setStmtOpposite(opp); // 거래처 (카카오/빌게이트 등)
+		daoC.r7210insertStatement(ast);
+		
+		//부가세
+		ast.setAcntNum("25500");
+		ast.setCredit(tax);
+		ast.setDebit(0); 
+		ast.setFrRegiNum(frRegiNum); // 사업자
+		ast.setLineNum(2); 
+		ast.setRemark(orderNum); // 리마크
+		ast.setStmtDate(dateString); // 날짜
+		ast.setStmtOpposite("부가세"); // 공백이라도 넣을 것
+		daoC.r7210insertStatement(ast);
+		
  	}
  	
  	// 제조 대기 리스트
@@ -129,6 +178,7 @@ public class A1_Service {
 	// 결제 취소
 	public void delOrder(String orderNum) {
 		dao.delOrder(orderNum);
+		dao.delPay(orderNum);
 	}
 	// 제조 완료
 	public void clearOrder(String orderNum) {

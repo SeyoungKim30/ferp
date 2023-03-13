@@ -14,6 +14,15 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
+<style type="text/css">
+.fc-scroller{
+	overflow: hidden !important;
+}
+</style>
+<script type="text/javascript">
+	localStorage.setItem("pageIdx","3204")
+	localStorage.setItem("eqIdx","3000")
+</script>
 <script>
   // 위 js를 사용할 수 있게 같은 폴드에 있는 dist 폴드를
   // 복사해서 webapp/a00_com 폴드하위에 넣어주세요.
@@ -24,9 +33,9 @@
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
-        left: 'prev',
-        center: 'title',
-        right: 'today next'//'dayGridMonth,timeGridWeek,timeGridDay'
+    	  left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek'//,timeGridDay
       },
       initialDate: today,
       //navLinks: true, // can click day/week names to navigate views
@@ -103,8 +112,8 @@
 				<form action="${path}/sclerkschdIns.do" id='insertForm' class="form-inline">
 				    <select name="clerkNum" required>
 				        <option value="">직원선택</option>
-				        <c:forEach var="clerkNum" items="${clerkNumCom}">
-				            <option>${clerkNum}</option>
+				        <c:forEach var="ck" items="${clerkNumCom}">
+				            <option value="${ck.clerkNum}">${ck.clerkName}</option>
 				        </c:forEach>
 				    </select>
 				    <input type="hidden" name="frRegiNum" value="${login.frRegiNum}" id="frRegiNum">

@@ -1,5 +1,7 @@
 package ferp.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 import ferp.service.A1_Service;
+import ferp.service.B2_Service;
 import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Menu;
+import vo.Notice;
 import vo.Onsale;
 import vo.Orders;
 import vo.Store;
@@ -25,6 +29,14 @@ public class A1_Controller {
    @Autowired(required = false)
    private A1_Service service;
 
+   @Autowired(required = false)
+   private B2_Service service2;
+   
+   @ModelAttribute("noticeCombo")
+   public List<Notice> getNotice(){
+	    return service2.getNotice();
+   }
+   
    // 가맹점 로그인
    // http://localhost:6080/ferp/storeLogin.do
    @RequestMapping("/storeLogin.do")
@@ -37,7 +49,7 @@ public class A1_Controller {
          return "WEB-INF\\store\\pg1000_storeLogin.jsp";
       }else {
          session.setAttribute("login", service.storeLogin(st));
-         return "/goEmpMainPage.do";
+         return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
       }
    }
    // 본사 로그인
@@ -212,8 +224,16 @@ public class A1_Controller {
    
    // 결제 상태 변경 do
    @RequestMapping("/payState.do")
-   public String payStateChange(@RequestParam("orderNum") String orderNum) {
-	   service.uptOrderStatePay(orderNum);
+   public String payStateChange(
+		   @RequestParam("orderNum") String orderNum,
+		   @RequestParam("price") int price,
+		   @RequestParam("tax") int tax,
+		   @RequestParam("oppm") String oppm,
+		   HttpSession session
+		   ) {
+	   Store st = (Store)session.getAttribute("login");
+	   String frRegiNum = st.getFrRegiNum();
+	   service.uptOrderStatePay(orderNum, price, tax, frRegiNum, oppm);
 	   return "redirect:/orderCom.do?orderNum="+orderNum;
    }
    

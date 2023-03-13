@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ferp.download.ChatHandler;
@@ -23,7 +22,6 @@ import vo.NoticeSch;
 import vo.Store;
 
 @Controller
-@SessionAttributes("noticeCombo")
 public class B2_Controller {
 	@Autowired(required = false)
 	private B2_Service service;
@@ -43,11 +41,7 @@ public class B2_Controller {
 	@ModelAttribute("dnameCombo")
 	public List<String> getDname(){
 		return service.getDname();
-	}   
-	@ModelAttribute("noticeCombo")
-    public List<Notice> getNotice(){
-	    return service.getNotice();
-    }
+	}
 	
 	
 	// 본사 홈페이지 controller

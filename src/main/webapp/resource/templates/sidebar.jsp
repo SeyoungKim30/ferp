@@ -33,7 +33,7 @@
                         <ul>
 	                        <li id="3100" onclick="location.href='${path }/storeClerkList.do'"><a>- 직원 정보 조회</a></li>
                             <li><a>- 근태 조회</a></li>
-                            <li><a>- 스케쥴 관리</a></li>
+                            <li id="3204" onclick="location.href='${path }/sclerkschd.do'"><a>- 스케쥴 관리</a></li>
                             <li id="3300" onclick="location.href='${path }/clerkPayList.do'"><a>- 급여액 조회</a></li>
                         </ul>
                     </li>
@@ -59,7 +59,12 @@
                             <li><a>- 배송 불량 신청 현황</a></li>
                             <li id="9310" onclick="location.href='${path }/prodOrderPayState.do'"><a>- 발주 결제 관리</a></li>
 </c:if>
-                            <li><a>- 재고 관리</a></li>
+<c:if test="${login.frRegiNum != 9999999999 }"> 
+                            <li id="8101" onclick="location.href='${path }/sproductList.do'"><a>- 재고 관리</a></li>
+</c:if>                     
+<c:if test="${login.frRegiNum == 9999999999 }">       
+                            <li id="8201" onclick="location.href='${path }/hproductList.do'"><a>- 재고 관리</a></li>
+</c:if>                             
                         </ul>
                     </li>
 <c:if test="${login.frRegiNum == 9999999999 }">
