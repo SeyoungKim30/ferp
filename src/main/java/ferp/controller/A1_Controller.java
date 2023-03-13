@@ -84,7 +84,6 @@ public class A1_Controller {
 	  session.invalidate();
 	  status.setComplete(); // 세션 무효화
       d.addAttribute("logout","로그아웃");
-      
  
       return "redirect:/goEmpMainPage.do";
       }
