@@ -57,6 +57,7 @@ public interface A1_Dao {
 	
 	// 결제 취소
 	public void delOrder(String orderNum);
+	public void delPay(String orderNum);
 	// 제조 완료
 	public void clearOrder(String orderNum);
 	

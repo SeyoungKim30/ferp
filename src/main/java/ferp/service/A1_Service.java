@@ -178,6 +178,7 @@ public class A1_Service {
 	// 결제 취소
 	public void delOrder(String orderNum) {
 		dao.delOrder(orderNum);
+		dao.delPay(orderNum);
 	}
 	// 제조 완료
 	public void clearOrder(String orderNum) {
