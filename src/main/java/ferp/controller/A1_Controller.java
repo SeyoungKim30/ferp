@@ -49,7 +49,7 @@ public class A1_Controller {
          return "WEB-INF\\store\\pg1000_storeLogin.jsp";
       }else {
          session.setAttribute("login", service.storeLogin(st));
-         return "/pg0002.jsp";
+         return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
       }
    }
    // 본사 로그인
@@ -84,7 +84,6 @@ public class A1_Controller {
 	  session.invalidate();
 	  status.setComplete(); // 세션 무효화
       d.addAttribute("logout","로그아웃");
-      
  
       return "redirect:/goEmpMainPage.do";
       }
@@ -236,7 +235,6 @@ public class A1_Controller {
 	   service.uptOrderStatePay(orderNum, price, tax, frRegiNum, oppm);
 	   return "redirect:/orderCom.do?orderNum="+orderNum;
    }
-   
    
    // 주문 완료 페이지
    @RequestMapping("/orderCom.do")
