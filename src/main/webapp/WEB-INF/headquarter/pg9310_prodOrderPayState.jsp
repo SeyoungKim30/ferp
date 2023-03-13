@@ -44,7 +44,7 @@ localStorage.setItem("eqIdx","9000")
 
 var isHead=${login.frRegiNum == 9999999999 }
 window.addEventListener('load',function(){
-	if(isHead){fetchStoreList();}
+	if(isHead){fetchActiveList();}
 	$('[type=month]').val(new Date().toISOString().slice(0, 7));
 	itisnotHead();
 })
@@ -62,7 +62,7 @@ window.addEventListener('load',function(){
 		<label>시작월<input type="month" name="orderDateMonth" required></label>
 		<label>종료월<input type="month" name="orderDate"></label>
 		<label for="demander">주문지점<input name="demander" list="storeList"></label><datalist id="storeList"></datalist>
-		<label for="supplier">담당자<input name="supplier"></label>
+		<label for="supplier">담당자<input name="supplier" list="empList"></label><datalist id="empList"></datalist>
 		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
 		</div>
 		<button class="btn-secondary">조회</button>

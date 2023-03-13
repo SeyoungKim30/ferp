@@ -70,5 +70,16 @@ public class JsonController {
 		//한번에 가게,직원,상품 리스트 다 넣기
 		return "pageJsonReport";
 	}
+	
+	@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@GetMapping("selectActiveDatalist.do")
+	public String selectActiveDatalist(Model model) {
+		model.addAttribute("storeList",serviceC1.selectActiveDatalist().get("storelist"));
+		model.addAttribute("empList",serviceC1.selectActiveDatalist().get("emplist"));
+		model.addAttribute("productList",serviceC1.selectActiveDatalist().get("productlist"));
+		//한번에 가게,직원,상품 리스트 다 넣기
+		return "pageJsonReport";
+	}
+
 
 }

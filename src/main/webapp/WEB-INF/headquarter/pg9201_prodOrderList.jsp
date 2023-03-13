@@ -77,17 +77,21 @@
 	<div>
 	<fieldset class="noDisplayForStores">
 		<label>주문지점<input name="demander" list="storeList"></label><datalist id="storeList"></datalist>
-		<label>담당자<input name="supplier"></label>
+		<label>담당자<input name="supplier" list="empList"></label><datalist id="empList"></datalist>
 	</fieldset>
-		<label>상품 선택<input name="productNum"></label>
+		<label>상품 선택<input name="productNum" list="productList"></label><datalist id="productList"></datalist>
 		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송중</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
 		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option></select></label>
 	</div>
-	<button class="btn-secondary">발주조회</button>
+	<div style="position: relative;">
+<c:if test="${login.frRegiNum == 9999999999 }">
+		<button type="button" id="list999" style="position: absolute;right:0px;bottom: 60px;">본사물류조회</button>
+</c:if>
+		<button class="btn-secondary">발주조회</button>
+	</div>
 	</div>
 	</form>
 	</div>
-
 <table>
 <thead>
 	<c:if test="${login.frRegiNum == 9999999999 }">
@@ -297,7 +301,7 @@ $(function(){
 	//로딩할때 날짜만 활성화되어있게
 	$('[type=date]').trigger("click");
 	//datalist 만들기 - 가맹점 리스트
-	fetchStoreList();
+	fetchActiveList();
 	//가맹점은 주문지점 담당자 선택 못하게
 	if(${login.frRegiNum !=9999999999}){
 		$(".noDisplayForStores").css("display","none")
@@ -320,6 +324,26 @@ $(function(){
 		})
 	})
 });
+
+const btn999=document.querySelector('#list999')
+if(btn999!=null){
+	btn999.addEventListener('click',function(){
+		 fetchSelectPromise('#searchform',"${path }/productOrderList999.do?").then(json=>{
+		    resultlist=json.list
+		   	let htmls=htmlPrint(resultlist)	//인쇄할 코드 만들기
+			printTotalAmountbyProd(resultlist,(json.prodOrder.orderDate!=null||json.prodOrder.orderNum!=null));
+			document.querySelector('tbody').innerHTML=htmls
+			updateState();
+			$('#modalByProd [name=orderNum]').val(json.prodOrder.orderNum)
+			$('#modalByProd [name=orderDate]').val(json.prodOrder.orderDate)
+			$('#modalByProd [name=demander]').val('9999999999')
+			$('#modalByProd [name=supplier]').val(json.prodOrder.supplier)
+			$('#modalByProd [name=productNum]').val(json.prodOrder.productNum)
+			$('#modalByProd [name=orderState]').val(json.prodOrder.orderState)
+			$('#modalByProd [name=paymentState]').val(json.prodOrder.paymentState)
+	    }).catch(function(err){console.log(err)})
+	})
+}
 </script>
 </body>
 </html>

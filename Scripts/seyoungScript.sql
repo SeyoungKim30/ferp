@@ -6,7 +6,7 @@ SELECT * FROM prodOrder;
 SELECT * FROM stock;
 
 INSERT INTO store values('1234567893','23031000','연남센트럴파크점',sysdate,'09:00-23:00','연중무휴','김박자','02-457-4145','서울특별시 마포구 연남로12','1234','kim_se_0@naver.com');
-UPDATE store SET frpass='1234' WHERE FRREGINUM ='1234567893';
+UPDATE store SET empnum='23031000' WHERE FRREGINUM ='9999999999';
 INSERT INTO ACCOUNT values('10100','자산','현금');
 ALTER TABLE statement RENAME TO ACStatement;
 ALTER TABLE ACSTATEMENT RENAME COLUMN debt TO debit;
@@ -297,4 +297,12 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
 	AND empnum LIKE '%'||'22051002'||'%'
 	AND PAYMENTSTATE LIKE '%'||''||'%'
 	;
+
+SELECT po.*,stck.remainamount,pd.productName FROM PRODORDER po, product pd, 
+		(SELECT * FROM STOCK s WHERE STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)) stck
+WHERE pd.PRODUCTNUM =po.PRODUCTNUM AND stck.productNum = po.PRODUCTNUM 
+	AND (po.DEMANDER ='9999999999')	-- 주문지점
+	AND (pd.PRODUCTNUM LIKE '%'||''||'%' OR pd.PRODUCTNAME LIKE '%'||''||'%') --상품번호 또는 이름
+	AND po.PAYMENTSTATE LIKE '%'||''||'%' AND po.ORDERSTATE LIKE '%'||''||'%'
+ORDER BY po.ORDERDATE ASC;
 

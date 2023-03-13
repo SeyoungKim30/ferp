@@ -56,9 +56,9 @@
                             <li><a>- 배송 불량 신청</a></li>
 </c:if>
 <c:if test="${login.frRegiNum == 9999999999 }">
-                            <li><a>- 배송 불량 신청 현황</a></li>
-                            <li id="9310" onclick="location.href='${path }/prodOrderPayState.do'"><a>- 발주 결제 관리</a></li>
+                            <li><a>- 배송 불량 신청 내역</a></li>
 </c:if>
+                            <li id="9310" onclick="location.href='${path }/prodOrderPayState.do'"><a>- 발주 정산</a></li>
 <c:if test="${login.frRegiNum != 9999999999 }"> 
                             <li id="8101" onclick="location.href='${path }/sproductList.do'"><a>- 재고 관리</a></li>
 </c:if>                     

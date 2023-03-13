@@ -56,6 +56,21 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.produ
 ORDER BY po.ORDERDATE asc
 </select>
 
+<select id="r9201select999" resultMap="posesRS" parameterType="prodOrder">
+SELECT po.*,se.ename,se.empnum,se.frname,stck.remainamount,pd.productName FROM PRODORDER po, product pd,
+		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se,
+		(SELECT * FROM STOCK s WHERE STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)) stck
+WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM AND stck.productNum = po.PRODUCTNUM 
+	AND 
+	<if test="orderDate!='' and orderDate!=null">TRUNC(orderdate) = to_date(#{orderDate,jdbcType=VARCHAR},'YYYY-MM-DD')</if> --일별
+	<if test="orderDateMonth!='' and orderDateMonth!=null"> TRUNC(orderdate,'month') = TRUNC(to_date(#{orderDateMonth,jdbcType=VARCHAR},'YYYY-MM'),'month')</if>--월별
+	<if test="orderNum!='' and orderNum!=null">ORDERNUM LIKE '%'||#{orderNum,jdbcType=VARCHAR}||'%'	</if>-- 발주번호
+	AND (po.DEMANDER ='9999999999')	-- 주문지점
+	AND (pd.PRODUCTNUM LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%' OR pd.PRODUCTNAME LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%') --상품번호 또는 이름
+	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%' AND po.ORDERSTATE LIKE '%'||#{orderState,jdbcType=VARCHAR}||'%'
+ORDER BY po.ORDERDATE asc
+</select>
+
 <update id="r9203updateOrderState" parameterType="prodOrder">
 UPDATE PRODORDER SET ORDERSTATE = #{orderStateUpdate} WHERE (ORDERNUM,PRODUCTNUM) IN
 (
@@ -221,7 +236,7 @@ ORDER BY CATEGORY
 	SELECT DISTINCT e.empnum, ename FROM emp e, store s WHERE e.EMPNUM =s.EMPNUM 
 	</select>
 	
-	<select id="selectProduct">
+	<select id="selectProduct" resultType="product">
 	select productNum, productName from product
 	</select>
 	

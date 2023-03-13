@@ -118,6 +118,12 @@ public class C1_Controller {
 		return "pageJsonReport";
 	}
 	
+	@RequestMapping("productOrderList999.do")
+	public String r9201select999(Model model,ProdOrder prodOrder) {
+		model.addAttribute("list",service.r9201select999(prodOrder));
+		return "pageJsonReport";
+	}
+	
 	@RequestMapping("updateOrderState.do")
 	@ResponseBody
 	public String r9203updateOrderState(Model model,ProdOrder prodOrder) {
@@ -159,11 +165,6 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg9301_prodOrderPayDetail.jsp";
 	}
 	
-	@RequestMapping("insertProdOrder.do")
-	public String rrrr(Prod_ProdOrder ppo) {
-		service2.prodOrderReq(ppo);
-		return "";
-	}
 	
 	//http://localhost:6080/ferp/pnl.do
 	@GetMapping("pnl.do")

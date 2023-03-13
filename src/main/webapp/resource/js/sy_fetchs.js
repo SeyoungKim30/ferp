@@ -17,10 +17,12 @@ function fetchAccountList(queryString){
 	 }).catch(function(err){console.log(err)})
 }
 */
-function fetchStoreList(){
-	let url ="/ferp/selectActiveStoreJson.do"
+function fetchActiveList(){
+	let url ="/ferp/selectActiveDatalist.do"
 	fetch(url).then(function(response){return response.json() }).then(function(json){
-	makeOptions(json.storeList,'frName','frRegiNum','#storeList')
+	makeOptions(json.storeList,'frRegiNum','frName','#storeList')
+	makeOptions(json.empList,'empnum','ename','#empList')
+	makeOptions(json.productList,'productNum','productName','#productList')
 	}).catch(function(err){console.log(err)})
 }
 
