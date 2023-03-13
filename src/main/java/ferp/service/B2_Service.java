@@ -16,6 +16,7 @@ import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
 import vo.Onsale;
+import vo.Sales;
 import vo.Store;
 
 @Service
@@ -285,6 +286,10 @@ public class B2_Service {
 	// 메인 페이지에서 최근 10개 공지사항 combo
 	public List<Notice> getNotice(){
 		return dao.getNotice();
+	}
+	// 전체 매장 매출 조회
+	public List<Sales> getSales(){
+		return dao.getSales();
 	}
 }
 
