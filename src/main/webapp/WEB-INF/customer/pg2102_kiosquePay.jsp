@@ -99,7 +99,7 @@
 				<img alt="" src="${path}/resource/img/kakao.png"><br>
 				<span>카카오페이</span>
 			</div>
-			<div class="howbox card" name="빌게이트">
+			<div class="howbox card" name="카드결제대행사">
 				<img alt="" src="${path}/resource/img/card.png"><br>
 				<span>카드 결제</span>
 			</div>
