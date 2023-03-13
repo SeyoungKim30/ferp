@@ -54,7 +54,7 @@
 			</div>
 			<div class="btm_content">
 				<div class="notice">
-					<h3>- 매출</h3>
+					<h3>매출</h3>
 					<div class="boxes">
 						<div>
 						  <canvas id="myChart" height="200%"></canvas>
@@ -62,7 +62,7 @@
 					</div>
 				</div>
 				<div class="schedule">
-					<h3>- 담당매장</h3>
+					<h3>담당매장</h3>
 					<div class="boxes">
 						<div>
 							<c:forEach var="sg" items="${salesGraph }">
@@ -101,7 +101,8 @@ const labels = [
 	(new Date(arr[1].orderdate).getMonth()+1)+"/"+new Date(arr[1].orderdate).getDate(),
 	(new Date(arr[0].orderdate).getMonth()+1)+"/"+new Date(arr[0].orderdate).getDate()
 ];
-
+	var login = '${login.frRegiNum}'
+console.log(login)
 const data = {
 	labels: labels,
 	datasets: [
