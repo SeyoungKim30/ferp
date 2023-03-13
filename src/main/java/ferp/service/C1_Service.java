@@ -15,6 +15,7 @@ import vo.ACStatement;
 import vo.Account;
 import vo.ProdOrder;
 import vo.Prod_order_stock_emp_store;
+import vo.Stock;
 import vo.Store;
 
 @Service
@@ -95,10 +96,25 @@ public class C1_Service {
 	}
 	
 	public int r9203updateOrderState(ProdOrder prodOrder) {
-		if(prodOrder.getOrderStateUpdate().equals("배송중")) {
-			//재고stock에 insert
-			//daoC2.r
-		} 
+		for(Prod_order_stock_emp_store poses : dao.r9201select(prodOrder)) {
+			Stock stock = new Stock();
+			if(prodOrder.getOrderStateUpdate().equals("배송중")&&!prodOrder.getDemander().equals("9999999999")) {
+				//재고stock에 insert 본사에서 빠진거 (본사주문일때 빼고)
+				stock.setApplyAmount(poses.getProdOrder().getAmount()*(-1));
+				stock.setFrRegiNum(poses.getProdOrder().getSupplier()); //가맹점이 시키면 공급자는 항상 본사니까 본사재고에서 조정하는거
+				stock.setProductNum(poses.getProdOrder().getProductNum());
+				stock.setRemark(poses.getProdOrder().getOrderNum());
+				daoC2.r8103InoutIns(stock);
+			}else if(prodOrder.getOrderStateUpdate().equals("완료")){
+				//재고stock에 insert 가맹점에 들어가게
+				stock.setApplyAmount(poses.getProdOrder().getAmount());
+				stock.setFrRegiNum(poses.getProdOrder().getDemander());	//받은사람 재고에 추가하는거
+				stock.setProductNum(poses.getProdOrder().getProductNum());
+				stock.setRemark(poses.getProdOrder().getOrderNum());
+				daoC2.r8103InoutIns(stock);
+			}
+			
+		}
 		return dao.r9203updateOrderState(prodOrder);
 	}
 	
