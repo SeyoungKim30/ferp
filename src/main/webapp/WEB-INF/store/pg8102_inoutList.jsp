@@ -74,6 +74,10 @@
 			}
 			$("form").submit()
 		})
+		$('select[name="productNum"]').change(function() {
+			const remainAmount = $(this).find('option:selected').attr('id');
+			$('input[name="applyAmount"]').attr('min', remainAmount);
+		});
 	});
 </script>
 </head>
@@ -82,20 +86,19 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		<h2>매장 재고 관리 조회</h2><br><hr><br>
+		<h2>재고 입출고</h2><br><hr><br>
 		<div class="toolbox">
-		<h3>매출 내역 등록</h3><br>
+		<h3>재고 입출고 등록</h3><br>
 			<form action="${path}/sinoutIns.do" id='insertForm'>
 				<select name="productNum" required>
 			    	<option value="">자재코드선택</option>
-			    	<c:forEach var="productNum" items="${productNumCom}">
-			    		<option>${productNum}</option>
+			    	<c:forEach var="pd" items="${remainlist}">
+			    		<option value="${pd.productName} id="-${pd.remainAmount}">${pd.productNum}</option>
 			    	</c:forEach>
 			    </select>
 			    <input type="hidden" name="frRegiNum" value="${login.frRegiNum}" id="frRegiNum">
 				<input type="number" name="applyAmount" value="${param.applyAmount}"
-					class="ckValid"	id="applyAmount" placeholder="수량 입력" min="0" 
-					oninput="if(this.value < 0) alert('음수는 입력할 수 없습니다.')" required>
+					class="ckValid"	id="applyAmount" placeholder="수량 입력"  required>
 				<button id="insBtn" class="btn-primary" type="button">등록</button>
 			</form>
 		</div>
@@ -114,6 +117,7 @@
 			    	    	<td style="text-align:center">${prod.stockDate}</td>
 			    	    	<td style="text-align:right"><fmt:formatNumber value="${prod.price}" type='currency'/></td>
 			    	    	<td style="text-align:center">${prod.applyAmount}</td>
+			    	    	<td style="text-align:center">${prod.remainAmount}</td>
 					        <td style="text-align:center">
 					            <button class="uptbtn btn-secondary" type="button">수정</button>
 					            <button class="delbtn btn-danger" type="button">삭제</button></td>
