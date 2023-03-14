@@ -23,10 +23,6 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		/* 
-		발주 번호, 자재명, 종류, 처리방식, 첨부 이미지, 신청 상태(처리 대기/처리 완료), 신청일, 처리일(완료 시)
-		orderNum, productName, category, method, img, state, orderDate, applyDate
-		*/
 		$(".monthDiv").click(function(){
 			$("[name=orderDateMonth]").val(this.innerText)
 			$("#reqSchFrm").submit()

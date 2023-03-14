@@ -33,6 +33,8 @@
 		<typeAlias alias="qa" type="vo.QA"/>
 		<typeAlias alias="qachecklist" type="vo.QAchecklist"/>
 		<typeAlias alias="defectorder" type="vo.DefectOrder"/>
+		<typeAlias alias="sales" type="vo.Sales"/>
+		<typeAlias alias="ontime" type="vo.OnTime"/>
 	</typeAliases>
 			
 <mappers>

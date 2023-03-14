@@ -228,4 +228,30 @@
 		WHERE rownum <= 7
 	]]>
 	</select>
+	
+	<!-- 전체 매장 매출 조회 -->
+	<select id="getSales" resultType="sales">
+	<![CDATA[
+		SELECT nvl(a.tsum,0) tot, b.od orderdate
+		FROM (
+			SELECT to_char(orderdate, 'YYYY/MM/DD') ord, nvl(sum(PAYPRICE),0) tsum
+			FROM ORDERS
+			WHERE state = '완료'
+			GROUP BY to_char(orderdate, 'YYYY/MM/DD')) a,
+			(SELECT DISTINCT TO_CHAR(SYSDATE-LEVEL+1, 'YYYY/MM/DD') od
+			FROM ORDERS CONNECT BY LEVEL <= 7
+			ORDER BY od DESC) b
+		WHERE a.ord(+) = b.od
+		ORDER BY od DESC
+	]]>
+	</select>
+	
+	<!-- 담당매장 출근시간 조회 -->
+	<select id="getOnTime" resultType="HashMap" parameterType="string">
+		SELECT frname, TO_CHAR(onTime, 'HH24:MI:SS') onTime
+		FROM STORE s , EMPCHECKIN e, EMP e2
+		WHERE e2.empnum = s.EMPNUM
+		AND s.empnum = #{empnum}
+		AND to_char(ontime, 'yyyy-mm-dd') = to_char(sysdate-1, 'yyyy-mm-dd')
+	</select>
 </mapper>

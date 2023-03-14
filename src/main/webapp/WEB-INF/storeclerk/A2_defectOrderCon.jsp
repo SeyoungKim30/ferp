@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 </head>
 <script type="text/javascript">
-	localStorage.setItem("pageIdx","9101")
+	localStorage.setItem("pageIdx","9402")
 	localStorage.setItem("eqIdx","9000")
 </script>
 <body class="container">

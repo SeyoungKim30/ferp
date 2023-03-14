@@ -152,9 +152,10 @@
 			</insert>
 			
 		<!-- orderNum 가져오기 -->
-		<select id="getMaxOrderNum" resultType="string">
+		<select id="getMaxOrderNum" parameterType="string" resultType="string">
 			SELECT MAX(ORDERNUM) 
 			FROM ORDERS
+			WHERE FRREGINUM = #{frRegiNum}
 		</select>
 		
 		<!-- 결제 페이지 가격 계산 -->

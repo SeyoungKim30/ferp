@@ -1,6 +1,9 @@
 package ferp.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ferp.download.ChatHandler;
@@ -19,9 +23,11 @@ import vo.Menu;
 import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
+import vo.Sales;
 import vo.Store;
 
 @Controller
+@SessionAttributes({"totSales", "onTimeCombo"})
 public class B2_Controller {
 	@Autowired(required = false)
 	private B2_Service service;
@@ -42,14 +48,22 @@ public class B2_Controller {
 	public List<String> getDname(){
 		return service.getDname();
 	}
-	
-	
-	// 본사 홈페이지 controller
-   // http://localhost:7080/ferp/mainpage.do
-	@RequestMapping("/mainpage.do")
-	public String mainpage() {
-		return "WEB-INF\\view\\mainpage_notice.jsp";
+	@ModelAttribute("totSales")
+	public List<Sales> totSales(){
+		return service.getSales();
 	}
+	@ModelAttribute("onTimeCombo")
+	public List<Map<String, String>> onTimeCombo(HttpSession session){
+		Emp e = (Emp)session.getAttribute("login");
+		
+		return service.getOnTime(e.getEmpnum());
+	}
+	// 본사 메인페이지
+	@RequestMapping("/goHqPage.do")
+	public String goHqPage() {
+		return "/pg0001.jsp";
+	}
+	
 	
 	// 메뉴 조회 controller
 	// http://localhost:7080/ferp/menuList.do
@@ -71,7 +85,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("insMsg", "메뉴 등록 성공!");
 		}
 		// redirect로 본사 홈페이지로 이동
-		return "redirect:/goEmpMainPage.do";
+		return "redirect:/goHqPage.do";
 	}
 	
 	// 매장정보등록 controller
@@ -128,7 +142,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("isgMsg", "등록 성공");
 		}
 		// 본사 메인페이지로 이동
-		return "redirect:/goEmpMainPage.do";
+		return "redirect:/goHqPage.do";
 	}
 	
 	// http://localhost:7080/ferp/updateEmpPass.do
@@ -145,7 +159,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("uptMsg", "수정 완료");
 		}
 		
-		return "redirect:/goEmpMainPage.do";
+		return "redirect:/goHqPage.do";
 	}
 	
 	// 공지사항 조회
