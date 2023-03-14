@@ -90,6 +90,7 @@ $('.ing li').each(function() {
   $(this).text(lastFourDigits); // li 태그의 텍스트 값을 마지막 4자리 숫자로 변경합니다.
 });
 
+
 $(document).ready(function() {
     setInterval(function() {
         location.reload();
