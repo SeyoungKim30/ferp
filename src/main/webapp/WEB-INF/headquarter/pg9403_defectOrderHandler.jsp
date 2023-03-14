@@ -46,7 +46,9 @@
 <thead>
 <tr><th>신청일자</th><th>주문일자</th><th>해당상품</th><th>종류</th><th>처리방식</th><th>처리상태</th></tr>
 </thead>
-<tbody></tbody>
+<tbody>
+
+</tbody>
 </table>
 
 
