@@ -35,8 +35,10 @@
 		<label>조회종료 신청일<input type='date'></label>
 		<label>신청번호<input name='defNum'></label>
 		<label>주문지점<input name='frRegiNum' list="storeList"></label><datalist id='storeList'></datalist>
+		<label>담당자<input name='empno' list="empList"></label><datalist id='empList'></datalist>
 		<label>처리상태<select name='state'><option>처리 대기</option><option>처리중</option><option>처리 완료</option></select></label>
-		<label>처리방식<select name='method'><option>재배송</option><option>환불</option></select></label>
+		<label>처리방식<select name='methods'><option>재배송</option><option>환불</option></select></label>
+		<label>완료 포함 <input type="checkbox" name='includeAll'></label>
 	</div></form>
 	<button>조회</button>	
 </div>		

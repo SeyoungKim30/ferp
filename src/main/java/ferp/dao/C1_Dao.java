@@ -4,6 +4,7 @@ import java.util.List;
 
 import vo.ACStatement;
 import vo.Account;
+import vo.DefectOrder;
 import vo.Emp;
 import vo.ProdOrder;
 import vo.Prod_order_stock_emp_store;
@@ -44,6 +45,7 @@ public interface C1_Dao {
 	public List<Emp> selectActiveEmp();
 	public List<Product> selectProduct();
 	
+	public List<DefectOrder> r9403selectDefectOrder();
 	//가맹점 비밀번호
 	public Store r1003tempPassword(Store store);
 	public int r1003updatePassword(Store store);
