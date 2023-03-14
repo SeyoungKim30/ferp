@@ -1,6 +1,8 @@
 package ferp.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import ferp.service.A2_Service;
 import ferp.service.C1_Service;
 import vo.ACStatement;
 import vo.Account;
+import vo.DefectOrder;
 import vo.ProdOrder;
 import vo.Prod_ProdOrder;
 import vo.Store;
@@ -170,6 +173,9 @@ public class C1_Controller {
 	public String r9403() {
 		return "WEB-INF\\headquarter\\pg9403_defectOrderHandler.jsp";
 	}
+	
+
+	
 	
 	//http://localhost:6080/ferp/pnl.do
 	@GetMapping("pnl.do")

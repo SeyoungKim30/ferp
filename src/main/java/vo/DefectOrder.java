@@ -13,6 +13,14 @@ public class DefectOrder {
 	private String productName;
 	private String orderDateMonth;
 	private String category;
+	private String completeDate;
+	
+	public String getCompleteDate() {
+		return completeDate;
+	}
+	public void setCompleteDate(String completeDate) {
+		this.completeDate = completeDate;
+	}
 	public String getDefNum() {
 		return defNum;
 	}

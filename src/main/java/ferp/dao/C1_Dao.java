@@ -40,12 +40,16 @@ public interface C1_Dao {
 	//결제내역-매월 정산서
 	public List<Prod_order_stock_emp_store> r9301prodOrderPayDetail(ProdOrder prodOrder);
 	
+	//defected ordder
+	public List<DefectOrder> r9402selectDefectOrder(DefectOrder defectOrder);
+	public int r9403updateDefectOrder(DefectOrder defectOrder);
+	
+	
 	//모든 store 리스트
 	public List<Store> selectActiveStore();
 	public List<Emp> selectActiveEmp();
 	public List<Product> selectProduct();
 	
-	public List<DefectOrder> r9403selectDefectOrder();
 	//가맹점 비밀번호
 	public Store r1003tempPassword(Store store);
 	public int r1003updatePassword(Store store);
