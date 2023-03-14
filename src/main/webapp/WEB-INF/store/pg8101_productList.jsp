@@ -50,7 +50,7 @@
 		<div class="contents">
 		<button style="float:right;"
 			onclick="location.href='${path}/sInoutList.do'">재고 관리 내역</button>
-		<h2>매장 재고 조회</h2><br><hr><br>
+		<h2>재고 조회</h2><br><hr><br>
 			<div class="toolbox">
 			<form class="toolbar" method="post">
 				<input class="inputbox" type="date" name="stockDate" value="<fmt:formatDate value="${now}" pattern = "yyyy-MM-dd"/>"/>
