@@ -32,13 +32,13 @@
 <div class="toolbar">
 	<form id="searchForm"><div>
 		<label>조회시작 신청일<input name='applyDate' type='date' required></label>
-		<label>조회종료 신청일<input type='date'></label>
+		<label>조회종료 신청일<input name='orderDateMonth' type='date'></label>
 		<label>신청번호<input name='defNum'></label>
 		<label>주문지점<input name='frRegiNum' list="storeList"></label><datalist id='storeList'></datalist>
-		<label>담당자<input name='empno' list="empList"></label><datalist id='empList'></datalist>
+		<label>담당자<input name='category' list="empList"></label><datalist id='empList'></datalist>
 		<label>처리상태<select name='state'><option>처리 대기</option><option>처리중</option><option>처리 완료</option></select></label>
 		<label>처리방식<select name='methods'><option>재배송</option><option>환불</option></select></label>
-		<label>완료 포함 <input type="checkbox" name='includeAll'></label>
+		<label>완료 포함 <input type="checkbox" name='completeDate' value='Y'></label>
 	</div></form>
 	<button>조회</button>	
 </div>		
@@ -46,7 +46,7 @@
 <button id='modalOpen'>모달</button>
 <table>
 <thead>
-<tr><th>신청일자</th><th>주문일자</th><th>해당상품</th><th>종류</th><th>처리방식</th><th>처리상태</th></tr>
+<tr><th>신청일자</th><th>주문일자</th><th>신청지점</th><th>해당상품</th><th>종류</th><th>처리방식</th><th>처리상태</th></tr>
 </thead>
 <tbody>
 
