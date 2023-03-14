@@ -34,7 +34,7 @@ import vo.Store;
 import vo.StoreClerk;
 
 @Controller
-@SessionAttributes(value="salesGraph")
+@SessionAttributes({"salesGraph","clerkToday"})
 public class A2_Controller {
 	
 	@Value("${uploadJH}")
@@ -204,7 +204,12 @@ public class A2_Controller {
 		return "redirect:storeClerkList.do";
 	}
 //	오배송/누락/자재 파손 처리 신청
-	
+	@PostMapping("/insDefectProd.do")
+	public String pg9401(DefectOrder ins, Model d) {
+		service.insertDefectOrder(ins);
+		d.addAttribute("msg", "신청완료");
+		return "redirect:viewDefectProd.do";
+	}
 //	오배송/누락/자재 파손 처리 신청 상태 조회
 	@RequestMapping("/viewDefectProd.do")
 	public String pg9402(@ModelAttribute("dSch") DefectOrder sch, HttpSession session, Model d) {
@@ -219,6 +224,13 @@ public class A2_Controller {
 		Store s = (Store)session.getAttribute("login");
 		sch.setFrRegiNum(s.getFrRegiNum());
 		return service.salesGraph(sch);
+	}
+//	오늘 출근하는 직원
+	@ModelAttribute("clerkToday")
+	public List<StoreClerk> storeclerkSchedule(StoreClerk sch, HttpSession session){
+		Store s = (Store)session.getAttribute("login");
+		sch.setFrRegiNum(s.getFrRegiNum());
+		return service.storeclerkSchedule(sch);
 	}
 	
 	@RequestMapping("/asd.do")

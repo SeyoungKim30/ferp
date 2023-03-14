@@ -94,53 +94,42 @@
 	</div>
 </body>
 <script type="text/javascript">
-	$(".uBtn").on(
-			'click',
-			function() {
-				var dataString = 'amount=' + $(".amount").text() + '&orderNum='
-						+ $(".orderNum").text() + '&productNum='
-						+ $(".productNum").text() + '&orderDate='
-						+ $(".orderDate2").text()
-				if (confirm("수정하시겠습니까?")) {
-					$.ajax({
-						type : "post",
-						url : '${path}/uptReqList.do',
-						data : dataString,
-						dataType : "json",
-						success : function(data) {
-							alert(data.msg)
-							location.reload()
-						},
-						err : function(err) {
-							console.log(err)
-						}
-
-					})
+	$(".uBtn").on('click',function() {
+		var dataString = 'amount=' + $(".amount").text() + '&orderNum=' + $(".orderNum").text() + '&productNum=' + $(".productNum").text() + '&orderDate=' + $(".orderDate2").text()
+		if (confirm("수정하시겠습니까?")) {
+			$.ajax({
+				type : "post",
+				url : '${path}/uptReqList.do',
+				data : dataString,
+				dataType : "json",
+				success : function(data) {
+					alert(data.msg)
+					location.reload()
+				},
+				err : function(err) {
+					console.log(err)
+				}
+				})
+		}
+	})
+	$(".dBtn").on('click',function() {
+		var dataString = 'orderNum=' + $(".orderNum").text() + '&productNum=' + $(".productNum").text() + '&orderDate=' + $(".orderDate2").text()
+		if (confirm("신청취소하시겠습니까?")) {
+			$.ajax({
+				type : "post",
+				url : '${path}/delReqList.do',
+				data : dataString,
+				dataType : "json",
+				success : function(data) {
+					alert(data.msg)
+					location.reload()
+				},
+				err : function(err) {
+					console.log(err)
 				}
 			})
-	$(".dBtn").on(
-			'click',
-			function() {
-				var dataString = 'orderNum=' + $(".orderNum").text()
-						+ '&productNum=' + $(".productNum").text()
-						+ '&orderDate=' + $(".orderDate2").text()
-				if (confirm("신청취소하시겠습니까?")) {
-					$.ajax({
-						type : "post",
-						url : '${path}/delReqList.do',
-						data : dataString,
-						dataType : "json",
-						success : function(data) {
-							alert(data.msg)
-							location.reload()
-						},
-						err : function(err) {
-							console.log(err)
-						}
-
-					})
-				}
-			})
+		}
+	})
 	$(".minus1").click(function() {
 		var num1 = parseInt($(".amount").text())
 		if ((num1 - 1) > 0) {
@@ -177,15 +166,19 @@
 	$("#closeBtn2").click(function() {
 		$("#modal2").attr("style", "display:none");
 	});
-	$(".wdBtn").click(function(){
-		var orderNumQS = $(".orderNum").text()
-		var prodNameQS = $("div.productName").text()
-		console.log(orderNumQS)
-	})
-	
-	/*  
-	자재명 선택, 종류(오배/누송락/파손) 선택, 처리 방식(환불/재배송) 선택, 이미지 첨부(필요 시)
-
+	/*
+	ordernum(발주에서 넘어올때),productnum(발주에서 넘어올때),orderdate(발주에서 넘어올때)
 	*/
+	$(".wdBtn").click(function(){
+		var oN = $("span.orderNum").text()
+		var pN = $("div.productNum").text()
+		var pNm = $("div.productName").text()
+		var oD = $(".orderDate2").text()
+		console.log(oN)
+		console.log(pN)
+		console.log(oD)
+		console.log(pNm)
+		location.href="${path}/viewDefectProd.do?orderNum="+oN+"&productNum="+pN+"&orderDate="+oD+"&productNameFrm="+pNm
+	})
 </script>
 </html>

@@ -1,9 +1,13 @@
 package ferp.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import ferp.dao.A2_Dao;
 import vo.ClerkFile;
@@ -19,6 +23,9 @@ public class A2_Service {
 	
 	@Autowired(required=false)
 	private A2_Dao dao;
+	
+	@Value("${uploadJHd}")
+	private String defectFupload;
 	
 	private void pagination(SCPage sch) {
 		sch.setCount(dao.totNum(sch));
@@ -135,5 +142,30 @@ public class A2_Service {
 	public List<Sales> salesGraph(Sales sch){
 		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
 		return dao.salesGraph(sch);
+	}
+	public List<StoreClerk> storeclerkSchedule(StoreClerk sch){
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
+		if(sch.getMonthDate() == null) sch.setMonthDate("");
+		return dao.storeclerkSchedule(sch);
+	}
+	public void insertDefectOrder(DefectOrder ins) {
+		String tot = String.valueOf(dao.defectOrderTot(ins.getFrRegiNum()));
+		ins.setDefNum(tot);
+		ins.setImg(uploadFile(ins.getFile()));
+		dao.insertDefectOrder(ins);
+	}
+	public String uploadFile(MultipartFile file) {
+		String img = file.getOriginalFilename();
+		if(img!=null && !img.equals("")) {
+			File fObj = new File(defectFupload+img);	
+			try {
+				file.transferTo(fObj); 
+			} catch (IllegalStateException e) {
+				System.out.println("파일업로드 예외1:"+e.getMessage());
+			} catch (IOException e) {
+				System.out.println("파일업로드 예외2:"+e.getMessage());
+			}
+		}
+		return img;
 	}
 }

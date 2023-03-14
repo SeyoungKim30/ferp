@@ -48,6 +48,12 @@
 			"color" : "white",
 			"borderColor" : "#007bff"
 		})
+		
+		let params = new URL(document.location).searchParams;
+		console.log(params)
+		let prodN = params.get("productNameFrm")
+		console.log(prodN)
+		$(".productNameFrm").val(prodN)
 	});
 </script>
 </head>
@@ -58,25 +64,25 @@
 	<h2 class="h2Title">배송 불량 신청</h2>
 	<br>
 	<div>
-		<form id="regForm" method="post" enctype="multipart/form-data">
-			<div class="toolbox">
-			<h3>누락/오배송/자재 파손 처리 신청</h3>
+		<div class="toolbox">
+		<h3>누락/오배송/자재 파손 처리 신청</h3>
+			<form id="regForm" method="post" enctype="multipart/form-data" action="${path }/insDefectProd.do">
 				<br>
 				<div class="row">
-				<!--  
-				defNum,orderNum,productNum,sysdate,img,state,methods,to_date(orderDate,'yyyy-MM-dd hh24:mi:ss'),frRegiNum
-				-->
+					<input type="hidden" name="frRegiNum" value="${login.frRegiNum }"/>
+					<input type="hidden" name="orderDate" value="${param.orderDate }" required/>
 					<div class="col margin-tn w20">
 						<label>발주 번호</label> 
-						<input type="text" name="" class="margin-tln regList" placeholder="" required />
+						<input type="text" name="orderNum" value="${param.orderNum }" class="margin-tln regList" required />
 					</div>
 					<div class="col margin-tn w20">
 						<label>자재명</label> 
-						<input type="text" name="" class="margin-tln regList" placeholder="" required />
+						<input type="text" class="margin-tln regList productNameFrm" required />
+						<input type="hidden" name="productNum" value="${param.productNum }" class="margin-tln regList" placeholder="" required />
 					</div>
 					<div class="col margin-tn w20">
 						<label>종류</label> 
-						<select name="" class="regList">
+						<select name="type" class="regList" required>
 							<option value="">---</option>
 							<option>오배송</option>
 							<option>누락</option>
@@ -85,8 +91,8 @@
 					</div>
 					<div class="col margin-tn w20">
 						<label>처리방식</label> 
-						<select name="methods" class="regList">
-							<option value="---">---</option>
+						<select name="methods" class="regList" required>
+							<option value="">---</option>
 							<option>환불</option>
 							<option>재배송</option>
 						</select>
@@ -94,16 +100,16 @@
 				</div>
 				<div class="filebox">
 					<div class="margin-sm fileInput" style="margin-left:20px;">
-						<input class="upload-name" value="첨부파일" placeholder="첨부파일"><label for="file">파일찾기</label> 
-						<input type="file" id="file" name="multiFileList" onchange="filename()" multiple>
+						<input class="upload-name" style="width:84%;" value="첨부파일" placeholder="첨부파일"><label for="file">파일찾기</label> 
+						<input type="file" id="file" name="file" onchange="filename()">
 					</div>
 				</div>
 				<div class="right">
-					<button type="button" class="regBtn" style="margin-right: 80px;">신청</button>
+					<button type="submit" class="regBtn" style="margin-right: 80px;">신청</button>
 				</div>
-				<br>
-			</div>
-		</form>
+			</form>
+			<br>
+		</div>
 		<div>
 			<br>
 			<h2 class="h2Title">배송 불량 신청 현황</h2>
@@ -114,9 +120,6 @@
 						<div class="row" style="margin-top: 7px;">
 							<input type="checkbox" id="monthCheck" checked> 
 							<label>월 포함</label>
-							<!-- &nbsp;&nbsp;&nbsp;
-							<input type="checkbox" id="validSch">
-							<label>전체보기</label> -->
 						</div>
 						<div class="row">
 							<c:forEach var="i" begin="1" end="12">
@@ -151,32 +154,30 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="thDiv" style="width: 10%;">신청번호</div>
+				<div class="thDiv" style="width: 15%;">신청번호</div>
 				<div class="thDiv" style="width: 20%;">자재명</div>
 				<div class="thDiv" style="width: 20%;">신청일</div>
-				<div class="thDiv" style="width: 20%;">처리방식</div>
-				<div class="thDiv" style="width: 20%;">처리상태</div>
+				<div class="thDiv" style="width: 15%;">종류</div>
+				<div class="thDiv" style="width: 10%;">처리방식</div>
+				<div class="thDiv" style="width: 10%;">처리상태</div>
 				<div class="thDiv" style="width: 10%;">삭제</div>
 			</div>
 			<c:forEach var="dl" items="${defectlist }">
 				<form id="uptForm${dl.defNum}" method="post" class="">
 					<div class="row reg" onclick="showImg('${dl.defNum}')" onmouseout="hideImg('${dl.defNum}')">
-						<!-- 발주 번호, 자재명, 종류, 처리방식, 첨부 이미지, 
-							신청 상태(처리 대기/처리 완료), 신청일, 처리일(완료 시)
-					 -->
 						<div style="display: none;"></div>
-						<div class="tdDiv" style="width: 10%;">${dl.defNum}</div>
+						<div class="tdDiv" style="width: 15%;">${dl.defNum}</div>
 						<div class="tdDiv" style="width: 20%;">${dl.productName }</div>
-						<div class="tdDiv left" style="width: 20%;">${dl.applyDate }
-						</div>
-						<div class="tdDiv" style="width: 20%;">${dl.methods }</div>
-						<div class="tdDiv" style="width: 20%;">${dl.state }</div>
+						<div class="tdDiv left" style="width: 20%;">${dl.applyDate }</div>
+						<div class="tdDiv" style="width: 15%;">${dl.type }</div>
+						<div class="tdDiv" style="width: 10%;">${dl.methods }</div>
+						<div class="tdDiv" style="width: 10%;">${dl.state }</div>
 						<div class="tdDiv" style="width: 10%;">
 							<button type="button" class="delBtn">삭제</button>
 						</div>
 					</div>
 					<div>
-						<img src="" class="defectImg defectImg${dl.defNum}" onerror="this.onerror=null;this.src='${path }/resource/img/noimg.png'" />
+						<img src="${path }/resource/img/defectOrder/${dl.img}" class="defectImg defectImg${dl.defNum}" onerror="this.onerror=null;this.src='${path }/resource/img/noimg.png'" />
 					</div>
 				</form>
 			</c:forEach>

@@ -11,6 +11,8 @@ public class StoreClerk {
 	private int hourlyPay;
 	private int pay;
 	private int workhour;
+	private String ontime;
+	private String monthDate;
 	public StoreClerk() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -74,5 +76,17 @@ public class StoreClerk {
 	}
 	public void setHourlyPay(int hourlyPay) {
 		this.hourlyPay = hourlyPay;
+	}
+	public String getOntime() {
+		return ontime;
+	}
+	public void setOntime(String ontime) {
+		this.ontime = ontime;
+	}
+	public String getMonthDate() {
+		return monthDate;
+	}
+	public void setMonthDate(String monthDate) {
+		this.monthDate = monthDate;
 	}
 }
