@@ -22,7 +22,6 @@ import vo.Onsale;
 import vo.Orders;
 import vo.Store;
 
-
 @Controller
 public class A1_Controller {
    
@@ -264,11 +263,19 @@ public class A1_Controller {
    
    // 고객 호출 페이지
    @RequestMapping("/callCustomer.do")
-   public String callCustomer() {
-      
+   public String callCustomer(Model d, HttpSession session) {
+	   Store st = (Store)session.getAttribute("login");
+	   String frRegiNum = st.getFrRegiNum();
+	   d.addAttribute("load",service.loadOrderList(frRegiNum));
+	   d.addAttribute("com",service.comOrderList(frRegiNum));
+	  
+	   
       return "WEB-INF\\customer\\pg2202_orderForCustomer.jsp";
    }
+
    // http://localhost:6080/ferp/storeLogin.do
    // http://localhost:6080/ferp/addOrder.do
+   
+	
 
 }   
