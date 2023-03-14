@@ -200,4 +200,22 @@
 				SET STATE = '완료'
 			WHERE ORDERNUM = #{orderNum}
 		</update>
+		
+		<!-- 제조 대기 중인 음료 목록 가져오기 -->
+		<select id="loadOrderList">
+			SELECT DISTINCT ORDERNUM 
+			FROM ORDERS
+			WHERE FRREGINUM = #{frRegiNum}
+			AND STATE = '제조 대기'
+		</select>
+		
+		<!--   제조 완료 음료 목록 최근 5개 가져오기 -->
+		<select id="comOrderList">
+			  SELECT DISTINCT ORDERNUM 
+			  FROM ORDERS
+			  WHERE FRREGINUM = '1234567890'
+			  AND STATE = '완료'
+			  ORDER BY ORDERNUM DESC
+			  FETCH FIRST 5 ROWS ONLY
+		</select>
     </mapper>

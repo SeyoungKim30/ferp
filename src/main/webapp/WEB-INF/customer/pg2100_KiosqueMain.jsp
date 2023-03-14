@@ -742,6 +742,8 @@ var modal_btn_add = $(".modal_btn_add");
     }; --%>
     // orders.push(order);
 	modalClose.trigger('click');
+	
+	?mainNo=1234&mainNo=1235&mainNo
 	console.log(orders);
 	
 });
