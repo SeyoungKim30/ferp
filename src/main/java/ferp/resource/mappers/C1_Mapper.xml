@@ -38,6 +38,36 @@
 		</association>
 	</resultMap>
 
+<resultMap type="vo.Defect_store_product_order" id="dsp">
+	<association property="product" javaType="vo.Product">
+				<result column="productName" property="productName" />
+				<result column="price" property="price" />
+	</association>
+	<association property="store" javaType="vo.Store">
+			<result column="frName" property="frName"/>
+			<result column="empNum" property="empNum"/>
+	</association>
+	<association property="defectOrder" javaType="vo.DefectOrder">
+		<result column="defNum" property="defNum"/>
+		<result column="orderNum" property="orderNum"/>
+		<result column="productNum" property="productNum"/>
+		<result column="orderDate" property="orderDate"/>
+		<result column="applyDate" property="applyDate"/>
+		<result column="img" property="img"/>
+		<result column="state" property="state"/>
+		<result column="methods" property="methods"/>
+		<result column="frRegiNum" property="frRegiNum"/>
+		<result column="type" property="type"/>
+		<result column="completeDate" property="completeDate"/>
+		<result column="type" property="type"/>
+		<result column="type" property="type"/>
+	</association>
+	<association property="prodOrder" javaType="vo.ProdOrder" >
+		<result column="amount" property="amount"/>
+		<result column="paymentState" property="paymentState"/>
+		<result column="orderState" property="orderState"/>
+	</association>
+</resultMap>
 	
 <select id="r9201select" resultMap="posesRS" parameterType="prodOrder">
 SELECT po.*,se.ename,se.empnum,se.frname,stck.remainamount,pd.productName FROM PRODORDER po, product pd, 
@@ -235,18 +265,16 @@ WHEN NOT MATCHED THEN
 	</select>
 	
 	
-<select id="r9402selectDefectOrder" resultType="defectorder" parameterType="defectorder">
-SELECT d.*,s.EMPNUM ,s.FRNAME FROM DEFECTORDER d, store s
-	WHERE d.FRREGINUM =s.FRREGINUM 
-	AND (APPLYDATE BETWEEN TO_DATE(#{orderDate},'YYYY-MM-DD') AND TO_DATE(#{orderDateMonth},'YYYY-MM-DD') )
-	AND DEFNUM LIKE '%'||#{defNum}||'%'
-	AND d.frRegiNum LIKE '%'||#{frRegiNum}||'%'
-	AND empnum LIKE '%'||#{category}||'%'
-	AND methods LIKE '%'||#{methods}||'%'
-	AND state LIKE '%'||#{state}||'%'
-	<if test="completeDate==null">
-	AND COMPLETEDATE is null
-	</if>
+<select id="r9402selectDefectOrder" resultMap="dsp" parameterType="defectorder">
+SELECT d.*,p.PRODUCTNAME, p.PRICE ,s.EMPNUM ,s.FRNAME,po.AMOUNT ,po.PAYMENTSTATE ,po.ORDERSTATE
+FROM DEFECTORDER d, store s,PRODUCT p,PRODORDER po 
+WHERE d.FRREGINUM =s.FRREGINUM AND p.PRODUCTNUM =d.PRODUCTNUM AND po.ORDERNUM =d.ORDERNUM AND po.PRODUCTNUM =d.PRODUCTNUM 
+	AND (APPLYDATE BETWEEN TO_DATE(#{applyDate},'YYYY-MM-DD') AND TO_DATE(#{orderDateMonth},'YYYY-MM-DD') )
+	AND DEFNUM LIKE '%'||#{defNum,jdbcType=VARCHAR}||'%'
+	AND d.frRegiNum LIKE '%'||#{frRegiNum,jdbcType=VARCHAR}||'%'
+	AND empnum LIKE '%'||#{category,jdbcType=VARCHAR}||'%'
+	AND methods LIKE '%'||#{methods,jdbcType=VARCHAR}||'%'
+	AND state LIKE '%'||#{state,jdbcType=VARCHAR}||'%'
 </select>
 	
 	<select id="selectActiveStore" resultType="store">

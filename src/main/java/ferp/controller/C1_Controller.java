@@ -177,7 +177,7 @@ public class C1_Controller {
 	@PostMapping("defectOrderHandler.do")
 	public String r9402selectDefectOrder(Model model,DefectOrder dfo) {
 		model.addAttribute("list",service.r9402selectDefectOrder(dfo));
-		return "WEB-INF\\headquarter\\pg9403_defectOrderHandler.jsp";
+		return "pageJsonReport";
 	}
 	
 	
