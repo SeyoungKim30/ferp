@@ -15,6 +15,7 @@ import ferp.dao.C1_Dao;
 import ferp.dao.C2_Dao;
 import vo.ACStatement;
 import vo.Account;
+import vo.DefectOrder;
 import vo.ProdOrder;
 import vo.Prod_order_stock_emp_store;
 import vo.Stock;
@@ -234,6 +235,13 @@ public class C1_Service {
 	
 	public List<Prod_order_stock_emp_store> r9301prodOrderPayDetail(ProdOrder prodOrder){
 		return dao.r9301prodOrderPayDetail(prodOrder);
+	}
+	
+	public List<DefectOrder> r9402selectDefectOrder(DefectOrder dfo){
+		if(dfo.getOrderDateMonth()==null) {
+			dfo.setOrderDateMonth(dfo.getOrderDate());
+		}
+		return dao.r9402selectDefectOrder(dfo);
 	}
 	
 	public List<Store> selectActiveStore(){
