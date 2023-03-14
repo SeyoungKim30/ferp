@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +22,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import ferp.service.A2_Service;
+import ferp.service.B2_Service;
 import vo.ClerkFile;
 import vo.DefectOrder;
 import vo.Emp;
+import vo.Notice;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
@@ -34,7 +35,7 @@ import vo.Store;
 import vo.StoreClerk;
 
 @Controller
-@SessionAttributes({"salesGraph","clerkToday"})
+@SessionAttributes({"salesGraph","clerkToday","noticeCombo"})
 public class A2_Controller {
 	
 	@Value("${uploadJH}")
@@ -42,6 +43,14 @@ public class A2_Controller {
 	
 	@Autowired(required=false)
 	private A2_Service service;
+	
+	@Autowired(required = false)
+	private B2_Service service2;
+	   
+	@ModelAttribute("noticeCombo")
+	public List<Notice> getNotice(){
+		return service2.getNotice();
+	}
 	
 //	직원 정보 리스트 조회
 	@RequestMapping("/storeClerkList.do")
@@ -199,6 +208,7 @@ public class A2_Controller {
 			service.clerkFileDel(del);
 			d.addAttribute("msg", "삭제완료");			
 		}else {
+			service.clerkFileDel(del);
 			d.addAttribute("msg", "파일이 존재하지 않습니다.");
 		}
 		return "redirect:storeClerkList.do";
@@ -227,20 +237,26 @@ public class A2_Controller {
 //	최근 일주일 매출 그래프
 	@ModelAttribute("salesGraph")
 	public List<Sales> salesGraph(Sales sch, HttpSession session){
-		Store s = (Store)session.getAttribute("login");
-		sch.setFrRegiNum(s.getFrRegiNum());
-		return service.salesGraph(sch);
+		return service.salesGraph(sch,session);
 	}
 //	오늘 출근하는 직원
 	@ModelAttribute("clerkToday")
 	public List<StoreClerk> storeclerkSchedule(StoreClerk sch, HttpSession session){
-		Store s = (Store)session.getAttribute("login");
-		sch.setFrRegiNum(s.getFrRegiNum());
-		return service.storeclerkSchedule(sch);
+		return service.storeclerkSchedule(sch,session);
 	}
 	
 	@RequestMapping("/asd.do")
 	public String asd() {
 		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
 	}
+	@RequestMapping("/storeSet2.do")
+	public String asda(StoreClerk sch, Sales sch2, HttpSession session, Model d) {
+		Store s = (Store)session.getAttribute("login");
+		sch.setFrRegiNum(s.getFrRegiNum());
+		d.addAttribute("clerkToday", service.storeclerkSchedule(sch,session));
+		d.addAttribute("salesGraph", service.salesGraph(sch2,session));
+		d.addAttribute("noticeCombo", service2.getNotice());
+		return "forward:pg0002.jsp";
+	}
+
 }

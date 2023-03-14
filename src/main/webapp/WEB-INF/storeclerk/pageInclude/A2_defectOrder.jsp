@@ -50,10 +50,14 @@
 		})
 		
 		let params = new URL(document.location).searchParams;
-		console.log(params)
+		let orNm = params.get("orderNum")
+		let prNm = params.get("productNum")
+		let orDt = params.get("orderDate")
 		let prodN = params.get("productNameFrm")
-		console.log(prodN)
 		$(".productNameFrm").val(prodN)
+		if(orNm==null || prNm==null || orDt==null || prodN==null){
+			$("[name=orderNum], .productNameFrm, [name=type], [name=methods], [name=file], .regBtn, .upload-name").attr("disabled",true)
+		}
 	});
 </script>
 </head>
@@ -176,6 +180,7 @@
 							<button type="button" class="delBtn" onclick="delDefect('${dl.defNum}')">삭제</button>
 						</div>
 						<input type="hidden" name="defNum" value="${dl.defNum}"/>
+						<input type="hidden" name="img" value="${dl.img}"/>
 					</div>
 					<div>
 						<img src="${path }/resource/img/defectOrder/${dl.img}" class="defectImg defectImg${dl.defNum}" onerror="this.onerror=null;this.src='${path }/resource/img/noimg.png'" />

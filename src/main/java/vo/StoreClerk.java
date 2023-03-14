@@ -10,8 +10,9 @@ public class StoreClerk {
 	private String address;
 	private int hourlyPay;
 	private int pay;
-	private int workhour;
+	private double workhour;
 	private String ontime;
+	private String offtime;
 	private String monthDate;
 	public StoreClerk() {
 		super();
@@ -23,10 +24,10 @@ public class StoreClerk {
 	public void setPay(int pay) {
 		this.pay = pay;
 	}
-	public int getWorkhour() {
+	public double getWorkhour() {
 		return workhour;
 	}
-	public void setWorkhour(int workhour) {
+	public void setWorkhour(double workhour) {
 		this.workhour = workhour;
 	}
 	public String getClerkNum() {
@@ -88,5 +89,11 @@ public class StoreClerk {
 	}
 	public void setMonthDate(String monthDate) {
 		this.monthDate = monthDate;
+	}
+	public String getOfftime() {
+		return offtime;
+	}
+	public void setOfftime(String offtime) {
+		this.offtime = offtime;
 	}
 }

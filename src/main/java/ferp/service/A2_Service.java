@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
 import vo.Sales;
+import vo.Store;
 import vo.StoreClerk;
 
 @Service
@@ -139,12 +142,14 @@ public class A2_Service {
 		if(sch.getCategory() == null) sch.setCategory("");
 		return dao.viewDefectorder(sch);
 	}
-	public List<Sales> salesGraph(Sales sch){
-		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
+	public List<Sales> salesGraph(Sales sch, HttpSession session){
+		Store s = (Store)session.getAttribute("login");
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum(s.getFrRegiNum());
 		return dao.salesGraph(sch);
 	}
-	public List<StoreClerk> storeclerkSchedule(StoreClerk sch){
-		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
+	public List<StoreClerk> storeclerkSchedule(StoreClerk sch, HttpSession session){
+		Store s = (Store)session.getAttribute("login");
+		if(sch.getFrRegiNum() == null) sch.setFrRegiNum(s.getFrRegiNum());
 		if(sch.getMonthDate() == null) sch.setMonthDate("");
 		return dao.storeclerkSchedule(sch);
 	}
@@ -169,10 +174,17 @@ public class A2_Service {
 		return img;
 	}
 	public void deleteDefectOrder(DefectOrder del) {
-		File file = new File(defectFupload + del.getImg());
+		File file = new File(defectFupload+del.getImg());
+		System.out.println(del.getImg());
+		System.out.println(file);
+		System.out.println(file.exists());
 		if(file.exists()) {
 			file.delete();
+			dao.deleteDefectOrder(del);
+			System.out.println("file exist");
+		}else {
+			dao.deleteDefectOrder(del);
+			System.out.println("file not exist");
 		}
-		dao.deleteDefectOrder(del);
 	}
 }
