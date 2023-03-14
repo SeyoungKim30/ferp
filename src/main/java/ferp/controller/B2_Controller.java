@@ -1,6 +1,7 @@
 package ferp.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,7 +27,7 @@ import vo.Sales;
 import vo.Store;
 
 @Controller
-@SessionAttributes("totSales")
+@SessionAttributes({"totSales", "onTimeCombo"})
 public class B2_Controller {
 	@Autowired(required = false)
 	private B2_Service service;
@@ -50,6 +51,12 @@ public class B2_Controller {
 	@ModelAttribute("totSales")
 	public List<Sales> totSales(){
 		return service.getSales();
+	}
+	@ModelAttribute("onTimeCombo")
+	public List<Map<String, String>> onTimeCombo(HttpSession session){
+		Emp e = (Emp)session.getAttribute("login");
+		
+		return service.getOnTime(e.getEmpnum());
 	}
 	// 본사 메인페이지
 	@RequestMapping("/goHqPage.do")

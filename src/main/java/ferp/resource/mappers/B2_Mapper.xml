@@ -245,4 +245,13 @@
 		ORDER BY od DESC
 	]]>
 	</select>
+	
+	<!-- 담당매장 출근시간 조회 -->
+	<select id="getOnTime" resultType="HashMap" parameterType="string">
+		SELECT frname, TO_CHAR(onTime, 'HH24:MI:SS') onTime
+		FROM STORE s , EMPCHECKIN e, EMP e2
+		WHERE e2.empnum = s.EMPNUM
+		AND s.empnum = #{empnum}
+		AND to_char(ontime, 'yyyy-mm-dd') = to_char(sysdate-1, 'yyyy-mm-dd')
+	</select>
 </mapper>

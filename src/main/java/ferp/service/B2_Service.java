@@ -3,6 +3,7 @@ package ferp.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -290,6 +291,10 @@ public class B2_Service {
 	// 전체 매장 매출 조회
 	public List<Sales> getSales(){
 		return dao.getSales();
+	}
+	// 담당매장 출근시간 조회
+	public List<Map<String,String>> getOnTime(String empnum){
+		return dao.getOnTime(empnum);
 	}
 }
 

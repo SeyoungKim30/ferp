@@ -1,6 +1,7 @@
 package ferp.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import vo.Emp;
 import vo.Menu;
@@ -77,5 +78,7 @@ public interface B2_Dao {
 	public List<Notice> getNotice();
 	// 전체 매장 매출 조회
 	public List<Sales> getSales();
+	// 담당매장 출근시간 조회
+	public List<Map<String,String>> getOnTime(String empnum);
 	
 }

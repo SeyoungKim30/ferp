@@ -59,7 +59,12 @@
 				</div>
 				<div class="schedule">
 					<h3 style="font-weight: bold;"> 담당매장</h3>
-					<div class="boxes"></div>
+					<div class="boxes">
+					<c:forEach var="item" items="${onTimeCombo}">
+						${item}
+						<span>${item.key}=${item.value}</span>
+					</c:forEach>
+					</div>
 				</div>
 			</div>
 
@@ -72,6 +77,7 @@
 function goDetail(noticeNum) {
 	  location.href="${path}/noticeDetail.do?noticeNum="+noticeNum;
 }
+
 var arr = []
 <c:forEach var="sg" items="${totSales}">
 	arr.push({tot:"${sg.tot}", orderdate:"${sg.orderdate}"})
