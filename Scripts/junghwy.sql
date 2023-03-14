@@ -160,7 +160,7 @@ AND category LIKE '%'||''||'%'
 AND productName LIKE '%'||''||'%'
 AND opposite LIKE '%'||''||'%'
 AND orderState LIKE '%'||''||'%';
-      
+
 SELECT DISTINCT category FROM product;
 
 SELECT * FROM clerkschedule;
@@ -180,7 +180,15 @@ from(
 	WHERE h.clerknum(+) = s.clerknum
 	AND frreginum = '1234567890' -- 세션처리
 )
-where cnt between 6 and 10;
+where cnt BETWEEN 11 and 15;
+SELECT * FROM STORECLERK s ;
+SELECT * FROM CLERKSCHEDULE;
+SELECT * FROM CLERKSCHEDULE c2 WHERE CLERKNUM = '12345678901014';
+SELECT c.CLERKNAME  ,s.CLERKNUM ,sum((to_date(REPLACE(offday, 'T', ''),'YYYY-MM-DD HH24:MI:SS') - to_date(REPLACE(onday, 'T', ''),'YYYY-MM-DD HH24:MI:SS')) * 24) workhour
+	FROM clerkschedule s, STORECLERK c
+	WHERE to_char(to_date(REPLACE(offday, 'T', ''),'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||''||'%' -- 월 vo에 따로 추가
+	AND c.CLERKNUM = s.CLERKNUM 
+	GROUP BY c.CLERKNAME  ,s.CLERKNUM;
 
 SELECT REPLACE(onday, 'T', '') FROM clerkschedule;
 
@@ -263,9 +271,15 @@ FROM CLERKSCHEDULE c , STORECLERK s
 WHERE c.FRREGINUM = s.FRREGINUM(+)
 AND c.CLERKNUM = s.CLERKNUM ;
 
-SELECT * FROM CLERKFILE c ;
+SELECT * from(
+	SELECT rownum cnt, c.* 
+	FROM CLERKFILE c
+	WHERE CLERKNUM LIKE '%'||''||'%'
+	AND FRREGINUM like '%'||''||'%');
 
-INSERT INTO CLERKFILE values('',sysdate,sysdate,'','');
+DELETE FROM CLERKFILE c WHERE fname = '테스트';
+
+INSERT INTO CLERKFILE values('',sysdate,sysdate,'','','');
 
 SELECT *
 	FROM (
@@ -278,3 +292,213 @@ SELECT *
 WHERE cnt BETWEEN 1 AND 5;
 
 SELECT * FROM emp;
+
+SELECT * FROM PRODORDER p WHERE DEMANDER = '9999999999';
+
+SELECT p2.DEMANDER , p2.ORDERSTATE, s.PRODUCTNUM ,p.PRODUCTNAME  
+FROM PRODUCT p, PRODORDER p2 , STOCK s 
+WHERE p.PRODUCTNUM = s.PRODUCTNUM 
+AND p2.PRODUCTNUM = p.PRODUCTNUM
+AND p2.PRODUCTNUM = s.PRODUCTNUM;
+
+ALTER TABLE clerkfile ADD fileInfo varchar2(30);
+
+UPDATE CLERKFILE 
+	SET UPTDTE = SYSDATE,
+		fileinfo = '파일설명'
+WHERE FNAME ='스크린샷 2023-03-06 오후 11.21.40.png'
+AND CLERKNUM = '12345678901001'
+AND FRREGINUM  = '1234567890';
+
+DELETE FROM clerkfile 
+WHERE FNAME ='스크린샷 2023-03-06 오후 11.21.40.png'
+AND CLERKNUM = '12345678901001'
+AND FRREGINUM  = '1234567890';
+
+SELECT to_char(rcv_dt,'YYYY-MM-DD HH24:MI:SS') as rcv_dt FROM dual;
+
+SELECT * FROM DEFECTORDER d ;
+
+SELECT * FROM PRODORDER p ;
+
+INSERT INTO DEFECTORDER values('1','2303051234567891','PD10001',sysdate,'','처리중','교환',to_date('2023-03-05 17:56:30','yyyy-mm-dd hh24:mi:ss'),'1234567891');
+INSERT INTO DEFECTORDER values('2','2303051234567891','PD10002',sysdate,'','처리중','교환',to_date('2023-03-05 17:56:31','yyyy-mm-dd hh24:mi:ss'),'1234567891');
+
+ALTER TABLE DEFECTORDER ADD type varchar2(30);
+ALTER TABLE DEFECTORDER ADD completeDate date;
+
+UPDATE DEFECTORDER
+SET TYPE = '오배송'
+WHERE STATE  = '처리중';
+
+SELECT nvl(sum(payprice),0) allfrsales
+FROM orders
+WHERE state='완료'
+AND to_char(orderdate, 'YYYY/MM/DD')=to_char(sysdate,'YYYY/MM/DD');
+
+SELECT nvl(sum(payprice),0) allfrsales
+		FROM orders
+		WHERE state='완료'
+		AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM');
+
+SELECT nvl(sum(PAYPRICE),0) 
+FROM orders 
+WHERE to_char(orderdate, 'YYYY/MM/DD') = to_char(SYSDATE,'YYYY/MM/DD') 
+AND state = '완료'
+AND FRREGINUM = '1234567890';
+
+SELECT nvl(sum(PAYPRICE),0) FROM ORDERS 
+WHERE state = '완료'
+AND FRREGINUM = '1234567890'
+AND to_char(orderdate, 'YYYY/MM/DD') BETWEEN to_char(sysdate, 'YYYY/MM/DD') AND to_char(sysdate-7, 'YYYY/MM/DD');
+
+SELECT * FROM orders WHERE ORDERDATE >= TO_CHAR(SYSDATE-7,'YYYYMMDD');
+
+SELECT nvl(sum(PAYPRICE),0)
+FROM (
+SELECT TO_CHAR(SYSDATE-LEVEL+1, 'YYYYMMDD') od
+  FROM DUAL CONNECT BY LEVEL <= 10) d, orders o
+WHERE d.od = o.orderdate;
+
+SELECT DISTINCT TO_CHAR(SYSDATE-LEVEL+1, 'YYYYMMDD') od
+FROM ORDERS CONNECT BY LEVEL <= 10;
+
+SELECT DISTINCT TO_CHAR(SYSDATE-LEVEL+1, 'YYYYMMDD') od
+FROM ORDERS CONNECT BY LEVEL <= 7
+ORDER BY od DESC ;
+
+SELECT to_char(orderdate, 'YYYYMMDD') ord, nvl(sum(PAYPRICE),0) tsum, FRREGINUM 
+FROM ORDERS
+WHERE state = '완료'
+GROUP BY to_char(orderdate, 'YYYYMMDD'),FRREGINUM
+ORDER BY to_char(orderdate, 'YYYYMMDD');
+
+SELECT nvl(tot,0) AS tot, b.orderdate
+FROM (
+	SELECT to_char(orderdate, 'YYYY/MM/DD') ord, nvl(sum(PAYPRICE),0) tot
+	FROM ORDERS
+	WHERE state = '완료'
+	AND frreginum = '1234567890'
+	GROUP BY to_char(orderdate, 'YYYY/MM/DD')) a,
+	(SELECT DISTINCT TO_CHAR(SYSDATE-LEVEL+1, 'YYYY/MM/DD') orderdate
+	FROM ORDERS CONNECT BY LEVEL <= 7
+	ORDER BY orderdate DESC) b
+WHERE a.ord(+) = b.orderdate
+ORDER BY orderdate DESC;
+
+SELECT p.PRODUCTNUM, CATEGORY , PRODUCTNAME , OPPOSITE , PRICE , IMG , p.REMARK  , frreginum, stockdate, applyamount, remainamount 
+		FROM STOCK s , PRODUCT p 
+		WHERE STOCKDATE IN 
+			(SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)
+		AND p.PRODUCTNUM = s.PRODUCTNUM 
+		AND PRODUCTNAME LIKE '%'||''||'%'
+		AND FRREGINUM = '9999999999';
+	
+SELECT * FROM stock;
+
+SELECT * FROM ORDERS o WHERE FRREGINUM = '1234567892';
+
+SELECT e.ONTIME, e.CLERKNUM 
+FROM STORECLERK s ,EMPCHECKIN e 
+WHERE s.FRREGINUM = e.FRREGINUM
+AND s.CLERKNUM = e.CLERKNUM
+AND s.FRREGINUM = '1234567891'
+AND to_char(to_date(ontime,'YYYY-MM-DD HH24:MI:SS'),'MMDD') = '0303';
+
+SELECT * FROM STORECLERK s WHERE FRREGINUM = '1234567892';
+SELECT * FROM EMPCHECKIN e  WHERE FRREGINUM = '1234567890';
+
+SELECT to_char(to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'),'MMDD') FROM dual;
+
+SELECT to_char(ontime, 'HH24:MI:SS') ontime, to_char(offtime, 'HH24:MI:SS') offtime,clerkName FROM (
+SELECT e.ONTIME,e.offtime, e.CLERKNUM 
+FROM STORECLERK s ,EMPCHECKIN e 
+WHERE s.FRREGINUM = e.FRREGINUM
+AND s.CLERKNUM = e.CLERKNUM
+AND to_char(to_date(ontime,'YYYY-MM-DD HH24:MI:SS'),'MM/DD') = to_char(sysdate,'MM/DD')) a, storeclerk s
+WHERE a.clerknum(+) = s.CLERKNUM 
+AND s.FRREGINUM = '1234567890'
+ORDER BY s.CLERKNUM ASC;
+
+-- defnum, ordernum, productnum, applydate, img, state, methods, orderdate, frreginum, type, completedate
+
+SELECT count(*)+101
+FROM DEFECTORDER d
+WHERE FRREGINUM = '1234567891';
+
+--신청건에 대한 상태 조회 가능
+--→ 발주 번호, 자재명, 종류, 처리방식, 첨부 이미지, 
+--신청 상태(처리 대기/처리 완료), 신청일, 처리일(완료 시)
+
+SELECT d.DEFNUM ,p.ORDERNUM, p2.productName, p2.CATEGORY, d.METHODS, d.IMG, d.STATE, d.APPLYDATE,p.ORDERDATE ,d.frreginum
+FROM DEFECTORDER d, PRODORDER p, PRODUCT p2 
+WHERE d.ORDERNUM = p.ORDERNUM 
+AND d.ORDERDATE = p.ORDERDATE 
+AND p.PRODUCTNUM = p2.PRODUCTNUM 
+AND frreginum = '1234567890'
+AND p2.PRODUCTNAME  LIKE '%'||''||'%'
+AND p2.CATEGORY  LIKE '%'||''||'%'
+AND to_char(to_date(p.ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||''||'%' ;
+
+SELECT d.*,p.*,p2.*
+FROM DEFECTORDER d, PRODORDER p, PRODUCT p2 
+WHERE d.PRODUCTNUM = p2.PRODUCTNUM
+AND d.ORDERDATE = p.ORDERDATE ;
+
+SELECT * FROM DEFECTORDER ;
+SELECT * FROM PRODORDER p WHERE DEMANDER = '1234567890';
+
+DELETE FROM DEFECTORDER d WHERE ORDERDATE = to_date('2023-03-13 20:50:04','yyyy-MM-dd HH24:MI:SS');
+
+UPDATE DEFECTORDER 
+	SET img = 'missingfew.png'
+WHERE img = 'test22.png';
+
+SELECT * FROM PRODUCT p ;
+SELECT to_date('2023-03-05 17:56:31','yyyy-MM-dd HH24:MI:SS') FROM DEFECTORDER d ;
+
+SELECT * FROM CLERKFILE c ;
+
+SELECT * FROM CLERKSCHEDULE c ;
+
+DELETE FROM CLERKFILE c ;
+
+SELECT * FROM EMPCHECKIN e WHERE CLERKNUM = '12345678901005';
+
+SELECT *
+from(
+	SELECT rownum cnt, a.* FROM (
+		SELECT nvl(TRUNC(h.workHOUR,1),0) workhour, nvl(TRUNC(h.workHOUR * s.hourlypay,-2),0) pay,s.*
+		FROM (SELECT CLERKNUM ,sum((OFFTIME-ONTIME) * 24) workhour
+		FROM EMPCHECKIN e 
+		WHERE to_char(to_date(OFFTIME ,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||''||'%' -- 월 vo에 따로 추가
+		GROUP BY CLERKNUM) h, storeclerk s  
+		WHERE h.clerknum(+) = s.clerknum
+		AND frreginum = '1234567890' -- 세션처리
+		ORDER BY s.clerknum
+	) a
+)
+where cnt BETWEEN 1 and 15;
+SELECT * FROM STORECLERK s ;
+SELECT * FROM CLERKSCHEDULE;
+SELECT * FROM CLERKSCHEDULE c2 WHERE CLERKNUM = '12345678901014';
+
+SELECT CLERKNUM ,sum((OFFTIME-ONTIME) * 24) workhour
+	FROM EMPCHECKIN e 
+	WHERE to_char(to_date(OFFTIME ,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||''||'%' -- 월 vo에 따로 추가
+	GROUP BY CLERKNUM
+ORDER BY clerknum;
+
+SELECT * FROM STORECLERK s ;
+SELECT OFFTIME FROM EMPCHECKIN e; 
+SELECT OFFTIME  FROM EMPCHECKIN e
+WHERE to_char(to_date(OFFTIME ,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||'3'||'%';
+
+	SELECT nvl(h.workHOUR,0) workhour, nvl(TRUNC(h.workHOUR * s.hourlypay,-2),0) pay,s.*
+		FROM (SELECT CLERKNUM ,sum((OFFTIME-ONTIME) * 24) workhour
+		FROM EMPCHECKIN e 
+		WHERE to_char(to_date(OFFTIME ,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||''||'%' -- 월 vo에 따로 추가
+		GROUP BY CLERKNUM) h, storeclerk s  
+		WHERE h.clerknum(+) = s.clerknum
+		AND frreginum = '1234567890' -- 세션처리
+		ORDER BY s.clerknum;
