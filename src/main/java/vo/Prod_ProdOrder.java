@@ -14,6 +14,7 @@ public class Prod_ProdOrder {
 	private String productName;
 	private String img;
 	private String category;
+	private String opposite;
 	public String getOrderNum() {
 		return orderNum;
 	}
@@ -91,5 +92,11 @@ public class Prod_ProdOrder {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getOpposite() {
+		return opposite;
+	}
+	public void setOpposite(String opposite) {
+		this.opposite = opposite;
 	}
 }

@@ -76,7 +76,7 @@
 	</insert>
 	<!-- 발주 신청서 조회 -->
 	<select id="reqList" parameterType="prodOrder" resultType="prodProdOrder">
-		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY
+		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY, p.OPPOSITE 
 		FROM PRODUCT p, PRODORDER po
 		WHERE p.PRODUCTNUM = po.PRODUCTNUM
 		AND p.PRODUCTNAME LIKE '%'||#{productName}||'%' 
