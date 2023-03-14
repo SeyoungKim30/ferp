@@ -174,7 +174,11 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg9403_defectOrderHandler.jsp";
 	}
 	
-
+	@PostMapping("defectOrderHandler.do")
+	public String r9402selectDefectOrder(Model model,DefectOrder dfo) {
+		model.addAttribute("list",service.r9402selectDefectOrder(dfo));
+		return "WEB-INF\\headquarter\\pg9403_defectOrderHandler.jsp";
+	}
 	
 	
 	//http://localhost:6080/ferp/pnl.do
