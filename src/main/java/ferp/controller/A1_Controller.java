@@ -261,6 +261,7 @@ public class A1_Controller {
 	   return "redirect:/kiosquePay.do";
    }
    
+   
    // 고객 호출 페이지
    @RequestMapping("/callCustomer.do")
    public String callCustomer() {
