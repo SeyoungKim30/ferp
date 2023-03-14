@@ -24,7 +24,7 @@
 </head>
 
 <body class="container">
-	<%@ include file="/resource/templates/header.jsp"%>
+	%@ include file="/resource/templates/header.jsp"%
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
@@ -53,22 +53,36 @@
 </tbody>
 </table>
 
-
+<button type="button" class='modalOpen'>모달열기</button>
 		</div>
 	</div>
 	
 	
 <div class="modal" id='modal'><div class="modal-dialog">
-<div class="modal-header"><h3 class="modal-title">불량신청건 처리</h3><button class="btn-close">&nbsp; &nbsp;</button></div>
+<div class="modal-header"><h2 class="modal-title">불량신청건 처리</h2><button class="btn-close">&nbsp; &nbsp;</button></div>
 <div class="modal-body">
-<form>
-	<div class="toolbar">
-		<label>신청번호<input name='defNum' readonly="readonly"></label>
-		<label>상품번호<input name='defNum' readonly="readonly"></label>
+<form action="${path }/updateDefectOrder.do" method="post">
+	<h4>신청 상태 조정</h4>
+	<div class="toolbar"><div>
+		<label>신청번호<input name='defNum' ></label>
+		<label>신청지점<input name='frRegiNum' ></label>
+		<label>자재번호<input name='productNum' ></label>
 		<label>처리상태<select name='state'><option>처리 대기</option><option>처리중</option><option>처리 완료</option></select></label>
 		<label>처리방식<select name='methods'><option>재배송</option><option>환불</option></select></label>
+	</div></div>
+	<h4>자재 수량 조정 stock</h4>
+	<div class="toolbar">
+		<label>자재명<input readonly></label>
+		<label>stockDate<input name="stockDate" type="date"></label>
+		<label>applyAmount<input name="applyAmount"></label>
+		<label>remark<input name="remark"></label>
 	</div>
-	
+	<h4>발주 기록 수정 prodOrder</h4>
+	<div class="toolbar"><div>
+		<label>amount<input name="amount"></label>
+		<label>orderState<input name="orderState"></label>
+		<label>remark<input name="remark"></label>
+	</div></div>
 	<button class="btn-primary">등록하기</button>
 </form>
 </div></div></div>
@@ -81,8 +95,19 @@ fetchActiveList()
 const searchForm = document.querySelector('#searchForm');
 searchForm.addEventListener('submit', function(e){
     e.preventDefault();	//submit 방지
-	fetchSelectPromise("#searchForm","${path }/defectOrderHandler.do?").then(function(result){
-		console.log(result)
+	fetchSelectPromise("#searchForm","${path }/selectDefectOrderJSON.do?").then(function(result){
+		var dpslist=result.list
+		var htmls='';
+		for(let i=0;i<dpslist.length;i++){
+			htmls+='<tr><td>'+dpslist.defectOrder.applyDate
+			+'</td><td>'+dpslist.defectOrder.orderDate
+			+'</td><td>'+dpslist.store.frName
+			+'</td><td>'+dpslist.product.productName
+			+'</td><td>'+dpslist.defectOrder.type
+			+'</td><td>'+dpslist.defectOrder.methods
+			+'</td><td>'+dpslist.defectOrder.state+` <button class='modalOpen' id='`+i+`'>변경</button>`
+			+'</td></tr>'
+		}
 	}).catch(function(error){console.error(error);})
 })
 </script>
