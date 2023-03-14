@@ -235,15 +235,15 @@ WHEN NOT MATCHED THEN
 	</select>
 	
 	
-<select id="r9402selectDefectOrder" resultType="" parameterType="">
+<select id="r9402selectDefectOrder" resultType="defectorder" parameterType="defectorder">
 SELECT d.*,s.EMPNUM ,s.FRNAME FROM DEFECTORDER d, store s
 	WHERE d.FRREGINUM =s.FRREGINUM 
-	AND (APPLYDATE BETWEEN TO_DATE('2023-03-01','YYYY-MM-DD') AND TO_DATE('2023-03-30','YYYY-MM-DD') )
-	AND DEFNUM LIKE '%'||''||'%'
-	AND d.frRegiNum LIKE '%'||''||'%'
-	AND empnum LIKE '%'||''||'%'
-	AND methods LIKE '%'||''||'%'
-	AND state LIKE '%'||''||'%'
+	AND (APPLYDATE BETWEEN TO_DATE(#{orderDate},'YYYY-MM-DD') AND TO_DATE(#{orderDateMonth},'YYYY-MM-DD') )
+	AND DEFNUM LIKE '%'||#{defNum}||'%'
+	AND d.frRegiNum LIKE '%'||#{frRegiNum}||'%'
+	AND empnum LIKE '%'||#{category}||'%'
+	AND methods LIKE '%'||#{methods}||'%'
+	AND state LIKE '%'||#{state}||'%'
 	AND COMPLETEDATE is null
 </select>
 	
