@@ -101,7 +101,7 @@
     						<li id="5002"><a href="${path}/noticeInsert.do">- 공지사항 등록</a></li>
 </c:if>
                             <li id="5001"><a href="${path}/noticeList.do">- 공지사항 조회</a></li>
-<c:if test="${login.frRegiNum == 9999999999 }">      
+<c:if test="${login.frRegiNum != 9999999999 }">      
                             <li id="5101"><a href="${path}/qnaInsert.do">- 문의글 등록</a></li>
 </c:if>
                             <li id="5103"><a href="${path}/qnaList.do">- 문의글 조회</a></li>
