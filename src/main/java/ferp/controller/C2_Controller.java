@@ -26,6 +26,8 @@ import vo.StoreClerk;
 
 @Controller
 public class C2_Controller {
+	// http://localhost:6080/ferp/storeLogin.do
+	// http://localhost:6080/ferp/empLogin.do
 	
 	@Autowired
 	private C2_Service service;
@@ -47,7 +49,7 @@ public class C2_Controller {
 		return "WEB-INF\\store\\pg8101_productInfo.jsp";
 	}	
 	
-	// 매장 재고 관리 조회
+	// 매장 재고 입출고 조회
 	// http://localhost:6080/ferp/sInoutList.do
 	@RequestMapping("/sInoutList.do")
 	public String r8102InoutList(ProductProdOrder sch, Model d, HttpSession session){
@@ -58,7 +60,7 @@ public class C2_Controller {
 		return "WEB-INF\\store\\pg8102_inoutList.jsp";
 	}
 	
-	// 매장 재고 관리 등록
+	// 매장 재고 입출고 등록
 	@RequestMapping("/sinoutIns.do")
 	public String r8103InoutIns(Stock ins, Model d, HttpSession session){
 		Store st = (Store)session.getAttribute("login");
@@ -67,11 +69,17 @@ public class C2_Controller {
 		return "redirect:/sInoutList.do";
 	}
 	
-	// 매장 재고 관리 수정
+	// 매장 재고 입출고 수정
 
 	
-	// 매장 재고 관리 삭제
-	
+	// 매장 재고 입출고 삭제
+	@RequestMapping("/sinoutDel.do")
+	public String r8105InoutDel(@RequestParam("productNum") String productNum,
+								@RequestParam("applyAmount") int applyAmount,
+								@RequestParam("remainAmount") int remainAmount) {
+	    service.r8105InoutDel(productNum, applyAmount, remainAmount);
+	    return "redirect:/sInoutList.do"; 
+	}
 	
 	// 본사 재고 조회
 	// http://localhost:6080/ferp/hproductList.do
@@ -117,7 +125,7 @@ public class C2_Controller {
 		return "redirect:/hproductList.do";
 	}
 	
-	// 본사 재고 관리 조회
+	// 본사 재고 입출고 조회
 	// http://localhost:6080/ferp/hInoutList.do
 	@RequestMapping("/hInoutList.do")
 	public String r8204InoutList(ProductProdOrder sch, Model d, HttpSession session) {

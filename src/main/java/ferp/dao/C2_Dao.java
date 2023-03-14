@@ -16,14 +16,15 @@ public interface C2_Dao {
 	public List<ProductProdOrder> r8101ProductList(ProductProdOrder sch);
 	// 본사/매장 재고 상세 페이지
 	public Product r8101ProductInfo(String productNum);
-	// 본사/매장 재고 관리 조회
+	// 본사/매장 재고 입출고 조회
 	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch);
-	// 매장 재고 관리 등록
+	// 매장 재고 입출고 등록
 	public void r8103InoutIns(Stock ins);
-	// 매장 재고 관리 수정
+	// 매장 재고 입출고 수정
 	public void r8104InoutUpt(Stock upt);
-	// 매장 재고 관리 삭제
+	// 매장 재고 입출고 삭제
 	public void r8105InoutDel(Stock del);
+	public void r8105InoutDel2(Stock del);
 	// 본사 재고 등록
 	public void r8202ProductIns(Product ins);
 	// 본사 재고 수정

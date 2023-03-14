@@ -12,6 +12,7 @@
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
@@ -36,9 +37,13 @@
 #insertForm button {
     margin-right: 0; /* 버튼과 인풋 요소 사이의 간격 없앰 */
 }
+#deleteForm {
+    display: none;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+		<%-- (+)항목에 수정/삭제 버튼 안보이게
 		$('.uptbtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
 		    if (!isNaN(applyAmount) && applyAmount >= 0) {
@@ -55,6 +60,7 @@
 				$(this).show();
 			}
 		});
+		--%>
 		$("#insBtn").click(function(){
 			var isInValid = false
 			for(var idx=0;idx<$(".ckValid").length;idx++){
@@ -68,12 +74,48 @@
 			if(isInValid){
 				return
 			}
-			$("form").submit()
+			Swal.fire({
+				title: '등록하시겠습니까?',
+				icon: 'warning',
+				showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+				confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+				confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+				cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+			}).then((result) => {
+				if (result.value) {
+					$("#insertForm").submit()
+				}
+			})
 		})
 		$('select[name="productNum"]').change(function() {
 			const remainAmount = $(this).find('option:selected').attr('id');
 			$('input[name="applyAmount"]').attr('min', remainAmount);
-		});
+		}); // 등록시 최소 수량 지정
+		$('.delBtn').on('click', function() {
+			Swal.fire({
+				title: '삭제하시겠습니까?',
+				icon: 'warning',
+				showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+				confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+				confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+				cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+			}).then((result) => {
+				if (result.value) {
+					var row = $(this).closest('tr');
+					var productNum = row.find('td:nth-child(1)').text().trim();
+					var applyAmountS = row.find('td:nth-child(6)').text().trim();
+					var applyAmount = applyAmountS !== "" ? parseInt(applyAmountS) : 0;
+					var remainAmountS = row.find('td:nth-child(7)').text().trim();
+					var remainAmount = remainAmountS !== "" ? parseInt(remainAmountS) : 0;
+					$('#deleteForm [name=productNum]').val(productNum);
+					$('#deleteForm [name=applyAmount]').val(applyAmount);
+					$('#deleteForm [name=remainAmount]').val(remainAmount);
+					$("#deleteForm").submit();
+				}
+			})	
+		})
 	});
 </script>
 </head>
@@ -89,7 +131,7 @@
 				<select name="productNum" required>
 			    	<option value="">자재코드선택</option>
 			    	<c:forEach var="pd" items="${remainlist}">
-			    		<option value="${pd.productName} id="-${pd.remainAmount}">${pd.productNum}</option>
+			    		<option id="-${pd.remainAmount}">${pd.productNum}</option>
 			    	</c:forEach>
 			    </select>
 			    <input type="hidden" name="frRegiNum" value="${login.frRegiNum}" id="frRegiNum">
@@ -101,8 +143,8 @@
 			<div class="searchtab">
 				<table>
 				<thead>
-					<tr><th>자재코드</th><th>카테고리명</th><th>자재명</th>
-						<th>일자</th><th>단가</th><th>수량</th><th>수정/삭제</th></tr>
+					<tr><th>자재코드</th><th>카테고리명</th><th>자재명</th><th>일자</th>
+						<th>단가</th><th>변동수량</th><th>전체수량</th><th>비고</th><th>수정/삭제</th></tr>
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${list}">
@@ -114,13 +156,19 @@
 			    	    	<td style="text-align:right"><fmt:formatNumber value="${prod.price}" type='currency'/></td>
 			    	    	<td style="text-align:center">${prod.applyAmount}</td>
 			    	    	<td style="text-align:center">${prod.remainAmount}</td>
+			    	    	<td>${prod.remark}</td>
 					        <td style="text-align:center">
-					            <button class="uptbtn btn-secondary" type="button">수정</button>
-					            <button class="delbtn btn-danger" type="button">삭제</button></td>
+				            <button class="btn-secondary uptbtn" type="button">수정</button>
+							<button class="btn-danger delBtn" type="button">삭제</button></td>
 			    	    </tr>
 			    	</c:forEach>
 				</tbody>
 				</table>
+				<form id="deleteForm" action="${path}/sinoutDel.do">
+		    		<input type="text" name="productNum"/>
+		    		<input type="text" name="applyAmount"/>
+		    		<input type="text" name="remainAmount"/>
+		    	</form>
 			</div>
 		</div>
 	</div>

@@ -59,25 +59,33 @@ public class C2_Service {
 		return dao.r8101ProductInfo(productNum);
 	}
 	
-	// 본사/매장 재고 관리 조회
+	// 본사/매장 재고 입출고 조회
 	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch){
 		return dao.r8204InoutList(sch);
 	}
 	
-	// 매장 재고 관리 등록
+	// 매장 재고 입출고 등록
 	public void r8103InoutIns(Stock ins) {
 		dao.r8103InoutIns(ins);
 	}
 	
-	// 매장 재고 관리 수정
+	// 매장 재고 입출고 수정
 	public String r8104InoutUpt(Stock upt) {
 		dao.r8104InoutUpt(upt);	
 		return upt.getProductNum();
 	}
 	
-	// 매장 재고 관리 삭제
-	public void r8105InoutDel(Stock del) {
-		dao.r8105InoutDel(del);
+	// 매장 재고 입출고 삭제
+	public void r8105InoutDel(String productNum, int applyAmount, int remainAmount) {
+	    Stock del = new Stock();
+	    del.setProductNum(productNum);
+	    del.setApplyAmount(applyAmount);
+	    del.setRemainAmount(remainAmount);
+	    dao.r8105InoutDel(del);
+	    Stock del2 = new Stock();
+	    del2.setProductNum(del.getProductNum());
+	    del2.setApplyAmount(del.getApplyAmount());
+	    dao.r8105InoutDel2(del2);
 	}
 	
 	// 본사 재고 등록

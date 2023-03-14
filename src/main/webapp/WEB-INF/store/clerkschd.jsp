@@ -107,21 +107,34 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		<h2>직원 스케줄 캘린더</h2><br><hr><br>
-			<div class="toolbox">
-			<h3>직원 스케줄 등록</h3><br>
-				<form action="${path}/sclerkschdIns.do" id='insertForm' class="form-inline">
+		<div class="toolbox">
+		<h3>직원 스케줄 등록</h3><br>
+			<div class="toolbar">
+				<div>
+					<form action="${path}/sclerkschdIns.do" id='insertForm' class="form-inline">
+				    <label>직원선택
 				    <select name="clerkNum" required>
 				        <option value="">직원선택</option>
 				        <c:forEach var="ck" items="${clerkNumCom}">
-				            <option value="${ck.clerkNum}">${ck.clerkName}</option>
-				        </c:forEach>
-				    </select>
+					        <c:if test="${ck.frRegiNum == login.frRegiNum}">
+								<option value="${ck.clerkNum}">${ck.clerkName}</option>
+							</c:if>
+						</c:forEach>
+				    </select></label>
 				    <input type="hidden" name="frRegiNum" value="${login.frRegiNum}" id="frRegiNum">
-				    <input type="datetime-local" name="onDay" value="${param.onDay}" class="ckValid" id="onDay" placeholder="출근시간 입력" required>
-				    <input type="datetime-local" name="offDay" value="${param.offDay}" class="ckValid" id="offDay" placeholder="퇴근시간 입력" required>
-				    <button id="insBtn" class="btn-primary" type="button">등록</button>
+				    <label>출근시간 <input type="datetime-local" name="onDay" 
+				    	value="${param.onDay}" class="ckValid" id="onDay" 
+				    	placeholder="출근시간 입력" required></label>
+				    <label>퇴근시간 <input type="datetime-local" name="offDay" 
+				    	value="${param.offDay}" class="ckValid" id="offDay" 
+				    	placeholder="퇴근시간 입력" required></label>
+				</div>
+			    <div>
+			    	<button id="insBtn" class="btn-primary" type="button">등록</button>
+			    </div>
 				</form>
 			</div>
+		</div>
   			<div id='calendar'></div>
 		</div>
 	</div>
