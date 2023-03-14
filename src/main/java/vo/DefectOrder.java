@@ -1,6 +1,8 @@
 package vo;
 
-public class DefectOrder {
+import org.springframework.web.multipart.MultipartFile;
+
+public class DefectOrder { 
 	private String defNum;
 	private String orderNum;
 	private String productNum;
@@ -10,17 +12,12 @@ public class DefectOrder {
 	private String state;
 	private String methods;
 	private String frRegiNum;
+	private String type;
+	private String completeDate;
 	private String productName;
 	private String orderDateMonth;
 	private String category;
-	private String completeDate;
-	
-	public String getCompleteDate() {
-		return completeDate;
-	}
-	public void setCompleteDate(String completeDate) {
-		this.completeDate = completeDate;
-	}
+	private MultipartFile file;
 	public String getDefNum() {
 		return defNum;
 	}
@@ -75,6 +72,18 @@ public class DefectOrder {
 	public void setFrRegiNum(String frRegiNum) {
 		this.frRegiNum = frRegiNum;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getCompleteDate() {
+		return completeDate;
+	}
+	public void setCompleteDate(String completeDate) {
+		this.completeDate = completeDate;
+	}
 	public String getProductName() {
 		return productName;
 	}
@@ -92,5 +101,11 @@ public class DefectOrder {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 }
