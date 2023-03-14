@@ -101,7 +101,7 @@
     						<li id="5002"><a href="${path}/noticeInsert.do">- 공지사항 등록</a></li>
 </c:if>
                             <li id="5001"><a href="${path}/noticeList.do">- 공지사항 조회</a></li>
-<c:if test="${login.frRegiNum != 9999999999 }">      
+<c:if test="${login.frRegiNum != 9999999999 }">   
                             <li id="5101"><a href="${path}/qnaInsert.do">- 문의글 등록</a></li>
 </c:if>
                             <li id="5103"><a href="${path}/qnaList.do">- 문의글 조회</a></li>
@@ -119,7 +119,9 @@
                      <li id="4100">
                         <a href="#">본사 직원 관리</a>
                         <ul>
+<c:if test="${login.ename eq 'admin'}">                       
                             <li id="4101"><a href="${path}/insertEmp.do">- 아이디 발급</a></li>
+</c:if>                            
                             <li id="4104"><a href="${path}/updateEmpPass.do">- 비밀번호변경</a></li>
                    		</ul>
                     </li>
