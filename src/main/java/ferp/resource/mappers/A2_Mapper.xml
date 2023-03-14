@@ -172,4 +172,7 @@
 		INSERT INTO DEFECTORDER values
 		(#{frRegiNum}||#{defNum},#{orderNum},#{productNum},sysdate,#{img},'처리 대기',#{methods},to_date(#{orderDate},'yyyy-MM-dd HH24:MI:SS'),#{frRegiNum},#{type},'')
 	</insert>
+	<delete id="deleteDefectOrder" parameterType="defectorder">
+		DELETE FROM DEFECTORDER WHERE DEFNUM = #{defNum}
+	</delete>
 </mapper>

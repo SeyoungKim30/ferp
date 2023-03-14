@@ -290,3 +290,6 @@ h2.h2Title > span#clerknum{
 h2.h2Title > span.clerknum{
 	font-size: large;
 }
+.clerkOntime{
+	padding:5px;
+}

@@ -218,6 +218,12 @@ public class A2_Controller {
 		d.addAttribute("defectlist", service.viewDefectorder(sch));
 		return "/WEB-INF/storeclerk/A2_defectOrderCon.jsp";
 	}
+//	오배송/누락/자재 파손 처리 신청 삭제
+	@PostMapping("/delDefectProd.do")
+	public String pg9402_1(DefectOrder del) {
+		service.deleteDefectOrder(del);
+		return "redirect:viewDefectProd.do";
+	}
 //	최근 일주일 매출 그래프
 	@ModelAttribute("salesGraph")
 	public List<Sales> salesGraph(Sales sch, HttpSession session){

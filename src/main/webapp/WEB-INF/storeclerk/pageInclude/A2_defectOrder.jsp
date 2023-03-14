@@ -173,8 +173,9 @@
 						<div class="tdDiv" style="width: 10%;">${dl.methods }</div>
 						<div class="tdDiv" style="width: 10%;">${dl.state }</div>
 						<div class="tdDiv" style="width: 10%;">
-							<button type="button" class="delBtn">삭제</button>
+							<button type="button" class="delBtn" onclick="delDefect('${dl.defNum}')">삭제</button>
 						</div>
+						<input type="hidden" name="defNum" value="${dl.defNum}"/>
 					</div>
 					<div>
 						<img src="${path }/resource/img/defectOrder/${dl.img}" class="defectImg defectImg${dl.defNum}" onerror="this.onerror=null;this.src='${path }/resource/img/noimg.png'" />
@@ -198,6 +199,11 @@
 				$('.upload-name').val($("#file").val())			
 			}else{
 				$('.upload-name').val($("#file").val()+" 외 "+parseInt(i-1) + "개")			
+			}
+		}
+		function delDefect(i){
+			if(confirm("삭제하시겠습니까?")){
+				$("#uptForm"+i).attr("action","${path}/delDefectProd.do").submit();
 			}
 		}
 	</script>

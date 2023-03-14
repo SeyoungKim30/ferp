@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
-<link rel="stylesheet" href="${path}/resource/css/jhCSS.css" />
+<link rel="stylesheet" href="${path}/resource/css/A2_jhCSS.css" />
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -63,15 +63,35 @@
 					</div>
 				</div>
 				<div class="schedule">
-					<h3>담당매장</h3>
-					<div class="boxes">
-						<div>
-							<c:forEach var="ct" items="${clerkToday }">
-								<div class="row">
-									<div>${ct.clerkName }</div>
-									<div>${ct.ontime }</div>
-								</div>
-							</c:forEach>
+					<h3>매장직원</h3>
+					<div class="row">
+						<div class="boxes">
+							<div>
+								<c:forEach var="ct" items="${clerkToday }" begin="0" end="9">
+									<div class="row">
+										<div class="clerkOntime">${ct.clerkName }</div>
+										<div class="clerkOntime">
+											<c:if test="${not empty ct.ontime }"><span style="color:red;">출근 : ${ct.ontime }</span></c:if>
+											<c:if test="${empty ct.ontime }"><span style="color:red;">출근</span></c:if>
+										</div>
+									</div>
+								</c:forEach>
+							
+							</div>
+						</div>
+						<div class="boxes">
+							<div>
+								<c:forEach var="ct" items="${clerkToday }" begin="10" end="19">
+									<div class="row">
+										<div class="clerkOntime">${ct.clerkName }</div>
+										<div class="clerkOntime">
+											<c:if test="${not empty ct.ontime }"><span style="color:red;">출근 : ${ct.ontime }</span></c:if>
+											<c:if test="${empty ct.ontime }"><span style="color:red;">출근</span></c:if>
+										</div>
+									</div>
+								</c:forEach>
+							
+							</div>
 						</div>
 					</div>
 				</div>

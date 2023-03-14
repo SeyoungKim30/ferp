@@ -168,4 +168,11 @@ public class A2_Service {
 		}
 		return img;
 	}
+	public void deleteDefectOrder(DefectOrder del) {
+		File file = new File(defectFupload + del.getImg());
+		if(file.exists()) {
+			file.delete();
+		}
+		dao.deleteDefectOrder(del);
+	}
 }
