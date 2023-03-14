@@ -30,4 +30,7 @@ public interface A2_Dao {
 	public void clerkFileDel(ClerkFile del);
 	public List<DefectOrder> viewDefectorder(DefectOrder sch);
 	public List<Sales> salesGraph(Sales sch);
+	public List<StoreClerk> storeclerkSchedule(StoreClerk sch);
+	public int defectOrderTot(String frRegiNum);
+	public void insertDefectOrder(DefectOrder ins);
 }

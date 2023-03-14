@@ -127,20 +127,6 @@
 		AND CLERKNUM = #{clerkNum}
 		AND FRREGINUM  = #{frRegiNum}
 	</delete>
-	<select id="viewDefectorder" parameterType="defectorder" resultType="defectorder">
-		SELECT d.DEFNUM ,p.ORDERNUM, p2.productName, p2.CATEGORY, d.METHODS, d.IMG, d.STATE, d.APPLYDATE,p.ORDERDATE ,d.frreginum, d.type, d.completeDate
-		FROM DEFECTORDER d, PRODORDER p, PRODUCT p2 
-		WHERE d.ORDERNUM = p.ORDERNUM 
-		AND d.ORDERDATE = p.ORDERDATE 
-		AND p.PRODUCTNUM = p2.PRODUCTNUM 
-		AND frreginum = #{frRegiNum}
-		AND p2.PRODUCTNAME  LIKE '%'||#{productName}||'%'
-		AND p2.CATEGORY  LIKE '%'||#{category}||'%'
-		AND to_char(to_date(p.ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
-	</select>
-	<insert id="insertDefectOrder" parameterType="defectorder">
-		INSERT INTO DEFECTORDER values(#{defNum},#{orderNum},#{productNum},sysdate,#{img},#{state},#{methods},to_date(#{orderDate},'yyyy-MM-dd hh24:mi:ss'),#{frRegiNum})
-	</insert>
 	<select id="salesGraph" parameterType="sales" resultType="sales">
 	SELECT nvl(tot,0) AS tot, b.orderdate
 	FROM (
@@ -155,4 +141,35 @@
 		WHERE a.ord(+) = b.orderdate
 		ORDER BY orderdate DESC
 	</select>
+	<select id="storeclerkSchedule" parameterType="storeclerk" resultType="storeclerk">
+		SELECT a.ontime,s.* FROM (
+		SELECT e.ONTIME, e.CLERKNUM 
+		FROM STORECLERK s ,EMPCHECKIN e 
+		WHERE s.FRREGINUM = e.FRREGINUM
+		AND s.CLERKNUM = e.CLERKNUM
+		AND to_char(to_date(ontime,'YYYY-MM-DD HH24:MI:SS'),'MM/DD') = to_char(sysdate,'MM/DD')) a, storeclerk s
+		WHERE a.clerknum(+) = s.CLERKNUM 
+		AND s.FRREGINUM = #{frRegiNum}
+		ORDER BY s.CLERKNUM ASC
+	</select>
+	<select id="defectOrderTot" parameterType="string" resultType="int">
+		SELECT count(*)+101
+		FROM DEFECTORDER d
+		WHERE FRREGINUM = #{frRegiNum}
+	</select>
+	<select id="viewDefectorder" parameterType="defectorder" resultType="defectorder">
+		SELECT d.DEFNUM ,p.ORDERNUM, p2.productName, p2.CATEGORY, d.METHODS, d.IMG, d.STATE, d.APPLYDATE,p.ORDERDATE ,d.frreginum, d.type, d.completeDate
+		FROM DEFECTORDER d, PRODORDER p, PRODUCT p2 
+		WHERE d.ORDERNUM = p.ORDERNUM 
+		AND d.ORDERDATE = p.ORDERDATE 
+		AND p.PRODUCTNUM = p2.PRODUCTNUM 
+		AND frreginum = #{frRegiNum}
+		AND p2.PRODUCTNAME  LIKE '%'||#{productName}||'%'
+		AND p2.CATEGORY  LIKE '%'||#{category}||'%'
+		AND to_char(to_date(p.ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
+	</select>
+	<insert id="insertDefectOrder" parameterType="defectorder">
+		INSERT INTO DEFECTORDER values
+		(#{frRegiNum}||#{defNum},#{orderNum},#{productNum},sysdate,#{img},'처리 대기',#{methods},to_date(#{orderDate},'yyyy-MM-dd HH24:MI:SS'),#{frRegiNum},#{type},'')
+	</insert>
 </mapper>

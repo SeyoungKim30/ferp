@@ -170,7 +170,7 @@
 				</button>
 			</div>
 		</div>
-		<div id="modal" class="fileModal">
+		<div id="modal3" class="fileModal">
 			<div class="modal_content">
 				<%@ include file="/WEB-INF/storeclerk/pageInclude/A2_storeClerkFile.jsp"%>
 				<%@ include file="/WEB-INF/storeclerk/pageInclude/A2_storeClerkFileList.jsp"%>
@@ -248,11 +248,14 @@
 		})
 	}
 	function cFile(clerkName,clerkNum){
-		$("#modal").attr("style", "display:block");
+		$("#modal3").attr("style", "display:block");
 		$("#clerkname").text(clerkName)
 		$("#clerknum").text(clerkNum)
 		$(".fileip[name=clerkNum]").val(clerkNum)
 	}
+	$("#closeBtn").click(function() {
+		$("#modal3").attr("style", "display:none");
+	}); 
 </script>
 <script src="${path}/resource/templates/A2_modalJS.js"></script>
 </body>

@@ -53,7 +53,7 @@
                             <li id="9101" onclick="location.href='${path }/requestProd.do'"><a>- 발주 신청</a></li>
                             <li id="9201" onclick="location.href='${path }/productOrderList.do'"><a>- 발주 조회</a></li>
  <c:if test="${login.frRegiNum != 9999999999 }">                          
-                            <li><a>- 배송 불량 신청</a></li>
+                            <li id="9402" onclick="location.href='${path}/viewDefectProd.do'"><a>- 배송 불량 신청</a></li>
 </c:if>
 <c:if test="${login.frRegiNum == 9999999999 }">
                             <li><a>- 배송 불량 신청 내역</a></li>

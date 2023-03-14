@@ -14,6 +14,7 @@
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
+<link rel="stylesheet" href="${path}/resource/css/jhCSS.css" />
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -65,10 +66,11 @@
 					<h3>담당매장</h3>
 					<div class="boxes">
 						<div>
-							<c:forEach var="sg" items="${salesGraph }">
-								<script type="text/javascript">
-									
-								</script>
+							<c:forEach var="ct" items="${clerkToday }">
+								<div class="row">
+									<div>${ct.clerkName }</div>
+									<div>${ct.ontime }</div>
+								</div>
 							</c:forEach>
 						</div>
 					</div>

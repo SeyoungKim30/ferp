@@ -7,20 +7,26 @@
 	height: 100%;
 	z-index: 1;
 }
-div.fileModal{
-	margin-top: -40%;
-}
 
 #modal2 {
 	display: none;
-	position : absolute;
-	margin:-40% 0 0 0;
+	position : fixed;
+	margin:-70% 0 0 0;
 	width: 55%;
 	height: 100%;
 	z-index: 1;
 }
 
-#modal h2, #modal2 h2 {
+#modal3 {
+	display: none;
+	position : fixed;
+	margin:-40% 0 0 0;
+	width: 75%;
+	height: 100%;
+	z-index: 1;
+}
+
+#modal h2, #modal2 h2, #modal3 h2 {
 	margin: 0;
 }
 #closeBtn{
@@ -29,7 +35,7 @@ div.fileModal{
 	height:20px;
 	border:none;
 }
-#modal .modal_content, #modal2 .modal_content {
+#modal .modal_content, #modal2 .modal_content, #modal3 .modal_content {
 	width: 100%;
 	margin: auto;
 	padding: 20px 10px;
@@ -38,7 +44,7 @@ div.fileModal{
 	border-radius: 10px;
 }
 
-#modal .modal_layer, #modal2 .modal_layer {
+#modal .modal_layer, #modal2 .modal_layer, #modal3 .modal_layer {
 	position: fixed;
 	top: 0;
 	left: 0;
