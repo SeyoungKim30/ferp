@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ferp.dao.A2_Dao;
 import vo.ClerkFile;
 import vo.DefectOrder;
+import vo.Emp;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
@@ -143,13 +144,27 @@ public class A2_Service {
 		return dao.viewDefectorder(sch);
 	}
 	public List<Sales> salesGraph(Sales sch, HttpSession session){
-		Store s = (Store)session.getAttribute("login");
-		if(sch.getFrRegiNum() == null) sch.setFrRegiNum(s.getFrRegiNum());
+		String a = String.valueOf(session.getAttribute("login"));
+		int i = a.indexOf("@");
+		String vo = a.substring(0, i);
+		if(vo.equals("vo.Store")) {
+			Store s = (Store)session.getAttribute("login");
+			sch.setFrRegiNum(s.getFrRegiNum());
+		}else {
+			sch.setFrRegiNum("");
+		}
 		return dao.salesGraph(sch);
 	}
 	public List<StoreClerk> storeclerkSchedule(StoreClerk sch, HttpSession session){
-		Store s = (Store)session.getAttribute("login");
-		if(sch.getFrRegiNum() == null) sch.setFrRegiNum(s.getFrRegiNum());
+		String a = String.valueOf(session.getAttribute("login"));
+		int i = a.indexOf("@");
+		String vo = a.substring(0, i);
+		if(vo.equals("vo.Store")) {
+			Store s = (Store)session.getAttribute("login");
+			sch.setFrRegiNum(s.getFrRegiNum());
+		}else {
+			sch.setFrRegiNum("");
+		}
 		if(sch.getMonthDate() == null) sch.setMonthDate("");
 		return dao.storeclerkSchedule(sch);
 	}

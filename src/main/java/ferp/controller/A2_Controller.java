@@ -55,16 +55,8 @@ public class A2_Controller {
 //	직원 정보 리스트 조회
 	@RequestMapping("/storeClerkList.do")
 	public String pg3100(@ModelAttribute("SCsch") SCPage SCsch, Model d, HttpSession session) {
-		String a = String.valueOf(session.getAttribute("login"));
-		int i = a.indexOf("@");
-		String vo = a.substring(0, i);
-		if(vo.equals("vo.Emp")) {
-			Emp s = (Emp)session.getAttribute("login");
-			SCsch.setFrRegiNum(s.getFrRegiNum());			
-		}else {
-			Store s = (Store)session.getAttribute("login");
-			SCsch.setFrRegiNum(s.getFrRegiNum());
-		}
+		Store s = (Store)session.getAttribute("login");
+		SCsch.setFrRegiNum(s.getFrRegiNum());
 		d.addAttribute("scList", service.storeClerkList(SCsch));
 		d.addAttribute("clerkTot", service.clerkTot());
 		return "/WEB-INF/storeclerk/A2_storeClerkListCon.jsp";
@@ -127,12 +119,16 @@ public class A2_Controller {
 		String a = String.valueOf(session.getAttribute("login"));
 		int i = a.indexOf("@");
 		String vo = a.substring(0, i);
+		System.out.println(a);
+		System.out.println(vo);
 		if(vo.equals("vo.Emp")) {
 			Emp s = (Emp)session.getAttribute("login");
 			sch.setDemander(s.getFrRegiNum());
+			System.out.println("Emp:"+s);
 		}else {
 			Store s = (Store)session.getAttribute("login");
 			sch.setDemander(s.getFrRegiNum());
+			System.out.println("Store:"+s);
 		}
 		
 		return service.reqList(sch);
