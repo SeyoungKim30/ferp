@@ -1,6 +1,8 @@
 package ferp.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +88,7 @@ public class B1_Service {
 		return dao.qaDetailList(qa);
 	}
 	//이달qa 특정매장-결과점수
+	//포기
 	public String qaDetailScore(String frRegiNum) {
 		Map<String, Integer> mapr = new HashMap<String, Integer>(); // 빈 map을 선언
 		List<QA> qlist = dao.qaDetailScore(frRegiNum); //리스트로 담아놓은 dao를
@@ -120,14 +123,86 @@ public class B1_Service {
 	public List<QA> inchargeStore(String empNum){
 		return dao.inchargeStore(empNum);
 	}
-	//담당매장 중 특정매장 점검정보
+	//담당매장 중 특정매장 점검목록
 	public List<QA> inchargeStrQA(QA qa){
 		return dao.inchargeStrQA(qa);
+	}
+	//특정매장 과거점검결과
+	public List<QA> inchargeStrPastQA(QA qa){
+		return dao.inchargeStrPastQA(qa);
+	}
+	
+	//점검등록
+	//	항목출력
+	public List<QA> inspectQAclmn(QA qa){
+		return dao.inspectQAclmn(qa);
+	}
+	// 	등록
+	public void updateQA(QA qa) {
+		
+		//체크하면 y로 변경, comments변경 
+		for(int idx=0;idx<qa.getNlist().size();idx++) {
+			
+			QA cqa= new QA();
+			cqa.setQaNum(qa.getNlist().get(idx));
+			cqa.setResults(qa.getYlist().get(idx));
+			cqa.setComments(qa.getClist().get(idx));
+			cqa.setFrRegiNum(qa.getFrRegiNum());
+			
+			dao.updateQA(cqa);
+		}
+	
+		//등록일
+		dao.updateQAregdte(qa);
 	}
 	
 	
 	
+	// 	등록
+	/*
+	public void updateQAall(QA	qa) {
+		
+		
+		//y
+		dao.updateQAresultsY(qa);
+		System.out.println("qa.getYlist()           "+ Arrays.toString(qa.getYlist()));
+		System.out.println("qa.getFrRegiNum()      "+ qa.getFrRegiNum());
+		
+		//등록일
+		dao.updateQAregdte(qa);
+		
+		//비고
+		
+		String[] comnList = qa.getComnlist();
+		System.out.println("comnList    "+Arrays.toString(comnList) );
+		QA  cqa= new QA();
+		for (int idx=0; idx<comnList.length; idx++) {		
+			dao.updateQAcomnt(cqa);
+			System.out.println("cqa "+Arrays.toString(comnList) );
+		}
+		
+		
+
+	};
+	*/
 	
+	/*
+	//	y체크 변경
+//	public void updateQAResultsY(List<String> qanumList, String results) {
+	public void updateQAresultsY(QA	qa) {
+		dao.updateQAresultsY(qa);
+	};
+	//	comments변경
+	public void updateQAcomnt(QA qa) {
+		dao.updateQAcomnt(qa);
+	}
+	//	등록일 등록
+	public void updateQAregdte(QA qa) {
+		dao.updateQAregdte(qa);
+	}
+	*/
+	
+
 	
 	/*매장오픈점검*/
 	//본사:전매장오픈시간조회

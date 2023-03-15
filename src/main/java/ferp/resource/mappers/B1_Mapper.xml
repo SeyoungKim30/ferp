@@ -170,25 +170,118 @@
 		WHERE empnum=#{empNum, jdbcType=VARCHAR}
 	</select>
 	
-	<!-- 담당매장 중 특정매장 점검정보 -->
-	<select id="InchargeStrQA" parameterType="qa" resultType="qa">
-		SELECT q.inspectdte, REGDTE, qncnt, ycnt
-		FROM (	SELECT inspectdte, REGDTE, count(qanum) qncnt
+	<!-- 담당매장 중 특정매장 점검목록 -->
+	<select id="inchargeStrQA" parameterType="qa" resultType="qa">
+		SELECT q.INSPECTIONNUM, to_Char(q.INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE,  nvl(to_Char(q.REGDTE, 'YYYY.MM.DD'),'-') REGDTE, qncnt, ycnt
+		FROM (	SELECT INSPECTIONNUM, inspectdte, REGDTE, count(qanum) qncnt
 				from qa
 				WHERE FRREGINUM =#{frRegiNum, jdbcType=VARCHAR, index=1}
-				AND empnum =#{empnum, jdbcType=VARCHAR, index=2} 
-				GROUP BY INSPECTDTE , REGDTE ) q ,
-			(	SELECT inspectdte, count(results) ycnt
+				GROUP BY INSPECTDTE , REGDTE, INSPECTIONNUM ) q ,
+			(	SELECT INSPECTIONNUM, inspectdte, count(results) ycnt
 				FROM qa
 				WHERE FRREGINUM =#{frRegiNum, jdbcType=VARCHAR, index=1}
-				AND empnum =#{empnum, jdbcType=VARCHAR, index=2}   
 				AND results='Y'
-				GROUP BY INSPECTDTE) cy
+				GROUP BY INSPECTDTE, INSPECTIONNUM) cy
 		WHERE q.inspectdte=cy.inspectdte(+)
+		AND q.INSPECTIONNUM=cy.INSPECTIONNUM(+)
 		ORDER BY q.INSPECTDTE desc
 	</select>
 	
+	<!-- 특정매장 과거점검결과 -->
+	<select id="inchargeStrPastQA" parameterType="qa" resultType="qa">
+		SELECT q.qanum, qaitem, RESULTS, nvl(COMMENTS,' ') COMMENTS, to_Char(INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE
+		FROM QA q, QACHECKLIST qcl 
+		WHERE q.qanum=qcl.QANUM
+		AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
+		AND INSPECTIONNUM=#{inspectionNum, jdbcType=VARCHAR} 
+		ORDER BY qanum
+	</select>
 	
+	<!-- 특정매장 점검등록 -->
+	<!-- 점검항목 --> 
+	<select id="inspectQAclmn" parameterType="qa" resultType="qa">
+		SELECT q.qanum, qaitem, results, comments
+		FROM QA q, QACHECKLIST qcl
+		WHERE q.qanum=qcl.QANUM
+		AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
+		AND trunc(inspectdte,'month') =trunc(sysdate, 'month')
+		ORDER BY qanum
+	</select>
+	<!-- 체크하면 y로 변경, comments변경 -->
+	<update id="updateQA" parameterType="qa">
+		UPDATE QA
+		SET RESULTS=#{results, jdbcType=VARCHAR}, comments=#{comments, jdbcType=VARCHAR}
+		WHERE qanum=#{qaNum, jdbcType=VARCHAR}
+		AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
+		AND trunc(inspectdte,'month')=trunc(sysdate, 'month')
+	</update>
+	
+	<!-- 등록일 -->
+	<update id="updateQAregdte" parameterType="qa">
+		UPDATE QA q SET regdte = trunc(sysdate)
+		WHERE q.qanum IN (
+		  SELECT q.qanum
+		  FROM QACHECKLIST qcl, qa q
+		  WHERE q.qanum=qcl.QANUM
+		  AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR, index=1}
+		  AND trunc(inspectdte,'month') = trunc(sysdate, 'month')
+		)
+		AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR, index=1}
+		AND trunc(inspectdte,'month') = trunc(sysdate, 'month')
+	</update>
+	
+	<!-- 특정매장 점검등록
+	점검항목 
+	<select id="inspectQAclmn" parameterType="qa" resultType="qa">
+		SELECT q.qanum, qaitem, results, comments
+		FROM QA q, QACHECKLIST qcl
+		WHERE q.qanum=qcl.QANUM
+		AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
+		AND trunc(inspectdte,'month') =trunc(sysdate, 'month')
+		ORDER BY qanum
+	</select>
+	체크하면 y로 변경 
+	<update id="updateQAresultsY" parameterType="qa">
+		UPDATE QA q SET results = 'Y'
+		WHERE q.qanum IN (
+		  SELECT qanum
+		  FROM QACHECKLIST qcl
+		  WHERE q.qanum=qcl.QANUM
+		  AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
+		  AND trunc(inspectdte,'month') =trunc(sysdate, 'month')
+		  AND qanum in
+		  <foreach collection="ylist" separator=","  item="qanum" open="(" close=")">
+     		 #{qaNum, jdbcType=VARCHAR}
+   		  </foreach>
+		)
+	</update>
+	comments변경
+	<update id="updateQAcomnt"  parameterType="qa">
+		UPDATE QA q SET comments = #{comments, jdbcType=VARCHAR}
+		WHERE q.qanum IN (
+		  SELECT qanum
+		  FROM QACHECKLIST qcl, qa q
+		  WHERE q.qanum=qcl.QANUM
+		  AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
+		  AND trunc(inspectdte,'month') = trunc(sysdate, 'month')
+		  AND qanum =#{qaNum, jdbcType=VARCHAR}
+		)
+	</update>
+	
+	등록일
+	<update id="updateQAregdte" parameterType="qa">
+		UPDATE QA q SET regdte = trunc(sysdate)
+		WHERE q.qanum IN (
+		  SELECT q.qanum
+		  FROM QACHECKLIST qcl, qa q
+		  WHERE q.qanum=qcl.QANUM
+		  AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR, index=1}
+		  AND trunc(inspectdte,'month') = trunc(sysdate, 'month')
+		)
+		AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR, index=1}
+		AND trunc(inspectdte,'month') = trunc(sysdate, 'month')
+	</update>
+	-->
 	
 	
 	

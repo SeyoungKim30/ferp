@@ -1,6 +1,9 @@
 package ferp.controller;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,6 +149,7 @@ public class B1_Controller {
 	*/
 	//2
 	//@ModelAttribute("qaScore")
+	//form을 숨겨놓고 파라미터값이 넘어가게
 	@GetMapping("/qaScore/{frRegiNum}")
 	public String r6104qaStoreScore(@PathVariable("frRegiNum") String frRegiNum) {
 		return service.qaDetailScore(frRegiNum);
@@ -159,32 +163,102 @@ public class B1_Controller {
 	/*담당 매장 점검*/
 	//담당매장 목록 
 	@RequestMapping("inchargeStore.do")
-	public String r6101inchargeStore(@ModelAttribute("login") Emp st, @RequestParam("empNum") String empNum, Model d, HttpSession session) {
+	public String r6101inchargeStore(Model d, HttpSession session) {
 		//세션값받기
-		String empnum = (String) session.getAttribute("empnum"); // 세션에서 empnum 값을 받아옴
-		d.addAttribute("empnum", empnum );
-		d.addAttribute( "icStrlist", service.inchargeStore( st.getFrRegiNum() ) );
+		Emp s = (Emp)session.getAttribute("login");
+		s.getEmpnum();
+		
+		d.addAttribute("empnum", s.getEmpnum() );
+		d.addAttribute("icStrlist", service.inchargeStore( s.getEmpnum() ) );
 		return "WEB-INF\\headquarter\\pg6101_QAinCharge.jsp";
 	}
-	
 	// 담당매장 중 특정매장 점검정보
-	@RequestMapping("InchargeStrQA.do")
+	@RequestMapping("inchargeStrQA.do")
 	public String r6101inchargeStrQA(QA qa, Model d) {
+		/*
+		Emp s = (Emp)session.getAttribute("login");
+		qa.setEmpnum(s.getEmpnum());
+		*/
 		d.addAttribute("sQAinfo",service.inchargeStrQA(qa));
 		return "pageJsonReport";
 	}
+	// 특정매장 과거점검결과
+	@RequestMapping("inchargeStrPastQA.do")
+	public String r6101inchargeStrPastQA(QA qa, Model d) {
+		d.addAttribute("sPasteQA",service.inchargeStrPastQA(qa));
+		return "pageJsonReport";
+	}
 	
-	
+	//점검등록-페이지출력
+	@RequestMapping("inspectQAPrint.do")
+	public String r6102inspectQAPrint(){
+		return "WEB-INF\\headquarter\\pg6102_QAInspect.jsp";
+	} 
+	//점검등록-항목출력
+	@RequestMapping("inspectQAclmn.do")
+	public String r6102inspectQAclmnPrint(QA qa, Model d) {
+		d.addAttribute("ispQAList",service.inspectQAclmn(qa));
+		return "pageJsonReport";
+	}
+	//점검등록-y랑contents변경
+	@PostMapping("updateQAall.do")
+	public String r6102updateQAall( @RequestParam("nlist[]") List<String> nlist,
+									@RequestParam("ylist[]") List<String> ylist,
+									@RequestParam("clist[]") List<String> clist,
+								    @RequestParam("frRegiNum") String frRegiNum) {
+		QA qa= new QA ();
+		qa.setFrRegiNum(frRegiNum);
+		qa.setNlist(nlist);
+		qa.setYlist(ylist);
+		qa.setClist(clist);
 
+		service.updateQA(qa);
+		
+		return "WEB-INF\\headquarter\\pg6102_QAInspect.jsp";
+	}
+	//점검일배정
+	
+	
+	/*
 	
 	
 	
+	@PostMapping("updateQAall.do")
+	public String r6102updateQAall(@RequestParam("ylist") String[] ylist,
+								   @RequestParam("comnlist") String[] comnlist,
+								   @RequestParam("frRegiNum") String frRegiNum) {
+		
+		QA qa= new QA ();
+		qa.setFrRegiNum(frRegiNum);
+		qa.setYlist(ylist);
+		service.updateQAall(qa);
+			
+		return "redirect:/inspectQAPrint.do";
+	}
 	
-	//담당매장 중 특정매장 점검정보 --json
 	
+	//특정매장 점검등록-y로체크하는 항목들
+	@PostMapping("uptResultsY.do")
+	public String r6102updateQAresultsY(@RequestParam("ylist") String[] ylist,
+										@RequestParam("frRegiNum") String frRegiNum) {
+		QA qa= new QA ();
+		qa.setFrRegiNum(frRegiNum);
+		qa.setYlist(ylist);
+		service.updateQAresultsY(qa);
+        return "redirect:/inspectQAPrint";
+	}
+	@PostMapping("uptComment.do")
+	public String r6102updateQAcomnt(QA qa) {
+		service.updateQAcomnt(qa);
+		return "redirect:/inspectQAPrint";
+	}
+	@PostMapping("uptRegdte.do")
+	public String updateQAregdte(QA qa) {
+		service.updateQAregdte(qa);
+		return "redirect:/inspectQAPrint";
+	}
 	
-	
-	
+	*/
 	
 	
 	/*매장오픈점검*/

@@ -261,48 +261,157 @@ GROUP BY results;
 
 --담당매장점검
 --점검일장 랜덤 배정
+/*
 INSERT INTO QA VALUES('QA'||to_char(to_date('20230222', 'YYMMDD'), 'YYMMDD'), 
 '1234567891','1008','Y',
 (SELECT empnum FROM store WHERE frreginum='1234567891'), 
 to_date('20230222', 'YYMMDD'),to_date('20230222', 'YYMMDD'),'아이용 의자 비치 필요'); --항목추가
+*/
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230222', 'YYMMDD'), 'YYMMDD'), 
+'1234567891','1001','N', (SELECT empnum FROM store WHERE frreginum='1234567891'), 
+to_date('20230222', 'YYMMDD'),NULL,NULL); --항목추가
 
---담당매장 등록
+SELECT * FROM qa;
+
+--담당매장 점검등록
+SELECT q.qanum, qaitem, results, comments
+FROM QA q, QACHECKLIST qcl
+WHERE q.qanum=qcl.QANUM
+AND FRREGINUM='1234567891'
+AND trunc(inspectdte,'month') =trunc(sysdate, 'month')
+ORDER BY qanum;
+--&
+--results값변경
+UPDATE QA q SET results = 'y'
+WHERE q.qanum IN (
+  SELECT qanum
+  FROM QACHECKLIST qcl
+  WHERE q.qanum=qcl.QANUM
+  AND FRREGINUM='1234567891'
+  AND trunc(inspectdte,'month') =trunc(sysdate, 'month')
+  AND qanum in( '1001', '1007')
+);
+--comments값 변경 --작성할 때마 update문 실행
+UPDATE QA q SET comments = ' '
+WHERE q.qanum IN (
+  SELECT qanum
+  FROM QACHECKLIST qcl, qa q
+  WHERE q.qanum=qcl.QANUM
+  AND FRREGINUM='1234567891'
+  AND trunc(inspectdte,'month') = trunc(sysdate, 'month')
+);
+--등록버튼 눌렀을때 --등록일자 등록
+UPDATE QA q SET regdte = trunc(sysdate)
+WHERE q.qanum IN (
+  SELECT qanum
+  FROM QACHECKLIST qcl, qa q
+  WHERE q.qanum=qcl.QANUM
+  AND FRREGINUM='1234567891'
+  AND trunc(inspectdte,'month') = trunc(sysdate, 'month')
+);
+
+
+
+SELECT * FROM qa;
+SELECT * FROM QA
+WHERE qanum IN (
+  SELECT qanum
+  FROM QACHECKLIST qcl
+  WHERE FRREGINUM='1234567891'
+  AND trunc(inspectdte,'month') =trunc(sysdate, 'month')
+  AND qanum IN ('1001', '1002')
+);
+
 
 --담당매장 목록
 SELECT frreginum, frname
 FROM STORE
 WHERE empnum='22051002';
 
---담당매장 중 특정매장 점검정보
-SELECT q.inspectdte, REGDTE, qncnt, ycnt
-FROM (	SELECT inspectdte, REGDTE, count(qanum) qncnt
+--담당매장 중 특정매장 점검목록
+SELECT q.INSPECTIONNUM, to_Char(q.INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE,  nvl(to_Char(q.REGDTE, 'YYYY.MM.DD'),'-') REGDTE, qncnt, ycnt
+FROM (	SELECT INSPECTIONNUM, inspectdte, REGDTE, count(qanum) qncnt
 		from qa
 		WHERE FRREGINUM ='1234567891'
-		AND empnum ='22051002'   --세션으로처리
-		GROUP BY INSPECTDTE , REGDTE ) q ,
-	(	SELECT inspectdte, count(results) ycnt
+		--AND empnum ='22051002'   --세션으로처리 --과거에 내가 점검하지 않았던 목록도 뜨게 함?
+		GROUP BY INSPECTDTE , REGDTE, INSPECTIONNUM ) q ,
+	(	SELECT INSPECTIONNUM, inspectdte, count(results) ycnt
 		FROM qa
 		WHERE FRREGINUM ='1234567891'
-		AND empnum ='22051002'   --세션으로처리
+		--AND empnum ='22051002'
 		AND results='Y'
-		GROUP BY INSPECTDTE) cy
+		GROUP BY INSPECTDTE ,INSPECTIONNUM) cy
+WHERE q.inspectdte=cy.inspectdte(+) AND q.INSPECTIONNUM=cy.INSPECTIONNUM(+)
+ORDER BY q.INSPECTDTE DESC ;
+
+SELECT q.INSPECTIONNUM, to_Char(q.INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE,  nvl(to_Char(q.REGDTE, 'YYYY.MM.DD'),'-') REGDTE, qncnt, ycnt
+FROM (	SELECT INSPECTIONNUM, inspectdte, REGDTE, count(qanum) qncnt
+		from qa
+		WHERE FRREGINUM ='1234567891'
+		GROUP BY INSPECTDTE , REGDTE, INSPECTIONNUM ) q ,
+	(	SELECT INSPECTIONNUM, inspectdte, count(results) ycnt
+		FROM qa
+		WHERE FRREGINUM ='1234567891'
+		AND results='Y'
+		GROUP BY INSPECTDTE, INSPECTIONNUM) cy
 WHERE q.inspectdte=cy.inspectdte(+)
-ORDER BY q.INSPECTDTE desc ;
+AND q.INSPECTIONNUM=cy.INSPECTIONNUM(+)
+ORDER BY q.INSPECTDTE DESC;
+
+SELECT * FROM qa;
+
+--특정매장 과거점검결과 
+SELECT q.qanum, qaitem, RESULTS, nvl(COMMENTS,' ') COMMENTS, to_Char(INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE
+FROM QA q, QACHECKLIST qcl 
+WHERE q.qanum=qcl.QANUM
+AND FRREGINUM='1234567891'
+AND INSPECTIONNUM='QA230222' 
+ORDER BY qanum;
+
+SELECT q.qanum, qaitem, RESULTS, nvl(COMMENTS,' ') COMMENTS, to_Char(INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE
+FROM QA q, QACHECKLIST qcl 
+WHERE q.qanum=qcl.QANUM
+AND FRREGINUM='1234567891'
+AND INSPECTIONNUM='QA230222' 
+ORDER BY qanum;
 
 
+
+SELECT q.INSPECTIONNUM, to_Char(q.INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE,  nvl(to_Char(q.REGDTE, 'YYYY.MM.DD'),'-') REGDTE, qncnt, ycnt
+	FROM (	SELECT INSPECTIONNUM, inspectdte, REGDTE, count(qanum) qncnt
+			from qa
+			WHERE FRREGINUM ='1234567891'
+			GROUP BY INSPECTDTE , REGDTE, INSPECTIONNUM ) q ,
+		(	SELECT INSPECTIONNUM, inspectdte, count(results) ycnt
+			FROM qa
+			WHERE FRREGINUM ='1234567891'
+			AND results='Y'
+			GROUP BY INSPECTDTE, INSPECTIONNUM) cy
+	WHERE q.inspectdte=cy.inspectdte(+)
+	AND q.INSPECTIONNUM=cy.INSPECTIONNUM(+)
+	ORDER BY q.INSPECTDTE DESC;
+	
 
 
 SELECT * FROM QACHECKLIST;
-SELECT * FROM QA;
+SELECT * 
+FROM QA
+WHERE FRREGINUM ='1234567891';
 SELECT * FROM STORE; 
 
 
+UPDATE QA q SET regdte = trunc(sysdate)
+WHERE q.qanum IN (
+  SELECT q.qanum
+  FROM QACHECKLIST qcl, qa q
+  WHERE q.qanum=qcl.QANUM
+  AND FRREGINUM='1234567891'
+  AND trunc(inspectdte,'month') = trunc(sysdate, 'month')
+)
+AND FRREGINUM='1234567891'
+AND trunc(inspectdte,'month') = trunc(sysdate, 'month') ;
 
-
-
-
-
-
+SELECT * FROM qa WHERE FRREGINUM='1234567891';
 
 --QA실행번호(QA||YYMMDD)  사업자번호 문항번호 결과  본사직원번호(점검한직원)  점검배정일자  점검등록일자(sysdate)  비고
 
@@ -312,12 +421,15 @@ INSERT INTO QA VALUES('QA'||to_char(to_date('20230222', 'YYMMDD'), 'YYMMDD'),
 (SELECT empnum FROM store WHERE frreginum='1234567891'), 
 to_date('20230222', 'YYMMDD'),to_date('20230222', 'YYMMDD'),'아이용 의자 비치 필요'); --항목추가
 
---매장담당자의 매장점검
-/*
-UPDATE QA 
-SET 
-WHERE 
-*/
+--매장담당자의 매장점검등록
+UPDATE QA
+SET RESULTS ='', comments=''
+WHERE qanum =''
+AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
+AND trunc(inspectdte,'month') =trunc(sysdate, 'month');
+
+
+
 SELECT * FROM store;
    
 
@@ -590,3 +702,7 @@ SELECT * FROM orders;
 
 
 
+
+SELECT * FROM qa 		WHERE qanum='1001'
+		AND FRREGINUM='1234567891'
+		AND trunc(inspectdte,'month')=trunc(sysdate, 'month');

@@ -114,21 +114,21 @@
 				</thead>
 				<tbody></tbody>
 			</table>
-			<!-- 결과표 끝
-			<i class="fa-regular fa-check"></i> -->
+			<!-- 결과표 끝 -->
 		</div>
 	</div>
 </body>
 
 <script>
+	//사이드바에 번호 매긴 것 
+	localStorage.setItem("pageIdx","6104"); //id값
+	localStorage.setItem("eqIdx","6000");
 
 	function print(){
 		
 		let url="${path}/qaDetailList.do?frRegiNum="+${qdinfo.frRegiNum}
-		console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
-			console.log("json"+json);
 			var qaResultList = json.qaResultList;
 			var trtd='';
 			var tdRslt='';

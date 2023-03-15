@@ -1,5 +1,7 @@
 package vo;
 
+import java.util.List;
+
 public class QA { //실제 실행한 QA
 	
 	private String inspectionNum;
@@ -25,6 +27,10 @@ public class QA { //실제 실행한 QA
 	private int qncnt;
 	private int ycnt;
 	
+	//qa등록
+	private List<String> nlist;
+	private List<String> ylist;
+	private List<String> clist;
 	
 	
 	public String getInspectionNum() {
@@ -124,6 +130,31 @@ public class QA { //실제 실행한 QA
 	public void setYcnt(int ycnt) {
 		this.ycnt = ycnt;
 	}
+	public List<String> getNlist() {
+		return nlist;
+	}
+	public void setNlist(List<String> nlist) {
+		this.nlist = nlist;
+	}
+	public List<String> getYlist() {
+		return ylist;
+	}
+	public void setYlist(List<String> ylist) {
+		this.ylist = ylist;
+	}
+	public List<String> getClist() {
+		return clist;
+	}
+	public void setClist(List<String> clist) {
+		this.clist = clist;
+	}
+
+	
+	
+
+
+	
+	
 	
 	
 }

@@ -170,13 +170,11 @@
 <script>
 
 	//사이드바에 번호 매긴 것 
-	/*
-	localStorage.setItem("pageIdx","7501") //id값
-	localStorage.setItem("eqIdx","3")
-	*/
+	localStorage.setItem("pageIdx","6105"); //id값
+	localStorage.setItem("eqIdx","6000");
+	
 	
 
-	
 	//표 출력
 	function print(){
 		let url="${path}/qaListJson.do"  //검색값 넘기기
@@ -279,9 +277,10 @@ function changeA(qaNum) {
 	    type: "POST",
 	    url: "${path}/qaAdd.do",
 	    data: { qaItem: qaItem },
-	    success: function(data) {	    		    	
-    		alert("항목이 등록되었습니다");
-	    	$(".modal").fadeOut();
+	    success: function(data) {	
+	    	/*
+	    	
+	    	*/
 	    },	    
 	    error: function(xhr, status, error) {
 	      alert("서버와의 통신에 실패했습니다.");
@@ -289,6 +288,7 @@ function changeA(qaNum) {
 	  });
 	  
 	}
+	
 	
 	$(function() {
 		
@@ -301,36 +301,34 @@ function changeA(qaNum) {
 			$(".modal").fadeOut();
 		});
 		
+		
 		//등록버튼
 		$(".form_control").on("input", function() {
-			if (qaItem.length > 0) {
-				$(".btn-primary").prop("disabled", false);
-				keyup:function(){
-					if(event.keyCode==13){
-						if(confirm("등록하시겠습니까?\n비활성화는 가능하지만 삭제는 불가능합니다")==true){
-							alert("항목이 등록되었습니다");
-					    	$(".modal").fadeOut();
-					   	 	print();
-						}
-					}
-				}
+			if (qaItem.length > 0 ) {
+				$(".btn-primary").prop("disabled", false);	
+				if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. /n등록하시겠습니까?")==true){
+		  			add();
+			  		alert("항목이 등록되었습니다");
+			    	$(".modal").fadeOut();
+			    	print();
+		  		}
 		  	} else {
 		    	$(".btn-primary").prop("disabled", true);
 		  	}
 		});
 		
 		
-		
-		
-		/*
-		$(".form_control").on("keyup", function(event) {//이거뭔가이상한데
+		$(".form_control").on("keyup", function(event) {
 		  	if (qaItem.length > 0 && event.keyCode === 13) { 
-		   		alert("항목이 등록되었습니다");
-		    	$(".modal").fadeOut();
-		   	 	print();
+		  		if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. /n등록하시겠습니까?")==true){
+		  			add();
+			  		alert("항목이 등록되었습니다");
+			    	$(".modal").fadeOut();
+			    	print();
+		  		}
+		  		
 		  	}
 		});
-		*/
 		
 	})
 
