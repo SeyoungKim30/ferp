@@ -16,6 +16,7 @@ public class DefectOrder {
 	private String completeDate;
 	private String productName;
 	private String orderDateMonth;
+	private String orderDateYear;
 	private String category;
 	private MultipartFile file;
 	public String getDefNum() {
@@ -101,6 +102,12 @@ public class DefectOrder {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getOrderDateYear() {
+		return orderDateYear;
+	}
+	public void setOrderDateYear(String orderDateYear) {
+		this.orderDateYear = orderDateYear;
 	}
 	public MultipartFile getFile() {
 		return file;
