@@ -188,8 +188,8 @@ function updateAllClick(){	//fetch하고 테이블에 있는 버튼에 적용
 	}
 	
 function goDetail(){	//정산서 보러 가기
-	let yyyymm=$(this).attr('id').substr(11,13)
-	document.querySelector('#prodOrderPayDetail [name=demander]').value = $(this).attr('id').substr(0,10)
+	let yyyymm=$(this).attr('id').substr(12,14)
+	document.querySelector('#prodOrderPayDetail [name=demander]').value = $(this).attr('id').substr(1,10)
 	document.querySelector('#prodOrderPayDetail [name=orderDateMonth]').value = yyyymm
 	document.querySelector('#prodOrderPayDetail').submit();
 }
