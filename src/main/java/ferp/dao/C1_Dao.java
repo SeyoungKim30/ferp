@@ -5,6 +5,7 @@ import java.util.List;
 import vo.ACStatement;
 import vo.Account;
 import vo.DefectOrder;
+import vo.Defect_store_product_order;
 import vo.Emp;
 import vo.ProdOrder;
 import vo.Prod_order_stock_emp_store;
@@ -40,9 +41,10 @@ public interface C1_Dao {
 	//결제내역-매월 정산서
 	public List<Prod_order_stock_emp_store> r9301prodOrderPayDetail(ProdOrder prodOrder);
 	
-	//defected ordder
-	public List<DefectOrder> r9402selectDefectOrder(DefectOrder defectOrder);
+	//defected order
+	public List<Defect_store_product_order> r9402selectDefectOrder(DefectOrder defectOrder);
 	public int r9403updateDefectOrder(DefectOrder defectOrder);
+	public int r9403updateProdOrder(ProdOrder prodOrder);
 	
 	
 	//모든 store 리스트

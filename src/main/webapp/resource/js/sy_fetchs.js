@@ -3,23 +3,23 @@
  */
 console.log('sy_fetchs included')
 
-/*var accountList=[];
-var accountListfalse=[];
-var accountListBoth=[];
-
-function fetchAccountList(queryString){
-	let url="/ferp/selectAccountJson.do"+queryString;
-	 fetch(url).then(function(response){return response.json() }).then(function(json){
-	 	accountList=json.accountList;
-	 	accountListfalse=json.accountListfalse;
-	 	accountListBoth=[...accountList,...accountListfalse]
-	 	console.log('어카운트리스트'+accountList)
-	 }).catch(function(err){console.log(err)})
-}
+/*
+어떤폼.addEventListener('submit', function(e){
+    e.preventDefault();	//submit 방지
+	fetchSelectPromise("폼선택자","${path }/액션?").then(function(result){
+		내용
+	}).catch(function(error){console.error(error);})
+})
 */
+var storeList=[]
+var empList=[]
+var productList=[]
 function fetchActiveList(){
 	let url ="/ferp/selectActiveDatalist.do"
 	fetch(url).then(function(response){return response.json() }).then(function(json){
+	storeList=json.storeList;
+	empList=json.empList;
+	productList=json.productList;
 	makeOptions(json.storeList,'frRegiNum','frName','#storeList')
 	makeOptions(json.empList,'empnum','ename','#empList')
 	makeOptions(json.productList,'productNum','productName','#productList')
