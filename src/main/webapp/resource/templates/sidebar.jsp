@@ -56,7 +56,7 @@
                             <li id="9402" onclick="location.href='${path}/viewDefectProd.do'"><a>- 배송 불량 신청</a></li>
 </c:if>
 <c:if test="${login.frRegiNum == 9999999999 }">
-                            <li><a>- 배송 불량 신청 내역</a></li>
+                            <li id="9403" onclick="location.href='${path}/defectOrderHandler.do'"><a>- 배송 불량 신청 관리</a></li>
 </c:if>
                             <li id="9310" onclick="location.href='${path }/prodOrderPayState.do'"><a>- 발주 정산</a></li>
 <c:if test="${login.frRegiNum != 9999999999 }"> 
