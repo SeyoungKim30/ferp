@@ -48,7 +48,7 @@ margin:0px;
 		<label>신청번호<input name='defNum' value='${defectOrder.defNum}'></label>
 		<label title="사업자번호를 입력하세요">주문지점<input name='frRegiNum' list="storeList" value='${defectOrder.frRegiNum}'></label><datalist id='storeList'></datalist>
 		<label title="사원번호를 입력하세요">담당자<input name='category' list="empList" value='${defectOrder.category }'></label><datalist id='empList'></datalist>
-		<label>처리상태<select name='state'><option value="">전체 보기</option><option>처리 대기</option>	<option>처리중</option><option>처리 완료</option></select></label>
+		<label>처리상태<select name='state'><option value="">전체 보기</option><option>대기</option>	<option>처리중</option><option>완료</option><option>취소</select></label>
 		<label>처리방식<select name='methods'><option value="">전체 보기</option><option>재배송</option><option>환불</option></select></label>
 	</div>
 	<button>조회</button>	
@@ -77,6 +77,7 @@ margin:0px;
 	<div class="toolbar">
 		<div><ul>
 			<li>신청번호 : <span id="defNum"></span><input name='defNum' type="hidden">
+			<li>신청일 : <span id="applyDate"></span>
 			<li>신청지점 : <span id='frName'></span><input name='frRegiNum' type="hidden">
 			<li>해당자재 : <span id='productName'></span> <input name='productNum' type="hidden">
 			
@@ -84,7 +85,7 @@ margin:0px;
 		<div><ul>
 			<li>종류 : <span id='type'></span>
 			<li>처리방식 : <span id='methods'></span>
-			<li>처리상태 <select name='state'><option>처리 대기</option><option>처리중</option><option>처리 완료</option></select>
+			<li>처리상태 <select name='state'><option>처리중</option><option>완료</option><option>취소</option></select>
 		</ul></div>
 	</div>
 
@@ -133,6 +134,7 @@ function filltheform(dpslist){
 		var idindex=$(this).attr('id')
 		console.log(dpslist[idindex])
 		$('#modal #defNum').text(dpslist[idindex].defectOrder.defNum)
+		$('#modal #applyDate').text(dpslist[idindex].defectOrder.applyDate)
 		$('#modal [name=defNum]').val(dpslist[idindex].defectOrder.defNum)
 		$('#modal [name=frRegiNum]').val(dpslist[idindex].defectOrder.frRegiNum)
 		$('#modal #frName').text(dpslist[idindex].store.frName)
@@ -140,8 +142,8 @@ function filltheform(dpslist){
 		$('#modal [name=productNum]').val(dpslist[idindex].defectOrder.productNum)
 		$('#modal #type').text(dpslist[idindex].defectOrder.type)
 		$('#modal #methods').text(dpslist[idindex].defectOrder.methods)
-		$('#modal [name=orderNum]').val(dpslist[idindex].prodOrder.orderNum)
-		$('#modal [name=orderDate]').val(dpslist[idindex].defectOrder.applyDate.substr(0,10))	
+		$('#modal [name=orderNum]').val(dpslist[idindex].defectOrder.orderNum)
+		$('#modal [name=orderDate]').val(dpslist[idindex].defectOrder.orderDate)	
 	})
 }
 

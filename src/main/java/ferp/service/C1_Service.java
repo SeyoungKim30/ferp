@@ -255,6 +255,7 @@ public class C1_Service {
 			//stock 변경사항
 			daoC2.r8103InoutIns(stock);
 		}
+		
 		return change;
 	}
 	
