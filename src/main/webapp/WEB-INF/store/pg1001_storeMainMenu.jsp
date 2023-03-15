@@ -71,8 +71,9 @@
 <%@ include file="/resource/templates/header.jsp"%>
         <div class="main_wrapper">
         	<div class="btns">
-        		<div class="btn" onclick="location.href='${path}/goOrderCheck.do'">키오스크<br>(직원용)</div>
-        		<div class="btn" onclick="location.href='${path}/kiosqueMainForCustomer.do'">키오스크<br>(고객용)</div>
+        		<div class="btn" onclick="location.href='${path}/goOrderCheck.do'">주문 확인<br>(직원용)</div>
+        		<div class="btn" onclick="location.href='${path}/kiosqueMainForCustomer.do'">주문하기<br>(고객용)</div>
+        		<div class="btn" onclick="location.href='${path}/callCustomer.do'">고객 호출<br>(고객용)</div>
         		<div class="btn" onclick="location.href='${path}/addCommute.do'">출퇴근<br>등록</div>
         		<div class="btn" onclick="location.href='${path}/storeSet.do'">매장<br>관리</div>
         	</div>
