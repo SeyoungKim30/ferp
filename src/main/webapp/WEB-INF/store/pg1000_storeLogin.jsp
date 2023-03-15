@@ -16,6 +16,10 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
+
+<!-- 아이콘 -->
+<link rel="shortcut icon" type="image/x-icon" href="${path}/resource/img/favicon.ico" />
+
 <style type="text/css">
 	header h2{
 		text-align: center;

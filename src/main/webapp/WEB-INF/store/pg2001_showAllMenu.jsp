@@ -12,6 +12,11 @@
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<!-- 아이콘 -->
+<link rel="shortcut icon" type="image/x-icon" href="${path}/resource/img/favicon.ico" />
+
+
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
