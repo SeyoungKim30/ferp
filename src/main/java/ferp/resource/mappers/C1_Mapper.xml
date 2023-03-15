@@ -285,7 +285,7 @@ WHERE defnum=#{defNum}
 
 <update id="r9403updateProdOrder" parameterType="prodOrder">
 UPDATE PRODORDER SET AMOUNT =#{amount} , ORDERSTATE = #{ORDERSTATE}
-WHERE ORDERNUM = #{ORDERNUM} AND PRODUCTNUM = #{PRODUCTNUM}
+WHERE ORDERNUM = #{ORDERNUM} AND PRODUCTNUM = #{PRODUCTNUM} and orderDate=to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
 </update>
 	
 	<select id="selectActiveStore" resultType="store">
