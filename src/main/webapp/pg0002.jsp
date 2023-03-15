@@ -26,6 +26,8 @@
 </style>
 </head>
 <script type="text/javascript">
+	localStorage.setItem("pageIdx","0002")
+	localStorage.setItem("eqIdx","0002")
 	var arr = []
 </script>
 <body class="container">

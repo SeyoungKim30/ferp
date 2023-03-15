@@ -38,7 +38,7 @@ import vo.StoreClerk;
 @SessionAttributes({"salesGraph","clerkToday","noticeCombo"})
 public class A2_Controller {
 	
-	@Value("${uploadJH}")
+	@Value("${clerkFile}")
 	private String fileupload;
 	
 	@Autowired(required=false)

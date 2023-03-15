@@ -28,7 +28,7 @@ public class A2_Service {
 	@Autowired(required=false)
 	private A2_Dao dao;
 	
-	@Value("${uploadJHd}")
+	@Value("${defectPic}")
 	private String defectFupload;
 	
 	private void pagination(SCPage sch) {
