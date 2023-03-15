@@ -14,6 +14,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css"/>
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
+
+<!-- 아이콘 -->
+<link rel="shortcut icon" type="image/x-icon" href="${path}/resource/img/favicon.ico" />
+
+
 <style>
 	.necessarySpan{
 		color: red;

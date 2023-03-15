@@ -12,6 +12,10 @@
 <meta charset="UTF-8">
 <title>주문 확인</title>
 
+<!-- 아이콘 -->
+<link rel="shortcut icon" type="image/x-icon" href="${path}/resource/img/favicon.ico" />
+
+
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
