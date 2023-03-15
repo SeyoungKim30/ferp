@@ -104,7 +104,7 @@ $(document).ready(function(){
 			}).then((result) => {
 			  if (result.value) {
 				//"확인" 버튼을 눌렀을 때 작업할 내용
-				location.href = "${path}/noticeUpdate.do?noticeNum="+${notice.noticeNum}
+				location.href = "${path}/noticeUpdate.do?noticeNum="+'${notice.noticeNum}'
 			  }
 			})	
 	})
@@ -120,7 +120,7 @@ $(document).ready(function(){
 			}).then((result) => {
 			  if (result.value) {
 				//"확인" 버튼을 눌렀을 때 작업할 내용
-				location.href = "${path}/noticeDelete.do?noticeNum="+${notice.noticeNum}
+				location.href = "${path}/noticeDelete.do?noticeNum="+'${notice.noticeNum}'
 			  }
 			})	
 	})

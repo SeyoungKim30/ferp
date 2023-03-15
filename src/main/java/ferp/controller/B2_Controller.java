@@ -1,7 +1,6 @@
 package ferp.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,8 +22,10 @@ import vo.Menu;
 import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
+import vo.OnTime;
 import vo.Sales;
 import vo.Store;
+import vo.StoreClerk;
 
 @Controller
 @SessionAttributes({"totSales", "onTimeCombo"})
@@ -52,16 +53,35 @@ public class B2_Controller {
 	public List<Sales> totSales(){
 		return service.getSales();
 	}
-	@ModelAttribute("onTimeCombo")
-	public List<Map<String, String>> onTimeCombo(HttpSession session){
-		Emp e = (Emp)session.getAttribute("login");
-		
-		return service.getOnTime(e.getEmpnum());
-	}
 	// 본사 메인페이지
 	@RequestMapping("/goHqPage.do")
-	public String goHqPage() {
+	public String goHqPage(HttpSession session, Model d) {
+		Emp e = (Emp)session.getAttribute("login");
+		
+		// 담당매장 오픈시간
+		List<OnTime> ontime = service.getOnTime(e.getEmpnum());
+		d.addAttribute("onTimeCombo", ontime);
+		
+		// 중요공지사항
+		d.addAttribute("important", service.importantNotice());
 		return "/pg0001.jsp";
+	}
+	@RequestMapping("/empSet.do")
+	public String asda(HttpSession session, Model d) {
+		Emp e = (Emp)session.getAttribute("login");
+		
+		// 공지사항
+		d.addAttribute("noticeCombo", service.getNotice());
+		
+		// 담당매장 오픈시간
+		List<OnTime> ontime = service.getOnTime(e.getEmpnum());
+		d.addAttribute("onTimeCombo", ontime);
+		
+		// 중요공지사항
+		d.addAttribute("important", service.importantNotice());
+		
+		
+		return "forward:pg0001.jsp";
 	}
 	
 	
@@ -141,8 +161,11 @@ public class B2_Controller {
 		if( service.insertEmp(ins)!=null ) {
 			redirect.addFlashAttribute("isgMsg", "등록 성공");
 		}
+		
+		Emp emp = service.getEmpInfo(ins);
+		redirect.addFlashAttribute("emp", emp);
 		// 본사 메인페이지로 이동
-		return "redirect:/goHqPage.do";
+		return "redirect:/insertEmp.do";
 	}
 	
 	// http://localhost:7080/ferp/updateEmpPass.do
@@ -159,7 +182,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("uptMsg", "수정 완료");
 		}
 		
-		return "redirect:/goHqPage.do";
+		return "redirect:/logoutEmp.do";
 	}
 	
 	// 공지사항 조회
@@ -291,8 +314,7 @@ public class B2_Controller {
 	// http://localhost:7080/ferp/chatting.do
 	// 채팅
 	@RequestMapping("/chatting.do")
-	public String chatting(Model d) {
-		d.addAttribute("important", service.importantNotice());
+	public String chatting() {
 		
 		return "WEB-INF\\view\\chatting.jsp";
 	}

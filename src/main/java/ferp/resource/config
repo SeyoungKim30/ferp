@@ -7,5 +7,5 @@ doc.path=C:/workspace/ferp/doc/
 #파일 경로
 upload=C:/Users/ghktk/git/ferp/src/main/webapp/resource/img/
 upload2=C:/Users/Aryeong/git/ferp/src/main/webapp/resource/img/
-uploadJH=/Users/junghwykim/git/ferp/src/main/webapp/resource/img/clerkFile/
-uploadJHd=/Users/junghwykim/git/ferp/src/main/webapp/resource/img/defectOrder/
+clerkFile=/Users/junghwykim/git/ferp/src/main/webapp/resource/img/clerkFile/
+defectPic=/Users/junghwykim/git/ferp/src/main/webapp/resource/img/defectOrder/

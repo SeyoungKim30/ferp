@@ -742,6 +742,7 @@ var modal_btn_add = $(".modal_btn_add");
     }; --%>
     // orders.push(order);
 	modalClose.trigger('click');
+	
 	console.log(orders);
 	
 });

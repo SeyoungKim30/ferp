@@ -61,4 +61,9 @@ public interface A1_Dao {
 	// 제조 완료
 	public void clearOrder(String orderNum);
 	
+	// 고객 호출
+	public List<Orders> loadOrderList(String frRegiNum);
+	public List<Orders> comOrderList(String frRegiNum);
+	
+	
 }

@@ -90,11 +90,11 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="thDiv" style="width: 19%;">발주번호</div>
+		<div class="thDiv" style="width: 16%;">발주번호</div>
 		<div class="thDiv" style="width: 20%;">자재명</div>
 		<div class="thDiv" style="width: 9%;">카테고리</div>
-		<div class="thDiv" style="width: 14%;">공급자번호</div>
-		<div class="thDiv" style="width: 14%;">신청날짜</div>
+		<div class="thDiv" style="width: 18%;">공급자</div>
+		<div class="thDiv" style="width: 13%;">신청날짜</div>
 		<div class="thDiv" style="width: 7%;">요청수량</div>
 		<div class="thDiv" style="width: 10%;">결제상태</div>
 		<div class="thDiv" style="width: 7%;">발주상태</div> 
@@ -103,16 +103,16 @@
 	<c:forEach var="req" items="${reqlist }">
 		<div class="row tdAll" onclick="prodInfo('${req.orderNum}','${req.productNum }','${req.productName }','${req.amount }',
 			'${req.supplier }','${req.demander }','${req.orderDate }','${req.img}','${req.paymentState }','${req.orderState }')">
-			<div class="tdDiv" style="width: 19%;">${req.orderNum }</div>
+			<div class="tdDiv" style="width: 16%;">${req.orderNum }</div>
 			<div class="tdDiv" style="width: 20%;">${req.productName }</div>
 			<div class="tdDiv" style="width: 9%;">${req.category }</div>
-			<div class="tdDiv" style="width: 14%;">
+			<div class="tdDiv" style="width: 18%;">
 				<c:choose>
-					<c:when test="${req.demander eq '9999999999'}">---</c:when>
-					<c:otherwise>${req.supplier }</c:otherwise>
+					<c:when test="${req.demander eq '9999999999'}">${req.opposite }</c:when>
+					<c:otherwise>본사</c:otherwise>
 				</c:choose>
 			</div>
-			<div class="tdDiv" style="width: 14%;">
+			<div class="tdDiv" style="width: 13%;">
 				<div style="display: none;">
 					<fmt:parseDate var="orderDate" value="${req.orderDate }"
 						pattern="yyyy-MM-dd HH:mm:ss" />

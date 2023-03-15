@@ -24,7 +24,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".fileBtn").click(function(){
-			console.log("clerkNum="+$("#clerknum").text()+"&frRegiNum="+${login.frRegiNum})
 			$.ajax({
 				url:"${path}/fileListAjaxSch.do",
 				type:"post", 
@@ -51,7 +50,11 @@
 						show+='<input type="text" value="'+f.uptDte+'" readOnly disabled>'
 						show+='</div>'
 						show+='<div class="tdDiv" style="width: 15%;">'
-						show+='<input type="text" name="fileInfo" value="'+f.fileInfo+'" />'
+						if(f.fileInfo == null){
+							show+='<input type="text" name="fileInfo" value="" />'							
+						}else{
+							show+='<input type="text" name="fileInfo" value="'+f.fileInfo+'" />'
+						}
 						show+='</div>'
 						show+='<div class="tdDiv" style="width: 10%;">'
 						show+='<button type="button" class="uptBtn fileUpt" onclick="fileUpt('+f.cnt+')">수정</button>'
@@ -64,14 +67,13 @@
 						show+='</div>'
 						show+='</form>'
 						
-					})		
-					console.log(show)
+					})
 					$(".listDiv").html(show)
 				},
 				error:function(err){
 					console.log(err)
 				}
-			})	
+			})
 		})
 	});
 </script>
@@ -90,8 +92,6 @@
 	</div>
 </body>
 <script type="text/javascript">
-	
-	
 	function fileUpt(i){
 		if(confirm("수정하시겠습니까?")){
 			$("#fileFrm"+i).attr("action","${path}/uptClerkFile.do").submit();

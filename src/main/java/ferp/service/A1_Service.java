@@ -186,6 +186,14 @@ public class A1_Service {
 		dao.clearOrder(orderNum);
 		
 	}
+	
+	// 고객 호출
+	public List<Orders> loadOrderList(String frRegiNum) {
+		return dao.loadOrderList(frRegiNum);
+	}
+	public List<Orders> comOrderList(String frRegiNum) {
+		return dao.comOrderList(frRegiNum);
+	}
 
     
 }

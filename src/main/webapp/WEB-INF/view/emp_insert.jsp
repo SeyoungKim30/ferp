@@ -17,7 +17,36 @@
 <link rel="stylesheet" href="/ferp/resource/css/emp_insert.css"/>
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
+<style type="text/css">
+table {
+	width: 50%;
+	border-collapse: collapse;
+	margin-bottom: 1rem;
+	background-color: transparent;
+	font-size: 18px;
+}
 
+table td, table th {
+	padding: 1.25 rem;
+	vertical-align: top;
+	border-top: 1px solid #dee2e6;
+	text-align: center;
+}
+
+table thead th {
+	vertical-align: middle;
+	border-bottom: 2px solid #dee2e6
+}
+
+table tbody+tbody {
+	border-top: 2px solid #dee2e6
+}
+
+tbody tr:hover {
+	background-color: rgba(0, 0, 0, .075);
+}
+
+</style>
 </head>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","4101")
@@ -31,43 +60,62 @@
         	<form method="post">
      	        <h2 class="insert_emp">직원 등록</h2>
 	
-        	<div class="content">
-				<div class="first_line">
-					<h3 class="emp_ename">사원명</h3>
+	        	<div class="content">
+					<div class="first_line">
+						<h3 class="emp_ename">사원명</h3>
+					</div>
+					<div class="second_line">
+						<input type="text" name="ename" placeholder="사원명 입력">
+					</div>
+					<div class="third_line">
+						<h3 class="emp_pass">비밀번호</h3>
+					</div>
+					<div class="fourth_line">
+						<input type="text" name="pass" placeholder="비밀번호 입력">
+					</div>
+					<div class="fifth_line">
+						<h3 class="emp_dname">부서명</h3>
+					</div>
+					<div class="sixth_line">
+						<select name="dname">
+							<option disabled="disabled" selected="selected">부서명 선택</option>
+							<c:forEach var="dname" items="${dnameCombo}">
+								<option>${dname}</option>
+							</c:forEach>
+						</select>
+					</div>					
+	
+					<div class="submit_line">
+						<button type="button" class="insBtn">등 록</button>
+					</div>	
 				</div>
-				<div class="second_line">
-					<input type="text" name="ename" placeholder="사원명 입력">
-				</div>
-				<div class="third_line">
-					<h3 class="emp_pass">비밀번호</h3>
-				</div>
-				<div class="fourth_line">
-					<input type="text" name="pass" placeholder="비밀번호 입력">
-				</div>
-				<div class="fifth_line">
-					<h3 class="emp_dname">부서명</h3>
-				</div>
-				<div class="sixth_line">
-					<select name="dname">
-						<option disabled="disabled" selected="selected">부서명 선택</option>
-						<c:forEach var="dname" items="${dnameCombo}">
-							<option>${dname}</option>
-						</c:forEach>
-					</select>
-				</div>					
-
-				<div class="submit_line">
-					<button type="button" class="insBtn">등 록</button>
-				</div>	
-			</div>
 			</form>
+			
+			<div class="empInfo">
+				<h2 style="margin-bottom: 30px;">등록한 직원 정보</h2>
+				<table>
+					<tr><th>직원번호</th><td>${emp.empnum}</td></tr>
+					<tr><th>비밀번호</th><td>${emp.pass}</td></tr>
+					<tr><th>사원명</th><td>${emp.ename}</td></tr>
+					<tr><th>부서명</th><td>${emp.dname}</td></tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
 
 $(document).ready(function(){
+	var emp = '${emp.ename}'
+	if(emp == null || emp == ''){
+		$("form").show()
+		$(".empInfo").hide()
+	}else{
+		$("form").hide()
+		$(".empInfo").show()
+	}
 
+	
     $(".insBtn").click(function(){
 		  Swal.fire({
 			  title: '등록하시겠습니까?',

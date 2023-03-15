@@ -45,14 +45,17 @@
 	<select id="storeClerkPayList" parameterType="storeclerksch" resultType="storeclerk">
 		SELECT *
 		from(
-			SELECT rownum cnt, nvl(h.workHOUR,0) workhour, nvl(h.workHOUR * s.hourlypay,0) pay,s.*
-			FROM (SELECT CLERKNUM ,sum((to_date(REPLACE(offday, 'T', ''),'YYYY-MM-DD HH24:MI:SS') - to_date(REPLACE(onday, 'T', ''),'YYYY-MM-DD HH24:MI:SS')) * 24) workhour
-			FROM clerkschedule
-			WHERE to_char(to_date(REPLACE(offday, 'T', ''),'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%'
-			GROUP BY CLERKNUM) h, storeclerk s  
-			WHERE h.clerknum(+) = s.clerknum
-			AND s.clerkname LIKE '%'||#{clerkName}||'%'
-			AND frreginum = #{frRegiNum}
+			SELECT rownum cnt, a.* FROM (
+				SELECT nvl(TRUNC(h.workHOUR,1),0) workhour, nvl(TRUNC(h.workHOUR * s.hourlypay,-2),0) pay,s.*
+				FROM (SELECT CLERKNUM ,sum((OFFTIME-ONTIME) * 24) workhour
+				FROM EMPCHECKIN e 
+				WHERE to_char(to_date(OFFTIME ,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%'
+				GROUP BY CLERKNUM) h, storeclerk s  
+				WHERE h.clerknum(+) = s.clerknum
+				AND s.clerkname LIKE '%'||#{clerkName}||'%'
+				AND frreginum = #{frRegiNum}
+				ORDER BY s.clerknum
+			) a
 		)
 		where cnt between #{start} and #{end}
 	</select>
@@ -73,7 +76,7 @@
 	</insert>
 	<!-- 발주 신청서 조회 -->
 	<select id="reqList" parameterType="prodOrder" resultType="prodProdOrder">
-		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY
+		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY, p.OPPOSITE 
 		FROM PRODUCT p, PRODORDER po
 		WHERE p.PRODUCTNUM = po.PRODUCTNUM
 		AND p.PRODUCTNAME LIKE '%'||#{productName}||'%' 
@@ -142,8 +145,8 @@
 		ORDER BY orderdate DESC
 	</select>
 	<select id="storeclerkSchedule" parameterType="storeclerk" resultType="storeclerk">
-		SELECT a.ontime,s.* FROM (
-		SELECT e.ONTIME, e.CLERKNUM 
+		SELECT to_char(ontime, 'HH24:MI:SS') ontime, to_char(offtime, 'HH24:MI:SS') offtime,clerkName FROM (
+		SELECT e.ONTIME,e.offtime, e.CLERKNUM 
 		FROM STORECLERK s ,EMPCHECKIN e 
 		WHERE s.FRREGINUM = e.FRREGINUM
 		AND s.CLERKNUM = e.CLERKNUM

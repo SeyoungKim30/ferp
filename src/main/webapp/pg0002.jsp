@@ -26,6 +26,8 @@
 </style>
 </head>
 <script type="text/javascript">
+	localStorage.setItem("pageIdx","0002")
+	localStorage.setItem("eqIdx","0002")
 	var arr = []
 </script>
 <body class="container">
@@ -63,7 +65,7 @@
 					</div>
 				</div>
 				<div class="schedule">
-					<h3>매장직원</h3>
+					<h3>매장직원 : <span class="todayDate"></span>일</h3>
 					<div class="row">
 						<div class="boxes">
 							<div>
@@ -71,8 +73,9 @@
 									<div class="row">
 										<div class="clerkOntime">${ct.clerkName }</div>
 										<div class="clerkOntime">
-											<c:if test="${not empty ct.ontime }"><span style="color:red;">출근 : ${ct.ontime }</span></c:if>
+											<c:if test="${ct.ontime != null && ct.offtime == null }"><span style="color:blue;">출근 : ${ct.ontime }</span></c:if>
 											<c:if test="${empty ct.ontime }"><span style="color:red;">출근</span></c:if>
+											<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근</span></c:if>
 										</div>
 									</div>
 								</c:forEach>
@@ -85,8 +88,9 @@
 									<div class="row">
 										<div class="clerkOntime">${ct.clerkName }</div>
 										<div class="clerkOntime">
-											<c:if test="${not empty ct.ontime }"><span style="color:red;">출근 : ${ct.ontime }</span></c:if>
+											<c:if test="${ct.ontime != null && ct.offtime == null }"><span style="color:blue;">출근 : ${ct.ontime }</span></c:if>
 											<c:if test="${empty ct.ontime }"><span style="color:red;">출근</span></c:if>
+											<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근</span></c:if>
 										</div>
 									</div>
 								</c:forEach>
@@ -94,6 +98,9 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="right">
+					<button onclick="location.href='${path}/storeSet2.do'" class="refreshBtn"><span class="refreshText">⟲</span></button>
 				</div>
 			</div>
 
@@ -105,6 +112,8 @@
 function goDetail(noticeNum) {
 	  location.href="${path}/noticeDetail.do?noticeNum="+noticeNum;
 }
+var todayDate = new Date().getDate()
+$(".todayDate").text(todayDate)
 <c:forEach var="sg" items="${salesGraph }">
 	arr.push({tot:"${sg.tot}", orderdate:"${sg.orderdate}"})
 </c:forEach>

@@ -59,19 +59,42 @@
 		</div>
 		<div class="btmText">
 			<div class="com">
-				<ul>
-					<li>1001</li>
-				</ul>
+				<ul id="com-order-list">
+				    <c:forEach var="co" items="${com}" begin="0" end="4">
+				      <li>${co.orderNum}</li>
+				    </c:forEach>
+				  </ul>
 			</div>
 			<div class="ing">
-				<ul>
-					<li>1002</li>
-				</ul>
+			  <ul id="load-order-list">
+			    <c:forEach var="lo" items="${load}">
+			      <li>${lo.orderNum}</li>
+			    </c:forEach>
+			  </ul>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
+//com 리스트 아이템에 대한 처리
+$('.com li').each(function() {
+  var orderNum = $(this).text().trim(); // 현재 li 태그의 텍스트 값을 가져옵니다.
+  var lastFourDigits = orderNum.substr(orderNum.length - 4); // 마지막 4자리 숫자를 추출합니다.
+  $(this).text(lastFourDigits); // li 태그의 텍스트 값을 마지막 4자리 숫자로 변경합니다.
+});
 
+// ing 리스트 아이템에 대한 처리
+$('.ing li').each(function() {
+  var orderNum = $(this).text().trim(); // 현재 li 태그의 텍스트 값을 가져옵니다.
+  var lastFourDigits = orderNum.substr(orderNum.length - 4); // 마지막 4자리 숫자를 추출합니다.
+  $(this).text(lastFourDigits); // li 태그의 텍스트 값을 마지막 4자리 숫자로 변경합니다.
+});
+
+
+$(document).ready(function() {
+    setInterval(function() {
+        location.reload();
+    }, 5000);
+});
 </script>
 </html>

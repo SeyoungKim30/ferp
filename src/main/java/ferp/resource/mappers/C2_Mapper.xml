@@ -31,15 +31,17 @@
 		WHERE productNum like '%'||#{productNum,jdbcType=VARCHAR}||'%'
 	</select>
 	
-	<!-- 본사/매장 재고 관리 조회 -->
+	<!-- 본사/매장 재고 입출고 조회 -->
 	<select id="r8204InoutList" resultType="productProdOrder" parameterType="productProdOrder">
-		SELECT s.STOCKDATE ,p.category ,p.PRODUCTNUM ,p.PRODUCTNAME ,p.PRICE ,s.APPLYAMOUNT 
+		SELECT s.STOCKDATE ,p.category ,p.PRODUCTNUM ,p.PRODUCTNAME ,
+			p.PRICE ,s.APPLYAMOUNT ,s.REMAINAMOUNT, s.remark
 		FROM PRODUCT p, STOCK s
 		WHERE p.PRODUCTNUM = s.PRODUCTNUM
 		AND s.FrRegiNum = #{frRegiNum,jdbcType=VARCHAR}
+		ORDER BY s.STOCKDATE
 	</select>
 	
-	<!-- 매장 재고 관리 등록 -->
+	<!-- 매장 재고 입출고 등록 -->
 	<insert id="r8103InoutIns" parameterType="stock">
 		INSERT INTO STOCK 
 		VALUES (#{productNum,jdbcType=VARCHAR, index=1}, 
@@ -53,7 +55,7 @@
 	         	and frRegiNum = #{frRegiNum,jdbcType=VARCHAR, index=3})), null)
 	</insert>
 	
-	<!-- 매장 재고 관리 수정 -->
+	<!-- 매장 재고 입출고 수정 -->
 	<update id="r8104InoutUpt" parameterType="stock">
 		UPDATE STOCK 
 		SET APPLYAMOUNT = #{applyAmount,jdbcType=NUMBER,INDEX=1},
@@ -71,13 +73,31 @@
 			FROM STOCK WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2})
 	</update>
 	
-	<!-- 매장 재고 관리 삭제 -->
-	<delete id="r8105InoutDel">
+	<!-- 매장 재고 입출고 삭제 -->
+	<delete id="r8105InoutDel" parameterType="stock">
 		DELETE FROM STOCK 
-		WHERE PRODUCTNUM = #{productNum}
-		AND APPLYAMOUNT = #{applyAmount} 
-		AND REMAINAMOUNT = #{remainAmount}
+		WHERE productNum = #{productNum}
+		AND applyAmount = #{applyAmount} 
+		AND remainAmount = #{remainAmount}
 	</delete>
+	<update id="r8105InoutDel2" parameterType="stock">
+		UPDATE STOCK 
+		SET STOCKDATE = SYSDATE,
+		    REMAINAMOUNT = (
+		        SELECT SUM(APPLYAMOUNT) 
+		        FROM STOCK 
+		        WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+		        AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2}
+		    )
+		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+		AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2} 
+		AND STOCKDATE = (
+		    SELECT MAX(STOCKDATE) 
+		    FROM STOCK 
+		    WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+		    AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2}
+		)
+	</update>
 	
 	<!-- 본사 재고 등록 -->
 	<insert id="r8202ProductIns" parameterType="product">
@@ -103,7 +123,7 @@
 	
 	<!-- 직원 번호 콤보 -->
 	<select id="clerkNumCom" resultType="storeclerk">
-		SELECT DISTINCT CLERKNUM, CLERKNAME 
+		SELECT DISTINCT CLERKNUM, CLERKNAME , frRegiNum
 		FROM STORECLERK 
 		ORDER BY CLERKNAME
 	</select>

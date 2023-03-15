@@ -293,3 +293,15 @@ h2.h2Title > span.clerknum{
 .clerkOntime{
 	padding:5px;
 }
+.refreshBtn{
+	font-size: xx-large;
+	padding:0;
+	height:30px;
+	width:30px;
+}
+.refreshText{
+	position:absolute;
+	margin-top: -27px;
+    margin-left: -12px;
+    color:white;
+}

@@ -3,7 +3,6 @@ package ferp.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +15,7 @@ import vo.Menu;
 import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
+import vo.OnTime;
 import vo.Onsale;
 import vo.Sales;
 import vo.Store;
@@ -127,6 +127,11 @@ public class B2_Service {
 		dao.insertEmp(ins);
 		
 		return ins.getEmpnum();
+	}
+	// 등록한 직원정보 출력
+	public Emp getEmpInfo(Emp sch) {
+		
+		return dao.getEmpInfo(sch);
 	}
 	// 본사 직원 비밀번호 변경
 	public String updateEmpPass(Emp upt) {
@@ -279,7 +284,7 @@ public class B2_Service {
 	}
 	// 문의글 삭제
 	public String deleteQnA(String noticeNum) {
-		dao.deleteNotice(noticeNum);
+		dao.deleteQnA(noticeNum);
 		
 		return noticeNum;
 	}
@@ -293,7 +298,7 @@ public class B2_Service {
 		return dao.getSales();
 	}
 	// 담당매장 출근시간 조회
-	public List<Map<String,String>> getOnTime(String empnum){
+	public List<OnTime> getOnTime(String empnum){
 		return dao.getOnTime(empnum);
 	}
 }
