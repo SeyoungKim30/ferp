@@ -96,21 +96,21 @@ $(document).ready(function(){
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=menuName]").focus()
+							  $("[name=title]").focus()
 						      return;
 						  }
 					  })
 				  }
 				  else if($("[name=category]").val() == ""){
 					  Swal.fire({
-						  title: '카테고리를 선택해주세요.',
+						  title: '문의유형을 선택해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=price]").focus()
+							  $("[name=category]").focus()
 						      return;
 						  }
 					  })
@@ -124,7 +124,7 @@ $(document).ready(function(){
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=info]").focus()
+							  $("[name=content]").focus()
 						      return;
 						  }
 					  })

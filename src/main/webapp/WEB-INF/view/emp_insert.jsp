@@ -157,7 +157,7 @@ $(document).ready(function(){
 				  }
 				  else if($("[name=dname]").val() == ""){
 					  Swal.fire({
-						  title: '부서명을 입력해주세요.',
+						  title: '부서를 선택해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',

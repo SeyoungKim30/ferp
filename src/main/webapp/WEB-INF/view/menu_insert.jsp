@@ -145,7 +145,21 @@ $(document).ready(function(){
 				  }
 				  else if($("[name=category]").val() == ""){
 					  Swal.fire({
-						  title: '카테고리를 입력해주세요.',
+						  title: '카테고리를 선택해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=category]").focus()
+						      return;
+						  }
+					  })
+				  }
+				  else if($(".upload-name").val() == "파일선택"){
+					  Swal.fire({
+						  title: '메뉴사진을 등록해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
