@@ -1,11 +1,11 @@
 package ferp.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import vo.ClerkSchedule;
 import vo.Product;
 import vo.ProductProdOrder;
-import vo.ScheduleCalender;
 import vo.Stock;
 import vo.StoreClerk;
 
@@ -37,6 +37,7 @@ public interface C2_Dao {
 	// 직원스케줄 캘린더 삭제
 //	public void sclerkschdDel(ClerkSchedule del);
 	// 직원스케줄 캘린더
-	public List<ScheduleCalender> sclerkschd(String writer);
+//	public List<ScheduleCalender> sclerkschd(String writer);
+	public List<HashMap<String, Object>> sclerkschd(String writer);
 	
 }

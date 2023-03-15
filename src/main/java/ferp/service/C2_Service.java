@@ -2,6 +2,7 @@ package ferp.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import ferp.dao.C2_Dao;
 import vo.ClerkSchedule;
 import vo.Product;
 import vo.ProductProdOrder;
-import vo.ScheduleCalender;
 import vo.Stock;
 import vo.StoreClerk;
 
@@ -137,9 +137,11 @@ public class C2_Service {
 //	}
 	
 	// 직원스케줄 캘린더
-	public List<ScheduleCalender> sclerkschd(String writer){
+//	public List<ScheduleCalender> sclerkschd(String writer){
+//		return dao.sclerkschd(writer);
+//	}
+	public List<HashMap<String, Object>> sclerkschd(String writer){
 		return dao.sclerkschd(writer);
 	}
-	
 	
 }

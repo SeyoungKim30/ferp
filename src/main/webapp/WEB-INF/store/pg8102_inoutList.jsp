@@ -140,33 +140,52 @@
 			})
 		})
 		$('.uptbtn').on('click', function() {
-			  const span = $(this).find('span');
-			  span.text('완료');
-
-			  const applyAmountTd = $(this).closest('tr').find('td:nth-child(6)');
-			  const applyAmountInput = $(`<input style="width:100px;" type="number" value="${applyAmountTd.text().trim()}">`);
-			  applyAmountTd.html(applyAmountInput);
-
-			  const row = $(this).closest('tr');
-			  const productNum = row.find('td:nth-child(1)').text().trim();
-			  const remainAmount = row.find('td:nth-child(7)').text().trim();
-
-			  $('#updateForm [name=productNum]').val(productNum);
-			  $('#updateForm [name=remainAmount]').val(remainAmount);
-
-			  applyAmountInput.on('input', function() {
-				  if ($(this).val().trim() !== applyAmountTd.text().trim()) {
-				    span.prop('disabled', false);
-				  } else {
-				    span.prop('disabled', true);
-				  }
-				});
-
-			  span.prop('disabled', true).on('click', function() {
-			    $('#updateForm [name=applyAmount]').val(applyAmountInput.val().trim());
-			    $("#updateForm").submit();
-			  });
+			const span = $(this).find('span');
+			span.text('완료');
+			
+			const applyAmountTd = $(this).closest('tr').find('td:nth-child(6)');
+			const applyAmountInput = $(`<input style="width:100px;" type="number" value="${applyAmountTd.text().trim()}">`);
+			applyAmountTd.html(applyAmountInput);
+			
+			const row = $(this).closest('tr');
+			const productNum = row.find('td:nth-child(1)').text().trim();
+			const remainAmount = row.find('td:nth-child(7)').text().trim();
+			
+			$('#updateForm [name=productNum]').val(productNum);
+			$('#updateForm [name=remainAmount]').val(remainAmount);
+			
+			applyAmountInput.on('input', function() {
+				if ($(this).val().trim() !== applyAmountTd.text().trim()) {
+					span.prop('disabled', false);
+				} else {
+					span.prop('disabled', true);
+				}
 			});
+			
+			// Disable the '완료' button if the input field is empty
+			if (applyAmountInput.val().trim() === '') {
+				span.prop('disabled', true);
+			} else {
+				span.prop('disabled', false);
+			}
+			
+			span.off('click').prop('disabled', true).on('click', function() {
+				Swal.fire({
+					title: '수정하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '확인',
+					cancelButtonText: '취소'
+				}).then((result) => {
+					if (result.value) {
+						$('#updateForm [name=applyAmount]').val(applyAmountInput.val().trim());
+						$("#updateForm").submit();
+					}
+				})
+			});
+		});
 	});
 </script>
 </head>

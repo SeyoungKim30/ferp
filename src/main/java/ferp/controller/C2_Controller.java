@@ -179,6 +179,12 @@ public class C2_Controller {
 	public String sclerkschd() {
 		return "WEB-INF\\store\\clerkschd.jsp";
 	}
+//	@RequestMapping("schdajax.do")
+//	public String schdajax(Model d, HttpSession session){
+//		Store st = (Store)session.getAttribute("login");
+//		d.addAttribute("list",service.sclerkschd(st.getFrRegiNum()));
+//		return "pageJsonReport";
+//	}
 	@RequestMapping("schdajax.do")
 	public String schdajax(Model d, HttpSession session){
 		Store st = (Store)session.getAttribute("login");
