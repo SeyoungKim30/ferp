@@ -180,7 +180,7 @@ public class C1_Controller {
 	@RequestMapping("updateDefectOrder.do")
 	public String r9403updateDefectOrder(Model model,DefectOrder dfo,Stock stock,ProdOrder po) {
 		model.addAttribute("apply",service.r9403updateDefectOrder(dfo,stock,po));
-		return "pageJsonReport";
+		return "redirect:/defectOrderHandler.do";
 	}
 	
 	//http://localhost:6080/ferp/pnl.do

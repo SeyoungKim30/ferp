@@ -27,6 +27,8 @@ vertical-align: bottom;
 padding:0px;
 margin:0px;
 }
+td:nth-child(1),td:nth-child(4),td:nth-child(5){text-align:center;}
+td:nth-child(6){text-align: right;}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","9403")
@@ -35,7 +37,7 @@ margin:0px;
 </head>
 
 <body class="container">
-	%@ include file="/resource/templates/header.jsp"%
+	<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
@@ -57,7 +59,7 @@ margin:0px;
 
 <table>
 <thead>
-<tr><th>신청일자</th><th>발주신청일자</th><th>신청지점</th><th>해당상품</th><th>종류</th><th>처리방식</th><th>처리상태</th></tr>
+<tr><th>신청일자</th><th>신청지점</th><th>해당상품</th><th>종류</th><th>처리방식</th><th>처리상태</th></tr>
 </thead>
 <tbody>
 
@@ -92,15 +94,15 @@ margin:0px;
 	<h4><label><input type="checkbox" checked class='stockbar'>자재 수량 조정</label></h4>
 	<div class="toolbar stockbar">
 
-		<div><label>재고변경일자<input name="stockDate" type="date"></label>
-		<label>적용수량<input name="applyAmount"></label>
+		<div><label>재고변경일시<input name="stockDate" type="datetime-local" required></label>
+		<label>적용수량<input name="applyAmount" type="number" required></label>
 		<label>비고<input name="remark"></label></div>
 	</div>
 	<h4><label><input type="checkbox" checked class='prodOrderbar'>발주 기록 수정</label></h4>
 	<div class="toolbar prodOrderbar"><div>
 		<div><label>발주번호<input name='orderNum' readonly></label>
 		<label>발주신청일자<input name='orderDate' readonly></label></div>
-		<div><label>수량<input name="amount"></label>
+		<div><label>수량<input name="amount" required></label>
 		<label>발주상태<input name="orderState"></label>
 		<label>비고<input name="remark"></label></div>
 	</div></div>
@@ -153,7 +155,6 @@ function search(){
 		var htmls='';
 		for(let i=0;i<dpslist.length;i++){
 			htmls+='<tr><td>'+dpslist[i].defectOrder.applyDate.substr(0,10)
-			+'</td><td>'+dpslist[i].defectOrder.orderDate.substr(0,10)
 			+'</td><td>'+dpslist[i].store.frName
 			+'</td><td>'+dpslist[i].product.productName
 			+'</td><td>'+dpslist[i].defectOrder.type

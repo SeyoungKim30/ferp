@@ -280,12 +280,13 @@ WHERE d.FRREGINUM =s.FRREGINUM AND p.PRODUCTNUM =d.PRODUCTNUM AND po.ORDERNUM =d
 <update id="r9403updateDefectOrder" parameterType="defectorder">
 UPDATE DEFECTORDER 
 SET state = #{state}
+<if test="state =='완료' ">, completeDate = sysdate</if>
 WHERE defnum=#{defNum}
 </update>
 
 <update id="r9403updateProdOrder" parameterType="prodOrder">
-UPDATE PRODORDER SET AMOUNT =#{amount} , ORDERSTATE = #{ORDERSTATE}
-WHERE ORDERNUM = #{ORDERNUM} AND PRODUCTNUM = #{PRODUCTNUM} and orderDate=to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
+UPDATE PRODORDER SET AMOUNT =#{amount} , ORDERSTATE = #{orderState}
+WHERE ORDERNUM = #{orderNum} AND PRODUCTNUM = #{productNum} and orderDate=to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
 </update>
 	
 	<select id="selectActiveStore" resultType="store">
