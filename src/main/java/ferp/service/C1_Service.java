@@ -249,10 +249,12 @@ public class C1_Service {
 		int change=dao.r9403updateDefectOrder(dfo);
 		if(po.getOrderNum()!=null) {
 			//prodOrder 변경
+			System.out.println("자재신청 눌이 아님??~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			change+=dao.r9403updateProdOrder(po);
 		}
 		if(stock.getStockDate()!=null) {
 			//stock 변경사항
+			System.out.println("스톡 눌이 아님~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			daoC2.r8103InoutIns(stock);
 		}
 		
