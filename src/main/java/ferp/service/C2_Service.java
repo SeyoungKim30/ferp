@@ -25,7 +25,7 @@ public class C2_Service {
 	private C2_Dao dao;
 	
 	// 업로드할 경로 지정
-	@Value("${upload2}")
+	@Value("${upload}")
 	private String upload;
 	
 	// 자재 이미지 업로드
