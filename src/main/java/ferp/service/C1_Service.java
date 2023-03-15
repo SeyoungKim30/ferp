@@ -246,7 +246,7 @@ public class C1_Service {
 	}
 	
 	public int r9403updateDefectOrder(DefectOrder dfo,Stock stock,ProdOrder po) {
-	/*	int change=dao.r9403updateDefectOrder(dfo);
+		int change=dao.r9403updateDefectOrder(dfo);
 		if(po.getOrderNum()!=null) {
 			//prodOrder 변경
 			change+=dao.r9403updateProdOrder(po);
@@ -254,8 +254,8 @@ public class C1_Service {
 		if(stock.getStockDate()!=null) {
 			//stock 변경사항
 			daoC2.r8103InoutIns(stock);
-		}*/
-		return 1;
+		}
+		return change;
 	}
 	
 	
