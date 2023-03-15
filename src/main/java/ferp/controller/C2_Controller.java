@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ferp.service.C2_Service;
 import vo.ClerkSchedule;
 import vo.Emp;
-import vo.Prod_order_stock;
 import vo.Product;
 import vo.ProductProdOrder;
 import vo.Stock;
@@ -70,7 +69,15 @@ public class C2_Controller {
 	}
 	
 	// 매장 재고 입출고 수정
-
+	@RequestMapping("/sinoutUpt.do")
+	public String r8104InoutUpt(@RequestParam("productNum") String productNum,
+								@RequestParam("applyAmount") int applyAmount,
+								@RequestParam("remainAmount") int remainAmount, HttpSession session){
+		Store st = (Store)session.getAttribute("login");
+		String frRegiNum = st.getFrRegiNum();
+	    service.r8104InoutUpt(productNum, applyAmount, remainAmount, frRegiNum);
+	    return "redirect:/sInoutList.do"; 
+	}
 	
 	// 매장 재고 입출고 삭제
 	@RequestMapping("/sinoutDel.do")
@@ -139,7 +146,7 @@ public class C2_Controller {
 	
 	// 자재 코드 콤보
 	@ModelAttribute("productNumCom")
-	public List<Prod_order_stock> productNumCom() {
+	public List<Stock> productNumCom() {
 		return service.productNumCom();
 	}
 	
@@ -157,6 +164,14 @@ public class C2_Controller {
 		service.sclerkschdIns(ins);
 		return "redirect:/sclerkschd.do";
 	}
+	
+	// 직원스케줄 캘린더 삭제
+//	@RequestMapping("/sclerkschdDel.do")
+//	public String sclerkschdDel(@RequestParam("clerkNum") String clerkNum,
+//								@RequestParam("onDay") String onDay){
+//		service.sclerkschdDel(clerkNum, onDay);
+//		return "redirect:/sclerkschd.do";
+//	}
 	
 	// 직원스케줄 캘린더
 	// http://localhost:6080/ferp/sclerkschd.do
