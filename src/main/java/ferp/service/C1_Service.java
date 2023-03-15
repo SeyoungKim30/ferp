@@ -230,7 +230,13 @@ public class C1_Service {
 			ast.setLineNum(1);
 			dao.r7210insertStatement(ast);
 		}
-		
+		//일괄일때
+		//검색해서 목록 불러오기
+		List<Prod_order_stock_emp_store> alist=dao.r9310selectProdOrderPayState(prodOrder);
+		//목록 반복문 돌려서 전표 만들어넣기
+		for(Prod_order_stock_emp_store pp:alist) {
+			
+		}
 		return 	dao.r9311updateProdOrderPayState(prodOrder);
 	}
 	
@@ -249,12 +255,10 @@ public class C1_Service {
 		int change=dao.r9403updateDefectOrder(dfo);
 		if(po.getOrderNum()!=null) {
 			//prodOrder 변경
-			System.out.println("자재신청 눌이 아님??~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			change+=dao.r9403updateProdOrder(po);
 		}
 		if(stock.getStockDate()!=null) {
 			//stock 변경사항
-			System.out.println("스톡 눌이 아님~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			daoC2.r8103InoutIns(stock);
 		}
 		
