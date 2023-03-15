@@ -29,15 +29,21 @@ $(document).ready(function() {
 		$("[name=orderDateMonth]").val(this.innerText)
 		$("#reqSchFrm").submit()
 	})
+	$(".yearCheck").change(function(){
+		$("[name=orderDateYear]").val($(".yearCheck").val())
+		$("#reqSchFrm").submit()
+	})
 	$("#schFrmBtn").click(function(){
 		if(!$("#monthCheck").is(':checked')){
 			$("[name=orderDateMonth]").val("")
+			$(".yearCheck").val(year)
 		}
 		$("#reqSchFrm").submit()
 	})
 	$("#rstFrmBtn").click(function(){
 		$("[name=orderDateMonth]").val("")
 		$("[name=clerkName]").val("")
+		$("[name=orderDateYear]").val(new Date().getFullYear())
 		$("[name=curPage]").val("1")
 		$("#reqSchFrm").submit()
 	})
@@ -60,6 +66,13 @@ $(document).ready(function() {
 						<label>월 포함</label>
 					</div>
 					<div class="row">
+						<select class="yearCheck">
+							<option value="${SCpsch.orderDateYear}">${SCpsch.orderDateYear}</option>
+							<option value="">---</option>
+							<option value="2023">2023</option>
+							<option value="2022">2022</option>
+							<option value="2021">2021</option>
+						</select>
 						<c:forEach var="i" begin="1" end="12">
 							<div class="monthDiv">${i }월</div>
 						</c:forEach>
@@ -75,6 +88,7 @@ $(document).ready(function() {
 							<button type="button" id="schFrmBtn">조회</button>
 							<button type="button" id="rstFrmBtn">초기화</button>
 						</div>
+						<input type="hidden" name="orderDateYear" value="${SCpsch.orderDateYear}">
 						<input type="hidden" name="orderDateMonth" value="${SCpsch.orderDateMonth}">
 						<input type="hidden" name="frRegiNum" value="${login.frRegiNum}">	
 						<input type="hidden" name="curPage" value="${SCpsch.curPage}" />	

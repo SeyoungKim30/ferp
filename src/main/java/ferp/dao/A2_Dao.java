@@ -33,5 +33,6 @@ public interface A2_Dao {
 	public List<StoreClerk> storeclerkSchedule(StoreClerk sch);
 	public int defectOrderTot(String frRegiNum);
 	public void insertDefectOrder(DefectOrder ins);
-	public void deleteDefectOrder(DefectOrder del);
+	public void prodOrderToDefected(DefectOrder upt);
+//	public void deleteDefectOrder(DefectOrder del);
 }

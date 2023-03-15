@@ -9,7 +9,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
 <link rel="stylesheet" href="${path}/resource/css/reset.css">
 <link rel="stylesheet" href="${path}/resource/css/A2_jhCSS.css">
@@ -25,20 +24,26 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".monthDiv").click(function() {
+		$(".monthDiv").click(function(){
 			$("[name=orderDateMonth]").val(this.innerText)
 			$("#reqSchFrm").submit()
 		})
-		$("#schFrmBtn").click(function() {
-			if (!$("#monthCheck").is(':checked')) {
+		$(".yearCheck").change(function(){
+			$("[name=orderDateYear]").val($(".yearCheck").val())
+			$("#reqSchFrm").submit()
+		})
+		$("#schFrmBtn").click(function(){
+			if(!$("#monthCheck").is(':checked')){
 				$("[name=orderDateMonth]").val("")
+				$(".yearCheck").val(year)
 			}
 			$("#reqSchFrm").submit()
 		})
-		$("#rstFrmBtn").click(function() {
+		$("#rstFrmBtn").click(function(){
 			$("[name=orderDateMonth]").val("")
-			$("[name=productName]").val("")
-			$("[name=category]").val("")
+			$("[name=clerkName]").val("")
+			$("[name=orderDateYear]").val(new Date().getFullYear())
+			$("[name=curPage]").val("1")
 			$("#reqSchFrm").submit()
 		})
 		$("div.monthDiv").filter(function() {
@@ -126,6 +131,13 @@
 							<label>월 포함</label>
 						</div>
 						<div class="row">
+							<select class="yearCheck">
+								<option value="${dSch.orderDateYear}">${dSch.orderDateYear}</option>
+								<option value="">---</option>
+								<option value="2023">2023</option>
+								<option value="2022">2022</option>
+								<option value="2021">2021</option>
+							</select>
 							<c:forEach var="i" begin="1" end="12">
 								<div class="monthDiv">${i }월</div>
 							</c:forEach>
@@ -151,6 +163,7 @@
 								<button type="button" id="schFrmBtn">조회</button>
 								<button type="button" id="rstFrmBtn">초기화</button>
 							</div>
+							<input type="hidden" name="orderDateYear" value="${dSch.orderDateYear}">
 							<input type="hidden" name="orderDateMonth" value="${dSch.orderDateMonth }"> 
 							<input type="hidden" name="frRegiNum" value="${login.frRegiNum}">
 						</form>
@@ -158,27 +171,23 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="thDiv" style="width: 15%;">신청번호</div>
-				<div class="thDiv" style="width: 20%;">자재명</div>
+				<div class="thDiv" style="width: 18%;">신청번호</div>
+				<div class="thDiv" style="width: 27%;">자재명</div>
 				<div class="thDiv" style="width: 20%;">신청일</div>
 				<div class="thDiv" style="width: 15%;">종류</div>
 				<div class="thDiv" style="width: 10%;">처리방식</div>
 				<div class="thDiv" style="width: 10%;">처리상태</div>
-				<div class="thDiv" style="width: 10%;">삭제</div>
 			</div>
 			<c:forEach var="dl" items="${defectlist }">
 				<form id="uptForm${dl.defNum}" method="post" class="">
 					<div class="row reg" onclick="showImg('${dl.defNum}')" onmouseout="hideImg('${dl.defNum}')">
 						<div style="display: none;"></div>
-						<div class="tdDiv" style="width: 15%;">${dl.defNum}</div>
-						<div class="tdDiv" style="width: 20%;">${dl.productName }</div>
+						<div class="tdDiv" style="width: 18%;">${dl.defNum}</div>
+						<div class="tdDiv" style="width: 27%;">${dl.productName }</div>
 						<div class="tdDiv left" style="width: 20%;">${dl.applyDate }</div>
 						<div class="tdDiv" style="width: 15%;">${dl.type }</div>
 						<div class="tdDiv" style="width: 10%;">${dl.methods }</div>
 						<div class="tdDiv" style="width: 10%;">${dl.state }</div>
-						<div class="tdDiv" style="width: 10%;">
-							<button type="button" class="delBtn" onclick="delDefect('${dl.defNum}')">삭제</button>
-						</div>
 						<input type="hidden" name="defNum" value="${dl.defNum}"/>
 						<input type="hidden" name="img" value="${dl.img}"/>
 					</div>
@@ -204,11 +213,6 @@
 				$('.upload-name').val($("#file").val())			
 			}else{
 				$('.upload-name').val($("#file").val()+" 외 "+parseInt(i-1) + "개")			
-			}
-		}
-		function delDefect(i){
-			if(confirm("삭제하시겠습니까?")){
-				$("#uptForm"+i).attr("action","${path}/delDefectProd.do").submit();
 			}
 		}
 	</script>

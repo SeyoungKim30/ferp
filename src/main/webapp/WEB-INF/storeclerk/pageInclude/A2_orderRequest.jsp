@@ -9,7 +9,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
 <link rel="stylesheet" href="${path}/resource/css/reset.css">
 <link rel="stylesheet" href="${path}/resource/css/A2_jhCSS.css">
@@ -42,6 +41,9 @@
 				})
 			}
 		})
+		$(".clsBtn1").click(function(){
+			$(".adjustAmountText").val("0")
+		})
 	})
 </script>
 </head>
@@ -52,7 +54,7 @@
 		<div class="modal_content">
 			<%@ include file="/WEB-INF/storeclerk/pageInclude/A2_orderRequest_list.jsp"%>
 			<div style="text-align: right;">
-				<button type="button" id="closeBtn">닫기</button>
+				<button type="button" id="closeBtn" class="clsBtn1">닫기</button>
 			</div>
 		</div>
 	<div class="modal_layer"></div>

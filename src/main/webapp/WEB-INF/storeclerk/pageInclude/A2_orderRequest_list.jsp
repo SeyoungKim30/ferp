@@ -9,7 +9,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
 <link rel="stylesheet" href="${path}/resource/css/reset.css">
 <link rel="stylesheet" href="${path}/resource/css/A2_jhCSS.css">
@@ -52,7 +51,7 @@
 					<input type="hidden" class="productNum${p.productNum }" value="${p.productNum }"> 
 					<input type="hidden" class="frRegiNum${p.productNum }" value="${p.frRegiNum }">
 					<div class="tdDiv" style="width: 14%;"><fmt:formatNumber value='${p.price }' type='currency'/></div>
-					<div class="tdDiv" style="width: 14%;">${p.remainAmount }</div>
+					<div class="tdDiv" class="remainAmount${p.productNum }" style="width: 14%;">${p.remainAmount }</div>
 					<div class="tdDiv" style="width: 9%;">
 						<div class="row center">
 							<button type="button" class="adjustAmountBtn minus${p.productNum }">-</button>
@@ -91,10 +90,29 @@
 		}
 	})
 	$(".plus${p.productNum }").click(function(){
-		i${p.productNum }++
-		$(".minus${p.productNum }").attr("disabled",false)
-		$(".a${p.productNum }").val(i${p.productNum })
+		console.log(parseInt($(".a${p.productNum }").val())+1)
+		console.log('${p.remainAmount }')
+		if((parseInt($(".a${p.productNum }").val())+1)<='${p.remainAmount }'){
+			i${p.productNum }++
+			$(".minus${p.productNum }").attr("disabled",false)
+			$(".a${p.productNum }").val(i${p.productNum })
+		}else{
+			alert("요청수량 초과")
+		}
 	})
+	
+	$(".a${p.productNum }").change(function(){
+		if(parseInt($(".a${p.productNum }").val())>'${p.remainAmount }'){
+			console.log((parseInt($(".a${p.productNum }").val())+1))
+			alert("요청수량 초과")
+			$(".a${p.productNum }").val('${p.remainAmount }')
+			i${p.productNum } = $(".a${p.productNum }").val()
+			$(".minus${p.productNum }").attr("disabled",false)
+		}else{
+			i${p.productNum } = $(".a${p.productNum }").val()
+		}
+	})
+	
 	$(".regB${p.productNum }").click(function(){
 		$(".supplierName").val($(".opposite${p.productNum }").val())
 		$(".productName").val($(".productName${p.productNum }").val())

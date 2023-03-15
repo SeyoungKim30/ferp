@@ -15,6 +15,8 @@ public class Prod_ProdOrder {
 	private String img;
 	private String category;
 	private String opposite;
+	private int remainAmount;
+	private String orderDateYear;
 	public String getOrderNum() {
 		return orderNum;
 	}
@@ -98,5 +100,17 @@ public class Prod_ProdOrder {
 	}
 	public void setOpposite(String opposite) {
 		this.opposite = opposite;
+	}
+	public int getRemainAmount() {
+		return remainAmount;
+	}
+	public void setRemainAmount(int remainAmount) {
+		this.remainAmount = remainAmount;
+	}
+	public String getOrderDateYear() {
+		return orderDateYear;
+	}
+	public void setOrderDateYear(String orderDateYear) {
+		this.orderDateYear = orderDateYear;
 	}
 }

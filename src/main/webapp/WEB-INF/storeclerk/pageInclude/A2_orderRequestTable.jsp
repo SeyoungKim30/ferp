@@ -9,7 +9,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
 <link rel="stylesheet" href="${path}/resource/css/reset.css">
 <link rel="stylesheet" href="${path}/resource/css/A2_jhCSS.css">
@@ -27,16 +26,22 @@
 			$("[name=orderDateMonth]").val(this.innerText)
 			$("#reqSchFrm").submit()
 		})
+		$(".yearCheck").change(function(){
+			$("[name=orderDateYear]").val($(".yearCheck").val())
+			$("#reqSchFrm").submit()
+		})
 		$("#schFrmBtn").click(function(){
 			if(!$("#monthCheck").is(':checked')){
 				$("[name=orderDateMonth]").val("")
+				$(".yearCheck").val(year)
 			}
 			$("#reqSchFrm").submit()
 		})
 		$("#rstFrmBtn").click(function(){
 			$("[name=orderDateMonth]").val("")
-			$("[name=productName]").val("")
-			$("[name=category]").val("")
+			$("[name=clerkName]").val("")
+			$("[name=orderDateYear]").val(new Date().getFullYear())
+			$("[name=curPage]").val("1")
 			$("#reqSchFrm").submit()
 		})
 		$("div.monthDiv").filter(function() {
@@ -51,18 +56,25 @@
 	<div>
 	<div class="toolbox">
 		<div class="row margin-sm">
-			<div class="col left" >
-				<div class="row" style="margin-top: 7px;">
-					<input type="checkbox" id="monthCheck" checked>
-					<label>월 포함</label>
+				<div class="col left" >
+					<div class="row" style="margin-top: 7px;">
+						<input type="checkbox" id="monthCheck" checked>
+						<label>월 포함</label>
+					</div>
+					<div class="row">
+						<select class="yearCheck">
+							<option value="${rSch.orderDateYear}">${rSch.orderDateYear}</option>
+							<option value="">---</option>
+							<option value="2023">2023</option>
+							<option value="2022">2022</option>
+							<option value="2021">2021</option>
+						</select>
+						<c:forEach var="i" begin="1" end="12">
+							<div class="monthDiv">${i }월</div>
+						</c:forEach>
+					</div>
 				</div>
-				<div class="row">
-					<c:forEach var="i" begin="1" end="12">
-						<div class="monthDiv">${i }월</div>
-					</c:forEach>
-				</div>
-			</div>
-			<div>
+				<div>
 				<form id="reqSchFrm" method="post">
 					<div class="row schDiv schDiv-padding">
 						<div class="col left" >
@@ -83,6 +95,7 @@
 						<button type="button" id="schFrmBtn">조회</button>
 						<button type="button" id="rstFrmBtn">초기화</button>
 					</div>
+					<input type="hidden" name="orderDateYear" value="${rSch.orderDateYear}">
 					<input type="hidden" name="orderDateMonth" value="${rSch.orderDateMonth}">
 					<input type="hidden" name="demander" value="${login.frRegiNum}">		
 				</form>
@@ -102,7 +115,7 @@
 	<div>
 	<c:forEach var="req" items="${reqlist }">
 		<div class="row tdAll" onclick="prodInfo('${req.orderNum}','${req.productNum }','${req.productName }','${req.amount }',
-			'${req.supplier }','${req.demander }','${req.orderDate }','${req.img}','${req.paymentState }','${req.orderState }')">
+			'${req.supplier }','${req.demander }','${req.orderDate }','${req.img}','${req.paymentState }','${req.orderState }','${req.remainAmount }')">
 			<div class="tdDiv" style="width: 16%;">${req.orderNum }</div>
 			<div class="tdDiv" style="width: 20%;">${req.productName }</div>
 			<div class="tdDiv" style="width: 9%;">${req.category }</div>
@@ -139,7 +152,7 @@
 </body>
 <script type="text/javascript">
 	function prodInfo(orderNum, productNum, productName, amount, supplier,
-			demander, orderDate, img, paymentState, orderState) {
+			demander, orderDate, img, paymentState, orderState,remainAmount) {
 		$(".orderNum").text(orderNum)
 		$(".productNum").text(productNum)
 		$(".productName").text(productName)
@@ -151,28 +164,32 @@
 		$(".img").attr("src", '${path}/resource/img/' + img)
 		$(".paymentState").text(paymentState)
 		$(".orderState").text(orderState)
+		$(".rmAmount").text(remainAmount)
 		var today = new Date().toLocaleDateString()
 		var orderday = new Date($(".orderDate2").text()).toLocaleDateString()
 		var t = new Date(today)
 		var o = new Date(orderday)
-		console.log(t)
-		console.log(o)
-		console.log(t > o)
-		if(t>o){
+		console.log("123123123-"+(t>o || orderState != '발주취소'))
+		if(t>o || orderState == '발주취소'){
 			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr("disabled", true)
 			$(".uBtn").css("backgroundColor", "#dc3545")
 			$(".uBtn").css("display", "none")
 			$(".dBtn").text("수정 기간 만료")
 			$(".dBtn").css("width", "25%")
-			console.log("1")
+			$(".rmAmountCon").css("display","none")
 		}else{
 			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr("disabled", false)
 			$(".uBtn").css("backgroundColor", "#6c757d")
 			$(".uBtn").text("수정")
-			$(".dBtn").text("삭제")
+			$(".dBtn").text("취소")
 			$(".uBtn").css("display", "inline-block")
 			$(".dBtn").css("width", "15%")
-			console.log("2")
+			$(".rmAmountCon").css("display","block")
+		}
+		if($(".paymentState").text() != '정산전' || orderState == '발주취소' || $(".orderState").text()=='조정중' || $(".orderState").text()=='취소완료'){
+			$(".wdBtn").css("display","none")
+		}else{
+			$(".wdBtn").css("display","block")
 		}
 		$("#modal2").attr("style", "display:block");
 	}

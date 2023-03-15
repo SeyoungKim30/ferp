@@ -2,6 +2,7 @@ package ferp.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import ferp.dao.A2_Dao;
 import vo.ClerkFile;
 import vo.DefectOrder;
-import vo.Emp;
 import vo.Prod_ProdOrder;
 import vo.Rq_Product;
 import vo.SCPage;
@@ -82,6 +82,7 @@ public class A2_Service {
 		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
 		if(sch.getClerkName() == null) sch.setClerkName("");
 		if(sch.getOrderDateMonth() == null) sch.setOrderDateMonth("");
+		if(sch.getOrderDateYear() == null) sch.setOrderDateYear(String.valueOf(LocalDate.now().getYear()));
 		sch.setCount(dao.totNum(sch));
 		if(sch.getPageSize()==0) {
 			sch.setPageSize(10);
@@ -105,6 +106,7 @@ public class A2_Service {
 		if(sch.getCategory() == null) sch.setCategory("");
 		if(sch.getDemander() == null) sch.setDemander("");
 		if(sch.getOrderDateMonth() == null) sch.setOrderDateMonth("");
+		if(sch.getOrderDateYear() == null) sch.setOrderDateYear(String.valueOf(LocalDate.now().getYear()));
 		return dao.reqList(sch);
 	}
 	public void uptReqList(Prod_ProdOrder upt) {
@@ -141,6 +143,7 @@ public class A2_Service {
 		if(sch.getFrRegiNum() == null) sch.setFrRegiNum("");
 		if(sch.getOrderDateMonth() == null) sch.setOrderDateMonth("");
 		if(sch.getCategory() == null) sch.setCategory("");
+		if(sch.getOrderDateYear() == null) sch.setOrderDateYear(String.valueOf(LocalDate.now().getYear()));
 		return dao.viewDefectorder(sch);
 	}
 	public List<Sales> salesGraph(Sales sch, HttpSession session){
@@ -188,18 +191,25 @@ public class A2_Service {
 		}
 		return img;
 	}
-	public void deleteDefectOrder(DefectOrder del) {
-		File file = new File(defectFupload+del.getImg());
-		System.out.println(del.getImg());
-		System.out.println(file);
-		System.out.println(file.exists());
-		if(file.exists()) {
-			file.delete();
-			dao.deleteDefectOrder(del);
-			System.out.println("file exist");
-		}else {
-			dao.deleteDefectOrder(del);
-			System.out.println("file not exist");
-		}
+	public void prodOrderToDefected(DefectOrder upt) {
+		if(upt.getFrRegiNum() == null) upt.setFrRegiNum("");
+		if(upt.getOrderNum() == null) upt.setOrderNum("");
+		if(upt.getProductNum() == null) upt.setProductNum("");
+		if(upt.getOrderDate() == null) upt.setOrderDate("");
+		dao.prodOrderToDefected(upt);
 	}
+//	public void deleteDefectOrder(DefectOrder del) {
+//		File file = new File(defectFupload+del.getImg());
+//		System.out.println(del.getImg());
+//		System.out.println(file);
+//		System.out.println(file.exists());
+//		if(file.exists()) {
+//			file.delete();
+//			dao.deleteDefectOrder(del);
+//			System.out.println("file exist");
+//		}else {
+//			dao.deleteDefectOrder(del);
+//			System.out.println("file not exist");
+//		}
+//	}
 }

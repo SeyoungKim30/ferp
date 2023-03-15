@@ -50,6 +50,7 @@
 				FROM (SELECT CLERKNUM ,sum((OFFTIME-ONTIME) * 24) workhour
 				FROM EMPCHECKIN e 
 				WHERE to_char(to_date(OFFTIME ,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%'
+				AND EXTRACT(YEAR FROM OFFTIME) LIKE '%'||#{orderDateYear}||'%'
 				GROUP BY CLERKNUM) h, storeclerk s  
 				WHERE h.clerknum(+) = s.clerknum
 				AND s.clerkname LIKE '%'||#{clerkName}||'%'
@@ -76,12 +77,15 @@
 	</insert>
 	<!-- 발주 신청서 조회 -->
 	<select id="reqList" parameterType="prodOrder" resultType="prodProdOrder">
-		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY, p.OPPOSITE 
-		FROM PRODUCT p, PRODORDER po
+		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY, p.OPPOSITE , s.REMAINAMOUNT 
+		FROM PRODUCT p, PRODORDER po, STOCK s 
 		WHERE p.PRODUCTNUM = po.PRODUCTNUM
+		AND s.PRODUCTNUM = p.PRODUCTNUM
+		AND STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)
 		AND p.PRODUCTNAME LIKE '%'||#{productName}||'%' 
 		AND p.CATEGORY LIKE '%'||#{category}||'%'
 		AND to_char(to_date(ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
+		AND EXTRACT(YEAR FROM ORDERDATE) LIKE '%'||#{orderDateYear}||'%'
 		AND DEMANDER = #{demander}
 		ORDER BY to_char(orderdate, 'YYMMDD HH24:MI:SS') DESC
 	</select>
@@ -95,12 +99,13 @@
 		AND productnum = #{productNum}
 		AND orderdate = to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
 	</update>
-	<delete id="delReqList" parameterType="prodProdOrder">
-		DELETE FROM PRODORDER
+	<update id="delReqList" parameterType="prodProdOrder">
+		UPDATE PRODORDER
+			SET orderState = '발주취소'
 		WHERE ordernum = #{orderNum}
 		AND productnum = #{productNum}
 		AND orderdate = to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
-	</delete>
+	</update>
 	<!-- 카테고리 콤보박스 -->
 	<select id="cateCombo" resultType="rqproduct">
 		SELECT DISTINCT category FROM product
@@ -170,12 +175,21 @@
 		AND p2.PRODUCTNAME  LIKE '%'||#{productName}||'%'
 		AND p2.CATEGORY  LIKE '%'||#{category}||'%'
 		AND to_char(to_date(p.ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
+		AND EXTRACT(YEAR FROM d.APPLYDATE) LIKE '%'||#{orderDateYear}||'%'
 	</select>
 	<insert id="insertDefectOrder" parameterType="defectorder">
 		INSERT INTO DEFECTORDER values
 		(#{frRegiNum}||#{defNum},#{orderNum},#{productNum},sysdate,#{img},'처리 대기',#{methods},to_date(#{orderDate},'yyyy-MM-dd HH24:MI:SS'),#{frRegiNum},#{type},'')
 	</insert>
-	<delete id="deleteDefectOrder" parameterType="defectorder">
+	<update id="prodOrderToDefected" parameterType="defectorder">
+	UPDATE PRODORDER
+		SET ORDERSTATE = '조정중'
+	WHERE DEMANDER = #{frRegiNum}
+	AND ORDERNUM  = #{orderNum}
+	AND PRODUCTNUM = #{productNum}
+	AND ORDERDATE =to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
+	</update>
+	<!-- <delete id="deleteDefectOrder" parameterType="defectorder">
 		DELETE FROM DEFECTORDER WHERE DEFNUM = #{defNum}
-	</delete>
+	</delete> -->
 </mapper>
