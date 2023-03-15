@@ -178,7 +178,8 @@ public class C1_Controller {
 	}
 	
 	@RequestMapping("updateDefectOrder.do")
-	public String r9403updateDefectOrder(Model model,DefectOrder dfo,ProdOrder po,Stock stock) {
+	public String r9403updateDefectOrder(Model model,DefectOrder dfo,Stock stock,ProdOrder po) {
+		model.addAttribute("apply",service.r9403updateDefectOrder(dfo,stock,po));
 		return "pageJsonReport";
 	}
 	

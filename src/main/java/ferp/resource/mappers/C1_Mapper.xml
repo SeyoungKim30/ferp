@@ -276,6 +276,17 @@ WHERE d.FRREGINUM =s.FRREGINUM AND p.PRODUCTNUM =d.PRODUCTNUM AND po.ORDERNUM =d
 	AND methods LIKE '%'||#{methods,jdbcType=VARCHAR}||'%'
 	AND state LIKE '%'||#{state,jdbcType=VARCHAR}||'%'
 </select>
+
+<update id="r9403updateDefectOrder" parameterType="defectorder">
+UPDATE DEFECTORDER 
+SET state = #{state}
+WHERE defnum=#{defNum}
+</update>
+
+<update id="r9403updateProdOrder" parameterType="prodOrder">
+UPDATE PRODORDER SET AMOUNT =#{amount} , ORDERSTATE = #{ORDERSTATE}
+WHERE ORDERNUM = #{ORDERNUM} AND PRODUCTNUM = #{PRODUCTNUM}
+</update>
 	
 	<select id="selectActiveStore" resultType="store">
 	select * from store where frPass IS NOT NULL 

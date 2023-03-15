@@ -245,6 +245,20 @@ public class C1_Service {
 		return dao.r9402selectDefectOrder(dfo);
 	}
 	
+	public int r9403updateDefectOrder(DefectOrder dfo,Stock stock,ProdOrder po) {
+	/*	int change=dao.r9403updateDefectOrder(dfo);
+		if(po.getOrderNum()!=null) {
+			//prodOrder 변경
+			change+=dao.r9403updateProdOrder(po);
+		}
+		if(stock.getStockDate()!=null) {
+			//stock 변경사항
+			daoC2.r8103InoutIns(stock);
+		}*/
+		return 1;
+	}
+	
+	
 	public List<Store> selectActiveStore(){
 		return dao.selectActiveStore();
 	}
