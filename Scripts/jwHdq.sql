@@ -428,6 +428,7 @@ WHERE qanum =''
 AND FRREGINUM=#{frRegiNum, jdbcType=VARCHAR}
 AND trunc(inspectdte,'month') =trunc(sysdate, 'month');
 
+SELECT * FROM emp;
 
 
 SELECT * FROM store;

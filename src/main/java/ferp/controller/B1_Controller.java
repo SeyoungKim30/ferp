@@ -164,12 +164,17 @@ public class B1_Controller {
 	//담당매장 목록 
 	@RequestMapping("inchargeStore.do")
 	public String r6101inchargeStore(Model d, HttpSession session) {
+		
 		//세션값받기
 		Emp s = (Emp)session.getAttribute("login");
-		s.getEmpnum();
 		
-		d.addAttribute("empnum", s.getEmpnum() );
+		d.addAttribute("ename", s.getEname() );
 		d.addAttribute("icStrlist", service.inchargeStore( s.getEmpnum() ) );
+	
+		//List<QA> qa= service.inchargeStore( s.getEmpnum() );
+		//qa.get(0).getFrRegiNum();
+		
+		
 		return "WEB-INF\\headquarter\\pg6101_QAinCharge.jsp";
 	}
 	// 담당매장 중 특정매장 점검정보
