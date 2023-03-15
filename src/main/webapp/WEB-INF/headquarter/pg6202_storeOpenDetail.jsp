@@ -160,6 +160,10 @@ public class Main {
     padding: 10px 5px;
     font-weight: 600;
   }
+  .fc-scroller{/* 캘린더 스크롤 없애기 */
+     overflow: hidden !important;
+  }
+	
 
   
   
@@ -244,6 +248,9 @@ public class Main {
 	</div>
 </body>
 <script type="text/javascript">
+	//사이드바에 번호 매긴 것 
+	localStorage.setItem("pageIdx","6202"); //id값
+	localStorage.setItem("eqIdx","6000");
 	
 	//이전페이지 가기 클릭
 	function back(){
