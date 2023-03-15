@@ -43,7 +43,7 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		<%-- (+)항목에 수정/삭제 버튼 안보이게
+		<%-- 
 		$('.uptbtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
 		    if (!isNaN(applyAmount) && applyAmount >= 0) {
@@ -52,15 +52,16 @@
 				$(this).show();
 			}
 		});
-		$('.delbtn').each(function() {
+		(+)항목에 삭제 버튼 안보이게
+		$('.delBtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
 		    if (!isNaN(applyAmount) && applyAmount >= 0) {
-				$(this).hide();
-			} else {
-				$(this).show();
-			}
-		});
-		--%>
+		        $(this).hide();
+		    } else {
+		        $(this).show();
+		    }
+		});--%>
+		
 		$("#insBtn").click(function(){
 			var isInValid = false
 			for(var idx=0;idx<$(".ckValid").length;idx++){

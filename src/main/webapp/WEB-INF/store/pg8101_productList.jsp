@@ -69,8 +69,8 @@
 				</thead>
 				<tbody>
 					<c:forEach var="prod" items="${plist}">
-			    	    <tr>
-			    	    	<td style="text-align:center" onclick="goDetail('${prod.productNum}')">${prod.stockDate}</td>
+			    	    <tr onclick="goDetail('${prod.productNum}')">
+			    	    	<td style="text-align:center">${prod.stockDate}</td>
 			    	    	<td style="text-align:center">${prod.productNum}</td>
 			    	    	<td style="text-align:center">${prod.category}</td>
 			    	    	<td>${prod.productName}</td>

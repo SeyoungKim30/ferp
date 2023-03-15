@@ -76,8 +76,10 @@ public class C2_Controller {
 	@RequestMapping("/sinoutDel.do")
 	public String r8105InoutDel(@RequestParam("productNum") String productNum,
 								@RequestParam("applyAmount") int applyAmount,
-								@RequestParam("remainAmount") int remainAmount) {
-	    service.r8105InoutDel(productNum, applyAmount, remainAmount);
+								@RequestParam("remainAmount") int remainAmount, HttpSession session){
+		Store st = (Store)session.getAttribute("login");
+		String frRegiNum = st.getFrRegiNum();
+	    service.r8105InoutDel(productNum, applyAmount, remainAmount, frRegiNum);
 	    return "redirect:/sInoutList.do"; 
 	}
 	

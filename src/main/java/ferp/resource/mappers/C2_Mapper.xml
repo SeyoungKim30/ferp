@@ -82,18 +82,21 @@
 	</delete>
 	<update id="r8105InoutDel2" parameterType="stock">
 		UPDATE STOCK 
-		SET REMAINAMOUNT = (
-		        SELECT REMAINAMOUNT + (#{applyAmount}) - (APPLYAMOUNT) 
-		        FROM (
-		            SELECT REMAINAMOUNT, ROW_NUMBER() OVER (ORDER BY STOCKDATE DESC) AS RN 
-		            FROM STOCK 
-		            WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2}
-		        ) T 
-		        WHERE RN = 1
+		SET STOCKDATE = SYSDATE,
+		    REMAINAMOUNT = (
+		        SELECT SUM(APPLYAMOUNT) 
+		        FROM STOCK 
+		        WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+		        AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2}
 		    )
-		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2} 
-		AND STOCKDATE = (SELECT MAX(STOCKDATE) 
-			FROM STOCK WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2})
+		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+		AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2} 
+		AND STOCKDATE = (
+		    SELECT MAX(STOCKDATE) 
+		    FROM STOCK 
+		    WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+		    AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2}
+		)
 	</update>
 	
 	<!-- 본사 재고 등록 -->
