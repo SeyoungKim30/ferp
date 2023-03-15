@@ -76,15 +76,17 @@ public class C2_Service {
 	}
 	
 	// 매장 재고 입출고 삭제
-	public void r8105InoutDel(String productNum, int applyAmount, int remainAmount) {
+	public void r8105InoutDel(String productNum, int applyAmount, int remainAmount, String frRegiNum) {
 	    Stock del = new Stock();
 	    del.setProductNum(productNum);
 	    del.setApplyAmount(applyAmount);
 	    del.setRemainAmount(remainAmount);
+	    del.setFrRegiNum(frRegiNum);
 	    dao.r8105InoutDel(del);
 	    Stock del2 = new Stock();
 	    del2.setProductNum(del.getProductNum());
-	    del2.setApplyAmount(del.getApplyAmount());
+	    //del2.setApplyAmount(del.getApplyAmount());
+	    del2.setFrRegiNum(del.getFrRegiNum());
 	    dao.r8105InoutDel2(del2);
 	}
 	
