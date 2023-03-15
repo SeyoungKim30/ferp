@@ -38,39 +38,54 @@
 		FROM PRODUCT p, STOCK s
 		WHERE p.PRODUCTNUM = s.PRODUCTNUM
 		AND s.FrRegiNum = #{frRegiNum,jdbcType=VARCHAR}
-		ORDER BY s.STOCKDATE
+		AND p.productNum LIKE '%'||upper(#{productNum,jdbcType=VARCHAR})||'%'
+		ORDER BY s.STOCKDATE desc
 	</select>
 	
 	<!-- 매장 재고 입출고 등록 -->
 	<insert id="r8103InoutIns" parameterType="stock">
 		INSERT INTO STOCK 
-		VALUES (#{productNum,jdbcType=VARCHAR, index=1}, 
-		#{frRegiNum,jdbcType=VARCHAR, index=3}, sysdate, +#{applyAmount, index=2}, 
-        (SELECT REMAINAMOUNT + #{applyAmount, index=2}
-        	FROM STOCK 
-			WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1} 
-			AND STOCKDATE = (SELECT MAX(STOCKDATE) 
-	         	FROM STOCK 
-	         	WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1}
-	         	and frRegiNum = #{frRegiNum,jdbcType=VARCHAR, index=3})), null)
+	    VALUES (
+	        #{productNum,jdbcType=VARCHAR, index=1}, 
+	        #{frRegiNum,jdbcType=VARCHAR, index=3}, 
+	        SYSDATE, 
+	        #{applyAmount, index=2}, 
+	        COALESCE(
+	            (
+	                SELECT REMAINAMOUNT + #{applyAmount, index=2}
+	                FROM STOCK 
+	                WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1} 
+	                AND STOCKDATE = (
+	                    SELECT MAX(STOCKDATE) 
+	                    FROM STOCK 
+	                    WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1}
+	                    AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR, index=3}
+	                )
+	            ),
+	            #{applyAmount, index=2}
+	        ),#{remark,jdbcType=VARCHAR}
+	    )
 	</insert>
 	
 	<!-- 매장 재고 입출고 수정 -->
 	<update id="r8104InoutUpt" parameterType="stock">
 		UPDATE STOCK 
-		SET APPLYAMOUNT = #{applyAmount,jdbcType=NUMBER,INDEX=1},
+		SET APPLYAMOUNT = #{applyAmount,INDEX=1},
 		    REMAINAMOUNT = (
-		        SELECT REMAINAMOUNT + #{applyAmount,jdbcType=NUMBER,INDEX=1} - APPLYAMOUNT 
+		        SELECT REMAINAMOUNT + #{applyAmount,INDEX=1} - APPLYAMOUNT 
 		        FROM (
 		            SELECT REMAINAMOUNT, ROW_NUMBER() OVER (ORDER BY STOCKDATE DESC) AS RN 
 		            FROM STOCK 
 		            WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2}
+		            AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=3}
 		        ) T 
 		        WHERE RN = 1
 		    )
 		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2} 
 		AND STOCKDATE = (SELECT MAX(STOCKDATE) 
-			FROM STOCK WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2})
+			FROM STOCK 
+			WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=2})
+			AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=3}
 	</update>
 	
 	<!-- 매장 재고 입출고 삭제 -->
@@ -82,21 +97,26 @@
 	</delete>
 	<update id="r8105InoutDel2" parameterType="stock">
 		UPDATE STOCK 
-		SET STOCKDATE = SYSDATE,
-		    REMAINAMOUNT = (
-		        SELECT SUM(APPLYAMOUNT) 
+		SET REMAINAMOUNT = (
+		    SELECT REMAINAMOUNT + #{applyAmount,jdbcType=VARCHAR}
+		    FROM STOCK 
+		    WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+		    AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2} 
+		    AND STOCKDATE = (
+		        SELECT MAX(STOCKDATE) 
 		        FROM STOCK 
 		        WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
 		        AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2}
 		    )
-		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
-		AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2} 
-		AND STOCKDATE = (
-		    SELECT MAX(STOCKDATE) 
-		    FROM STOCK 
-		    WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
-		    AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2}
 		)
+		WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+		AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2}
+		AND STOCKDATE = (
+	        SELECT MAX(STOCKDATE) 
+	        FROM STOCK 
+	        WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR,INDEX=1} 
+	        AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR,INDEX=2}
+	    )
 	</update>
 	
 	<!-- 본사 재고 등록 -->
@@ -114,11 +134,10 @@
 	</update>
 		
 	<!-- 자재 코드 콤보 -->
-	<select id="productNumCom" resultType="pos">
-		SELECT DISTINCT s.productNum, p.PRODUCTNAME 
-		FROM STOCK s, PRODUCT p 
-		WHERE s.PRODUCTNUM = p.PRODUCTNUM
-		ORDER BY PRODUCTNAME
+	<select id="productNumCom" resultType="stock">
+		SELECT DISTINCT PRODUCTNUM, frRegiNum
+		FROM STOCK
+		ORDER BY PRODUCTNUM
 	</select>
 	
 	<!-- 직원 번호 콤보 -->
@@ -142,7 +161,7 @@
 	</resultMap>
 	<select id="sclerkschd" resultMap="calMap">
 		SELECT c.*, clerkName 
-		FROM CLERKSCHEDULE c ,STORECLERK s 
+		FROM CLERKSCHEDULE c, STORECLERK s 
 		WHERE c.CLERKNUM = s.CLERKNUM 
 		AND c.FRREGINUM = #{writer}
 	</select>

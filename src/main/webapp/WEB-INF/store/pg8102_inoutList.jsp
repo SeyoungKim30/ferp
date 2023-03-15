@@ -40,9 +40,16 @@
 #deleteForm {
     display: none;
 }
+#updateForm {
+    display: none;
+}
+.toolbar {
+	display: inline-flex;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$("[name=productNum]").val("${sch.productNum}");
 		<%-- 
 		$('.uptbtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
@@ -52,7 +59,7 @@
 				$(this).show();
 			}
 		});
-		(+)항목에 삭제 버튼 안보이게--%>
+		(+)항목에 삭제 버튼 안보이게
 		$('.delBtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
 		    if (!isNaN(applyAmount) && applyAmount >= 0) {
@@ -61,7 +68,22 @@
 		        $(this).show();
 		    }
 		});
-		
+		--%>
+		// 자재코드별로 최근일자의 데이터에만 버튼 보이게
+		$("tbody tr").each(function() {
+			// 현재 제품의 자재코드를 가져옴
+			var productNum = $(this).find("td:first-child").text();
+			// 현재 제품이 가장 위에 있는 데이터인지 확인
+			var isFirst = $(this).prevAll().filter(":has(td:first-child:contains('" + productNum + "'))").length === 0;
+			// 가장 위에 있는 데이터라면 버튼을 보이게 함
+			if (isFirst) {
+				$(this).find(".uptbtn").show();
+				$(this).find(".delBtn").show();
+			} else {
+				$(this).find(".uptbtn").hide();
+				$(this).find(".delBtn").hide();
+			}
+		});
 		$("#insBtn").click(function(){
 			var isInValid = false
 			for(var idx=0;idx<$(".ckValid").length;idx++){
@@ -115,8 +137,36 @@
 					$('#deleteForm [name=remainAmount]').val(remainAmount);
 					$("#deleteForm").submit();
 				}
-			})	
+			})
 		})
+		$('.uptbtn').on('click', function() {
+			  const span = $(this).find('span');
+			  span.text('완료');
+
+			  const applyAmountTd = $(this).closest('tr').find('td:nth-child(6)');
+			  const applyAmountInput = $(`<input style="width:100px;" type="number" value="${applyAmountTd.text().trim()}">`);
+			  applyAmountTd.html(applyAmountInput);
+
+			  const row = $(this).closest('tr');
+			  const productNum = row.find('td:nth-child(1)').text().trim();
+			  const remainAmount = row.find('td:nth-child(7)').text().trim();
+
+			  $('#updateForm [name=productNum]').val(productNum);
+			  $('#updateForm [name=remainAmount]').val(remainAmount);
+
+			  applyAmountInput.on('input', function() {
+				  if ($(this).val().trim() !== applyAmountTd.text().trim()) {
+				    span.prop('disabled', false);
+				  } else {
+				    span.prop('disabled', true);
+				  }
+				});
+
+			  span.prop('disabled', true).on('click', function() {
+			    $('#updateForm [name=applyAmount]').val(applyAmountInput.val().trim());
+			    $("#updateForm").submit();
+			  });
+			});
 	});
 </script>
 </head>
@@ -126,6 +176,20 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		<h2>재고 입출고</h2><br><hr><br>
+		<div class="toolbox">
+		<h3>재고 입출고 검색</h3><br>
+			<form class="toolbar" method="post">
+				<select name="productNum" required>
+					<option value="">자재코드선택</option>
+			        <c:forEach var="pn" items="${productNumCom}">
+				        <c:if test="${pn.frRegiNum == login.frRegiNum}">
+							<option>${pn.productNum}</option>
+						</c:if>
+					</c:forEach>
+				</select>
+				<button class="btn-secondary" type="submit">검색</button>
+			</form>
+		</div>
 		<div class="toolbox">
 		<h3>재고 입출고 등록</h3><br>
 			<form action="${path}/sinoutIns.do" id='insertForm'>
@@ -137,7 +201,7 @@
 			    </select>
 			    <input type="hidden" name="frRegiNum" value="${login.frRegiNum}" id="frRegiNum">
 				<input type="number" name="applyAmount" value="${param.applyAmount}"
-					class="ckValid"	id="applyAmount" placeholder="수량 입력"  required>
+					class="ckValid"	id="applyAmount" placeholder="수량 입력" required>
 				<button id="insBtn" class="btn-primary" type="button">등록</button>
 			</form>
 		</div>
@@ -159,13 +223,18 @@
 			    	    	<td style="text-align:center">${prod.remainAmount}</td>
 			    	    	<td>${prod.remark}</td>
 					        <td style="text-align:center">
-				            <button class="btn-secondary uptbtn" type="button">수정</button>
+				            <button class="btn-secondary uptbtn" type="button"><span>수정</span></button>
 							<button class="btn-danger delBtn" type="button">삭제</button></td>
 			    	    </tr>
 			    	</c:forEach>
 				</tbody>
 				</table>
 				<form id="deleteForm" action="${path}/sinoutDel.do">
+		    		<input type="text" name="productNum"/>
+		    		<input type="text" name="applyAmount"/>
+		    		<input type="text" name="remainAmount"/>
+		    	</form>
+		    	<form id="updateForm" action="${path}/sinoutUpt.do">
 		    		<input type="text" name="productNum"/>
 		    		<input type="text" name="applyAmount"/>
 		    		<input type="text" name="remainAmount"/>
