@@ -66,7 +66,7 @@
 			frOperTime = '',
 			frClosedDte = '',
 			frTel = '',
-			frPass = ''
+			frPass = null
 		WHERE frRegiNum = #{frRegiNum}
 	</update>
 	

@@ -73,13 +73,16 @@ public class B2_Controller {
 		// 공지사항
 		d.addAttribute("noticeCombo", service.getNotice());
 		
+		// 매출
+		List<Sales> totSales = service.getSales();
+		d.addAttribute("totSales", totSales);
+		
 		// 담당매장 오픈시간
 		List<OnTime> ontime = service.getOnTime(e.getEmpnum());
 		d.addAttribute("onTimeCombo", ontime);
 		
 		// 중요공지사항
 		d.addAttribute("important", service.importantNotice());
-		
 		
 		return "forward:pg0001.jsp";
 	}
@@ -112,7 +115,7 @@ public class B2_Controller {
 	// http://localhost:7080/ferp/storeInsert.do
 	@GetMapping("/storeInsert.do")
 	public String storeInsert() {
-		return "WEB-INF\\view\\store_insert.jsp";
+		return "WEB-INF\\view\\store_insert123.jsp";
 	}
 	@PostMapping("/storeInsert.do")
 	public String storeInsert(Store ins, RedirectAttributes redirect) {
@@ -197,7 +200,6 @@ public class B2_Controller {
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(@RequestParam String noticeNum, Model d) {
 		d.addAttribute("notice", service.detailNotice(noticeNum));
-		
 		
 		return "WEB-INF\\view\\notice_detail.jsp";
 	}

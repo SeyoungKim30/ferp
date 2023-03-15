@@ -34,6 +34,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text  justify-content-center">접속아이디</span>
 				</div>
+				<input type="hidden" id="idHidden" value="${not empty login.ename?'본사':login.frName}">
 				<input id="id" class="form-control"  placeholder="접속할 아이디를 입력하세요" 
 					value="${not empty login.ename?'본사':login.frName}" readonly="readonly"/>
 				<button id="enterBtn" type="button" class="btn btn-success">입장</button>
@@ -45,7 +46,7 @@
 				</div>
 				<div class="input-group-append group">
 				</div>
-			</div>	
+			</div>
 			<div class="input-group">	
 				<div class="input-group-prepend">
 					<span class="input-group-text">내용</span>
@@ -122,8 +123,6 @@ $(document).ready(function(){
 			wsocket.close()
 			conUsers()
 			$("#chatMessageArea").text("")
-			$("#id").val("").focus()
-			$("#id").removeAttr("readOnly")
 			$("#msg").attr("readOnly","readOnly")
 		}
 		

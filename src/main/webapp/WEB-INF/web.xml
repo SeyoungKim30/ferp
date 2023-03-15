@@ -47,4 +47,17 @@
   	<filter-name>encodingFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/errorPage/errorpage404.html</location>
+  </error-page>
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/errorPage/errorpage500.html</location>
+  </error-page>
+  	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/errorPage/errorpageException.html</location>
+	</error-page>
 </web-app>
