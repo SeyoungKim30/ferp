@@ -52,7 +52,7 @@
 				$(this).show();
 			}
 		});
-		(+)항목에 삭제 버튼 안보이게
+		(+)항목에 삭제 버튼 안보이게--%>
 		$('.delBtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
 		    if (!isNaN(applyAmount) && applyAmount >= 0) {
@@ -60,7 +60,7 @@
 		    } else {
 		        $(this).show();
 		    }
-		});--%>
+		});
 		
 		$("#insBtn").click(function(){
 			var isInValid = false
