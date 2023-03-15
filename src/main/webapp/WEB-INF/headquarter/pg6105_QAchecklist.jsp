@@ -171,7 +171,7 @@
 
 	//사이드바에 번호 매긴 것 
 	localStorage.setItem("pageIdx","6105"); //id값
-	localStorage.setItem("eqIdx","6000");
+	localStorage.setItem("eqIdx","4000");
 	
 	
 

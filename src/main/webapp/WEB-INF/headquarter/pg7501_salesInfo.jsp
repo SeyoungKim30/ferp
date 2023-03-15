@@ -238,8 +238,8 @@
 <script>
 
 	//사이드바에 번호 매긴 것 
-	localStorage.setItem("pageIdx","7501"); //사이드바 소분류//id값
-	localStorage.setItem("eqIdx","7000"); 	//사이드바대분류
+	localStorage.setItem("pageIdx","4201"); //사이드바 소분류//id값
+	localStorage.setItem("eqIdx","4000"); 	//사이드바대분류
 	
 	
 	var frname = $("[name=frname]").val();

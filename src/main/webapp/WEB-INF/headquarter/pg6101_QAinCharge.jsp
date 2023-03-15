@@ -198,6 +198,19 @@
 		text-align: center;
 	}
 	
+	#noFrnum{
+		display:none;
+		position: relative;
+		width:100%;
+		height: 450px;
+		background-color:#fff;
+		font-size:25px;
+		font-weight:900;
+		text-align:center;
+		z-index:99999;
+		line-height:450px;
+	}
+	
 	
 
 </style>
@@ -211,11 +224,18 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 			
+			
 			<h2>이달의 점검결과 조회</h2><br><hr><br>
 			<div id="assignQAday" >
 				점검일 배정하기
 			</div>
+
+
+			<div id="noFrnum">
+				<h2>${ename}님이 담당하고 있는 매장이 없습니다</h2>
+			</div>			
 			
+		
 			<!-- 왼쪽 사이드 바 시작 -->
 			<ul id="storeSideBar">
 				<c:forEach var="ics" items="${icStrlist}">
@@ -238,8 +258,6 @@
 					
 			</div>
 			<!-- 해당 매장점검일 목록 끝 -->
-			
-			
 			
 			<!-- 과거점검결과 시작 -->
 			<div class="modal" id="pastQA" role="dialog" >
@@ -268,21 +286,37 @@
 			    </div>
 			</div>	
 			<!-- 과거점검결과 끝 -->
+
+			
 			
 		</div>
 	</div>
+	
 </body>
 
 <script>
 	//사이드바에 번호 매긴 것 
 	localStorage.setItem("pageIdx","6101"); //id값
 	localStorage.setItem("eqIdx","6000");
+	
+	
+	//담당매장아니면 숨김처리
+	$(document).ready(function(){
+		
+		if(${icStrlist}.length==0){
+			$("#noFrnum").css("display", "block");
+			$("#storeSideBar").css("display", "none");
+			$("#thatStrInspctList").css("display", "none");
+			alert("담당매장이 있는 경우에만 담당매장이 출력됩니다")
+		}
+		
+	})
 
 	//특정매장 점검목록
 	function strQAInfo(frRegiNum){
 		
 		let url="${path}/inchargeStrQA.do?frRegiNum="+frRegiNum
-		console.log(url)	
+		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
 			
 			//첫째행만 따로 출력	
@@ -315,10 +349,6 @@
 		}).catch(function(err){console.log(err)});
 		
 		$("#thisMonthInspect").css("background-color","#BEDCFE");
-		$("ul#storeSideBar li").css("background-color","#BEDCFE");
-		
-		
-		
 	}
 
 	// 모달
@@ -380,6 +410,7 @@
 		
 	})
 	
+
 	
 	// 페이지이동
 	// 등록

@@ -71,17 +71,17 @@
                     <li id="4000">
                         <a href="#">매장 관리</a>
                         <ul>
-                            <li id="4001"><a href="${path}/storeInsert.do">- 매장 정보 등록</a></li>
-                            <li><a>- 매장 정보 조회</a></li>
+                            <li id="4001" onclick="location.href='${path}/storeInsert.do'"><a>- 매장 정보 등록</a></li>
+                            <li id="4201" onclick="location.href='${path}/salesInfo.do'"><a>- 매장 정보 조회</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li id="6000">
                         <a href="#">매장 점검</a>
                         <ul>
-                            <li><a>- 품질관리점검표</a></li>
-                            <li><a>- 품질관리점검 결과 조회</a></li>   
-                            <li><a>- 담당 매장 점검</a></li><!-- 담당자만 보이게 -->
-                            <li><a>- 출근시간 점검</a></li>
+                            <li id="6105" onclick="location.href='${path}/qaList.do'"><a>- 품질관리점검표</a></li>
+                        	<li id="6104" onclick="location.href='${path}/qaStore.do'"><a>- 품질관리점검 결과 조회</a></li>
+                        	<li id="6101" onclick="location.href='${path}/inchargeStore.do'"><a>- 담당 매장 점검</a></li>
+                        	<li id="6202" onclick="location.href='${path}/strOpenInfo.do'"><a>- 출근시간 점검</a></li>
                         </ul>
                     </li>
 </c:if>
@@ -98,31 +98,31 @@
                         <a href="#">공지 및 문의</a>
                         <ul>
 <c:if test="${login.frRegiNum == 9999999999 }">                        
-    						<li id="5002"><a href="${path}/noticeInsert.do">- 공지사항 등록</a></li>
+                            <li id="5002" onclick="location.href='${path}/noticeInsert.do'"><a>- 공지사항 등록</a></li>                       
 </c:if>
-                            <li id="5001"><a href="${path}/noticeList.do">- 공지사항 조회</a></li>
+                            <li id="5001" onclick="location.href='${path}/noticeList.do'"><a>- 공지사항 조회</a></li>                       
 <c:if test="${login.frRegiNum != 9999999999 }">   
-                            <li id="5101"><a href="${path}/qnaInsert.do">- 문의글 등록</a></li>
+                            <li id="5101" onclick="location.href='${path}/qnaInsert.do'"><a>- 문의글 등록</a></li>                       
 </c:if>
-                            <li id="5103"><a href="${path}/qnaList.do">- 문의글 조회</a></li>
-                            <li id="5201"><a href="${path}/chatting.do">- 1:1 채팅</a></li>
+                            <li id="5103" onclick="location.href='${path}/qnaList.do'"><a>- 문의글 조회</a></li>                       
+                            <li id="5201" onclick="location.href='${path}/chatting.do'"><a>- 1:1 채팅</a></li>                                                   
                         </ul>
                     </li>
 <c:if test="${login.frRegiNum == 9999999999 }">                   
                      <li id="4300">
                         <a href="#">메뉴 등록</a>
                         <ul>
-                            <li id="4302"><a href="${path}/menuInsert.do">- 메뉴 등록</a></li>
-                            <li id="4301"><a href="${path}/menuList.do">- 메뉴 조회</a></li>
+                            <li id="4302" onclick="location.href='${path}/menuInsert.do'"><a>- 메뉴 등록</a></li>                                                   
+                            <li id="4301" onclick="location.href='${path}/menuList.do'"><a>- 메뉴 조회</a></li>                                                   
                         </ul>
                     </li>
                      <li id="4100">
                         <a href="#">본사 직원 관리</a>
                         <ul>
 <c:if test="${login.ename eq 'admin'}">                       
-                            <li id="4101"><a href="${path}/insertEmp.do">- 아이디 발급</a></li>
+                            <li id="4101" onclick="location.href='${path}/insertEmp.do'"><a>- 아이디 발급</a></li>                                                   
 </c:if>                            
-                            <li id="4104"><a href="${path}/updateEmpPass.do">- 비밀번호변경</a></li>
+                            <li id="4104" onclick="location.href='${path}/updateEmpPass.do'"><a>- 비밀번호변경</a></li>                                                   
                    		</ul>
                     </li>
 </c:if>
