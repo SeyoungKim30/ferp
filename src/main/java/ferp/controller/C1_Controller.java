@@ -1,8 +1,6 @@
 package ferp.controller;
 
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +18,7 @@ import vo.ACStatement;
 import vo.Account;
 import vo.DefectOrder;
 import vo.ProdOrder;
-import vo.Prod_ProdOrder;
-import vo.Store;
+import vo.Stock;
 
 @Controller
 public class C1_Controller {
@@ -174,12 +171,17 @@ public class C1_Controller {
 		return "WEB-INF\\headquarter\\pg9403_defectOrderHandler.jsp";
 	}
 	
-	@PostMapping("defectOrderHandler.do")
+	@RequestMapping("selectDefectOrderJSON.do")
 	public String r9402selectDefectOrder(Model model,DefectOrder dfo) {
 		model.addAttribute("list",service.r9402selectDefectOrder(dfo));
-		return "WEB-INF\\headquarter\\pg9403_defectOrderHandler.jsp";
+		return "pageJsonReport";
 	}
 	
+	@RequestMapping("updateDefectOrder.do")
+	public String r9403updateDefectOrder(Model model,DefectOrder dfo,Stock stock,ProdOrder po) {
+		model.addAttribute("apply",service.r9403updateDefectOrder(dfo,stock,po));
+		return "pageJsonReport";
+	}
 	
 	//http://localhost:6080/ferp/pnl.do
 	@GetMapping("pnl.do")

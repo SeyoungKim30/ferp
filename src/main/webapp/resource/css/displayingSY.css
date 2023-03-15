@@ -50,6 +50,10 @@ input:disabled {
 	background-color: #f8f9fa;
 }
 
+input:read-only{
+	border:none;
+}
+
 .valid-feedback {
 	display: none;
 	width: 100%;
