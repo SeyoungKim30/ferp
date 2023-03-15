@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 <script type="text/javascript" src="${path }/resource/js/sy_modal.js"></script>
+<script type="text/javascript" src="${path }/resource/js/sy_validateCheck.js"></script>
 <style>
 [type=checkbox]{
 width:1.3em;
@@ -29,6 +30,20 @@ margin:0px;
 }
 td:nth-child(1),td:nth-child(4),td:nth-child(5){text-align:center;}
 td:nth-child(6){text-align: right;}
+#modal #buttons{
+	display: flex;
+	flex-direction: column;
+}
+#modal #buttons button{
+	margin-bottom: 0.5em;
+	margin-left: 0.5em;
+	min-width: 4em;
+	}
+#modal span{
+font-weight: bold;
+margin-left:0.3em;
+margin-right:0.7em;
+}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","9403")
@@ -74,21 +89,29 @@ td:nth-child(6){text-align: right;}
 <div class="modal" id='modal'><div class="modal-dialog">
 <div class="modal-header"><h2 class="modal-title">불량신청건 처리</h2><button class="btn-close">&nbsp; &nbsp;</button></div>
 <div class="modal-body">
-<form action="${path }/updateDefectOrder.do" method="post">
+<form action="${path }/updateDefectOrder.do" method="post" id="updateForm">
 	<h4>신청 상태 조정</h4>
 	<div class="toolbar">
 		<div><ul>
-			<li>신청번호 : <span id="defNum"></span><input name='defNum' type="hidden">
-			<li>신청일 : <span id="applyDate"></span>
 			<li>신청지점 : <span id='frName'></span><input name='frRegiNum' type="hidden">
-			<li>해당자재 : <span id='productName'></span> <input name='productNum' type="hidden">
-			
+			<li>신청번호 : <span id="defNum"></span><input name='defNum' type="hidden">
+			<li>신청자재 : <span id='productName'></span> <input name='productNum' type="hidden">
+			<li>신청일 : <span id="applyDate"></span>
+			<li>불량종류 : <span id="type"></span>
+			<li>처리상태 : <span id='state'></span> <input name='state' type="hidden" required="required">
 		</ul></div>
 		<div><ul>
-			<li>종류 : <span id='type'></span>
-			<li>처리방식 : <span id='methods'></span>
-			<li>처리상태 <select name='state'><option>처리중</option><option>완료</option><option>취소</option></select>
+			<li>발주번호 : <span id="orderNum"></span>
+			<li>발주신청일자 : <span id="orderDate"></span>
+			<li>주문수량 : <span id='amount'></span>			
+			<li>발주상태 : <span id='orderState'></span>			
 		</ul></div>
+		<div id="buttons">
+			<span id='feedback' class="valid-feedback" >처리상태를 변경하세요</span>
+			<button type="button">처리중</button>
+			<button type="button">완료</button>
+			<button type="button">취소</button>
+		</div>
 	</div>
 
 	<h4><label><input type="checkbox" checked class='stockbar'>자재 수량 조정</label></h4>
@@ -100,10 +123,11 @@ td:nth-child(6){text-align: right;}
 	</div>
 	<h4><label><input type="checkbox" checked class='prodOrderbar'>발주 기록 수정</label></h4>
 	<div class="toolbar prodOrderbar"><div>
-		<div><label>발주번호<input name='orderNum' readonly></label>
-		<label>발주신청일자<input name='orderDate' readonly></label></div>
-		<div><label>수량<input name="amount" required></label>
-		<label>발주상태<input name="orderState"></label>
+		<input name='orderNum' placeholder="발주번호" type="hidden">
+		<input name='orderDate' placeholder="발주신청일자" type="hidden">
+		<div>
+		<label>변경수량<input name="amount" required></label>
+		<label>발주상태<select name="orderState"><option>요청</option><option>조정</option><option>취소완료</option></select></label>
 		<label>비고<input name="remark"></label></div>
 	</div></div>
 	<button class="btn-primary">등록하기</button>
@@ -117,6 +141,7 @@ td:nth-child(6){text-align: right;}
 	console.log(self)
 })
  */
+
 function checkdis(param){
  	var selecter='.toolbar.'+param+' input, .toolbar.'+param+' select'
 	var checkbox=document.querySelector('[type=checkbox].'+param)
@@ -135,18 +160,33 @@ function filltheform(dpslist){
 	$('.modalOpen').on('click',function(){
 		var idindex=$(this).attr('id')
 		console.log(dpslist[idindex])
-		$('#modal #defNum').text(dpslist[idindex].defectOrder.defNum)
-		$('#modal #applyDate').text(dpslist[idindex].defectOrder.applyDate)
-		$('#modal [name=defNum]').val(dpslist[idindex].defectOrder.defNum)
-		$('#modal [name=frRegiNum]').val(dpslist[idindex].defectOrder.frRegiNum)
 		$('#modal #frName').text(dpslist[idindex].store.frName)
+		$('#modal [name=frRegiNum]').val(dpslist[idindex].defectOrder.frRegiNum)
+		$('#modal #defNum').text(dpslist[idindex].defectOrder.defNum)
+		$('#modal [name=defNum]').val(dpslist[idindex].defectOrder.defNum)
 		$('#modal #productName').text(dpslist[idindex].product.productName)
 		$('#modal [name=productNum]').val(dpslist[idindex].defectOrder.productNum)
+		$('#modal #applyDate').text(dpslist[idindex].defectOrder.applyDate)
 		$('#modal #type').text(dpslist[idindex].defectOrder.type)
+		$('#modal #state').text(dpslist[idindex].defectOrder.state)
+		
+		$('#modal #orderNum').text(dpslist[idindex].defectOrder.orderNum)
+		$('#modal #orderDate').text(dpslist[idindex].defectOrder.orderDate)
+		$('#modal #amount').text(dpslist[idindex].prodOrder.amount)
+		$('#modal #orderState').text(dpslist[idindex].prodOrder.orderState)
+		
 		$('#modal #methods').text(dpslist[idindex].defectOrder.methods)
 		$('#modal [name=orderNum]').val(dpslist[idindex].defectOrder.orderNum)
 		$('#modal [name=orderDate]').val(dpslist[idindex].defectOrder.orderDate)	
 	})
+	
+	$('#modal .toolbar button').on('click',function(){
+		let thistext=$(this).text()
+		$('#modal [name=state]').val(thistext)
+		$('.toolbar button').removeClass('btn-success')
+		$(this).addClass('btn-success')
+	}) 
+
 }
 
 function search(){
@@ -168,11 +208,30 @@ function search(){
 	}).catch(function(error){console.error(error);}
 )}
 
-
 const searchForm = document.querySelector('#searchForm');
 searchForm.addEventListener('submit', function(e){
     e.preventDefault();	//submit 방지
     search();
+})
+
+const updateForm = document.querySelector('#updateForm');
+updateForm.addEventListener('submit',function(e){
+	e.preventDefault();
+	let statelength = $('#modal [name=state]').val().length;
+	if(statelength<2){
+		//유효성 불합격
+		invalidClass('#modal .toolbar button','#feedback')
+		$('#modal .toolbar button').addClass('btn-danger');
+		setTimeout(function(){
+			validClass('#modal .toolbar button','#feedback');
+			$('#modal .toolbar button').removeClass('btn-danger');
+		},3000,'#modal .toolbar button','#feedback');
+		return false;
+	}else{
+		validClass('#modal .toolbar button','#feedback')
+		$('#modal .toolbar button').removeClass('btn-danger');
+		updateForm.submit();
+	}
 })
 
 $('[type=date]').val(new Date().toISOString().slice(0, 10));
