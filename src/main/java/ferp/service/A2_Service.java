@@ -95,8 +95,8 @@ public class A2_Service {
 		if(plist.getProductName() == null) plist.setProductName("");
 		return dao.availProd(plist);
 	}
-	public int clerkTot() {
-		return dao.clerkTot();
+	public int clerkTot(String frRegiNum) {
+		return dao.clerkTot(frRegiNum);
 	}
 	public void prodOrderReq(Prod_ProdOrder ins) {
 		dao.prodOrderReq(ins);

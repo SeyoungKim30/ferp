@@ -12,11 +12,12 @@
 				where 1=1
 				and clerkname LIKE '%'||#{clerkName}||'%'
 				and frRegiNum = #{frRegiNum}
+				AND s.hourlypay != 0
 				)
 			where cnt between #{start} and #{end}
 	</select>
-	<select id="clerkTot" resultType="int">
-		select count(*)+1001 from storeclerk
+	<select id="clerkTot" resultType="int" parameterType="string">
+		select count(*)+1001 from storeclerk where frRegiNum = #{frRegiNum}
 	</select>
 	<insert id="insStoreclerk" parameterType="storeclerk">
 		INSERT INTO storeclerk values(#{clerkNum},#{frRegiNum},#{clerkName},#{residentNum},#{phoneNum},#{address},#{hourlyPay},#{gender})
@@ -38,9 +39,11 @@
 				hourlyPay = #{hourlyPay}
 			WHERE clerkNum = #{clerkNum}
 	</update>
-	<delete id="delStoreClerk" parameterType="string">
-		DELETE FROM storeclerk WHERE clerknum = #{clerkNum}
-	</delete>
+	<update id="delStoreClerk" parameterType="string">
+		UPDATE STORECLERK
+			SET hourlyPay = 0
+		WHERE clerkNum = #{clerkNum}
+	</update>
 	<!-- 직원 급여액 조회 -->
 	<select id="storeClerkPayList" parameterType="storeclerksch" resultType="storeclerk">
 		SELECT *
@@ -55,6 +58,7 @@
 				WHERE h.clerknum(+) = s.clerknum
 				AND s.clerkname LIKE '%'||#{clerkName}||'%'
 				AND frreginum = #{frRegiNum}
+				AND s.hourlypay != 0
 				ORDER BY s.clerknum
 			) a
 		)

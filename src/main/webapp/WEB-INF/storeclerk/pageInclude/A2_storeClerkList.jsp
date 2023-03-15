@@ -23,6 +23,7 @@
 	$(document).ready(function() {
 		$(".regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
+				// 여기에 유효성 처리
 				regAjax("insStoreclerk.do")
 			}
 		})

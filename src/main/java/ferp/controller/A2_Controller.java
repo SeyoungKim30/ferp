@@ -58,7 +58,7 @@ public class A2_Controller {
 		Store s = (Store)session.getAttribute("login");
 		SCsch.setFrRegiNum(s.getFrRegiNum());
 		d.addAttribute("scList", service.storeClerkList(SCsch));
-		d.addAttribute("clerkTot", service.clerkTot());
+		d.addAttribute("clerkTot", service.clerkTot(s.getFrRegiNum()));
 		return "/WEB-INF/storeclerk/A2_storeClerkListCon.jsp";
 	}
 	
