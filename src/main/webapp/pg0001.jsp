@@ -14,12 +14,61 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
+<link rel="stylesheet" href="/ferp/resource/css/popup.css"/>
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 
 <style type="text/css">
 .notice_top{
 	display: flex;
 	align-items: center;
+}
+.refreshBtn {
+    font-size: xx-large;
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    margin: 11px 0px 0px 5px;
+}
+.refreshText {
+	position: absolute;
+    margin-top: -17px;
+    margin-left: -11px;
+    color: white;
+    font-size: 22px;
+}
+p{
+    padding: 5px 0px 5px 0px;
+}
+.popup_bottom > a{
+	text-decoration:none; 
+}
+.pull-right{float:right}
+.main_popup{
+	width:350px;
+	height:350px;
+	border:3px solid #3E4156;
+	border-radius: 30px;
+	background-color: white;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 30px 25px 10px 25px;
+}
+
+.popup_bottom{
+    color: black;
+	padding: 9px 30px 3px 20px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 14px;
+}
+pre{
+	white-space: pre-line;
+    font-size: 15px;
+    font-family: inherit;
+    height: 220px;
+    overflow: auto;
+    margin-top: 14px;
 }
 </style>
 </head>
@@ -50,27 +99,51 @@
 				</table>
 				</div>
 			</div>
-			<div class="btm_content">
+			<div class="btm_content" style="padding: 0">
 				<div class="notice">
-					<h3 style="font-weight: bold;">매출</h3>
+					<div style="display: flex;">
+						<h3 style="font-weight: bold;">매출</h3>
+						<button onclick="location.href='${path}/empSet.do'" class="refreshBtn"><span class="refreshText">⟲</span></button>
+					</div>
 					<div class="boxes">
-					<canvas id="myChart" style="display: block; height: 345px;width: 422px; margin: auto;"></canvas>
+						<canvas id="myChart" style="display: block; height: 345px;width: 422px; margin: auto;"></canvas>
 					</div>
 				</div>
 				<div class="schedule">
-					<h3 style="font-weight: bold;"> 담당매장</h3>
 					<div class="boxes">
-					<c:forEach var="item" items="${onTimeCombo}">
-						${item}
-						<span>${item.key}=${item.value}</span>
-					</c:forEach>
+						<div">
+							<h3 style="font-weight: bold;letter-spacing: 2px;"><<span class="todayDate"></span> 오픈시간></h3>
+							<c:forEach var="item" items="${onTimeCombo}">
+								<c:if test="${not empty item.onTime}">
+									<p>▶ ${item.frName} - ${item.onTime}</p>
+								</c:if>
+								<c:if test="${empty item.onTime}">
+									<p>▶ ${item.frName} - <span style="color: red;">오픈 전</span></p>
+								</c:if>
+							</c:forEach>
+						</div>
 					</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
-
+	<c:if test="${important.title ne null}">
+		<div id="main_popup" class="main_popup" style="position: absolute; z-index:10000; display: none;">
+			<div style="height: 280px; border-bottom: 1px solid;">
+				<h3 style="border-bottom: 1px solid;padding-bottom: 10px;">
+    				${important.title}
+    			</h3>
+				<pre>
+${important.content}
+				</pre>
+			</div>
+			<div class="popup_bottom">
+				<a href="javascript:closePopupNotToday()" class="white">오늘 하루동안 보지 않기</a>
+				<a class="pull-right white" href="javascript:closeMainPopup();">닫기</a>
+			</div>
+		</div>
+	</c:if>
 </body>
 <script type="text/javascript">
 //상세페이지로 이동
@@ -78,6 +151,11 @@ function goDetail(noticeNum) {
 	  location.href="${path}/noticeDetail.do?noticeNum="+noticeNum;
 }
 
+var week = ['일', '월', '화', '수', '목', '금', '토'];
+var todayDate = new Date();
+$(".todayDate").text((todayDate.getMonth()+1)+"/"+todayDate.getDate()+"("+week[todayDate.getDay()]+")")
+
+// chart
 var arr = []
 <c:forEach var="sg" items="${totSales}">
 	arr.push({tot:"${sg.tot}", orderdate:"${sg.orderdate}"})
@@ -141,7 +219,7 @@ const myChart = new Chart(ctx, {
         plugins: {
             title: {
                 display: true,
-                text: '전체 매장 매출 조회',
+                text: '<전체 매장 매출>',
                 font: {
                     size: 14
                 }
@@ -154,5 +232,44 @@ const myChart = new Chart(ctx, {
 
     }
 });
+
+//레이어 팝업
+if(getCookie("notToday")!="Y"){
+	$("#main_popup").show('fade');
+}
+
+function closePopupNotToday(){	             
+	setCookie('notToday','Y', 1);
+	$("#main_popup").hide('fade');
+}
+
+function setCookie(name, value, expiredays) {
+	var today = new Date();
+    today.setDate(today.getDate() + expiredays);
+
+    document.cookie = name + '=' + escape(value) + '; path=/; expires=' + today.toGMTString() + ';'
+}
+
+function getCookie(name) { 
+var cName = name + "="; 
+var x = 0; 
+while ( x <= document.cookie.length ) 
+{ 
+    var y = (x+cName.length); 
+    if ( document.cookie.substring( x, y ) == cName ) 
+    { 
+        if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 ) 
+            endOfCookie = document.cookie.length;
+        return unescape( document.cookie.substring( y, endOfCookie ) ); 
+    } 
+    x = document.cookie.indexOf( " ", x ) + 1; 
+    if ( x == 0 ) 
+        break; 
+} 
+return ""; 
+}
+function closeMainPopup(){
+$("#main_popup").hide('fade');
+}
 </script>
 </html>

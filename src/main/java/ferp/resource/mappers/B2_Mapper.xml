@@ -48,7 +48,8 @@
 			frRepName = #{frRepName},
 			frTel = #{frTel},
 			frAddress = #{frAddress},
-			frPass = #{frPass}
+			frPass = #{frPass},
+			email = #{email}
 		WHERE FrRegiNum = #{frRegiNum}
 	</update>
 	<!-- 수정시 매장정보 상세조회 -->
@@ -74,6 +75,13 @@
 	<insert id="insertEmp" parameterType="emp">
 		INSERT INTO emp VALUES(to_char(sysdate,'yymm')||emp_seq.nextval, #{pass}, #{ename}, #{dname})
 	</insert>
+	<!-- 등록한 직원 정보 출력 -->
+	<select id="getEmpInfo" resultType="emp" parameterType="emp">
+		SELECT *
+		FROM emp
+		WHERE ename = #{ename}
+		and pass = #{pass}
+	</select>
 	<!-- 직원 비밀번호 변경 -->
 	<update id="updateEmpPass" parameterType="emp">
 		UPDATE EMP
@@ -84,15 +92,17 @@
 
 	<!-- 중요 공지사항 -->
 	<select id="importantNotice" resultType="notice">
+	<![CDATA[
 		SELECT *
 		FROM (
-			SELECT * 
+			SELECT *
 			FROM notice 
 			WHERE noticeNum LIKE '%'||'N'||'%'
 			AND important = 'o'
-			AND to_char(regdte, 'yyyymmdd' ) = to_char(sysdate-1, 'yyyymmdd')
+			AND to_char(regdte, 'yyyymmdd') >= to_char(sysdate-1, 'yyyymmdd')
 			ORDER BY regdte DESC
 		)WHERE rownum = 1
+	]]>
 	</select>
 	<!-- 공지사항 조회 -->
 	<select id="searchNotice" resultType="notice" parameterType="noticeSch">
@@ -143,7 +153,7 @@
 	</update>
 	<!-- 공지사항, 문의글 삭제 -->
 	<delete id="deleteNotice">
-		DELETE notice
+		DELETE from notice
 		WHERE noticeNum = #{noticeNum}
 	</delete>
 	
@@ -212,6 +222,17 @@
 			category = #{category}
 		WHERE noticeNum = #{noticeNum}
 	</update>
+	<!-- 문의글 삭제 -->
+	<delete id="deleteQnA" parameterType="string">
+		DELETE FROM notice 
+		WHERE noticeNum in (
+		            SELECT noticeNum 
+		            FROM notice
+		            START WITH noticeNum = #{noticeNum} 
+		            CONNECT BY PRIOR  noticeNum = replyNum
+		           )
+	</delete>
+	
 	
 	<!-- 최근 10개 공지사항만 출력 -->
 	<select id="getNotice" resultType="notice">
@@ -247,11 +268,16 @@
 	</select>
 	
 	<!-- 담당매장 출근시간 조회 -->
-	<select id="getOnTime" resultType="HashMap" parameterType="string">
-		SELECT frname, TO_CHAR(onTime, 'HH24:MI:SS') onTime
-		FROM STORE s , EMPCHECKIN e, EMP e2
-		WHERE e2.empnum = s.EMPNUM
+	<select id="getOnTime" resultType="ontime" parameterType="string">
+		SELECT a.ontime, s.frname
+		FROM (
+			SELECT frName, TO_CHAR(min(onTime), 'HH24:MI') onTime
+			FROM STORE s, EMPCHECKIN e, EMP e2
+			WHERE e2.empnum = s.EMPNUM
+			AND s.FRREGINUM = e.FRREGINUM 
+			AND to_char(ontime, 'yyyy-mm-dd') = to_char(sysdate, 'yyyy-mm-dd')
+			GROUP BY frName) a, store s
+		WHERE a.frName(+) = s.frName
 		AND s.empnum = #{empnum}
-		AND to_char(ontime, 'yyyy-mm-dd') = to_char(sysdate-1, 'yyyy-mm-dd')
 	</select>
 </mapper>

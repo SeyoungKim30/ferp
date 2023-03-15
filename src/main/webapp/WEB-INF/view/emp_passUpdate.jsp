@@ -56,7 +56,7 @@
 				</div>					
 
 				<div class="submit_line">
-					<button type="button" class="uptBtn">변 경</button>
+					<button type="button" class="uptBtn">수 정</button>
 				</div>	
 				
 			</div>

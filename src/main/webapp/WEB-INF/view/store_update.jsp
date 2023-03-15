@@ -66,19 +66,28 @@
 					<input type="text" name="frRepName" value="${store.frRepName}" placeholder="대표자명 입력">				
 					<input type="text" name="frTel" value="${store.frTel}" placeholder="전화번호 입력">
 
-				</div>	
+				</div>
 				<div class="ninth_line">
 					<h3 class="store_eno">담당직원</h3>
-					<h3 class="store_address">주소</h3>
+					<h3 class="store_address">이메일</h3>
 				</div>
 				<div class="tenth_line">
-					<input type="hidden" value="${store.eno}" id="enoHidden">
-					<select name="empNum" id="eno">
+					<select name="empNum">
 						<option disabled="disabled" selected="selected">담당직원 선택</option>
-						<option value="100">김개똥</option>
-					</select>				
-					<input type="text" name="frAddress" value="${store.frAddress}" placeholder="주소 입력">
+						<c:forEach var="emp" items="${empCombo}">
+							<c:if test="${emp.ename ne 'admin'}">
+							<option value="${emp.empnum}">${emp.ename}</option>
+							</c:if>
+						</c:forEach>
+					</select>	
+					<input type="text" name="email" placeholder="이메일 입력">
+				</div>					
+				<div class="eleventh_line">
+					<h3 class="store_address">주소</h3>
 				</div>
+				<div class="twelfth_line">
+					<input type="text" name="frAddress" placeholder="주소 입력">
+				</div>	
 						
 				<div class="submit_line">
 					<button type="button" class="uptBtn">수 정</button>

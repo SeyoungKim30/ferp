@@ -1,13 +1,13 @@
 package ferp.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import vo.Emp;
 import vo.Menu;
 import vo.MenuSch;
 import vo.Notice;
 import vo.NoticeSch;
+import vo.OnTime;
 import vo.Onsale;
 import vo.Sales;
 import vo.Store;
@@ -34,6 +34,8 @@ public interface B2_Dao {
 	
 	// 본사 직원 등록
 	public void insertEmp(Emp ins);
+	// 등록한 직원정보 출력
+	public Emp getEmpInfo(Emp sch);
 	// 본사 직원 비밀번호 변경
 	public void updateEmpPass(Emp upt);
 	
@@ -53,7 +55,7 @@ public interface B2_Dao {
 	public void insertNotice(Notice ins);
 	// 공지사항 수정
 	public void updateNotice(Notice upt);
-	// 공지사항,문의글 삭제
+	// 공지사항 삭제
 	public void deleteNotice(String noticeNum);
 	
 	// 직원 콤보
@@ -73,12 +75,16 @@ public interface B2_Dao {
 	public Notice detailQnA(String noticeNum);
 	// 문의글 수정
 	public void updateQnA(Notice upt);
+	// 문의글 삭제
+	public void deleteQnA(String noticeNum);
 	
 	// 메인 페이지에서 최근 10개 공지사항 combo
 	public List<Notice> getNotice();
 	// 전체 매장 매출 조회
 	public List<Sales> getSales();
 	// 담당매장 출근시간 조회
-	public List<Map<String,String>> getOnTime(String empnum);
+	public List<OnTime> getOnTime(String empnum);
+	// 담당매장 조회
+	public List<String> getMyStore(String empnum);
 	
 }
