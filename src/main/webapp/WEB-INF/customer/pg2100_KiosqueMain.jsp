@@ -659,7 +659,9 @@ tabList.click(function(){
 // 수량 추가,제거
 $(".btn_plus").click(function () {
 	var cnt = Number($(".product_number").val());
-	cnt++;
+	if(cnt<11){		
+		cnt++;
+	}
 	$(".product_number").val(cnt);
 });
 $(".btn_minus").click(function () {

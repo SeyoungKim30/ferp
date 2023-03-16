@@ -161,7 +161,7 @@ function cKId(){
 
 // 소캩 통신 관련 공통메서드 처리
 function conn(){
-	wsocket = new WebSocket("ws:localhost:7080/${path}/chat-ws.do")
+	wsocket = new WebSocket("ws:61.103.5.62/:6080/${path}/chat-ws.do")
 
 	wsocket.onopen=function(evt){
 		console.log(evt)

@@ -102,7 +102,7 @@ public class B2_Controller {
 	// http://localhost:7080/ferp/menuInsert.do
 	@GetMapping("/menuInsert.do")
 	public String menuInsert() {
-		return "WEB-INF\\view\\menu_insert123.jsp";
+		return "WEB-INF\\view\\menu_insert.jsp";
 	}
 	@PostMapping("/menuInsert.do")
 	public String menuInsert(Menu ins, RedirectAttributes redirect) {
@@ -110,7 +110,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("insMsg", "메뉴 등록 성공!");
 		}
 		// redirect로 본사 홈페이지로 이동
-		return "redirect:/goHqPage.do";
+		return "redirect:/menuInsert.do";
 	}
 	
 	// 매장정보등록 controller
