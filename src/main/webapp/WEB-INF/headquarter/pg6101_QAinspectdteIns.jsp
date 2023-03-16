@@ -16,11 +16,18 @@
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <head>
 <script type="text/javascript">
-   $(document).ready(function(){
-      <%-- 
-      
-      --%>   
-   });
+	$(document).ready(function(){
+		// 현재 날짜 정보 가져오기
+		var currentDate = new Date();
+		// 현재 날짜가 마지막 주 월요일인지 확인
+		if (currentDate.getDay() == 1 && (currentDate.getDate() + 7) > (new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate())) {
+			// 버튼 활성화
+			$("button").prop("disabled", false);
+		} else {
+			// 버튼 비활성화
+			$("button").prop("disabled", true);
+		}   
+	});
 </script>
 </head>
 <body class="container">
@@ -30,10 +37,37 @@
 		<div class="contents">
 			
 			<h2>직원별 점검일 배정</h2><br><hr><br>
-			<div id="assignQAday" >
-				점검일 배정하기
+			<div>
+				<div class="searchtab">
+					<table>
+					<thead>
+						<tr><th>매장</th><th>담당직원</th><th>자재명</th><th>일자</th>
+							<th>단가</th><th>변동수량</th><th>전체수량</th><th>비고</th><th>수정/삭제</th></tr>
+					</thead>
+					<tbody>
+						<c:forEach var="prod" items="${list}">
+				    	    <tr>
+				    	    	<td style="text-align:center">${prod.productNum}</td>
+				    	    	<td style="text-align:center">${prod.category}</td>
+				    	    	<td>${prod.productName}</td>
+				    	    	<td style="text-align:center">${prod.stockDate}</td>
+				    	    	<td style="text-align:right"><fmt:formatNumber value="${prod.price}" type='currency'/></td>
+				    	    	<td style="text-align:center">${prod.applyAmount}</td>
+				    	    	<td style="text-align:center">${prod.remainAmount}</td>
+				    	    	<td>${prod.remark}</td>
+						        <td style="text-align:center">
+					            <button class="btn-secondary uptbtn" type="button"><span>수정</span></button>
+								<button class="btn-danger delBtn" type="button">삭제</button></td>
+				    	    </tr>
+				    	</c:forEach>
+					</tbody>
+					</table>
+					<form action="">
+						
+						<button class="btn-primary">점검일 배정하기</button>
+					</form>
+				</div>
 			</div>
-			
 		</div>
 	</div>
 </body>

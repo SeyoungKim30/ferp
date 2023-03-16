@@ -50,6 +50,9 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("[name=productNum]").val("${sch.productNum}");
+		$("#applyAmount").on("keydown", function(event) {
+		    event.preventDefault();
+		});
 		<%-- 
 		$('.uptbtn').each(function() {
 		    var applyAmount = parseInt($(this).closest('tr').find('td:nth-child(6)').text().trim());
@@ -212,7 +215,7 @@
 		<div class="toolbox">
 		<h3>재고 입출고 등록</h3><br>
 			<form action="${path}/sinoutIns.do" id='insertForm'>
-				<select name="productNum" required>
+				<select name="productNum" class="ckValid" required>
 			    	<option value="">자재코드선택</option>
 			    	<c:forEach var="pd" items="${remainlist}">
 			    		<option id="-${pd.remainAmount}">${pd.productNum}</option>

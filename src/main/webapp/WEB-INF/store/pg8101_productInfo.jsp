@@ -47,39 +47,17 @@ body{
 </head>
 <body>
 	<div id="insform">
-		<h2>매장 자재 상세</h2>
-		<div><img class="prodimg" src="${path}/resource/img/${product.img}"></div>
-		<div>
-			<label for="productNum">자재코드</label> 
-			<input name="productNum" type="text" value="${product.productNum}" readonly
-				class="ckValid" id="productNum" placeholder="자재코드 입력" required>
-		</div>
-		<div>
-			<label for="category">카테고리명</label> 
-			<input type="text" name="category" value="${product.category}" readonly
-				class="ckValid" id="category" placeholder="카테고리명 입력" required>
-		</div>
-		<div>
-			<label for="productName">자재명</label> 
-			<input type="text" name="productName" value="${product.productName}" readonly
-				class="ckValid" id="productName" placeholder="자재명 입력" required>
-		</div>
-		<div>
-			<label for="opposite">거래처</label> 
-			<input type="text" name="opposite" value="${product.opposite}" readonly
-				class="ckValid"	id="opposite" placeholder="거래처 입력" required>
-		</div>
-		<div>
-			<label for="price">단가</label> 
-			<input type="text" name="price" value="${product.price}" readonly
-				class="ckValid" id="price" placeholder="단가 입력" required>
-		</div>
-		<div>
-			<label for="remark">비고</label> 
-			<input type="text" name="remark" value="${product.remark}" readonly
-				class="ckValid" id="remark" placeholder="비고 입력" required>
-		</div>
-		<br>
+		<h2>자재 정보</h2>
+		<div><img class="prodimg" src="${path}/resource/img/${product.img}"></div><br>
+		<table>
+			<tr><th>자재코드</th><td>${product.productNum}
+			<input name="productNum" type="hidden" value="${product.productNum}" id="productNum"></td></tr>
+			<tr><th>카테고리명</th><td>${product.category}</td></tr>
+			<tr><th>자재명</th><td>${product.productName}</td></tr>
+			<tr><th>거래처</th><td>${product.opposite}</td></tr>
+			<tr><th>단가</th><td><fmt:formatNumber value="${product.price}" type='currency'/></td></tr>
+			<tr><th>비고</th><td>${product.remark}</td></tr>
+		</table>
 		<button id="returnBtn" class="btn-submit" type="button">닫기</button>
 	</div>
 </body>

@@ -42,7 +42,8 @@
       selectable: false,
       selectMirror: true,
       select: function(arg) {
-        var title = prompt('일정 등록:');
+        /*
+    	var title = prompt('일정 등록:');
         if (title) {
           calendar.addEvent({
             title: title,
@@ -52,6 +53,7 @@
           })
         }
         calendar.unselect()
+        */
       },
       /*
       eventClick: function(arg) {
@@ -113,7 +115,7 @@
 				<div>
 					<form action="${path}/sclerkschdIns.do" id='insertForm' class="form-inline">
 				    <label>직원선택
-				    <select name="clerkNum" required>
+				    <select name="clerkNum" class="ckValid" required>
 				        <option value="">직원선택</option>
 				        <c:forEach var="ck" items="${clerkNumCom}">
 					        <c:if test="${ck.frRegiNum == login.frRegiNum}">
@@ -123,11 +125,13 @@
 				    </select></label>
 				    <input type="hidden" name="frRegiNum" value="${login.frRegiNum}" id="frRegiNum">
 				    <label>출근시간 <input type="datetime-local" name="onDay" 
-				    	value="${param.onDay}" class="ckValid" id="onDay" 
-				    	placeholder="출근시간 입력" required></label>
-				    <label>퇴근시간 <input type="datetime-local" name="offDay" 
-				    	value="${param.offDay}" class="ckValid" id="offDay" 
-				    	placeholder="퇴근시간 입력" required></label>
+						value="${param.onDay}" class="ckValid timeset" id="onDay" 
+						placeholder="출근시간 입력" step="1800" 
+						pattern="\d{4}-\d{2}-\d{2}T([01]\d|2[0-3]):([03]0)"></label>
+					<label>퇴근시간 <input type="datetime-local" name="offDay" 
+						value="${param.offDay}" class="ckValid timeset" id="offDay" 
+						placeholder="퇴근시간 입력" step="1800" 
+						pattern="\d{4}-\d{2}-\d{2}T([01]\d|2[0-3]):([03]0)"></label>
 				</div>
 			    <div>
 			    	<button id="insBtn" class="btn-primary" type="button">등록</button>
@@ -140,22 +144,46 @@
 	</div>
 </body>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#insBtn").click(function(){
-			var isInValid = false
-			for(var idx=0;idx<$(".ckValid").length;idx++){
-				if($(".ckValid").eq(idx).val()==""){
-					alert("입력하여야 등록 가능합니다.")
-					$(".ckValid").eq(idx).focus()
-					isInValid = true
+	function setTo30Minutes(input) {
+		const value = input.value;
+		const date = new Date(value);
+		const timezoneOffset = date.getTimezoneOffset() * 60000; // milliseconds
+		const localDate = new Date(date.getTime() - timezoneOffset); // 현재 시간대 고려
+		const minutes = Math.floor(localDate.getMinutes() / 30) * 30;
+		localDate.setMinutes(minutes);
+		const newValue = localDate.toISOString().slice(0, 16);
+		input.value = newValue;
+	}
+	$(document).ready(function() {
+		$(".timeset").on("change", function() {
+			setTo30Minutes(this);
+		});
+		$("#insBtn").click(function() {
+			var isInValid = false;
+			for (var idx = 0; idx < $(".ckValid").length; idx++) {
+				if ($(".ckValid").eq(idx).val() == "") {
+					alert("입력하여야 등록 가능합니다.");
+					$(".ckValid").eq(idx).focus();
+					isInValid = true;
 					break;
 				}
 			}
-			if(isInValid){
-				return
+			if (isInValid) {
+				return;
 			}
-			$("form").submit()
-		})
+			// 출근시간, 퇴근시간 값을 가져옴
+			var onDay = $("#onDay").val();
+			var offDay = $("#offDay").val();
+			
+			// 출근시간이 퇴근시간보다 작을 때만 등록
+			if (onDay < offDay) {
+				// 등록 처리
+				$("form").submit();
+			} else {
+				alert("출근시간이 퇴근시간보다 큽니다.");
+			}
+		});
 	});
+	
 </script>
 </html>

@@ -129,19 +129,17 @@ public class C2_Service {
 	}
 	
 	// 직원스케줄 캘린더 삭제	
-//	public void sclerkschdDel(String clerkNum, String onDay) {
-//		ClerkSchedule del = new ClerkSchedule();
-//	    del.setClerkNum(clerkNum);
-//	    del.setOnDay(onDay);
-//		dao.sclerkschdDel(del);
-//	}
+	public void sclerkschdDel(String clerkNum, String onDay) {
+		ClerkSchedule del = new ClerkSchedule();
+	    del.setClerkNum(clerkNum);
+	    del.setOnDay(onDay);
+		dao.sclerkschdDel(del);
+	}
 	
 	// 직원스케줄 캘린더
-//	public List<ScheduleCalender> sclerkschd(String writer){
-//		return dao.sclerkschd(writer);
-//	}
 	public List<HashMap<String, Object>> sclerkschd(String writer){
 		return dao.sclerkschd(writer);
 	}
+	// 본사 직원 점검일 배정 
 	
 }
