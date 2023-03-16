@@ -147,6 +147,7 @@
 
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <head>
 
@@ -259,7 +260,7 @@
 			var trtd='';
 		
 			sbslist.forEach(function(each){
-				trtd+="<tr onclick='goDetail("+each.frRegiNum+")'><td>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
+				trtd+="<tr><td onclick='goDetail("+each.frRegiNum+")'>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary' onclick='goUpdate("+each.frRegiNum+")'>수정</span><span class='btn-danger' onclick='goDelete("+each.frRegiNum+")'>삭제</span></td></tr>"
 			})
 			$("table tbody").html(trtd);
 			//console.log(trtd);
@@ -296,6 +297,37 @@
 			
 	function goDetail(frRegiNum){
 		location.href="${path}/salesDetail.do?frRegiNum="+frRegiNum+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt
+	}
+	function goUpdate(frRegiNum){
+		  Swal.fire({
+			  title: '수정페이지로 이동하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+			}).then((result) => {
+			  if (result.value) {
+				  location.href="${path}/storeUpdate.do?frRegiNum="+frRegiNum
+			  }
+			})
+		
+	}
+	function goDelete(frRegiNum){
+		  Swal.fire({
+			  title: '해당 매장을 비활성화하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+			}).then((result) => {
+			  if (result.value) {
+				  location.href="${path}/storeDelete.do?frRegiNum="+frRegiNum
+			  }
+			})
 	}
 
 	
