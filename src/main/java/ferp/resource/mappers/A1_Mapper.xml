@@ -29,7 +29,6 @@
 			AND HOURLYPAY != 0
 		</select>
 		
-		
 		<!-- 출근 등록 -->
 		<insert id="addOnDay" parameterType="clerkschedule">
 		INSERT INTO EMPCHECKIN(FrRegiNum,clerkNum,onTime) VALUES (
