@@ -21,19 +21,6 @@
 		position: relative;
 	}
 	
-	/* 점검일배정 버튼 */
-	#assignQAday{
-		display:none;
-		color: #fff;
-		background-color: #007bff;
-		border-radius:50px;
-		width:160px;
-		height:33px;
-		line-height: 33px;/*세로정렬*/
-		text-align: center;/*가로정렬*/
-		margin-left: auto;/*오른쪽으로 보내기*/
-	}
-	
 	
 	/*매장사이드바*/
 	ul#storeSideBar{
@@ -226,10 +213,7 @@
 			
 			
 			<h2>이달의 점검결과 조회</h2><br><hr><br>
-			<div id="assignQAday" >
-				점검일 배정하기
-			</div>
-
+			
 
 			<div id="noFrnum">
 				<h2>${ename}님이 담당하고 있는 매장이 없습니다</h2>
@@ -299,19 +283,6 @@
 	localStorage.setItem("pageIdx","6101"); //id값
 	localStorage.setItem("eqIdx","6000");
 	
-	
-	//담당매장아니면 숨김처리
-	$(document).ready(function(){
-		
-		if(${icStrlist}.length==0){
-			$("#noFrnum").css("display", "block");
-			$("#storeSideBar").css("display", "none");
-			$("#thatStrInspctList").css("display", "none");
-			alert("담당매장이 있는 경우에만 담당매장이 출력됩니다")
-		}
-		
-	})
-
 	//특정매장 점검목록
 	function strQAInfo(frRegiNum){
 		
@@ -391,22 +362,23 @@
 	
 	$(function(){
 		
+		//담당매장아니면 숨김처리	
+		if( "${icStrlist}".length==2 ){ // 이게 맞아..?ㅋㅋㅋ빈배열 []이거 두 개란 뜻이야.,,ㅋㅋㅋㅋ어이없어
+			$("#noFrnum").css("display", "block");
+			$("#storeSideBar").css("display", "none");
+			$("#thatStrInspctList").css("display", "none");
+			alert("담당매장이 있는 경우에만 담당매장이 출력됩니다")
+		}else{
+			$("#noFrnum").css("display", "none");
+		}
+		
+		
+		
 		//취소버튼
 		$(".close").click(function(){
 			$(".modal").fadeOut();
 		});
 		
-		
-		/*
-		$("#assignQAday").click(function(){
-			if(){
-				
-				
-			}else{
-				alert("점검일 배정은 매달 마지막주 월요일입니다")
-			}
-		});
-		*/
 		
 	})
 	
@@ -417,6 +389,7 @@
 	function goInspect(frRegiNum){
 		location.href="${path}/inspectQAPrint.do?frRegiNum="+frRegiNum
 	}
+
 	
 
 </script>
