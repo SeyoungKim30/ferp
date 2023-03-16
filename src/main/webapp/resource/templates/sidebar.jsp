@@ -81,7 +81,7 @@
                             <li id="6105" onclick="location.href='${path}/qaList.do'"><a>- 품질관리점검표</a></li>
                         	<li id="6104" onclick="location.href='${path}/qaStore.do'"><a>- 품질관리점검 결과 조회</a></li>
                         	<li id="6101" onclick="location.href='${path}/inchargeStore.do'"><a>- 담당 매장 점검</a></li>
-                        	<li id="6202" onclick="location.href='${path}/strOpenInfo.do'"><a>- 출근시간 점검</a></li>
+                        	<li id="6202" onclick="location.href='${path}/strOpenInfo.do'"><a>- 오픈시간 점검</a></li>
                         </ul>
                     </li>
 </c:if>
@@ -105,7 +105,7 @@
                             <li id="5101" onclick="location.href='${path}/qnaInsert.do'"><a>- 문의글 등록</a></li>                       
 </c:if>
                             <li id="5103" onclick="location.href='${path}/qnaList.do'"><a>- 문의글 조회</a></li>                       
-                            <li id="5201" onclick="location.href='${path}/chatting.do'"><a>- 1:1 채팅</a></li>                                                   
+                            <li id="5201" onclick="location.href='${path}/chatting.do'"><a>- 채팅</a></li>                                                   
                         </ul>
                     </li>
 <c:if test="${login.frRegiNum == 9999999999 }">                   

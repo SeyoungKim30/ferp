@@ -102,7 +102,7 @@ public class B2_Controller {
 	// http://localhost:7080/ferp/menuInsert.do
 	@GetMapping("/menuInsert.do")
 	public String menuInsert() {
-		return "WEB-INF\\view\\menu_insert123.jsp";
+		return "WEB-INF\\view\\menu_insert.jsp";
 	}
 	@PostMapping("/menuInsert.do")
 	public String menuInsert(Menu ins, RedirectAttributes redirect) {
