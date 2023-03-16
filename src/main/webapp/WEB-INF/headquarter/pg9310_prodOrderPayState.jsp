@@ -82,8 +82,8 @@ window.addEventListener('load',function(){
 	</div>
 	
 	
-	<form id="updateForm" style="display: none;">
-	<input name="orderDateMonth">
+	<form id="updateForm" >
+	<input name="orderDateMonth" placeholder="orderDateMonth">
 	<input name="demander">
 	<input name="supplier">
 	<input name="paymentState">
@@ -144,7 +144,8 @@ form1.addEventListener('submit', function(e){
 		document.querySelector('tfoot').innerHTML=foothtml
 	if(isHead){
 		$('tbody').find('button').on('click',updateClick)
-		$('tfoot').find('button').on('click',function(){updateAllClick(result.prodOrder)})
+		$('tfoot').find('button:nth-child(1)').on('click',function(){updateAllClick(result.prodOrder,'청구')})
+		$('tfoot').find('button:nth-child(2)').on('click',function(){updateAllClick(result.prodOrder,'계산서 발행')})
 	}else{
 		$('tbody').find('button').on('click',goDetail)
 	}
@@ -174,11 +175,11 @@ function updateClick(){	//fetch하고 테이블에 있는 버튼에 적용
 	$('#searchform .btn-secondary').trigger('click');
 	}
 	
-function updateAllClick(prodOrder){	//fetch하고 테이블에 있는 버튼에 적용
-	document.querySelector('#updateForm [name=paymentState]').value = $(this).text();
+function updateAllClick(prodOrder,sttt){	//fetch하고 테이블에 있는 버튼에 적용
+	document.querySelector('#updateForm [name=paymentState]').value = sttt;
 	document.querySelector('#updateForm [name=supplier]').value = prodOrder.supplier//담당자
 	document.querySelector('#updateForm [name=demander]').value = '0000000000';
-	document.querySelector('#updateForm [name=orderDateMonth]').value = prodOrder.orderDateMonth
+	document.querySelector('#updateForm [name=orderDateMonth]').value = prodOrder.orderDate
 	let gogo=confirm(prodOrder.orderDateMonth.substr(0,4)+'년 '+prodOrder.orderDateMonth.substr(5,6)+'월 전체 정산상태를 변경할까요?');
 	if(gogo){
 		fetchUpdatePromise('#updateForm',"${path}/updateProdOrderPayState.do?").then(result=>{alert(result);}).catch(reject=>{console.error(reject)})
