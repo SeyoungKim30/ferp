@@ -26,6 +26,7 @@
 			SELECT *
 			FROM STORECLERK
 			WHERE frRegiNum = #{frRegiNum}
+			AND HOURLYPAY != 0
 		</select>
 		
 		
