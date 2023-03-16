@@ -33,7 +33,7 @@
 	           		<input type="text" name="title" id="title" value="${sch.title}" placeholder="제목 검색">
 					<button type="button" class="schBtn">검 색</button>
 					<input type="hidden" name="curPage" value="${sch.curPage}"/>
-				</form>
+					</form>
           		</div>
 			<table>
 		   	<col width="15%">

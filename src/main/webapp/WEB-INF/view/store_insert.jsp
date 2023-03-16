@@ -35,7 +35,7 @@
 					<h3 class="store_pass">비밀번호</h3>
 				</div>
 				<div class="second_line">
-					<input type="text" name="frRegiNum" placeholder="사업자번호 입력">
+					<input type="text" name="frRegiNum" placeholder="사업자번호(숫자 10자리) 입력">
 					<input type="text" name="frPass" placeholder="비밀번호 입력">
 				</div>
 				<div class="third_line">
@@ -53,7 +53,7 @@
 					
 				</div>
 				<div class="sixth_line">
-					<input type="text" name="frOperTime" placeholder="운영시간 입력">				
+					<input type="text" name="frOperTime" placeholder="운영시간 ex)09:00-24:00 입력">				
 					<input type="text" name="frClosedDte" placeholder="휴무일 입력">
 
 				</div>
@@ -221,7 +221,7 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=eno]").val() == ""){
+				  else if($("[name=eno]").val() == null){
 					  Swal.fire({
 						  title: '담당직원을 선택해주세요.',
 						  icon: 'warning',

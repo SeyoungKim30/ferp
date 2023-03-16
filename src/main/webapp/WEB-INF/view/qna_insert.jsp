@@ -75,7 +75,7 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
-
+	console.log($("[name=category]").val())
     $(".insBtn").click(function(){
 		  Swal.fire({
 			  title: '등록하시겠습니까?',
@@ -101,7 +101,7 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=category]").val() == ""){
+				  else if($("[name=category]").val() == null){
 					  Swal.fire({
 						  title: '문의유형을 선택해주세요.',
 						  icon: 'warning',

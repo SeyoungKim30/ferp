@@ -36,8 +36,10 @@
            		<input type="hidden" name="title" value="${qna.title}">
            		<div class="title_line">
            			<h3 class="notice_title">${qna.title}</h3>
-           			<span style="position: absolute; right: 19%;">등록일 : <fmt:formatDate value="${qna.regdte}" pattern="yyyy-MM-dd"/></span>
-           			<span style="position: absolute; right: 14%;">조회수 : ${qna.readCnt}</span>
+           			<div>
+	           			<span>등록일 : <fmt:formatDate value="${qna.regdte}" pattern="yyyy-MM-dd"/></span>
+	           			<span style="padding: 0px 15px;">조회수 : ${qna.readCnt}</span>
+           			</div>
            		</div>
 				
 				<div class="notice_content">
@@ -51,7 +53,6 @@
 				<div class="btn_line">
 				  <button id="goMain" type="button">목 록</button>
 				  <button id="replyBtn" type="button">답 변</button>
-		          <button id="uptBtn" type="button">수 정</button>
 		          <button id="delBtn" type="button">삭 제</button>
 				</div>
 			</form>

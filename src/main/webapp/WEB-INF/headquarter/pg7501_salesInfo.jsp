@@ -329,7 +329,35 @@
 			  }
 			})
 	}
-
+	
+    var uptMsg = "${uptMsg}"
+        if(uptMsg != ""){
+    		  Swal.fire({
+    			  title: '매장정보 수정 성공!',
+    			  icon: 'success',
+    			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+    			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+    			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+    			}).then((result) => {
+    			  if (result.value) {
+    				//"확인" 버튼을 눌렀을 때 작업할 내용
+    			  }
+    			})	
+        }
+     var delMsg = "${delMsg}"
+     if(delMsg != ""){
+ 		  Swal.fire({
+ 			  title: '매장정보 비활성화 성공!',
+ 			  icon: 'success',
+ 			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+ 			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+ 			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+ 			}).then((result) => {
+ 			  if (result.value) {
+ 				//"확인" 버튼을 눌렀을 때 작업할 내용
+ 			  }
+ 			})	
+     }
 	
 	
 </script>

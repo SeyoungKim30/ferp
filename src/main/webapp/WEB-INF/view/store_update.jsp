@@ -35,7 +35,7 @@
 					<h3 class="store_pass">비밀번호</h3>
 				</div>
 				<div class="second_line">
-					<input type="text" name="frRegiNum" value="${store.frRegiNum}" placeholder="사업자번호 입력" readonly="readonly">
+					<input type="text" name="frRegiNum" value="${store.frRegiNum}" placeholder="사업자번호 입력" readonly="readonly" disabled="disabled">
 					<input type="text" name="frPass" value="${store.frPass}" placeholder="비밀번호 입력">
 				</div>
 				<div class="third_line">
@@ -224,7 +224,7 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=eno]").val() == ""){
+				  else if($("[name=empNum]").val() == null){
 					  Swal.fire({
 						  title: '담당직원을 선택해주세요.',
 						  icon: 'warning',

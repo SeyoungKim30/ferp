@@ -100,5 +100,9 @@ $(document).ready(function(){
 		})	
     }
 });
+function goPage(cnt) {
+	$("[name=curPage]").val(cnt);
+	$("form").submit()
+}
 </script>
 </html>

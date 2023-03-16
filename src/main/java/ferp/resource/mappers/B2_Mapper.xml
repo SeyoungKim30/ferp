@@ -4,11 +4,18 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
 
 <mapper namespace="ferp.dao.B2_Dao">
+	<!-- 메뉴 조회 -->
 	<select id="searchMenu" resultType="menu" parameterType="menuSch">
-		SELECT *
-		FROM menu
-		WHERE menuname LIKE '%'||#{menuName}||'%'
-		order BY category
+
+		select *
+		from (
+			SELECT rownum cnt, n.*
+			FROM (
+				SELECT *
+				FROM menu
+				WHERE menuname LIKE '%'||#{menuName}||'%'
+				order BY category)n )
+		where cnt between #{start} and #{end}	
 	</select>
 	<select id="totCntMenu" resultType="int" parameterType="menuSch">
 		select count(*)
@@ -40,17 +47,16 @@
 	<!-- 매장정보 수정 -->
 	<update id="updateStore" parameterType="store">
 		UPDATE store
-		SET eno = #{eno},
-			frName = #{frName},
-			frOpen = #{frOpen},
+		SET frName = #{frName},
 			frOperTime = #{frOperTime},
 			frClosedDte = #{frClosedDte},
 			frRepName = #{frRepName},
 			frTel = #{frTel},
 			frAddress = #{frAddress},
 			frPass = #{frPass},
+			empNum = #{empNum},
 			email = #{email}
-		WHERE FrRegiNum = #{frRegiNum}
+		WHERE frRegiNum = #{frRegiNum}
 	</update>
 	<!-- 수정시 매장정보 상세조회 -->
 	<select id="detailStore" resultType="store" parameterType="string">
@@ -112,7 +118,7 @@
 			FROM (
 				SELECT* FROM notice n
 				WHERE 1=1
-				AND title LIKE '%'||''||'%'
+				AND title LIKE '%'||#{title}||'%'
 				and noticeNum LIKE '%'||'N'||'%'
 				ORDER BY regdte DESC)n )
 		where cnt between #{start} and #{end}	

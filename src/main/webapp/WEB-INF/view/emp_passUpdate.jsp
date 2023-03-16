@@ -66,6 +66,22 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+    var insMsg = "${passupt}"
+       if(insMsg != ""){
+   	  Swal.fire({
+   		  title: '비밀번호 변경 성공!',
+   		  icon: 'success',
+   		  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+   		  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+   		  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+   		}).then((result) => {
+   		  if (result.value) {
+   			//"확인" 버튼을 눌렀을 때 작업할 내용
+   			  location.href="${path}/logoutEmp.do"
+   		  }
+   		})
+       }
+    
 	$("[name=nowPass]").keyup(function(){
 		if($(this).val() != '${login.pass}'){
 			$(this).addClass("isNotPass")

@@ -110,7 +110,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("insMsg", "메뉴 등록 성공!");
 		}
 		// redirect로 본사 홈페이지로 이동
-		return "redirect:/menuInsert.do";
+		return "redirect:/menuList.do";
 	}
 	
 	// 매장정보등록 controller
@@ -184,10 +184,10 @@ public class B2_Controller {
 	@PostMapping("/updateEmpPass.do")
 	public String updateEmpPass(Emp upt, RedirectAttributes redirect) {
 		if( service.updateEmpPass(upt)!= null) {
-			redirect.addFlashAttribute("uptMsg", "수정 완료");
+			redirect.addFlashAttribute("passupt", "수정 완료");
 		}
 		
-		return "redirect:/logoutEmp.do";
+		return "redirect:/updateEmpPass.do";
 	}
 	
 	// 공지사항 조회

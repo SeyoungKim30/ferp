@@ -31,8 +31,10 @@
           	<input type="hidden" name="buttonChk" value="${not empty login.ename?'본사':'매장'}">
           	<div class="title_line">
           		<h3 class="notice_title">${notice.title}</h3>
-          		<span style="position: absolute; right: 19%;">등록일 : <fmt:formatDate value="${notice.regdte}" pattern="yyyy-MM-dd"/></span>
-          		<span style="position: absolute; right: 14%;">조회수 : ${notice.readCnt}</span>
+          		<div>
+	          		<span>등록일 : <fmt:formatDate value="${notice.regdte}" pattern="yyyy-MM-dd"/></span>
+	          		<span style="padding: 0px 15px;">조회수 : ${notice.readCnt}</span>
+          		</div>
           	</div>
 			
 			<div class="notice_content">

@@ -48,6 +48,7 @@ input:focus{
 	display: flex;
     align-items: center;
     border-bottom: 3px solid black;
+    justify-content: space-between;
 }
 .notice_title{
 	margin-top: 10px;
