@@ -32,7 +32,6 @@
                         <a href="#">직원 관리</a>
                         <ul>
 	                        <li id="3100" onclick="location.href='${path }/storeClerkList.do'"><a>- 직원 정보 조회</a></li>
-                            <li><a>- 근태 조회</a></li>
                             <li id="3204" onclick="location.href='${path }/sclerkschd.do'"><a>- 스케쥴 관리</a></li>
                             <li id="3300" onclick="location.href='${path }/clerkPayList.do'"><a>- 급여액 조회</a></li>
                         </ul>
@@ -44,7 +43,6 @@
                             <li id="7201" onclick="location.href='${path }/selectAccount.do'"><a>- 계정 과목 관리</a></li>
                             <li id="7210" onclick="location.href='${path }/ACstatement.do'"><a>- 전표 입력</a></li>
                             <li id="7204" onclick="location.href='${path }/statementList.do'"><a>- 거래 내역 조회</a></li>
-                            <li><a>- 손익 계산서 조회</a></li>
                         </ul>
                     </li>
                     <li id="9000">
