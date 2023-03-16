@@ -302,7 +302,7 @@ h2.h2Title > span.clerknum{
 }
 .refreshText{
 	position:absolute;
-	top: -13px;
+	top: -13px; 
     left: 1px;
     color:white;
 }
