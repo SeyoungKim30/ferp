@@ -23,8 +23,25 @@
 	$(document).ready(function() {
 		$(".regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
-				// 여기에 유효성 처리
-				regAjax("insStoreclerk.do")
+				console.log($("#regForm [name=clerkName]").val())
+				if($("#regForm [name=clerkName]").val() == ""){
+					alert("직원명을 입력해주세요")
+					$("#regForm [name=clerkName]").focus()
+				}else if($("[name=hourlyPay]").val() == ""){
+					alert("시급을 입력해주세요")
+					$("[name=hourlyPay]").focus()
+				}else if($("[name=residentNum]").val() == ""){
+					alert("주민등록번호를 입력해주세요")
+					$("[name=residentNum]").focus()
+				}else if($("[name=phoneNum]").val() == ""){
+					alert("전화번호를 입력해주세요")
+					$("[name=phoneNum]").focus()
+				}else if($("[name=address]").val() == ""){
+					alert("주소를 입력해주세요")
+					$("[name=address]").focus()
+				}else{
+					regAjax("insStoreclerk.do")					
+				}
 			}
 		})
 		function regAjax(url) {
@@ -54,7 +71,6 @@
 				<h3>직원 등록</h3>
 				<br>
 				<div class="row">
-					
 					<input type="hidden" name="clerkNum" value="${login.frRegiNum}${clerkTot}" readOnly required /> 
 					<input type="hidden" name="frRegiNum" value="${login.frRegiNum}" readOnly required /> 
 					<div class="col margin-tn w25">
@@ -73,7 +89,7 @@
 					</div>
 					<div class="col margin-tn w25">
 						<label>전화번호</label>
-						<input type="text" name="phoneNum" class="margin-tln regList" placeholder="전화번호" required /> 
+						<input type="text" name="phoneNum" class="margin-tln regList" placeholder="전화번호" oninput="tel(this)" maxlength="13" required /> 
 					</div>
 					<div class="col margin-tn">
 						<label>성별</label>
@@ -144,7 +160,7 @@
 							<input type="text" class="listInput i${sc.clerkNum } left" name="address" style="width: 100%;" value="${sc.address }" disabled />
 						</div>
 						<div class="tdDiv right" style="width: 9%;">
-							<input type="text" class="listInput i${sc.clerkNum } right" name="hourlyPay" style="width: 100%;" value="<fmt:formatNumber value='${sc.hourlyPay }' type='currency'/>" disabled />
+							<input type="text" class="listInput i${sc.clerkNum } right" name="hourlyPay" style="width: 100%;" value="<fmt:formatNumber value='${sc.hourlyPay }' pattern='#,##0.##'/>" disabled />
 						</div>
 						<div class="tdDiv" style="width: 7%;">
 							<button type="button" class="fileBtn" onclick="cFile('${sc.clerkName }','${sc.clerkNum }')">파일</button>
@@ -257,6 +273,11 @@
 	$("#closeBtn").click(function() {
 		$("#modal3").attr("style", "display:none");
 	}); 
+	function tel(target) {
+	    target.value = target.value
+	        .replace(/[^0-9]/g, '')
+	        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+	}
 </script>
 <script src="${path}/resource/templates/A2_modalJS.js"></script>
 </body>

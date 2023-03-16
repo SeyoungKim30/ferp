@@ -71,6 +71,8 @@ public class A2_Service {
 	}
 	
 	public void uptStoreClerk(StoreClerk upt) {
+		upt.setHourlyPay(upt.getHourlyPay().replace(",", ""));
+		System.out.println((upt.getHourlyPay()));
 		dao.uptStoreClerk(upt);
 	}
 	

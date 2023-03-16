@@ -36,7 +36,7 @@ $(document).ready(function() {
 	$("#schFrmBtn").click(function(){
 		if(!$("#monthCheck").is(':checked')){
 			$("[name=orderDateMonth]").val("")
-			$(".yearCheck").val(year)
+			$(".yearCheck").val(new Date().getFullYear())
 		}
 		$("#reqSchFrm").submit()
 	})
@@ -105,7 +105,7 @@ $(document).ready(function() {
 					<div class="thDiv" style="width:10%;">시급</div>
 					<div class="thDiv" style="width:10%;">근로시간</div>
 					<div class="thDiv" style="width:10%;">지급액</div>
-					<div class="thDiv" style="width:40%;">비고</div>
+					<div class="thDiv" style="width:40%;">주소</div>
 				</div>
 				<c:forEach var="sc" items="${scList }">
 					<div class="row">
@@ -123,8 +123,11 @@ $(document).ready(function() {
 								<fmt:formatNumber value='${sc.pay }' type='currency'/>								
 							</div>
 						</div>
-						<div class="tdDiv" style="width:40%;">
-							<input type="text" class="listInput" name="comments" style="width:100%;" value="" disabled/>
+						<div class="tdDiv" style="width:5%;"></div>
+						<div class="tdDiv" style="width:35%;">
+							<div class="left">
+								${sc.address }
+							</div>
 						</div>
 					</div>
 				</c:forEach>

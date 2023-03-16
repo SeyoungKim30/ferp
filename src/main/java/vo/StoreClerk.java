@@ -8,7 +8,7 @@ public class StoreClerk {
 	private String residentNum;
 	private String phoneNum;
 	private String address;
-	private int hourlyPay;
+	private String hourlyPay;
 	private int pay;
 	private double workhour;
 	private String ontime;
@@ -72,10 +72,10 @@ public class StoreClerk {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getHourlyPay() {
+	public String getHourlyPay() {
 		return hourlyPay;
 	}
-	public void setHourlyPay(int hourlyPay) {
+	public void setHourlyPay(String hourlyPay) {
 		this.hourlyPay = hourlyPay;
 	}
 	public String getOntime() {

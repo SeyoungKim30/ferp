@@ -50,8 +50,10 @@
 					</div>
 					<input type="hidden" class="productNum${p.productNum }" value="${p.productNum }"> 
 					<input type="hidden" class="frRegiNum${p.productNum }" value="${p.frRegiNum }">
-					<div class="tdDiv" style="width: 14%;"><fmt:formatNumber value='${p.price }' type='currency'/></div>
-					<div class="tdDiv" class="remainAmount${p.productNum }" style="width: 14%;">${p.remainAmount }</div>
+					<div class="tdDiv" style="width: 12%;"><div class="right"><fmt:formatNumber value='${p.price }' type='currency'/></div></div>
+					<div class="tdDiv" style="width: 2%;"></div>
+					<div class="tdDiv" class="remainAmount${p.productNum }" style="width: 10%;"><div class="right">${p.remainAmount }</div></div>
+					<div class="tdDiv" style="width: 4%;"></div>
 					<div class="tdDiv" style="width: 9%;">
 						<div class="row center">
 							<button type="button" class="adjustAmountBtn minus${p.productNum }">-</button>

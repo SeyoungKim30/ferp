@@ -35,7 +35,7 @@
 		$("#schFrmBtn").click(function(){
 			if(!$("#monthCheck").is(':checked')){
 				$("[name=orderDateMonth]").val("")
-				$(".yearCheck").val(year)
+				$(".yearCheck").val(new Date().getFullYear())
 			}
 			$("#reqSchFrm").submit()
 		})
