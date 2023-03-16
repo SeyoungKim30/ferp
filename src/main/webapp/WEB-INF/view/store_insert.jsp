@@ -35,8 +35,12 @@
 					<h3 class="store_pass">비밀번호</h3>
 				</div>
 				<div class="second_line">
-					<input type="text" name="frRegiNum" placeholder="사업자번호(숫자 10자리) 입력">
+					<input type="text" name="frRegiNum" placeholder="사업자번호 입력(숫자10자리) ex)8462550658">
 					<input type="text" name="frPass" placeholder="비밀번호 입력">
+				</div>
+				<div style="display: flex;">
+					<p class="frRegiNumComment" style="width: 570px;"></p>
+					<p class="frPassComment"></p>
 				</div>
 				<div class="third_line">
 					<h3 class="store_name">매장명</h3>
@@ -53,20 +57,23 @@
 					
 				</div>
 				<div class="sixth_line">
-					<input type="text" name="frOperTime" placeholder="운영시간 ex)09:00-24:00 입력">				
+					<input type="text" name="frOperTime" placeholder="운영시간 입력 ex)09:00-24:00">				
 					<input type="text" name="frClosedDte" placeholder="휴무일 입력">
-
+				</div>
+				<div>
+					<p class="frOperTimeComment"></p>
 				</div>
 				<div class="seventh_line">
 					<h3 class="store_repName">대표자명</h3>
-					<h3 class="store_tel">전화번호</h3>
-					
+					<h3 class="store_tel">매장 전화번호</h3>
 				</div>
 				<div class="eighth_line">
 					<input type="text" name="frRepName" placeholder="대표자명 입력">				
 					<input type="text" name="frTel" placeholder="전화번호 입력">
-
 				</div>	
+				<div>
+					<p class="frTelComment" style="padding-left: 570px;"></p>
+				</div>
 				<div class="ninth_line">
 					<h3 class="store_eno">담당직원</h3>
 					<h3 class="store_address">이메일</h3>
@@ -83,6 +90,9 @@
 						</c:forEach>
 					</select>	
 					<input type="text" name="email" placeholder="이메일 입력">
+				</div>
+				<div>
+					<p class="emailComment" style="padding-left: 570px;"></p>
 				</div>					
 				
 						
@@ -96,7 +106,103 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	var isPass1 = false;
+	var isPass2 = false;
+	var isPass3 = false;
+	var isPass4 = false;
+	var isPass5 = false;
+	$("[name=frRegiNum]").keyup(function(){
+		var frRegiNum = $(this).val()
+		var regfrRegiNum = /^[0-9]{10}$/;
+		
+	  if (frRegiNum.match(regfrRegiNum) != null) {
+	      $(this).removeClass("isNotPass")
+	      $(".frRegiNumComment").text("");
+	      isPass1 = true;
+	  }else{
+      	$(this).addClass("isNotPass")
+        $(".frRegiNumComment").text("숫자10자리로 입력해주세요. ex)1973249871")
+	  }
+		
+	})
+	
+	$("[name=frPass]").keyup(function(){
+		var pw = $(this).val()
+		var number = pw.search(/[0-9]/g);
+		var english = pw.search(/[a-z]/ig);
+		var spece = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+		var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+		
+        if (pw.length < 5 || pw.length > 15) {
+        	$(this).addClass("isNotPass")
+            $(".frPassComment").text("5자리 ~ 15자리 이내로 입력해주세요.")
 
+        } else if (pw.search(/\s/) != -1) {
+        	$(this).removeClass("isNotPass")
+        	$(".frPassComment").text("비밀번호는 공백 없이 입력해주세요.")
+        	$(this).addClass("isNotPass")
+
+        } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
+        	$(this).removeClass("isNotPass")
+        	$(".frPassComment").text("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.")
+        	$(this).addClass("isNotPass")        	
+
+        } else if (/(\w)\1\1\1/.test(pw)) {
+        	$(this).removeClass("isNotPass")
+        	$(".frPassComment").text("같은 문자를 4번 이상 사용하실 수 없습니다.")
+        	$(this).addClass("isNotPass")       	
+
+        } else {
+        	$(this).removeClass("isNotPass")
+        	$(".frPassComment").text("");
+        	isPass2 = true;
+        }
+		
+	})
+	
+	$("[name=frOperTime]").keyup(function(){
+		var frOperTime = $(this).val()
+		var regfrOperTime = /^(([0-1][0-9])|(2[0-3])):[0-5][0-9]-(([0-1][0-9])|(2[0-3])):[0-5][0-9]$/;
+		
+	  if (frOperTime.match(regfrOperTime) != null) {
+	      $(this).removeClass("isNotPass")
+	      $(".frOperTimeComment").text("");
+	      isPass3 = true;
+	  }else{
+      	$(this).addClass("isNotPass")
+        $(".frOperTimeComment").text("입력형식이 잘못되었습니다. ex)09:00-21:00")
+	  }
+		
+	})
+	
+	$("[name=frTel]").keyup(function(){
+		var tel = $(this).val()
+		var regTel = /^(070|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/;
+		
+	  if (tel.match(regTel) != null) {
+	      $(this).removeClass("isNotPass")
+	      $(".frTelComment").text("");
+	      isPass4 = true;
+	  }else{
+      	$(this).addClass("isNotPass")
+        $(".frTelComment").text("전화번호 형식으로 입력해주세요. ex)02-357-6813")
+	  }
+		
+	})
+	$("[name=email]").keyup(function(){
+		var email = $(this).val()
+		var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+		
+	  if (email.match(regEmail) != null) {
+	      $(this).removeClass("isNotPass")
+	      $(".emailComment").text("");
+	      isPass5 = true;
+	  }else{
+      	$(this).addClass("isNotPass")
+        $(".emailComment").text("이메일형식으로 입력해주세요. ex)email@naver.com")
+	  }
+		
+	})
 	
     $(".insBtn").click(function(){
 		  Swal.fire({
@@ -221,7 +327,7 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=eno]").val() == null){
+				  else if($("[name=empNum]").val() == null){
 					  Swal.fire({
 						  title: '담당직원을 선택해주세요.',
 						  icon: 'warning',
@@ -237,6 +343,71 @@ $(document).ready(function(){
 				  else if($("[name=email]").val() == ""){
 					  Swal.fire({
 						  title: '이메일을 입력해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=email]").focus()
+						      return;
+						  }
+					  })
+				  }else if(!isPass1){
+					  Swal.fire({
+						  title: '사업자번호 형식을 확인해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frRegiNum]").focus()
+						      return;
+						  }
+					  })
+				  }else if(!isPass2){
+					  Swal.fire({
+						  title: '비밀번호 형식을 확인해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frPass]").focus()
+						      return;
+						  }
+					  })
+				  }else if(!isPass3){
+					  Swal.fire({
+						  title: '운영시간 형식을 확인해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frOperTime]").focus()
+						      return;
+						  }
+					  })
+				  }else if(!isPass4){
+					  Swal.fire({
+						  title: '매장 전화번호 형식을 확인해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frTel]").focus()
+						      return;
+						  }
+					  })
+				  }else if(!isPass5){
+					  Swal.fire({
+						  title: '이메일 형식을 확인해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',

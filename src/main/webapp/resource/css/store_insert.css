@@ -177,6 +177,12 @@ span{
 	width: 48%;
 }
 
+.isNotPass{
+	border: 2px solid red !important;
+}
+p{
+	color: red;
+}
 
 
 /* 등록 라인 */
