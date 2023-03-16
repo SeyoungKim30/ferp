@@ -42,8 +42,11 @@
 		<if test="ename!=null and !ename.equals('')">
 		AND ename LIKE '%'||#{ename}||'%'
 		</if>
-		ORDER BY frname
+		ORDER BY frtel NULLS LAST, frname
 	</select>
+	<!-- ORDER BY조건 : NULLS LAST 
+		 - ORDER BY 절에서 NULL 값을 가진 레코드를 마지막에 출력하도록 지시 - 제일 먼저 선언할것.
+	-->
 	
 	<!-- 본사:매장정보상세조회 -->
 	<select id="storeDetailInfo" parameterType="String" resultType="orders">
@@ -314,7 +317,7 @@
 	</resultMap>
 	<!-- 본사:매장오픈상세조회-기본정보 -->
 	<select id="storeDetailOpenTime" resultMap="calMap" parameterType="string" >
-		SELECT frRegiNum, frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime 
+		SELECT frRegiNum, frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime, frClosedDte
 		FROM store s, emp e
 		WHERE s.empnum=e.EMPNUM
 		AND frRegiNum=#{writer, jdbcType=VARCHAR}

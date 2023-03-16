@@ -67,7 +67,10 @@ WHERE ord.frreginum(+)=s.frreginum AND s.empnum=e.empnum AND s.frreginum=fprdord
 AND frname LIKE '%'||''||'%'
 AND frRepname LIKE '%'||''||'%'
 AND ename LIKE '%'||''||'%'
-ORDER BY frname;
+AND 
+ORDER BY frtel NULLS LAST, frname;
+
+
 
 
 
@@ -88,7 +91,7 @@ AND PAYMENTSTATE='완료'
 AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/01', 'YYYY-MM') --querystring으로 받아서
 GROUP BY PRODUCTNUM ;
 
-s
+
 
 SELECT * FROM CLERKFILE;
 SELECT * FROM qa;
@@ -192,10 +195,12 @@ ORDER BY frname;
 
 
 --본사:특정매장오픈시간상세조회
-SELECT frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime
+SELECT frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime, FRCLOSEDDTE
 FROM store s, emp e
 WHERE s.empnum=e.EMPNUM
 AND frreginum='1234567891';
+
+
 
 --본사:특정매장오픈시간캘린더
 SELECT to_char(onTime, 'YYYY/MM/DD') wday, MIN(onTime) firstworkt, MAX(offTime) lastworkt
@@ -203,21 +208,6 @@ FROM EMPCHECKIN
 WHERE FRREGINUM='1234567890' 
 GROUP BY to_char(onTime, 'YYYY/MM/DD');
 
-
-SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
-FROM store s, emp e
-WHERE s.empnum=e.EMPNUM
-AND frreginum!='9999999999'
-<if test="frName!=null and !frName.equals('')">
-AND frName LIKE '%'||#{frName}||'%'
-</if>
-<if test="frRepName!=null and !frRepName.equals('')">
-AND frRepName LIKE '%'||#{frRepName}||'%'
-</if>
-<if test="ename!=null and !ename.equals('')">
-AND ename LIKE '%'||#{ename}||'%'
-</if>
-ORDER BY frname
 
 
 
@@ -305,6 +295,9 @@ SELECT * FROM qa;
 SELECT * FROM store;
 SELECT * FROM QACHECKLIST;
 SELECT * FROM emp; --22051002
+
+
+
 
 --담당매장 점검등록
 SELECT q.qanum, qaitem, results, comments
@@ -476,7 +469,33 @@ to_date('20230313', 'YYMMDD'), null,'');
 */
 --to_date('20230302', 'YYMMDD'), null,''); 
 
+
+SELECT * FROM qa ORDER by INSPECTDTE, qanum, frreginum;
+--3월달 기록이 1234567890 /1234567891 /1234567892
+--3월달 기록이 7532415791
+--emp 	김민주가 주력 2205251001  
+--store 
+SELECT * FROM store;
+SELECT * FROM emp;
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230109', 'YYMMDD'), 'YYMMDD'), '7532415791','1001','Y',
+(SELECT empnum FROM store WHERE frreginum='7532415791'), to_date('20230109', 'YYMMDD'),to_date('20230110', 'YYMMDD'),null); 
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230109', 'YYMMDD'), 'YYMMDD'), '7532415791','1002','Y', 
+(SELECT empnum FROM store WHERE frreginum='7532415791'), to_date('20230109', 'YYMMDD'),to_date('20230110', 'YYMMDD'),NULL);
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230109', 'YYMMDD'), 'YYMMDD'), '7532415791','1003','Y', 
+(SELECT empnum FROM store WHERE frreginum='7532415791'), to_date('20230109', 'YYMMDD'),to_date('20230110', 'YYMMDD'),NULL);
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230109', 'YYMMDD'), 'YYMMDD'), '7532415791','1004','Y', 
+(SELECT empnum FROM store WHERE frreginum='7532415791'), to_date('20230109', 'YYMMDD'),to_date('20230110', 'YYMMDD'),NULL);
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230109', 'YYMMDD'), 'YYMMDD'), '7532415791','1005','Y', 
+(SELECT empnum FROM store WHERE frreginum='7532415791'), to_date('20230109', 'YYMMDD'),to_date('20230110', 'YYMMDD'),NULL);
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230109', 'YYMMDD'), 'YYMMDD'), '7532415791','1007','N', 
+(SELECT empnum FROM store WHERE frreginum='7532415791'), to_date('20230109', 'YYMMDD'),to_date('20230110', 'YYMMDD'),'본사에서 유니폼 공급이 늦어짐');
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230109', 'YYMMDD'), 'YYMMDD'), '7532415791','1008','Y', 
+(SELECT empnum FROM store WHERE frreginum='7532415791'), to_date('20230109', 'YYMMDD'),to_date('20230110', 'YYMMDD'),NULL);
+
+SELECT * FROM qa;
+
 SELECT * from qa;
+SELECT * FROM QACHECKLIST ;
 
 
 --1234567890--점검일O 등록O 

@@ -90,6 +90,7 @@
 		font-weight:800;
 		font-size:35px;
 	}
+	/* 등록버튼 */
 	.btn-primary{
 		width:80px;
 		height:40px;
@@ -98,6 +99,14 @@
 		margin-left:10px;
 	}
 	
+	#thisMnthPrint{
+		width:80px;
+		height:40px;
+		line-height: 40px;
+		border-radius:10px;
+		margin-left:10px;
+		font-size:25px;
+	}
 
 	
 	
@@ -136,6 +145,7 @@
 		width:60px;
 		font-size:23px;
 	}
+	
 	
 	
 	
@@ -180,6 +190,10 @@
 		margin-left: auto;
 		margin-top:20px;
 	}
+	table td{
+		vertical-align: middle;
+		pointer-events: none;
+	}
 	
 	.ctrdata{
 		text-align: center;
@@ -212,7 +226,7 @@
 		<div class="contents">
 			
 			
-			<h2>이달의 점검결과 조회</h2><br><hr><br>
+			<h2>담당매장 QA</h2><br><hr><br>
 			
 
 			<div id="noFrnum">
@@ -290,18 +304,34 @@
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
 			
+			
 			//첫째행만 따로 출력	
 			var firstJs=json.sQAinfo[0]; 
-			//var thisDiv="<div>이번 달 점검일</div><div class='assignDt'>"+firstJs.inspectDte+"</div><div onclick='goInspect("+frRegiNum+")' class='btn-primary'>등록</div>"	
-			console.log(firstJs.regDte)			
+	
+			var inspectDate = new Date(firstJs.inspectDte); //점검날짜
+			var today = new Date(); //오늘날짜
+
+			var compareRslt = today.getTime()-inspectDate.getTime();
+			
+			//테스트
+			/*
+			today.setHours(today.getHours() +21);
+			today.setMinutes(today.getMinutes() +43);
+			console.log(today.toLocaleString());
+			*/
+			
+			//등록일전까지 버튼클릭 불가능
 			//등록하면 조회버튼으로 변경
-			if(firstJs.regDte=='-'){
-				var thisDiv="<div>이번 달 점검일</div><div class='assignDt'>"+firstJs.inspectDte+"</div><div onclick='goInspect("+frRegiNum+")' class='btn-primary'>등록</div>"	
+			if(firstJs.regDte=='-'&&compareRslt<0){
+				var thisDiv="<div>이번 달 점검일</div><div class='assignDt'>"+firstJs.inspectDte+"</div><div onclick='goAlert()' class='btn-primary' style='background-color:#003B7A;color:#86929F'>등록</div>"
+			}else if(firstJs.regDte=='-'&&compareRslt>=0){
+				var thisDiv="<div>이번 달 점검일</div><div class='assignDt'>"+firstJs.inspectDte+"</div><div onclick='goInspect("+frRegiNum+")' class='btn-primary'>등록</div>"
 			}else{
-				var thisDiv="<div>이번 달 점검일</div><div class='assignDt'>"+firstJs.inspectDte+"</div><div onclick='thatMonthResult(\""+firstJs.inspectionNum+"\", \""+frRegiNum+"\")' class='btn-secondary'>조회</div></div>"
+				var thisDiv="<div>이번 달 점검일</div><div class='assignDt'>"+firstJs.inspectDte+"</div><div onclick='thatMonthResult(\""+firstJs.inspectionNum+"\", \""+frRegiNum+"\")' class='btn-secondary' id='thisMnthPrint'>조회</div></div>"
 			}
 			
 			$("#thisMonthInspect").html(thisDiv);
+			
 			
 			
 			//남은 행 출력
@@ -367,7 +397,6 @@
 			$("#noFrnum").css("display", "block");
 			$("#storeSideBar").css("display", "none");
 			$("#thatStrInspctList").css("display", "none");
-			alert("담당매장이 있는 경우에만 담당매장이 출력됩니다")
 		}else{
 			$("#noFrnum").css("display", "none");
 		}
@@ -388,6 +417,9 @@
 	// 등록
 	function goInspect(frRegiNum){
 		location.href="${path}/inspectQAPrint.do?frRegiNum="+frRegiNum
+	}
+	function goAlert(){
+		alert("아직 점검일이 아닙니다")
 	}
 
 	

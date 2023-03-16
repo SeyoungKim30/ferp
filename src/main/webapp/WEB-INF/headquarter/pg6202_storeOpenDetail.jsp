@@ -163,6 +163,9 @@ public class Main {
   .fc-scroller{/* 캘린더 스크롤 없애기 */
      overflow: hidden !important;
   }
+  table td{/* 캘린더 hover 없애기 */
+	 pointer-events: none;
+  }
 	
 
   
@@ -235,8 +238,13 @@ public class Main {
 			<!-- 매장정보간단출력 시작 -->
 			<div class="storePrint">
 				<h1>${otdetail.frName }</h1>
-				<div><span class="strifo_header">운영시간</span><span class="strifo_rslt">${otdetail.frOperTime }</span></div>
-				<div><span class="strifo_header">점주</span><span class="strifo_rslt">${otdetail.frRepName }</span>&nbsp;<span class="strifo_header">담당직원</span><span>${otdetail.ename }</span></div>
+				<div>
+					<span class="strifo_header">운영시간</span><span class="strifo_rslt">${otdetail.frOperTime }</span>
+					<span class="strifo_header">휴무일</span><span class="strifo_rslt">${otdetail.frClosedDte }</span>
+				</div>
+				<div>
+					<span class="strifo_header">점주</span><span class="strifo_rslt">${otdetail.frRepName }</span>
+					<span class="strifo_header">담당직원</span><span>${otdetail.ename }</span></div>
 			</div>
 			<!-- 매장정보간단출력 끝-->
 			

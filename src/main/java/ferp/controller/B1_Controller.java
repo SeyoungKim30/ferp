@@ -292,28 +292,7 @@ public class B1_Controller {
 		d.addAttribute("calendarlist", service.openTimeDetailCalendar(otcd));
 		return "pageJsonReport";
 	}	
-	/*
-	@RequestMapping(value = "openTimeCalendarJson.do", produces = "application/json")
-	@ResponseBody
-	public String r6202openTimeCalendarJson(@RequestParam String writer, Model d){
-		d.addAttribute("calendarlist", service.openTimeDetailCalendar(writer));
-		return "{\"result\":\"success\"}"; // JSON 형식의 String 값 반환 예시
-	}
 	
-	@RequestMapping("openTimeCalendarJson.do")
-	@public String r6202openTimeCalendarJson(@RequestParam String writer, Model d){
-		d.addAttribute("calendarlist", service.openTimeDetailCalendar(writer));
-		return "{\"result\":\"success\"}"; // JSON 형식의 String 값 반환 예시
-	}
-	
-	
-	@RequestMapping("openTimeCalendarJson.do")
-	@ResponseBody
-	  public String r6202openTimeCalendarJson(String writer, Model d) {
-	    String jsonString = "{\"key\":\"value\"}"; // JSON 형식의 String 값
-	    return jsonString;
-	  }
-	*/
 	
 
 }

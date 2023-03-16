@@ -201,12 +201,13 @@
 		}).catch(function(err){console.log(err)})	
 	}
 	
-	$(document).ready(function(){	
-		//표출력
-		print();
-	})
 	
+	$(function() {		
+		//표출력
+		print();	
 		
+	})
+
 	
 	
 	
@@ -268,21 +269,29 @@ function changeA(qaNum) {
 
 	
 	
-	
+
+	/* 모달에서 등록 */
 	//항목등록
 	function add() {
 		
 	  var qaItem = $("#qaItem").val();
+	  //var qaItem = document.querySelector("input[name=qaItem]").value;
+	  console.log(qaItem)
+	  console.log(qaItem.length)
+	  console.log(qaItem>0)
+	  
 	  $.ajax({
 	    type: "POST",
 	    url: "${path}/qaAdd.do",
 	    data: { qaItem: qaItem },
 	    success: function(data) {	
+	    	
 	    	if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. \n등록하시겠습니까?")==true){
-		  		alert("항목이 등록되었습니다");
-		    	$(".modal").fadeOut();
-		    	print();
-	  		}
+	    		alert("항목이 등록되었습니다");
+	        	$(".modal").fadeOut();
+	        	print();
+	    	}
+  		
 	    },	    
 	    error: function(xhr, status, error) {
 	      alert("서버와의 통신에 실패했습니다.");
@@ -291,43 +300,43 @@ function changeA(qaNum) {
 	  
 	}
 	
+	//등록폼 열기
+	$(".addBtn").click(function(){
+		$(".modal").fadeIn();
+	});
+	//취소버튼
+	$(".close").click(function(){
+		$(".modal").fadeOut();
+	});
+
+	//등록버튼
+	$(".form_control").on("input", function() {
+		
+		var qaItem = $("#qaItem").val();
+		console.log(qaItem)
+		console.log(qaItem.length)
+		console.log(qaItem.length>0)
+			 
+		
+		if (qaItem.length > 0 ) {
+			$(".btn-primary").prop("disabled", false);	
+			
+	  	} else {
+	    	$(".btn-primary").prop("disabled", true);
+	  	}
+	});
 	
-	$(function() {
-		
-		//등록폼 열기
-		$(".addBtn").click(function(){
-			$(".modal").fadeIn();
-		});
-		//취소버튼
-		$(".close").click(function(){
-			$(".modal").fadeOut();
-		});
-		
-		
-		//등록버튼
-		$(".form_control").on("input", function() {
-			if (qaItem.length > 0 ) {
-				$(".btn-primary").prop("disabled", false);	
-				
-		  	} else {
-		    	$(".btn-primary").prop("disabled", true);
-		  	}
-		});
-		
-		
-		$(".form_control").on("keyup", function(event) {
-		  	if (qaItem.length > 0 && event.keyCode === 13) { 
-		  		if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. \n등록하시겠습니까?")==true){
-		  			add();
-			  		alert("항목이 등록되었습니다");
-			    	$(".modal").fadeOut();
-			    	print();
-		  		}
-		  		
-		  	}
-		});
-		
-	})
+	$(".form_control").on("keyup", function(event) {
+	  	if (qaItem.length > 0 && event.keyCode === 13) { 
+	  		add()
+	  	}
+	});
+	
+
+
+	
+
+	
 
 	
 

@@ -109,6 +109,14 @@
 	table td{
 		vertical-align: middle;
 	}
+	tr.delStore{
+		background-color: rgb(190,191,197, 0.3);
+	}
+	tr.delStore:hover{
+		cursor:default;
+		background-color: rgb(190,191,197, 0.3);
+		
+	}
 	/*검색버튼*/
 	.frsalesSchBtn {
 		font-size: 15px;
@@ -148,6 +156,9 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
+
 
 <head>
 
@@ -192,6 +203,7 @@
 				
 				<!-- 검색기준 시작 -->
 				<div class="hdq_searchStandard">
+					<!--
 					<div class="sort">
 						<span>정렬기준</span>
 						<ul>
@@ -200,6 +212,7 @@
 							<li>매출낮은 순</li>
 						</ul>
 					</div>
+					  -->
 					<div class="period">
 						<span>매출조회 기간</span>
 						
@@ -257,12 +270,21 @@
 		fetch(url).then(function(response){return response.json()}).then(function(json){
 			//console.log(json);
 			var sbslist=json.sbslist;
+			var ftrtd='';
 			var trtd='';
 		
 			sbslist.forEach(function(each){
-				trtd+="<tr><td onclick='goDetail("+each.frRegiNum+")'>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary' onclick='goUpdate("+each.frRegiNum+")'>수정</span><span class='btn-danger' onclick='goDelete("+each.frRegiNum+")'>삭제</span></td></tr>"
+				
+				if(each.frtel==null){
+					trtd="<tr class='delStore'><td>"+each.frname+"</td><td colspan='5' style='text-align:center'>운영이 종료된 매장입니다</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
+
+				}else{
+					trtd="<tr><td onclick='goDetail("+each.frRegiNum+")'>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td  class='ctrdata'>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary' onclick='goUpdate("+each.frRegiNum+")'>수정</span><span class='btn-danger' onclick='goDelete("+each.frRegiNum+")'>삭제</span></td></tr>"
+
+				}
+				ftrtd+=trtd
 			})
-			$("table tbody").html(trtd);
+			$("table tbody").html(ftrtd);
 			//console.log(trtd);
 		}).catch(function(err){console.log(err)})	
 
@@ -298,6 +320,7 @@
 	function goDetail(frRegiNum){
 		location.href="${path}/salesDetail.do?frRegiNum="+frRegiNum+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt
 	}
+	
 	function goUpdate(frRegiNum){
 		  Swal.fire({
 			  title: '수정페이지로 이동하시겠습니까?',

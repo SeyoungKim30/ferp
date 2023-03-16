@@ -11,6 +11,7 @@ public class OpenTimeCalender {
 	private String frRepName;
 	private String ename;
 	private String opentime;
+	private String frClosedDte;
 	
 	private String frRegiNum;
 	
@@ -69,6 +70,12 @@ public class OpenTimeCalender {
 	}
 	public void setFrRegiNum(String frRegiNum) {
 		this.frRegiNum = frRegiNum;
+	}
+	public String getFrClosedDte() {
+		return frClosedDte;
+	}
+	public void setFrClosedDte(String frClosedDte) {
+		this.frClosedDte = frClosedDte;
 	}
 	
 	
