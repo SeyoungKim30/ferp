@@ -85,7 +85,7 @@ $(function(){
 		document.querySelector('[name=demander]').readOnly=true;
 	}else{
 		//datalist 만들기 - 가맹점 리스트
-		fetchStoreList();
+		fetchActiveList();
 	}	
 });
 </script>
