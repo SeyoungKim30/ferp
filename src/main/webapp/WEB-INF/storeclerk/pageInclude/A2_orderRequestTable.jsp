@@ -170,7 +170,7 @@
 		var t = new Date(today)
 		var o = new Date(orderday)
 		console.log("123123123-"+(t>o || orderState != '발주취소'))
-		if(t>o || orderState == '발주취소'){
+		if(t>o || orderState == '발주취소' || orderState == '완료'){
 			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr("disabled", true)
 			$(".uBtn").css("backgroundColor", "#dc3545")
 			$(".uBtn").css("display", "none")
