@@ -179,7 +179,7 @@ ORDER BY CATEGORY
 	<insert id="r7210insertStatement" parameterType="acstmt">
 		INSERT INTO ACSTATEMENT VALUES(
 		#{statementNum}||(SELECT nvl(substr(MAX(statementNum),3,5),1000)<if test="lineNum==0">+1</if> 
-		FROM ACSTATEMENT a WHERE STMTDATE = TO_DATE(#{stmtDate},'YYYY-MM-DD')),
+		FROM ACSTATEMENT a WHERE FRREGINUM =#{frRegiNum} AND STMTDATE = TO_DATE(#{stmtDate},'YYYY-MM-DD')),
 		#{frRegiNum},#{lineNum},TO_DATE(#{stmtDate},'YYYY-MM-DD'),
 		#{acntNum},#{debit},#{credit},#{stmtOpposite,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
 	</insert>
