@@ -192,4 +192,11 @@ public class C2_Controller {
 		return "pageJsonReport";
 	}
 	
+	// 본사 직원 점검일 배정 
+	// http://localhost:6080/ferp/hQAinspectdte.do
+	@RequestMapping("/hQAinspectdte.do")
+	public String r6101QAinspectdte(){
+		return "WEB-INF\\headquarter\\pg6101_QAinspectdteIns.jsp";
+	}
+	
 }
