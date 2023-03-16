@@ -278,9 +278,11 @@ function changeA(qaNum) {
 	    url: "${path}/qaAdd.do",
 	    data: { qaItem: qaItem },
 	    success: function(data) {	
-	    	/*
-	    	
-	    	*/
+	    	if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. \n등록하시겠습니까?")==true){
+		  		alert("항목이 등록되었습니다");
+		    	$(".modal").fadeOut();
+		    	print();
+	  		}
 	    },	    
 	    error: function(xhr, status, error) {
 	      alert("서버와의 통신에 실패했습니다.");
@@ -306,12 +308,7 @@ function changeA(qaNum) {
 		$(".form_control").on("input", function() {
 			if (qaItem.length > 0 ) {
 				$(".btn-primary").prop("disabled", false);	
-				if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. /n등록하시겠습니까?")==true){
-		  			add();
-			  		alert("항목이 등록되었습니다");
-			    	$(".modal").fadeOut();
-			    	print();
-		  		}
+				
 		  	} else {
 		    	$(".btn-primary").prop("disabled", true);
 		  	}
@@ -320,7 +317,7 @@ function changeA(qaNum) {
 		
 		$(".form_control").on("keyup", function(event) {
 		  	if (qaItem.length > 0 && event.keyCode === 13) { 
-		  		if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. /n등록하시겠습니까?")==true){
+		  		if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. \n등록하시겠습니까?")==true){
 		  			add();
 			  		alert("항목이 등록되었습니다");
 			    	$(".modal").fadeOut();

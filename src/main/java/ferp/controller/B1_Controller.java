@@ -173,10 +173,10 @@ public class B1_Controller {
 	
 		//List<QA> qa= service.inchargeStore( s.getEmpnum() );
 		//qa.get(0).getFrRegiNum();
-		
-		
+
 		return "WEB-INF\\headquarter\\pg6101_QAinCharge.jsp";
 	}
+	
 	// 담당매장 중 특정매장 점검정보
 	@RequestMapping("inchargeStrQA.do")
 	public String r6101inchargeStrQA(QA qa, Model d) {

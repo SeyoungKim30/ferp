@@ -257,7 +257,7 @@ AND frreginum='1234567891'
 AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 GROUP BY results;
 
-
+SELECT * FROM QACHECKLIST;
 
 --담당매장점검
 --점검일장 랜덤 배정
