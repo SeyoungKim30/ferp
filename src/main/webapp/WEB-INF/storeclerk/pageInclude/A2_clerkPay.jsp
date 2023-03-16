@@ -119,7 +119,7 @@ $(document).ready(function() {
 						</div>
 						<div class="tdDiv" style="width:10%;">${sc.workhour }시간</div>
 						<div class="tdDiv" style="width:10%;">
-							<div class="right">
+							<div class="right"> 
 								<fmt:formatNumber value='${sc.pay }' type='currency'/>								
 							</div>
 						</div>
