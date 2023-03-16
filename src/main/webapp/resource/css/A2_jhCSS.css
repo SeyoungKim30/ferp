@@ -227,9 +227,6 @@ input[type="text"].listInput:focus {
 	margin: 5px;
 	padding: 3px;
 }
-.schDiv-padding {
-	padding-left: 70px;
-}
 
 #frm01>.schDiv>div>input[type="text"] {
 	width: 100%;
@@ -254,6 +251,7 @@ input[type="text"].listInput:focus {
 	border:1px solid #a4a4a4;
 	cursor: pointer;
 	height:30px;
+	font-size: 15px;
 }
 #reqSchFrm>.schDiv>div>input[type="text"] {
 	width: 100%;
@@ -305,4 +303,7 @@ h2.h2Title > span.clerknum{
 	top: -10px; 
     left: -2px;
     color:white;
+}
+.space-between{
+	justify-content: space-between;
 }

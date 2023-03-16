@@ -59,13 +59,13 @@ $(document).ready(function() {
 		<h2 class="h2Title">급여액 조회</h2>
 		<br>
 		<div class="toolbox">
-			<div class="row margin-sm">
+			<div class="row margin-sm space-between">
 				<div class="col left" >
 					<div class="row" style="margin-top: 7px;">
 						<input type="checkbox" id="monthCheck" checked>
 						<label>월 포함</label>
 					</div>
-					<div class="row">
+					<div>
 						<select class="yearCheck">
 							<option value="${SCpsch.orderDateYear}">${SCpsch.orderDateYear}</option>
 							<option value="">---</option>
@@ -78,7 +78,8 @@ $(document).ready(function() {
 						</c:forEach>
 					</div>
 				</div>
-				<div>
+				<div class="right">
+					<div>
 					<form id="reqSchFrm" method="post">
 						<div class="row schDiv schDiv-padding">
 							<div class="col left schDiv-padding" >
@@ -93,6 +94,7 @@ $(document).ready(function() {
 						<input type="hidden" name="frRegiNum" value="${login.frRegiNum}">	
 						<input type="hidden" name="curPage" value="${SCpsch.curPage}" />	
 					</form>
+					</div>
 				</div>
 			</div>
 		</div>
