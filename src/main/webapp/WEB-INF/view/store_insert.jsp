@@ -76,7 +76,9 @@
 						<option disabled="disabled" selected="selected">담당직원 선택</option>
 						<c:forEach var="emp" items="${empCombo}">
 							<c:if test="${emp.ename ne 'admin'}">
-							<option value="${emp.empnum}">${emp.ename}</option>
+								<c:if test="${emp.ename ne null}">
+									<option value="${emp.empnum}">${emp.ename}</option>
+								</c:if>
 							</c:if>
 						</c:forEach>
 					</select>	
