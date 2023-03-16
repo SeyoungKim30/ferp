@@ -141,7 +141,9 @@ $(".howbox").click(function () {
 		  confirmButtonText: '결제',
 		  cancelButtonText: '취소'
 		}).then((result) => {
-			location.href="payState.do?orderNum="+orderNum+"&price="+price+"&tax="+tax+"&oppm="+oppm;
+			if (result.value) {				
+				location.href="payState.do?orderNum="+orderNum+"&price="+price+"&tax="+tax+"&oppm="+oppm;
+			}
 		});
 });
 

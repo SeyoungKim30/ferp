@@ -659,7 +659,7 @@ tabList.click(function(){
 // 수량 추가,제거
 $(".btn_plus").click(function () {
 	var cnt = Number($(".product_number").val());
-	if(cnt<11){		
+	if(cnt<10){		
 		cnt++;
 	}
 	$(".product_number").val(cnt);
@@ -767,23 +767,25 @@ $(".addOrderBtn").click(function () {
 			  confirmButtonText: '결제',
 			  cancelButtonText: '취소'
 			}).then((result) => {
-				if(od == ""){
-					  Swal.fire({
-						  title: '주문하실 음료를 추가해주세요',
-						  icon: 'warning',
-						  showCancelButton: false,
-						  confirmButtonColor: '#2262F3',
-						  confirmButtonText: '확인'
-						}).then((result) => {
-						  if (result.value) {
-							  $(".listdefalut").css('color','red');
-						      return;
-						  }
-					  })
-				}else{
-					location.href="${path}/addOrder.do?"+od
-					// addAjax("/addOrder.do");					
-				}
+				 if (result.value) {					 
+					if(od == ""){
+						  Swal.fire({
+							  title: '주문하실 음료를 추가해주세요',
+							  icon: 'warning',
+							  showCancelButton: false,
+							  confirmButtonColor: '#2262F3',
+							  confirmButtonText: '확인'
+							}).then((result) => {
+							  if (result.value) {
+								  $(".listdefalut").css('color','red');
+							      return;
+							  }
+						  })
+					}else{
+						location.href="${path}/addOrder.do?"+od
+						// addAjax("/addOrder.do");					
+					}
+				 }
 			})
 });
 
