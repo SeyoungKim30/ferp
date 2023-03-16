@@ -115,7 +115,7 @@ pre{
 							<h3 style="font-weight: bold;letter-spacing: 2px;"><span class="todayDate"></span> 오픈시간</h3>
 							<c:forEach var="item" items="${onTimeCombo}">
 								<c:if test="${not empty item.onTime}">
-									<p>▶ ${item.frName} - ${item.onTime}</p>
+									<p>▶ ${item.frName} - <span style="color: blue;">${item.onTime}</span></p>
 								</c:if>
 								<c:if test="${empty item.onTime}">
 									<p>▶ ${item.frName} - <span style="color: red;">오픈 전</span></p>
