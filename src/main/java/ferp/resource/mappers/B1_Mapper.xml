@@ -119,6 +119,7 @@
 								GROUP BY FRREGINUM) q
 		WHERE s.empnum=e.EMPNUM AND s.FRREGINUM=q.frreginum(+)
 		AND s.frreginum!='9999999999'
+		AND frpass IS NOT NULL
 		<if test="frname!=null and !frname.equals('')">
 		AND frname LIKE '%'||#{frname, jdbcType=VARCHAR}||'%'
 		</if>
@@ -292,6 +293,7 @@
 		FROM store s, emp e
 		WHERE s.empnum=e.EMPNUM
 		AND frreginum!='9999999999'
+		AND frpass IS NOT NULL
 		<if test="frName!=null and !frName.equals('')">
 		AND frName LIKE '%'||#{frName}||'%'
 		</if>

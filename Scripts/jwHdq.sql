@@ -88,6 +88,12 @@ AND PAYMENTSTATE='완료'
 AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/01', 'YYYY-MM') --querystring으로 받아서
 GROUP BY PRODUCTNUM ;
 
+s
+
+SELECT * FROM CLERKFILE;
+SELECT * FROM qa;
+
+
 
 
 SELECT * FROM store;
@@ -177,18 +183,42 @@ SELECT * FROM store;
 SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
 FROM store s, emp e
 WHERE s.empnum=e.EMPNUM
-AND frreginum!='9999999999';
+AND frreginum!='9999999999'
+AND frpass IS NOT NULL
+AND frName LIKE '%'||''||'%'
+AND frRepName LIKE '%'||''||'%'
+AND ename LIKE '%'||''||'%'
+ORDER BY frname;
+
 
 --본사:특정매장오픈시간상세조회
 SELECT frname, fropertime, frrepname, ename, SUBSTR(fropertime,1, 5) opentime
 FROM store s, emp e
 WHERE s.empnum=e.EMPNUM
 AND frreginum='1234567891';
+
 --본사:특정매장오픈시간캘린더
 SELECT to_char(onTime, 'YYYY/MM/DD') wday, MIN(onTime) firstworkt, MAX(offTime) lastworkt
 FROM EMPCHECKIN 
 WHERE FRREGINUM='1234567890' 
 GROUP BY to_char(onTime, 'YYYY/MM/DD');
+
+
+SELECT frreginum, frname, SUBSTR(fropertime,1, 5) fropertime, frtel, frrepname, ename
+FROM store s, emp e
+WHERE s.empnum=e.EMPNUM
+AND frreginum!='9999999999'
+<if test="frName!=null and !frName.equals('')">
+AND frName LIKE '%'||#{frName}||'%'
+</if>
+<if test="frRepName!=null and !frRepName.equals('')">
+AND frRepName LIKE '%'||#{frRepName}||'%'
+</if>
+<if test="ename!=null and !ename.equals('')">
+AND ename LIKE '%'||#{ename}||'%'
+</if>
+ORDER BY frname
+
 
 
 
@@ -267,11 +297,14 @@ INSERT INTO QA VALUES('QA'||to_char(to_date('20230222', 'YYMMDD'), 'YYMMDD'),
 (SELECT empnum FROM store WHERE frreginum='1234567891'), 
 to_date('20230222', 'YYMMDD'),to_date('20230222', 'YYMMDD'),'아이용 의자 비치 필요'); --항목추가
 */
-INSERT INTO QA VALUES('QA'||to_char(to_date('20230222', 'YYMMDD'), 'YYMMDD'), 
-'1234567891','1001','N', (SELECT empnum FROM store WHERE frreginum='1234567891'), 
-to_date('20230222', 'YYMMDD'),NULL,NULL); --항목추가
+INSERT INTO QA VALUES('QA'||to_char(to_date('20230317', 'YYMMDD'), 'YYMMDD'), 
+'1234567892','1008','N', (SELECT empnum FROM store WHERE frreginum='1234567892'), 
+to_date('20230317', 'YYMMDD'),NULL,NULL); --항목추가
 
 SELECT * FROM qa;
+SELECT * FROM store;
+SELECT * FROM QACHECKLIST;
+SELECT * FROM emp; --22051002
 
 --담당매장 점검등록
 SELECT q.qanum, qaitem, results, comments

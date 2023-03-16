@@ -109,7 +109,7 @@
 
 	//사이드바에 번호 매긴 것 
 	localStorage.setItem("pageIdx","6104") //id값
-	localStorage.setItem("eqIdx","4000")
+	localStorage.setItem("eqIdx","6000")
 	
 	
 	var frname = $("[name=frname]").val();
@@ -150,16 +150,17 @@
 	
 		search();
 	
-		//엔터검색
-		$("input").on({
-			keyup:function(){
-				if(event.keyCode==13){
-					search();
-				}
-			}
-		});
-	
 	})
+	
+		//엔터검색
+	$("input").on({
+		keyup:function(){
+			if(event.keyCode==13){
+				search();
+			}
+		}
+	});
+	
 	
 	function goDetail(frRegiNum){
 		location.href="${path}/qaDetailInfo.do?frRegiNum="+frRegiNum
