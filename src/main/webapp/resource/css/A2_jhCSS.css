@@ -294,6 +294,7 @@ h2.h2Title > span.clerknum{
 	padding:5px;
 }
 .refreshBtn{
+	position:relative;
 	font-size: xx-large;
 	padding:0;
 	height:30px;
@@ -301,7 +302,7 @@ h2.h2Title > span.clerknum{
 }
 .refreshText{
 	position:absolute;
-	margin-top: -27px;
-    margin-left: -12px;
+	top: -13px;
+    left: 1px;
     color:white;
 }
