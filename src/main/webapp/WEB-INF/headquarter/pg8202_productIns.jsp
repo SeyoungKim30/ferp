@@ -67,7 +67,8 @@ body{
 							class="ckValid" id="category" placeholder="카테고리명 입력" required></td></tr>
 					<tr><th><label for="productName">자재명</label></th>
 						<td><input type="text" name="productName" value="${param.productName}" 
-							class="ckValid" id="productName" placeholder="자재명 입력" required></td></tr>
+							class="ckValid" id="productName" placeholder="자재명 입력" 
+							max="50" required></td></tr>
 					<tr><th><label for="opposite">거래처</label></th>
 						<td><input type="text" name="opposite" value="${param.opposite}"
 							class="ckValid"	id="opposite" placeholder="거래처 입력" required></td></tr>

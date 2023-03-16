@@ -153,13 +153,7 @@
 		INSERT INTO CLERKSCHEDULE values(#{onDay},#{offDay},#{clerkNum},#{FrRegiNum})
 	</insert>
 	
-	<!-- 직원스케줄 캘린더 
-	<resultMap type="scheduleCalender" id="calMap">
-		<result column="clerkName" property="title"/>
-		<result column="frRegiNum" property="writer"/>
-		<result column="onDay" property="start"/>
-		<result column="offDay" property="end"/>
-	</resultMap>-->
+	<!-- 직원스케줄 캘린더 -->
 	<resultMap type="java.util.HashMap" id="calMap">
 		<result column="clerkName" property="title"/>
 		<result column="frRegiNum" property="writer"/>
@@ -173,5 +167,15 @@
 		AND c.FRREGINUM = #{writer}
 		AND s.HOURLYPAY !=0
 	</select>
+	
+	<!-- 직원스케줄 캘린더 삭제 -->
+	<delete id="sclerkschdDel" parameterType="clerkschedule">
+		DELETE FROM CLERKSCHEDULE 
+		WHERE ONDAY =#{onDay}
+		AND CLERKNUM =#{clerkNum}
+	</delete>
+	
+	<!-- 본사 직원 점검일 배정 -->
+	
 	
 </mapper>

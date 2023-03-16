@@ -35,9 +35,9 @@ public interface C2_Dao {
 	// 직원스케줄 캘린더 등록
 	public void sclerkschdIns(ClerkSchedule ins);
 	// 직원스케줄 캘린더 삭제
-//	public void sclerkschdDel(ClerkSchedule del);
+	public void sclerkschdDel(ClerkSchedule del);
 	// 직원스케줄 캘린더
-//	public List<ScheduleCalender> sclerkschd(String writer);
 	public List<HashMap<String, Object>> sclerkschd(String writer);
+	// 본사 직원 점검일 배정 
 	
 }
