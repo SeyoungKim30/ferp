@@ -233,6 +233,7 @@ public class C1_Service {
 		if(prodOrder.getPaymentState().equals("계산서 발행")&&prodOrder.getDemander().equals("0000000000")) {
 		//검색해서 목록 불러오기
 			System.out.println("일괄계산서~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			prodOrder.setOrderDate(prodOrder.getOrderDateMonth());
 			List<Prod_order_stock_emp_store> alist=dao.r9310selectProdOrderPayState(prodOrder);
 			//목록 반복문 돌려서 전표 만들어넣기
 			for(Prod_order_stock_emp_store pp:alist) {
