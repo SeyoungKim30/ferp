@@ -144,6 +144,7 @@ public class C1_Controller {
 		return "pageJsonReport";
 	}
 	
+
 	@RequestMapping("updateProdOrderPayState.do")
 	@ResponseBody
 	public String r9311updateProdOrderPayState(Model model,ProdOrder prodOrder,
@@ -152,6 +153,7 @@ public class C1_Controller {
 		int a=service.r9311updateProdOrderPayState(prodOrder,price,tax);
 		return a+"";
 	}
+
 
 	//http://localhost:6080/ferp/prodOrderPayDetail.do
 	@GetMapping("prodOrderPayDetail.do")

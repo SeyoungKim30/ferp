@@ -40,11 +40,13 @@
 	text-align:right;
 }
 </style></c:if>
-
 </head>
 
-
 <body class="container">
+<script>
+localStorage.setItem("pageIdx","9201")
+localStorage.setItem("eqIdx","9000")
+</script>
 	<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
@@ -175,11 +177,11 @@ function htmlPrint(list){
 		</c:if>
 		<c:if test="${login.frRegiNum == 9999999999 }">
 			+`</td><td>`+`<select id='`+each.prodOrder.productNum+each.prodOrder.orderDate.substr(0,10)+each.prodOrder.demander+`'>`;	//id에 지점 일자 상품 들어가야됨
-			if(each.prodOrder.orderState=='요청'){htmls+=`<option selected>요청</option>`}else{htmls+=`<option>요청</option>`}
-			if(each.prodOrder.orderState=='배송중'){htmls+=`<option selected>배송중</option>`}else{htmls+=`<option>배송중</option>`}
-			if(each.prodOrder.orderState=='완료'){htmls+=`<option selected>완료</option>`}else{htmls+=`<option>완료</option>`}
-			if(each.prodOrder.orderState=='조정'){htmls+=`<option selected disabled>조정</option>`}else{htmls+=`<option disabled>조정</option>`}
-			if(each.prodOrder.orderState=='취소완료'){htmls+=`<option selected disabled>취소완료</option>`}else{htmls+=`<option disabled>취소완료</option>`}
+			if(each.prodOrder.orderState=='요청'){htmls+=`<option selected>요청</option><option>배송중</option>`}
+			if(each.prodOrder.orderState=='배송중'){htmls+=`<option selected>배송중</option><option>완료</option>`}
+			if(each.prodOrder.orderState=='완료'){htmls+=`<option selected>완료</option>`}
+			if(each.prodOrder.orderState=='조정'){htmls+=`<option selected disabled>조정</option>`}
+			if(each.prodOrder.orderState=='취소완료'){htmls+=`<option selected disabled>취소완료</option>`}
 			htmls+=`</select>`
 		</c:if>
 			+`</td><td>`+each.prodOrder.paymentState

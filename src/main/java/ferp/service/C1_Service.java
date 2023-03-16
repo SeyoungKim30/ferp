@@ -149,11 +149,12 @@ public class C1_Service {
 	}
 	
 	public int r9311updateProdOrderPayState(ProdOrder prodOrder,int price,int tax) {
+		int a =dao.r9311updateProdOrderPayState(prodOrder);
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString=dateFormat.format(date);
 		ACStatement ast= new ACStatement();
-		if(prodOrder.getPaymentState().equals("계산서 발행")&&!prodOrder.getDemander().equals("0000000000")) {
+		if(prodOrder.getPaymentState().equals("계산서 발행")&&price!=0) {
 			//일괄 아니고 계산서 발행일때
 			//계산서 발행 : 본사 미수수익(자산)
 			ast.setAcntNum("11600");
@@ -169,6 +170,7 @@ public class C1_Service {
 			//본사 부가세
 			ast.setAcntNum("25500");
 			ast.setCredit(tax);
+			ast.setDebit(0);
 			ast.setLineNum(1);
 			dao.r7210insertStatement(ast);
 			//본사 상품매출(수익)
@@ -197,9 +199,9 @@ public class C1_Service {
 			ast.setLineNum(2);
 			dao.r7210insertStatement(ast);
 		}
-		if(prodOrder.getPaymentState().equals("완료")&&!prodOrder.getDemander().equals("0000000000")) {
+		if(prodOrder.getPaymentState().equals("완료")&&price!=0) {
 			//일괄 아니고 입금했을때
-			//입금했을때 미수수익 사라짐
+			//입금했을때 본사에서 미수수익 사라짐
 			ast.setAcntNum("11600");
 			ast.setDebit(0);
 			ast.setCredit(price+tax);
@@ -230,11 +232,9 @@ public class C1_Service {
 			dao.r7210insertStatement(ast);
 		}
 		//일괄 계산서 발행할때
-		if(prodOrder.getPaymentState().equals("계산서 발행")&&prodOrder.getDemander().equals("0000000000")) {
+		if(prodOrder.getPaymentState().equals("계산서 발행")&&price==0) {
 		//검색해서 목록 불러오기
-			System.out.println("일괄계산서~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			prodOrder.setOrderDate(prodOrder.getOrderDateMonth());
-			List<Prod_order_stock_emp_store> alist=dao.r9310selectProdOrderPayState(prodOrder);
+			List<Prod_order_stock_emp_store> alist=r9310selectProdOrderPayState(prodOrder);
 			//목록 반복문 돌려서 전표 만들어넣기
 			for(Prod_order_stock_emp_store pp:alist) {
 				int price1=pp.getProduct().getPrice();
@@ -252,6 +252,7 @@ public class C1_Service {
 				dao.r7210insertStatement(ast);
 				//본사 부가세
 				ast.setAcntNum("25500");
+				ast.setDebit(0);
 				ast.setCredit(tax1);
 				ast.setLineNum(1);
 				dao.r7210insertStatement(ast);
@@ -265,6 +266,7 @@ public class C1_Service {
 				ast.setAcntNum("45500");
 				ast.setCredit(0);
 				ast.setDebit(price1);
+				System.out.println("매장 사업자번호 "+pp.getStore().getFrRegiNum());
 				ast.setFrRegiNum(pp.getStore().getFrRegiNum());
 				ast.setLineNum(0);
 				ast.setStmtOpposite("본사");
@@ -282,8 +284,9 @@ public class C1_Service {
 				dao.r7210insertStatement(ast);
 			}
 		}
-		return 	dao.r9311updateProdOrderPayState(prodOrder);
+		return a;
 	}
+	
 	
 	public List<Prod_order_stock_emp_store> r9301prodOrderPayDetail(ProdOrder prodOrder){
 		return dao.r9301prodOrderPayDetail(prodOrder);

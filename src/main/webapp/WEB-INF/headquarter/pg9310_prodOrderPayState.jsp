@@ -84,10 +84,11 @@ window.addEventListener('load',function(){
 	
 	<form id="updateForm" >
 	<input name="orderDateMonth" placeholder="orderDateMonth">
-	<input name="demander">
-	<input name="supplier">
-	<input name="paymentState">
-	<input name="price">
+	<input name="demander" placeholder="demander">
+	<input name="supplier" placeholder="supplier 담당자">
+	<input name="paymentState" placeholder="변경할 상태">
+	<input name="price" placeholder="금액">
+	<input name="orderStateUpdate" placeholder="orderStateUpdate인데 일괄구분자로 사용하기">
 	<input name="tax">
 	</form>
 	
@@ -102,6 +103,10 @@ window.addEventListener('load',function(){
 const form1= document.querySelector('#searchform')
 form1.addEventListener('submit', function(e){
     e.preventDefault();	//submit 방지
+    searchAndPrint()
+})
+
+function searchAndPrint(){
 	fetchSelectPromise("#searchform","${path }/selectProdOrderPayState.do?").then(function(result){
 		let thislist=result.list
 		console.log(result)
@@ -152,7 +157,8 @@ form1.addEventListener('submit', function(e){
 		$('tbody').find('tr td:nth-child(1)').on('click',goDetail)
 		$('tbody').find('tr td:nth-child(2)').on('click',goDetail)
 	}).catch(function(error){console.error(error);})
-})
+}
+
 
 function updateClick(){	//fetch하고 테이블에 있는 버튼에 적용
 	let newstate=$(this).text();
@@ -170,21 +176,25 @@ function updateClick(){	//fetch하고 테이블에 있는 버튼에 적용
 	document.querySelector('#updateForm [name=orderDateMonth]').value = id.substr(12,14)
 	document.querySelector('#updateForm [name=price]').value = sameid[2].innerHTML.replace(/,/g,'')
 	document.querySelector('#updateForm [name=tax]').value = sameid[3].innerHTML.replace(/,/g,'')
+		document.querySelector('#updateForm [name=orderStateUpdate]').value = 0
 	fetchUpdatePromise('#updateForm',"${path}/updateProdOrderPayState.do?").then(result=>{alert(result);}).catch(reject=>{console.error(reject)})
 	//업뎃하고 새로고침
-	$('#searchform .btn-secondary').trigger('click');
+	searchAndPrint()
 	}
 	
 function updateAllClick(prodOrder,sttt){	//fetch하고 테이블에 있는 버튼에 적용
 	document.querySelector('#updateForm [name=paymentState]').value = sttt;
 	document.querySelector('#updateForm [name=supplier]').value = prodOrder.supplier//담당자
-	document.querySelector('#updateForm [name=demander]').value = '0000000000';
+	document.querySelector('#updateForm [name=demander]').value = prodOrder.demander;
 	document.querySelector('#updateForm [name=orderDateMonth]').value = prodOrder.orderDate
-	let gogo=confirm(prodOrder.orderDateMonth.substr(0,4)+'년 '+prodOrder.orderDateMonth.substr(5,6)+'월 전체 정산상태를 변경할까요?');
+	document.querySelector('#updateForm [name=price]').value = 0
+	document.querySelector('#updateForm [name=tax]').value = 0
+	document.querySelector('#updateForm [name=orderStateUpdate]').value = 1
+	let gogo=confirm(prodOrder.orderDate.substr(0,4)+'년 '+prodOrder.orderDate.substr(5,6)+'월 전체 정산상태를 변경할까요?');
 	if(gogo){
 		fetchUpdatePromise('#updateForm',"${path}/updateProdOrderPayState.do?").then(result=>{alert(result);}).catch(reject=>{console.error(reject)})
 		//업뎃하고 새로고침
-		 $('#searchform .btn-secondary').trigger('click');
+		searchAndPrint()
 	}else{return false;}
 	}
 	
