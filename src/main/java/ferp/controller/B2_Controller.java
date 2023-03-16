@@ -57,6 +57,8 @@ public class B2_Controller {
 	@RequestMapping("/goHqPage.do")
 	public String goHqPage(HttpSession session, Model d) {
 		Emp e = (Emp)session.getAttribute("login");
+		// 공지사항
+		d.addAttribute("noticeCombo", service.getNotice());
 		
 		// 담당매장 오픈시간
 		List<OnTime> ontime = service.getOnTime(e.getEmpnum());
@@ -123,7 +125,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("msg", "매장정보등록 성공!!");
 		}
 		// redirect로 매장정보조회페이지로 이동
-		return "redirect:/mainpage.do";
+		return "redirect:/salesInfo.do";
 	}
 	// 매장 정보 수정
 	// http://localhost:7080/ferp/storeUpdate.do
@@ -140,7 +142,7 @@ public class B2_Controller {
 		}
 		
 		// 매장 정보 조회 페이지로 redirect
-		return "";
+		return "redirect:/salesInfo.do";
 	}
 	// 매장 정보 비활성화
 	@RequestMapping("/storeDelete.do")
@@ -149,7 +151,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("delMsg", "매장 정보 비활성화 완료");
 		}
 		// 매장 정보 조회 페이지로 redirect
-		return "";
+		return "redirect:/salesInfo.do";
 	}
 	
 	
@@ -167,7 +169,7 @@ public class B2_Controller {
 		
 		Emp emp = service.getEmpInfo(ins);
 		redirect.addFlashAttribute("emp", emp);
-		// 본사 메인페이지로 이동
+		
 		return "redirect:/insertEmp.do";
 	}
 	

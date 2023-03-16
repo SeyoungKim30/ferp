@@ -22,7 +22,9 @@
 	.lnb ul li a.pagetitleActive{
 		color: #007bff;
 	}
-	
+	li{
+		cursor: pointer;
+	}
 	
 </style>
  <div class="lnb">

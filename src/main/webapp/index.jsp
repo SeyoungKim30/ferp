@@ -22,7 +22,7 @@
 <c:if test="${login != null }">
 	<c:if test="${login.frRegiNum == '9999999999' }">
 	본사메인으로 이동
-	<c:redirect url="pg0001.jsp"/>
+	<c:redirect url="/goHqPage.do"/>
 	</c:if>
 	<c:if test="${login.frRegiNum != '9999999999' }">
 	<c:redirect url="/storeMainMenu.do" />

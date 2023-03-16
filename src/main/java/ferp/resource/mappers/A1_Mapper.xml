@@ -26,8 +26,8 @@
 			SELECT *
 			FROM STORECLERK
 			WHERE frRegiNum = #{frRegiNum}
+			AND HOURLYPAY != 0
 		</select>
-		
 		
 		<!-- 출근 등록 -->
 		<insert id="addOnDay" parameterType="clerkschedule">
