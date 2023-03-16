@@ -110,7 +110,7 @@ public class B2_Controller {
 			redirect.addFlashAttribute("insMsg", "메뉴 등록 성공!");
 		}
 		// redirect로 본사 홈페이지로 이동
-		return "redirect:/goHqPage.do";
+		return "redirect:/menuInsert.do";
 	}
 	
 	// 매장정보등록 controller
