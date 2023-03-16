@@ -75,8 +75,8 @@
 			<!-- 검색 시작 -->
 			<div class="hdq_search">
 				<form method="post">
-					<input class="infoSch" name="frname" value="${sch.frName}"  type="text" placeholder=" 매장명 입력"/>
-					<input class="infoSch" name="frRepname" value="${sch.frRepName}"  type="text" placeholder=" 점주명 입력"/>
+					<input class="infoSch" name="frName" value="${sch.frName}"  type="text" placeholder=" 매장명 입력"/>
+					<input class="infoSch" name="frRepName" value="${sch.frRepName}"  type="text" placeholder=" 점주명 입력"/>
 					<input class="infoSch" name="ename"  value="${sch.ename}" type="text" placeholder=" 담당직원 입력"/>
 					<button class="frsalesSchBtn" type="submit">검색</button>
 				</form>
@@ -112,8 +112,8 @@
 	localStorage.setItem("eqIdx","6000");
 	
 	
-	var frName = $("[name=frname]").val();
-	var frRepName = $("[name=frRepname]").val();
+	var frName = $("[name=frName]").val();
+	var frRepName = $("[name=frRepName]").val();
 	var ename = $("[name=ename]").val();
 	
 	//ajax fetch사용
@@ -127,7 +127,7 @@
 			var trtd='';
 		
 			optimelist.forEach(function(each){
-				trtd+="<tr onclick='goDetail("+each.frRegiNum+")'><td class='leftdata'>"+each.frName+"</td><td>"+each.frOperTime+"</td><td class='leftdata'>"+each.frTel+"</td><td>"+each.frRepName+"</td><td>"+each.ename+"</td></tr>"
+				trtd+="<tr onclick='goDetail("+each.frRegiNum+")'><td class='leftdata'>"+each.frName+"</td><td>"+each.frOperTime+"</td><td>"+each.frTel+"</td><td>"+each.frRepName+"</td><td>"+each.ename+"</td></tr>"
 			})
 			$("table tbody").html(trtd);
 			console.log(trtd);
@@ -137,18 +137,19 @@
 
 	$(document).ready(function(){
 
-		search();
-	
-		//엔터검색
-		$("input").on({
-			keyup:function(){
-				if(event.keyCode==13){
-					search();
-				}
-			}
-		});
-
+		search();	
 	})
+	
+	
+	//엔터검색
+	$("input").on({
+		keyup:function(){
+			if(event.keyCode==13){
+				search();
+			}
+		}
+	});
+
 	
 			
 	function goDetail(frRegiNum){
