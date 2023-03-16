@@ -115,7 +115,7 @@ $(document).ready(function(){
 				  }
 				  else if($("[name=category]").val() == ""){
 					  Swal.fire({
-						  title: '카테고리를 선택해주세요.',
+						  title: '문의유형을 선택해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',

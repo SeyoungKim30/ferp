@@ -23,7 +23,7 @@
 	
 	<!-- 매장정보 등록 -->
 	<insert id="insertStore" parameterType="store">
-		INSERT INTO store VALUES(#{frRegiNum}, #{empNum}, #{frName}, #{frOpen}, 
+		INSERT INTO store VALUES(#{frRegiNum}, #{empNum}, #{frName}, sysdate, 
 			#{frOperTime}, #{frClosedDte}, #{frRepName}, #{frTel}, #{frAddress}, #{frPass}, #{email})
 	</insert>
 	<!-- 필수 메뉴 출력 -->
@@ -32,7 +32,7 @@
 		FROM menu
 		WHERE necessary = 'N'
 	</select>
-	<!-- 매장 등록시 해당 메장 필수 메뉴 등록 -->
+	<!-- 매장 등록시 해당 매장 필수 메뉴 등록 -->
 	<insert id="necessaryMenu" parameterType="onsale">
 		INSERT INTO onsale VALUES(#{menuNum}, #{frRegiNum})
 	</insert>
@@ -66,7 +66,7 @@
 			frOperTime = '',
 			frClosedDte = '',
 			frTel = '',
-			frPass = ''
+			frPass = null
 		WHERE frRegiNum = #{frRegiNum}
 	</update>
 	

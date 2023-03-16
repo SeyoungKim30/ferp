@@ -111,8 +111,8 @@ pre{
 				</div>
 				<div class="schedule">
 					<div class="boxes">
-						<div">
-							<h3 style="font-weight: bold;letter-spacing: 2px;"><<span class="todayDate"></span> 오픈시간></h3>
+						<div>
+							<h3 style="font-weight: bold;letter-spacing: 2px;"><span class="todayDate"></span> 오픈시간</h3>
 							<c:forEach var="item" items="${onTimeCombo}">
 								<c:if test="${not empty item.onTime}">
 									<p>▶ ${item.frName} - ${item.onTime}</p>
@@ -221,7 +221,7 @@ const myChart = new Chart(ctx, {
                 display: true,
                 text: '<전체 매장 매출>',
                 font: {
-                    size: 14
+                    size: 18
                 }
             },
         	legend:{

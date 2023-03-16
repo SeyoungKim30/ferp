@@ -58,7 +58,7 @@ public class A2_Controller {
 		Store s = (Store)session.getAttribute("login");
 		SCsch.setFrRegiNum(s.getFrRegiNum());
 		d.addAttribute("scList", service.storeClerkList(SCsch));
-		d.addAttribute("clerkTot", service.clerkTot());
+		d.addAttribute("clerkTot", service.clerkTot(s.getFrRegiNum()));
 		return "/WEB-INF/storeclerk/A2_storeClerkListCon.jsp";
 	}
 	
@@ -221,15 +221,16 @@ public class A2_Controller {
 	public String pg9402(@ModelAttribute("dSch") DefectOrder sch, HttpSession session, Model d) {
 		Store s = (Store)session.getAttribute("login");
 		sch.setFrRegiNum(s.getFrRegiNum());
+		service.prodOrderToDefected(sch);
 		d.addAttribute("defectlist", service.viewDefectorder(sch));
 		return "/WEB-INF/storeclerk/A2_defectOrderCon.jsp";
 	}
 //	오배송/누락/자재 파손 처리 신청 삭제
-	@PostMapping("/delDefectProd.do")
-	public String pg9402_1(DefectOrder del) {
-		service.deleteDefectOrder(del);
-		return "redirect:viewDefectProd.do";
-	}
+//	@PostMapping("/delDefectProd.do")
+//	public String pg9402_1(DefectOrder del) {
+//		service.deleteDefectOrder(del);
+//		return "redirect:viewDefectProd.do";
+//	}
 //	최근 일주일 매출 그래프
 	@ModelAttribute("salesGraph")
 	public List<Sales> salesGraph(Sales sch, HttpSession session){
@@ -254,5 +255,5 @@ public class A2_Controller {
 		d.addAttribute("noticeCombo", service2.getNotice());
 		return "forward:pg0002.jsp";
 	}
-
+	
 }

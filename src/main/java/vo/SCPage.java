@@ -5,6 +5,7 @@ public class SCPage {
 	private String clerkName;
 	private String frRegiNum;
 	private String orderDateMonth;
+	private String orderDateYear;
 	
 	// 페이지 네이션
 	private int count;
@@ -16,6 +17,12 @@ public class SCPage {
 	private int blockSize; 
 	private int startBlock;
 	private int endBlock; 
+	public String getOrderDateYear() {
+		return orderDateYear;
+	}
+	public void setOrderDateYear(String orderDateYear) {
+		this.orderDateYear = orderDateYear;
+	}
 	public String getOrderDateMonth() {
 		return orderDateMonth;
 	}

@@ -18,7 +18,7 @@ public interface A2_Dao {
 	public void delStoreClerk(String clerkNum);
 	public List<StoreClerk> storeClerkPayList(SCPage sch);
 	public List<Rq_Product> availProd(Rq_Product plist);
-	public int clerkTot();
+	public int clerkTot(String frRegiNum);
 	public void prodOrderReq(Prod_ProdOrder ins);
 	public List<Prod_ProdOrder> reqList(Prod_ProdOrder sch);
 	public void uptReqList(Prod_ProdOrder upt);
@@ -33,5 +33,6 @@ public interface A2_Dao {
 	public List<StoreClerk> storeclerkSchedule(StoreClerk sch);
 	public int defectOrderTot(String frRegiNum);
 	public void insertDefectOrder(DefectOrder ins);
-	public void deleteDefectOrder(DefectOrder del);
+	public void prodOrderToDefected(DefectOrder upt);
+//	public void deleteDefectOrder(DefectOrder del);
 }

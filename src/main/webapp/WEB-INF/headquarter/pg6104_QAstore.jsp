@@ -108,10 +108,9 @@
 <script>
 
 	//사이드바에 번호 매긴 것 
-	/*
-	localStorage.setItem("pageIdx","6202") //id값
-	localStorage.setItem("eqIdx","7000")
-	*/
+	localStorage.setItem("pageIdx","6104") //id값
+	localStorage.setItem("eqIdx","4000")
+	
 	
 	var frname = $("[name=frname]").val();
 	var frRepName = $("[name=frRepName]").val();

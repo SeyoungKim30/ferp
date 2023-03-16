@@ -88,7 +88,7 @@ header{
 </style>
 <header>
 	<div class="logo">
-		<a href="#"><img src="${path }/resource/img/F.ERP.png" alt=""></a>
+		<a href="${path}/index.jsp"><img src="${path }/resource/img/F.ERP.png" alt=""></a>
 	</div>
 	<c:if test="${login.frRegiNum != '9999999999'}">
 		<div class="headerTop">

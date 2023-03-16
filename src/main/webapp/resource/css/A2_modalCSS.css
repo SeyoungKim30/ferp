@@ -11,7 +11,7 @@
 #modal2 {
 	display: none;
 	position : fixed;
-	margin:-70% 0 0 0;
+	top:100px;
 	width: 55%;
 	height: 100%;
 	z-index: 1;

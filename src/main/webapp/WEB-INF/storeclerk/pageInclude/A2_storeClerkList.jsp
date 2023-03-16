@@ -23,6 +23,7 @@
 	$(document).ready(function() {
 		$(".regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
+				// 여기에 유효성 처리
 				regAjax("insStoreclerk.do")
 			}
 		})
@@ -121,7 +122,7 @@
 				<div class="thDiv" style="width: 7%;">파일</div>
 				<div class="thDiv" style="width: 10%;">수정/삭제</div>
 			</div>
-			<c:forEach var="sc" items="${scList }">
+			<c:forEach var="sc" items="${scList }"> 
 				<form id="uptForm${sc.clerkNum }" method="post">
 					<div class="row reg${sc.clerkNum }">
 						<div style="display: none;">

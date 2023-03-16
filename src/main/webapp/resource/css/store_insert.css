@@ -104,7 +104,7 @@ span{
     width: 47%;
     margin-right: 6%;
 }
-[name=frOpen]{
+[name=frAddress]{
 	width: 48%;
 }
 
@@ -176,20 +176,7 @@ span{
 [name=email]{
 	width: 48%;
 }
-/* 11번째 라인*/
-.eleventh_line{
-	margin-top: 25px;
-}
-.eleventh_line .store_eno{
-	padding-right: 46.2%;
-}
-/* 12번째 라인*/
-.twelfth_line{
-	margin-top: 10px;	
-}
-[name=frAddress]{
-    width: 100%;
-}
+
 
 
 /* 등록 라인 */

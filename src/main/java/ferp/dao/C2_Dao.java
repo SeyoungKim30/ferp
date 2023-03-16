@@ -1,12 +1,11 @@
 package ferp.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import vo.ClerkSchedule;
-import vo.Prod_order_stock;
 import vo.Product;
 import vo.ProductProdOrder;
-import vo.ScheduleCalender;
 import vo.Stock;
 import vo.StoreClerk;
 
@@ -30,12 +29,15 @@ public interface C2_Dao {
 	// 본사 재고 수정
 	public void r8203ProductUpt(Product upt);
 	// 자재 코드 콤보
-	public List<Prod_order_stock> productNumCom();
+	public List<Stock> productNumCom();
 	// 직원 번호 콤보
 	public List<StoreClerk> clerkNumCom();
 	// 직원스케줄 캘린더 등록
 	public void sclerkschdIns(ClerkSchedule ins);
+	// 직원스케줄 캘린더 삭제
+//	public void sclerkschdDel(ClerkSchedule del);
 	// 직원스케줄 캘린더
-	public List<ScheduleCalender> sclerkschd(String writer);
+//	public List<ScheduleCalender> sclerkschd(String writer);
+	public List<HashMap<String, Object>> sclerkschd(String writer);
 	
 }

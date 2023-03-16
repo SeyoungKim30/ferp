@@ -9,7 +9,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
 <link rel="stylesheet" href="${path}/resource/css/reset.css">
 <link rel="stylesheet" href="${path}/resource/css/A2_jhCSS.css">
@@ -52,7 +51,7 @@
 							<div class="row">
 								<button class="minus10" type="button">-10</button>
 								<button class="minus1" type="button">-1</button>
-								<div class="amount"></div>
+								<div class="amount"></div><span class="rmAmountCon">/<span class="rmAmount"></span></span>
 								<button class="plus1" type="button">+1</button>
 								<button class="plus10" type="button">+10</button>
 							</div>
@@ -83,11 +82,11 @@
 			<hr>
 			<div class="orderDate2" style="display: none;"></div>
 			<div>
-				<button type="button" class="wdBtn">교환/취소 신청</button>				
+				<button type="button" class="wdBtn">배송 오류 신청</button>				
 			</div>
 			<div class="right margin">
 				<button type="button" class="uBtn">수정</button>
-				<button type="button" class="dBtn">신청 취소</button>
+				<button type="button" class="dBtn">취소</button>
 				<button type="button" class="cBtn" id="closeBtn2">닫기</button>
 			</div>
 		</div>
@@ -114,6 +113,7 @@
 	})
 	$(".dBtn").on('click',function() {
 		var dataString = 'orderNum=' + $(".orderNum").text() + '&productNum=' + $(".productNum").text() + '&orderDate=' + $(".orderDate2").text()
+		console.log(dataString)
 		if (confirm("신청취소하시겠습니까?")) {
 			$.ajax({
 				type : "post",
@@ -149,36 +149,34 @@
 	})
 	$(".plus1").click(function() {
 		var num1 = parseInt($(".amount").text())
-		if ((num1 + 1) > 0) {
+		var remainAmountInt = parseInt($(".rmAmount").text())
+		console.log(remainAmountInt)
+		if ((num1 + 1) > 0 && (num1 + 1) <= remainAmountInt ) {
 			$(".amount").text(num1 + 1)
 		} else {
-			alert("ㅁㄴㅇ")
+			alert("요청수량 초과")
 		}
 	})
 	$(".plus10").click(function() {
 		var num1 = parseInt($(".amount").text())
-		if ((num1 + 10) > 0) {
+		var remainAmountInt = parseInt($(".rmAmount").text())
+		console.log(remainAmountInt)
+		if ((num1 + 10) > 0 && (num1 + 10) <= remainAmountInt ) {
 			$(".amount").text(num1 + 10)
 		} else {
-			alert("ㅁㄴㅇ")
+			$(".amount").text(remainAmountInt)
+			alert("요청수량 초과")
 		}
 	})
-	$("#closeBtn2").click(function() {
-		$("#modal2").attr("style", "display:none");
-	});
-	/*
-	ordernum(발주에서 넘어올때),productnum(발주에서 넘어올때),orderdate(발주에서 넘어올때)
-	*/
 	$(".wdBtn").click(function(){
 		var oN = $("span.orderNum").text()
 		var pN = $("div.productNum").text()
 		var pNm = $("div.productName").text()
 		var oD = $(".orderDate2").text()
-		console.log(oN)
-		console.log(pN)
-		console.log(oD)
-		console.log(pNm)
 		location.href="${path}/viewDefectProd.do?orderNum="+oN+"&productNum="+pN+"&orderDate="+oD+"&productNameFrm="+pNm
 	})
+	$("#closeBtn2").click(function() {
+		$("#modal2").attr("style", "display:none");
+	});
 </script>
 </html>

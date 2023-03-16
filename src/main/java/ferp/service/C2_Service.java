@@ -2,6 +2,7 @@ package ferp.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ferp.dao.C2_Dao;
 import vo.ClerkSchedule;
-import vo.Prod_order_stock;
 import vo.Product;
 import vo.ProductProdOrder;
-import vo.ScheduleCalender;
 import vo.Stock;
 import vo.StoreClerk;
 
@@ -61,6 +60,7 @@ public class C2_Service {
 	
 	// 본사/매장 재고 입출고 조회
 	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch){
+		if(sch.getProductNum()==null) sch.setProductNum("");
 		return dao.r8204InoutList(sch);
 	}
 	
@@ -70,9 +70,13 @@ public class C2_Service {
 	}
 	
 	// 매장 재고 입출고 수정
-	public String r8104InoutUpt(Stock upt) {
-		dao.r8104InoutUpt(upt);	
-		return upt.getProductNum();
+	public void r8104InoutUpt(String productNum, int applyAmount, int remainAmount, String frRegiNum) {
+		Stock upt = new Stock();
+		upt.setProductNum(productNum);
+		upt.setApplyAmount(applyAmount);
+		upt.setRemainAmount(remainAmount);
+		upt.setFrRegiNum(frRegiNum);
+	    dao.r8104InoutUpt(upt);
 	}
 	
 	// 매장 재고 입출고 삭제
@@ -110,7 +114,7 @@ public class C2_Service {
 	}
 	
 	// 자재 코드 콤보
-	public List<Prod_order_stock> productNumCom(){
+	public List<Stock> productNumCom(){
 		return dao.productNumCom();
 	}
 	
@@ -124,10 +128,20 @@ public class C2_Service {
 		dao.sclerkschdIns(ins);
 	}
 	
+	// 직원스케줄 캘린더 삭제	
+//	public void sclerkschdDel(String clerkNum, String onDay) {
+//		ClerkSchedule del = new ClerkSchedule();
+//	    del.setClerkNum(clerkNum);
+//	    del.setOnDay(onDay);
+//		dao.sclerkschdDel(del);
+//	}
+	
 	// 직원스케줄 캘린더
-	public List<ScheduleCalender> sclerkschd(String writer){
+//	public List<ScheduleCalender> sclerkschd(String writer){
+//		return dao.sclerkschd(writer);
+//	}
+	public List<HashMap<String, Object>> sclerkschd(String writer){
 		return dao.sclerkschd(writer);
 	}
-	
 	
 }

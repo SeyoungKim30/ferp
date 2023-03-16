@@ -48,6 +48,7 @@
 						<h3 class="menu_info">내용</h3>
 					</div>
 					<div class="fourth_line">
+						<input type="hidden" value="${param.content}" name="contentHidden">
 						<textarea name="content" rows="15" cols="70" placeholder="문의글 내용 입력">${param.content}</textarea>
 					</div>
 					<div class="fifth_line">
@@ -73,7 +74,8 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
-	console.log($("[name=replyNum]").val())
+	console.log($("[name=contentHidden]").val())
+	console.log("\n"+$("[name=content]").val())
     $(".insBtn").click(function(){
 		  Swal.fire({
 			  title: '등록하시겠습니까?',
@@ -113,7 +115,7 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=content]").val() == ""){
+				  else if("\n"+$("[name=content]").val() == $("[name=contentHidden]").val()){
 					  Swal.fire({
 						  title: '내용을 입력해주세요.',
 						  icon: 'warning',

@@ -12,6 +12,9 @@
 <title>점검결과 상세 조회</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- icon
+<script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+ -->
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style type="text/css">
@@ -56,10 +59,16 @@
 	#qaRslt{
 		display:flex;
 		gap:20px;
+		margin-bottom: 10px;
+    	font-size: 20px;
+    	gap: 7px;
+    	align-items: flex-end;
 	}
-	#qaRslt>span{
-		
+	#QAresult{
+		font-size: 24px;
+		font-weight:600;
 	}
+	
 	
 	.ctrdata{
 		text-align: center;
@@ -92,9 +101,9 @@
 			
 			<!-- 결과표 시작 -->
 			<div id="qaRslt">
-				<!--
+				
 				<span>점검결과:</span><span id="QAresult">${qaScore}</span>
-				  -->
+				  
 			</div>
 			<table>
 				<col width="55%">
@@ -111,20 +120,29 @@
 </body>
 
 <script>
+	//사이드바에 번호 매긴 것 
+	localStorage.setItem("pageIdx","6104"); //id값
+	localStorage.setItem("eqIdx","4000");
 
 	function print(){
 		
 		let url="${path}/qaDetailList.do?frRegiNum="+${qdinfo.frRegiNum}
-		console.log(url);
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
-			console.log("json"+json);
 			var qaResultList = json.qaResultList;
 			var trtd='';
+			var tdRslt='';
 			
 			qaResultList.forEach(function(each){
 				
-				trtd+="<tr><td>"+each.qaItem+"</td><td class='ctrdata'>"+each.results+"</td><td>"+each.comments+"</td></tr>"
+				console.log("  each.results=='Y'   "+each.results=="Y")
+				if(each.results=="Y"){
+					tdRslt="○"
+				}else if(each.results=="N"){
+					tdRslt="-"
+				}
+				
+				trtd+="<tr><td>"+each.qaItem+"</td><td class='ctrdata'>"+tdRslt+"</td><td>"+each.comments+"</td></tr>"
 			});
 			console.log(trtd);
 			$("table tbody").html(trtd);

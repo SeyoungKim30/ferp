@@ -40,12 +40,12 @@
 				</div>
 				<div class="third_line">
 					<h3 class="store_name">매장명</h3>
-					<h3 class="store_open">오픈시간</h3>
+					<h3 class="store_address">주소</h3>
 					
 				</div>
 				<div class="fourth_line">
 					<input type="text" name="frName" placeholder="매장명 입력">
-					<input type="text" name="frOpen" placeholder="오픈시간 입력">
+					<input type="text" name="frAddress" placeholder="주소 입력">
 				</div>
 				<div class="fifth_line">
 					<h3 class="store_opertime">운영시간</h3>
@@ -76,18 +76,15 @@
 						<option disabled="disabled" selected="selected">담당직원 선택</option>
 						<c:forEach var="emp" items="${empCombo}">
 							<c:if test="${emp.ename ne 'admin'}">
-							<option value="${emp.empnum}">${emp.ename}</option>
+								<c:if test="${emp.ename ne null}">
+									<option value="${emp.empnum}">${emp.ename}</option>
+								</c:if>
 							</c:if>
 						</c:forEach>
 					</select>	
 					<input type="text" name="email" placeholder="이메일 입력">
 				</div>					
-				<div class="eleventh_line">
-					<h3 class="store_address">주소</h3>
-				</div>
-				<div class="twelfth_line">
-					<input type="text" name="frAddress" placeholder="주소 입력">
-				</div>					
+				
 						
 				<div class="submit_line">
 					<button type="button" class="insBtn">등 록</button>
@@ -140,16 +137,30 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=frOpen]").val() == ""){
+				  else if($("[name=frName]").val() == ""){
 					  Swal.fire({
-						  title: '오픈시간을 입력해주세요.',
+						  title: '매장명을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=frOpen]").focus()
+							  $("[name=frName]").focus()
+						      return;
+						  }
+					  })
+				  }
+				  else if($("[name=frAddress]").val() == ""){
+					  Swal.fire({
+						  title: '주소를 입력해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frAddress]").focus()
 						      return;
 						  }
 					  })
@@ -223,16 +234,16 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=frAddress]").val() == ""){
+				  else if($("[name=email]").val() == ""){
 					  Swal.fire({
-						  title: '주소를 입력해주세요.',
+						  title: '이메일을 입력해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
 						  confirmButtonColor: '#3085d6',
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=frAddress]").focus()
+							  $("[name=email]").focus()
 						      return;
 						  }
 					  })
