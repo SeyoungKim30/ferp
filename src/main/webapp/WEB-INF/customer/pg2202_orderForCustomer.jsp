@@ -47,12 +47,23 @@
 	    font-size: 50px;
 	    text-align: center;
 	}
+	
+	.nameText{
+		font-size: 30px;
+		text-align: center;
+		padding: 50px;
+		font-weight: 600;
+	}
 
 </style>
 </head>
 
 <body>
     <div class="container">
+    <p class="nameText">
+    고객님 주문하신 메뉴 나왔습니다!<br>
+    오늘도 ${login.frName}을 찾아주셔서 감사합니다.
+    </p>
 		<div class="topText">
 			<div class="topCom">제조 완료</div>
 			<div class="btmCom">제조 중</div>
@@ -60,7 +71,7 @@
 		<div class="btmText">
 			<div class="com">
 				<ul id="com-order-list">
-				    <c:forEach var="co" items="${com}" begin="0" end="4">
+				    <c:forEach var="co" items="${com}" begin="0" end="6">
 				      <li>${co.orderNum}</li>
 				    </c:forEach>
 				  </ul>
