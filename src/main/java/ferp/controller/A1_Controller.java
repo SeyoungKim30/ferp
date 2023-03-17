@@ -71,8 +71,6 @@ public class A1_Controller {
    @RequestMapping("/logoutEmp.do")
    public String logoutEmp(SessionStatus status, HttpSession session, Model d) {
 	 session.removeAttribute("login");
-     session.invalidate();
-     status.setComplete(); // 세션 무효화
      return "redirect:/goEmpMainPage.do";
    }
    
@@ -80,8 +78,6 @@ public class A1_Controller {
    @RequestMapping("/logoutStore.do")
    public String logoutStore(SessionStatus status, HttpSession session, Model d) {
 	  session.removeAttribute("login");
-	  session.invalidate();
-	  status.setComplete(); // 세션 무효화
       d.addAttribute("logout","로그아웃");
  
       return "redirect:/goEmpMainPage.do";
