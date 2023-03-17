@@ -72,7 +72,7 @@
 					<input type="text" name="frTel" placeholder="전화번호 입력">
 				</div>	
 				<div>
-					<p class="frTelComment" style="padding-left: 570px;"></p>
+					<p class="frTelComment" style="float: right;"></p>
 				</div>
 				<div class="ninth_line">
 					<h3 class="store_eno">담당직원</h3>
@@ -92,7 +92,7 @@
 					<input type="text" name="email" placeholder="이메일 입력">
 				</div>
 				<div>
-					<p class="emailComment" style="padding-left: 570px;"></p>
+					<p class="emailComment" style="float: right;"></p>
 				</div>					
 				
 						
