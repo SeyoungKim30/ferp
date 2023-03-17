@@ -31,7 +31,7 @@
            		<h2 class="notice_main">문 의 글</h2>
            		<input type="hidden" name="noticeNum" value="${qna.noticeNum}">
            		<input type="hidden" name="replyNum" value="${qna.replyNum}">
-           		<input type="hidden" name="buttonChk" value="${not empty login.ename?'본사':'매장'}">
+           		<input type="hidden" name="buttonChk" value="${not empty login.ename?'본사':login.frName}">
            		
            		<input type="hidden" name="title" value="${qna.title}">
            		<div class="title_line">
@@ -62,8 +62,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var store = $("[name=buttonChk]").val()
-	if( store == '매장' ){
-		$("#uptBtn").hide()
+	var writer = '${qna.writer}'
+	if( store == '본사' || store==writer ){
+		$("#delBtn").show()
+	}else{
 		$("#delBtn").hide()
 	}
 	<%-- 

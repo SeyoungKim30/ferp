@@ -72,11 +72,13 @@
 		
 			<div class="page_wrap">
 			   <div class="page_nation">
+			   <c:if test="${sch.startBlock > 0}">
 			      <a class="arrow prev" href="javascript:goPage(${sch.startBlock-1});"></a>
-			      <c:forEach var="cnt" begin="${sch.startBlock}" end="${sch.endBlock}">
-			      	<a href="#" class="${sch.curPage==cnt?'active':''}" onclick="goPage(${cnt})">${cnt}</a>
-			      </c:forEach>
+				      <c:forEach var="cnt" begin="${sch.startBlock}" end="${sch.endBlock}">
+				      	<a href="#" class="${sch.curPage==cnt?'active':''}" onclick="goPage(${cnt})">${cnt}</a>
+				      </c:forEach>
 			      <a class="arrow next" href="javascript:goPage(${sch.endBlock+1});"></a>
+			   </c:if>
 			   </div>
 			</div>
 			
