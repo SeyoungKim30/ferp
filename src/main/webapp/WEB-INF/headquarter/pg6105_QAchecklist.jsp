@@ -272,10 +272,11 @@ function changeA(qaNum) {
 
 	/* 모달에서 등록 */
 	//항목등록
+//	var qaItem = document.querySelector("input[name=qaItem]").value;
+
 	function add() {
-		
 	  var qaItem = $("#qaItem").val();
-	  //var qaItem = document.querySelector("input[name=qaItem]").value;
+
 	  console.log(qaItem)
 	  console.log(qaItem.length)
 	  console.log(qaItem>0)
@@ -286,12 +287,10 @@ function changeA(qaNum) {
 	    data: { qaItem: qaItem },
 	    success: function(data) {	
 	    	
-	    	if(confirm("등록되는 항목은 비활성화는 가능하지만 삭제는 불가능합니다. \n등록하시겠습니까?")==true){
-	    		alert("항목이 등록되었습니다");
-	        	$(".modal").fadeOut();
-	        	print();
-	    	}
-  		
+    		alert("항목이 등록되었습니다");
+        	$(".modal").fadeOut();
+        	print();
+    	
 	    },	    
 	    error: function(xhr, status, error) {
 	      alert("서버와의 통신에 실패했습니다.");
@@ -313,20 +312,22 @@ function changeA(qaNum) {
 	$(".form_control").on("input", function() {
 		
 		var qaItem = $("#qaItem").val();
+
 		console.log(qaItem)
 		console.log(qaItem.length)
 		console.log(qaItem.length>0)
 			 
 		
 		if (qaItem.length > 0 ) {
-			$(".btn-primary").prop("disabled", false);	
-			
+			$(".btn-primary").prop("disabled", false);			
 	  	} else {
 	    	$(".btn-primary").prop("disabled", true);
 	  	}
 	});
 	
 	$(".form_control").on("keyup", function(event) {
+		var qaItem = $("#qaItem").val();
+
 	  	if (qaItem.length > 0 && event.keyCode === 13) { 
 	  		add()
 	  	}
