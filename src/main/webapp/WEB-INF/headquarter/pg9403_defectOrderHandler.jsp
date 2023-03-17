@@ -18,6 +18,7 @@
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 <script type="text/javascript" src="${path }/resource/js/sy_modal.js"></script>
 <script type="text/javascript" src="${path }/resource/js/sy_validateCheck.js"></script>
+<script type="text/javascript" src="${path }/resource/js/dateValid.js"></script>
 <style>
 [type=checkbox]{
 width:1.3em;
@@ -60,8 +61,8 @@ margin-right:0.7em;
 <div class="toolbar">
 <form id="searchForm">
 	<div>
-		<label>조회시작 신청일<input name='applyDate' type='date' required value='${defectOrder.applyDate }'></label>
-		<label>조회종료 신청일<input name='orderDateMonth' type='date' value='${defectOrder.orderDateMonth }'></label>
+		<label>조회시작 신청일<input onchange="dateMinMax('[name=applyDate]','[name=orderDateMonth]')" name='applyDate' type='date' required value='${defectOrder.applyDate }'></label>
+		<label>조회종료 신청일<input onchange="dateMinMax('[name=applyDate]','[name=orderDateMonth]')" name='orderDateMonth' type='date' value='${defectOrder.orderDateMonth }'></label>
 		<label>신청번호<input name='defNum' value='${defectOrder.defNum}'></label>
 		<label title="사업자번호를 입력하세요">주문지점<input name='frRegiNum' list="storeList" value='${defectOrder.frRegiNum}'></label><datalist id='storeList'></datalist>
 		<label title="사원번호를 입력하세요">담당자<input name='category' list="empList" value='${defectOrder.category }'></label><datalist id='empList'></datalist>
