@@ -40,7 +40,7 @@
 				</div>
 				<div style="display: flex; justify-content: space-between;">
 					<p class="frRegiNumComment"></p>
-					<p class="frPassComment" style="padding-right: 320px;"></p>
+					<p class="frPassComment"></p>
 				</div>
 				<div class="third_line">
 					<h3 class="store_name">매장명</h3>
