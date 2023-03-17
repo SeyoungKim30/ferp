@@ -49,6 +49,7 @@
 			      </tr>
    				</thead>
 			    <tbody>
+			   	 <c:if test="${list ne null}">
 			    	<c:forEach var="notice" items="${list}">
 			    	<tr>
 			    		<td>${notice.cnt}</td>
@@ -56,16 +57,20 @@
 			    		<td><fmt:formatDate value="${notice.regdte}"/></td>
 			    		<td class="numberData">${notice.readCnt}</td>
 			    	</tr>
+			    		
 					</c:forEach>
+				</c:if>
 			    </tbody>   				
 			</table>
 			<div class="page_wrap">
 			   <div class="page_nation">
+			   <c:if test="${sch.startBlock > 0}">
 			      <a class="arrow prev" href="javascript:goPage(${sch.startBlock-1});"></a>
 			      <c:forEach var="cnt" begin="${sch.startBlock}" end="${sch.endBlock}">
 			      	<a href="#" class="${sch.curPage==cnt?'active':''}" onclick="goPage(${cnt})">${cnt}</a>
 			      </c:forEach>
 			      <a class="arrow next" href="javascript:goPage(${sch.endBlock+1});"></a>
+			   </c:if>
 			   </div>
 			</div>
 		</div>
