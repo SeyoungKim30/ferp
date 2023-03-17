@@ -65,7 +65,7 @@ $(document).ready(function() {
 						<input type="checkbox" id="monthCheck" checked>
 						<label>월 포함</label>
 					</div>
-					<div>
+					<div class="row">
 						<select class="yearCheck">
 							<option value="${SCpsch.orderDateYear}">${SCpsch.orderDateYear}</option>
 							<option value="">---</option>

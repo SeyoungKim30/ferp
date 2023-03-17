@@ -24,21 +24,26 @@
 	$(document).ready(function(){
 		$(".regBtn").click(function(){
 			if(confirm("신청하시겠습니까?")){
-				$.ajax({
-					type : "post",
-					url : "/ferp/requestFrm.do",
-					data : $("#regForm").serialize(),
-					dataType : "json",
-					success : function(data) {
-						console.log(data)
-						alert(data.msg)
-						location.reload()
-					},
-					error : function(err) {						
-						console.log($("#regForm").serialize())
-						console.log(err)
-					}
-				})
+				if($("#regForm .supplierName").val() == "" || $("#regForm .productName").val() == "" || $("#regForm [name=amount]").val() == ""){
+					$("#regForm .supplierName, #regForm .productName, #regForm [name=amount]").css("borderColor","red")
+				}else{
+					$("#regForm .supplierName, #regForm .productName, #regForm [name=amount]").css("borderColor","#a4a4a4")
+					$.ajax({
+						type : "post",
+						url : "/ferp/requestFrm.do",
+						data : $("#regForm").serialize(),
+						dataType : "json",
+						success : function(data) {
+							console.log(data)
+							alert(data.msg)
+							location.reload()
+						},
+						error : function(err) {						
+							console.log($("#regForm").serialize())
+							console.log(err)
+						}
+					})			
+				}
 			}
 		})
 		$(".clsBtn1").click(function(){

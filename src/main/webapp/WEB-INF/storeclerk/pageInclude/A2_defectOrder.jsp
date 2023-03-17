@@ -124,7 +124,7 @@
 			<h2 class="h2Title">배송 불량 신청 현황</h2>
 			<br>
 			<div class="toolbox">
-				<div class="row margin-sm">
+				<div class="row margin-sm space-between">
 					<div class="col left">
 						<div class="row" style="margin-top: 7px;">
 							<input type="checkbox" id="monthCheck" checked> 

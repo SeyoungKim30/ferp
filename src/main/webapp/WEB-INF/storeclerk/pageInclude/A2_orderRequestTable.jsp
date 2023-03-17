@@ -55,7 +55,7 @@
 	<br>
 	<div>
 	<div class="toolbox">
-		<div class="row margin-sm">
+		<div class="row margin-sm space-between">
 				<div class="col left" >
 					<div class="row" style="margin-top: 7px;">
 						<input type="checkbox" id="monthCheck" checked>
