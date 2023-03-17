@@ -155,9 +155,40 @@
 		input.value = newValue;
 	}
 	$(document).ready(function() {
+		// 현재 날짜와 시간을 구합니다.
+		var now = new Date().toISOString().slice(0, 16);
+		
+		// 출근시간 입력 폼을 가져와서 현재 날짜 이전의 모든 날짜를 비활성화합니다.
+		$("#onDay").attr("min", now);
+		
+		// 퇴근시간 입력 폼을 가져와서 현재 날짜 이전의 모든 날짜를 비활성화합니다.
+		$("#offDay").attr("min", now);
+		
 		$(".timeset").on("change", function() {
 			setTo30Minutes(this);
 		});
+		
+		// 출근시간 선택 시
+		$('#onDay').change(function() {
+			// 출근시간에서 년월일 정보 추출
+			var onDate = $('#onDay').val().substr(0, 10);
+			// 퇴근시간에 년월일 정보 입력 및 시간 선택 가능하도록 처리
+			$('#offDay').val(onDate + 'T00:00');
+		});
+
+		// 퇴근시간 선택 시
+		$('#offDay').change(function() {
+			var onTime = new Date($('#onDay').val()).getTime();
+			var offTime = new Date($('#offDay').val()).getTime();
+			// 근무시간 계산
+			var workHours = (offTime - onTime) / (1000 * 60 * 60);
+			if (workHours > 8) {
+				alert("하루 근무시간이 8시간을 초과할 수 없습니다");
+				$('#offDay').val("");
+			}
+		});
+		
+		
 		$("#insBtn").click(function() {
 			var isInValid = false;
 			for (var idx = 0; idx < $(".ckValid").length; idx++) {
