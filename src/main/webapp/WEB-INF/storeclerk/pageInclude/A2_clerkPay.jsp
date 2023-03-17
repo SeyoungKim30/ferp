@@ -110,7 +110,7 @@ $(document).ready(function() {
 					<div class="thDiv" style="width:10%;">근로시간</div>
 					<div class="thDiv" style="width:10%;">지급액</div>
 					<div class="thDiv" style="width:40%;">주소</div>
-				</div>
+				</div> 
 				<c:forEach var="sc" items="${scList }">
 					<div class="row">
 						<div class="tdDiv" style="width:15%;">${sc.clerkNum }</div>
