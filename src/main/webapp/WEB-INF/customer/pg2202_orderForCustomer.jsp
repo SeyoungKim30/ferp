@@ -27,6 +27,7 @@
 		gap: 50px;
 	}
 	
+	
 	.topCom, .btmCom{
 		line-height: 100px;
 	    width: 500px;
