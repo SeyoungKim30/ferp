@@ -28,6 +28,14 @@ td:nth-child(1),td:nth-child(2),td:nth-child(4){width: 8em;	}
 td:nth-child(2) input ,td:nth-child(4) input{text-align: right;}
 tfoot td:nth-child(2),tfoot td:nth-child(4){text-align: right;}
 td:nth-child(3){width:9em;}
+.rowAddRemove{
+display: flex;
+justify-content: flex-end;
+}
+.rowAddRemove button{
+margin:0.5em;
+font-size: 1em;
+text-align: center;}
 </style>
 </head>
 
@@ -83,9 +91,7 @@ td:nth-child(3){width:9em;}
 <option v-for='(each) in accountList' :value='each.acntNum' :label='each.acntTitle'/>
 </datalist>
 </form>
-
-<button type="button" @click="addRow">addRow</button>
-<button type="button" @click="removeRow">removeRow</button>
+<div class="rowAddRemove"><button type="button" @click="addRow">행 추가</button><button type="button" @click="removeRow">행 삭제</button></div>
 		</div>
 	</div>
 	

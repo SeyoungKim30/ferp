@@ -80,7 +80,14 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	var isPass = false;
+	var imgFile = $('.upload-name').val();
+	var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
 
+    if(imgFile.match(fileForm)) {
+    	isPass = true;
+    }
+	
     $(".insBtn").click(function(){
 		if($('#necessary').is(':checked')){
 			$("input[name=necessary]").attr('value','Y');
@@ -166,10 +173,22 @@ $(document).ready(function(){
 						  confirmButtonText: '확인'
 						}).then((result) => {
 						  if (result.value) {
-							  $("[name=category]").focus()
 						      return;
 						  }
 					  })
+				  }
+				  else if(!isPass){
+					  Swal.fire({
+						  title: '이미지 파일만 업로드 가능합니다.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+						      return;
+						  }
+					  })					  
 				  }
 				  else{
 					  $("form").submit();

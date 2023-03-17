@@ -240,7 +240,7 @@
 	</delete>
 	
 	
-	<!-- 최근 10개 공지사항만 출력 -->
+	<!-- 최근 6개 공지사항만 출력 -->
 	<select id="getNotice" resultType="notice">
 	<![CDATA[
 		SELECT *
@@ -252,7 +252,7 @@
 				and noticeNum LIKE '%'||'N'||'%'
 				ORDER BY regdte DESC)n 
 		)
-		WHERE rownum <= 7
+		WHERE rownum <= 6
 	]]>
 	</select>
 	

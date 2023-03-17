@@ -15,6 +15,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
+<script type="text/javascript" src="${path }/resource/js/dateValid.js"></script>
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 		<c:if test="${login.frRegiNum == 9999999999 }">
 		<style>
@@ -59,8 +60,8 @@ window.addEventListener('load',function(){
 <form id="searchform">
 	<div class="toolbar">
 		<div>
-		<label>시작월<input type="month" name="orderDateMonth" required></label>
-		<label>종료월<input type="month" name="orderDate"></label>
+		<label>시작월<input type="month" name="orderDateMonth" required onchange="dateMinMax('[name=orderDateMonth]','[name=orderDate]')"></label>
+		<label>종료월<input type="month" name="orderDate" onchange="dateMinMax('[name=orderDateMonth]','[name=orderDate]')"></label>
 		<label for="demander">주문지점<input name="demander" list="storeList"></label><datalist id="storeList"></datalist>
 		<label for="supplier">담당자<input name="supplier" list="empList"></label><datalist id="empList"></datalist>
 		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option><option>취소</option></select></label>
