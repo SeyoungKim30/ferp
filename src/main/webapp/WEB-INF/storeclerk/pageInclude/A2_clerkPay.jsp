@@ -72,6 +72,8 @@ $(document).ready(function() {
 							<option value="2023">2023</option>
 							<option value="2022">2022</option>
 							<option value="2021">2021</option>
+							<option value="2021">2020</option>
+							<option value="2021">2019</option>
 						</select>
 						<c:forEach var="i" begin="1" end="12">
 							<div class="monthDiv">${i }월</div>
@@ -133,19 +135,21 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</c:forEach>
-				<div class="row pBtn_center">
-					<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${SCpsch.startBlock-1});'">
-						&lt;
-					</button>
-					<c:forEach var="cnt" begin="${SCpsch.startBlock }" end="${SCpsch.endBlock}">
-				  		<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
-							${cnt}
+				<c:if test="${SCpsch.startBlock > 0}">
+					<div class="row pBtn_center">
+						<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${SCpsch.startBlock-1});'">
+							&lt;
 						</button>
-				  	</c:forEach>
-				  	<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${SCpsch.startBlock+1});'">
-						&gt;
-					</button>
-				</div>
+							<c:forEach var="cnt" begin="${SCpsch.startBlock }" end="${SCpsch.endBlock}">
+						  		<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
+									${cnt}
+								</button>
+						  	</c:forEach>
+					  	<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${SCpsch.startBlock+1});'">
+							&gt;
+						</button>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>	
