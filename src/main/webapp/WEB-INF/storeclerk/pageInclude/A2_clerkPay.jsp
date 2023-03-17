@@ -157,7 +157,6 @@ $(document).ready(function() {
 <script type="text/javascript">
 function goPage(cnt){
 	$("[name=curPage]").val(cnt);
-	localStorage.setItem("scplistPg",cnt)
 	$("#reqSchFrm").submit()
 }
 if(${SCpsch.curPage==1}){
