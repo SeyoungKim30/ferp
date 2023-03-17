@@ -25,20 +25,15 @@
 			if(confirm("등록하시겠습니까?")){
 				console.log($("#regForm [name=clerkName]").val())
 				if($("#regForm [name=clerkName]").val() == ""){
-					alert("직원명을 입력해주세요")
-					$("#regForm [name=clerkName]").focus()
+					$("#regForm [name=clerkName]").css('borderColor','red')
 				}else if($("[name=hourlyPay]").val() == ""){
-					alert("시급을 입력해주세요")
-					$("[name=hourlyPay]").focus()
+					$("[name=hourlyPay]").css('borderColor','red')
 				}else if($("[name=residentNum]").val() == ""){
-					alert("주민등록번호를 입력해주세요")
-					$("[name=residentNum]").focus()
+					$("[name=residentNum]").css('borderColor','red')
 				}else if($("[name=phoneNum]").val() == ""){
-					alert("전화번호를 입력해주세요")
-					$("[name=phoneNum]").focus()
+					$("[name=phoneNum]").css('borderColor','red')
 				}else if($("[name=address]").val() == ""){
-					alert("주소를 입력해주세요")
-					$("[name=address]").focus()
+					$("[name=address]").css('borderColor','red')
 				}else{
 					regAjax("insStoreclerk.do")					
 				}
@@ -173,19 +168,21 @@
 					</div>
 				</form>
 			</c:forEach>
-			<div class="row pBtn_center">
-				<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${SCsch.startBlock-1});'">
-					&lt;
-				</button>
-				<c:forEach var="cnt" begin="${SCsch.startBlock }" end="${SCsch.endBlock}">
-					<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
-						${cnt}
+			<c:if test="${SCsch.startBlock > 0}">
+				<div class="row pBtn_center">
+					<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${SCsch.startBlock-1});'">
+						&lt;
 					</button>
-				</c:forEach>
-				<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${SCsch.startBlock+1});'">
-					&gt;
-				</button>
-			</div>
+					<c:forEach var="cnt" begin="${SCsch.startBlock }" end="${SCsch.endBlock}">
+						<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
+							${cnt}
+						</button>
+					</c:forEach>
+					<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${SCsch.startBlock+1});'">
+						&gt;
+					</button>
+				</div>
+			</c:if>
 		</div>
 		<div id="modal3" class="fileModal">
 			<div class="modal_content">

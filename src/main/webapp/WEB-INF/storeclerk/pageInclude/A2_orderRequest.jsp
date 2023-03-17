@@ -78,10 +78,12 @@
 						<label>신청 날짜</label> 
 						<input type="date" name="orderDate" value="<fmt:formatDate value='${now}' pattern = 'yyyy-MM-dd'/>" class="margin-tln regList" readOnly required />
 					</div>
-					<div class="col margin-tn w25" id="openBtn1">
-						<label>거래처</label> 
-						<input type="text" class="margin-tln regList supplierName" placeholder="거래처" style="background-color:white;border:1px solid #efefef;" readOnly required />
-					</div>
+					<c:if test="${login.frRegiNum == '9999999999' }">
+						<div class="col margin-tn w25" id="openBtn1">
+								<label>거래처</label> 
+								<input type="text" class="margin-tln regList supplierName" placeholder="거래처" style="background-color:white;border:1px solid #efefef;" readOnly required />
+						</div>
+					</c:if>
 				</div>
 				<div class="row">
 					<div class="col margin-tn w25" id="openBtn2">
