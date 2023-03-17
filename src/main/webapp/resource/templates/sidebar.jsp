@@ -42,7 +42,9 @@
                     <li id="7000">
                         <a href="#">재무 관리</a>
                         <ul>
+<c:if test="${login.frRegiNum == 9999999999 }">
                             <li id="7201" onclick="location.href='${path }/selectAccount.do'"><a>- 계정 과목 관리</a></li>
+</c:if>
                             <li id="7210" onclick="location.href='${path }/ACstatement.do'"><a>- 전표 입력</a></li>
                             <li id="7204" onclick="location.href='${path }/statementList.do'"><a>- 거래 내역 조회</a></li>
                         </ul>
