@@ -82,7 +82,7 @@ window.addEventListener('load',function(){
 	</div>
 	
 	
-	<form id="updateForm" >
+	<form id="updateForm" style="display:none;">
 	<input name="orderDateMonth" placeholder="orderDateMonth">
 	<input name="demander" placeholder="demander">
 	<input name="supplier" placeholder="supplier 담당자">
