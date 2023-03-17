@@ -21,25 +21,44 @@
 <link rel="stylesheet" href="${path}/resource/css/reset.css"/>
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 <style type="text/css">
-	.btns{
+
+	.left_btns, .right_btns{
 		display: flex;
-	    gap: 50px;
-	    width: 100%;
-	    justify-content: center;
-        padding: 60px 0;
+	    margin: 60px 0;
+	    flex-direction: column;
+	    gap: 45px;
+	    align-items: center;
+	    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	    background: #fff;
+	    padding-bottom: 60px;
 	}
 	
 	.btn{
-		width: 200px;
-	    height: 200px;
-	    background: #2262F3;
-	    border-radius: 10px;
-	    color: #fff;
-	    font-weight: 600;
-	    font-size: 29px;
-	    text-align: center;
-	    cursor: pointer;
-	    padding-top: 65px;
+	       width: 300px;
+		    border: 2px solid #2262F3;
+		    border-radius: 10px;
+		    color: #333;
+		    font-weight: 600;
+		    font-size: 29px;
+		    text-align: center;
+		    cursor: pointer;
+		    padding: 30px;
+		    background: #fff;
+	}
+	
+	.btn:hover{
+		color: #fff;
+		background: #2262F3;
+	}
+	
+	.btnText{
+	       width: 400px;
+		    background: #2262F3;
+		    color: #fff;
+		    font-weight: 600;
+		    font-size: 29px;
+		    text-align: center;
+		    padding: 20px;
 	}
 	
 	header h2{
@@ -53,7 +72,10 @@
     }
     
     .main_wrapper{
-    	display: block;
+	    display: flex;
+	    justify-content: center;
+	    gap: 100px;
+	    background: #f8f8f8;
     }
     
     select[name=clerkNum]{
@@ -74,10 +96,14 @@
     <div class="container">
 <%@ include file="/resource/templates/header.jsp"%>
         <div class="main_wrapper">
-        	<div class="btns">
+        	<div class="left_btns">
+        		<div class="btnText">키오스크<br>관련 메뉴</div>
         		<div class="btn" onclick="location.href='${path}/goOrderCheck.do'">주문 확인<br>(직원용)</div>
         		<div class="btn" onclick="location.href='${path}/kiosqueMainForCustomer.do'">주문하기<br>(고객용)</div>
         		<div class="btn" onclick="location.href='${path}/callCustomer.do'">고객 호출<br>(고객용)</div>
+        	</div>
+        	<div class="right_btns">
+        		<div class="btnText">매장 관리<br>관련 메뉴</div>
         		<div class="btn" onclick="location.href='${path}/addCommute.do'">출퇴근<br>등록</div>
         		<div class="btn" onclick="location.href='${path}/storeSet.do'">매장<br>관리</div>
         	</div>
