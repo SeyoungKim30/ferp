@@ -72,7 +72,7 @@ localStorage.setItem("eqIdx","9000")
 		<label>담당자<input name="supplier" list="empList"></label><datalist id="empList"></datalist>
 	</fieldset>
 		<label>상품 선택<input name="productNum" list="productList"></label><datalist id="productList"></datalist>
-		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송중</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
+		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송중</option><option>완료</option><option>조정중</option><option>발주취소</option></select></label>
 		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option><option>취소</option></select></label>
 	</div>
 	<div style="position: relative;">
@@ -180,8 +180,8 @@ function htmlPrint(list){
 			if(each.prodOrder.orderState=='요청'){htmls+=`<option selected>요청</option><option>배송중</option>`}
 			if(each.prodOrder.orderState=='배송중'){htmls+=`<option selected>배송중</option><option>완료</option>`}
 			if(each.prodOrder.orderState=='완료'){htmls+=`<option selected>완료</option>`}
-			if(each.prodOrder.orderState=='조정'){htmls+=`<option selected disabled>조정</option>`}
-			if(each.prodOrder.orderState=='취소완료'){htmls+=`<option selected disabled>취소완료</option>`}
+			if(each.prodOrder.orderState=='조정중'){htmls+=`<option selected disabled>조정중</option>`}
+			if(each.prodOrder.orderState=='발주취소'){htmls+=`<option selected disabled>발주취소</option>`}
 			htmls+=`</select>`
 		</c:if>
 			+`</td><td>`+each.prodOrder.paymentState
