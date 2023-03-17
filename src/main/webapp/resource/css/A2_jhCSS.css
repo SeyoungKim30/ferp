@@ -147,8 +147,8 @@ input[type="text"].listInput:focus {
 	font-size: large;
 	font-weight: 500;
 	color: white;
-	background-color: #DDD;
-	border: 1px solid #DDD;
+	background-color: #007bff;
+	border: 1px solid #007bff;
 	border-radius: 5px;
 }
 
@@ -306,4 +306,8 @@ h2.h2Title > span.clerknum{
 }
 .space-between{
 	justify-content: space-between;
+}
+.yearCheck{
+	width:70px;
+	padding-left: 5px;
 }
