@@ -38,9 +38,9 @@
 					<input type="text" name="frRegiNum" placeholder="사업자번호 입력(숫자10자리) ex)8462550658">
 					<input type="text" name="frPass" placeholder="비밀번호 입력">
 				</div>
-				<div style="display: flex;">
-					<p class="frRegiNumComment" style="width: 570px;"></p>
-					<p class="frPassComment"></p>
+				<div style="display: flex; justify-content: space-between;">
+					<p class="frRegiNumComment"></p>
+					<p class="frPassComment" style="padding-right: 320px;"></p>
 				</div>
 				<div class="third_line">
 					<h3 class="store_name">매장명</h3>
