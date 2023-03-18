@@ -83,7 +83,6 @@ pre{
 				<h3 style="font-weight: bold;">공지사항</h3>
 				<a href="${path}/noticeList.do" style="padding-top: 16px;cursor: pointer;">more ></a>
 			</div>
-			
 				<div class="main_banner">
 				<table>
 			   	<col width="55%">

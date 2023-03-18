@@ -27,7 +27,7 @@ table {
 }
 
 table td, table th {
-	padding: 1.25 rem;
+	padding: 8px;
 	vertical-align: top;
 	border-top: 1px solid #dee2e6;
 	text-align: center;
@@ -72,6 +72,7 @@ tbody tr:hover {
 					</div>
 					<div class="fourth_line">
 						<input type="text" name="pass" placeholder="비밀번호 입력">
+						<p class="passComment"></p>
 					</div>
 					<div class="fifth_line">
 						<h3 class="emp_dname">부서명</h3>
@@ -115,7 +116,36 @@ $(document).ready(function(){
 		$(".empInfo").show()
 	}
 
-	
+    var insMsg = "${insMsg}"
+    if(insMsg != ""){
+	  Swal.fire({
+		  title: '아이디 발급 성공!',
+		  icon: 'success',
+		  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+		  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+		}).then((result) => {
+		  if (result.value) {
+			//"확인" 버튼을 눌렀을 때 작업할 내용
+		  }
+		})	
+    }
+    
+    var isPass = false;
+    $("[name=pass]").keyup(function(){
+    	var pass = $(this).val()
+    	var refPass = /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/
+    	
+ 		if (pass.match(refPass) != null) {
+ 		    $(this).removeClass("isNotPass")
+ 		    $(".passComment").text("");
+ 		    isPass = true;
+ 	 	}else{
+ 	     	$(this).addClass("isNotPass")
+ 	     	$(".passComment").text("초기비밀번호는 생년월일로 작성해주세요. ex)950423")
+ 		}
+    })
+    
     $(".insBtn").click(function(){
 		  Swal.fire({
 			  title: '등록하시겠습니까?',
@@ -165,6 +195,20 @@ $(document).ready(function(){
 						}).then((result) => {
 						  if (result.value) {
 							  $("[name=dname]").focus()
+						      return;
+						  }
+					  })
+				  }
+				  else if(!isPass){
+					  Swal.fire({
+						  title: '비밀번호 형식을 확인해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=pass]").focus()
 						      return;
 						  }
 					  })
