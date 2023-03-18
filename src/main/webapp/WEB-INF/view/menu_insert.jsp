@@ -89,7 +89,6 @@ $(document).ready(function(){
 		if(!$('#necessary').is(':checked')){
 			$("input[name=necessary]").attr('value','N');
 		}
-		
 		var isPass = false;
 		var imgFile = $('.upload-name').val();
 		var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
