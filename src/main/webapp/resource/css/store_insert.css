@@ -189,7 +189,8 @@ p{
 .submit_line{
 	margin-top: 40px;
 	margin-bottom: 40px;
-	float: right;
+	display: flex;
+    justify-content: flex-end;
 }
 .insBtn{
     width: 90px;

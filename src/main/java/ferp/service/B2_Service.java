@@ -82,6 +82,15 @@ public class B2_Service {
 		
 		dao.insertMenu(ins);
 		
+		if(ins.getNecessary().equals("N")) {
+			List<String> frRegiNum = dao.getfrRegiNum();
+			for(String num : frRegiNum) {
+				Onsale onsale = new Onsale();
+				onsale.setFrRegiNum(num);
+				dao.insertNesMenu(onsale);
+			}
+		}
+
 		return img;
 	}
 	

@@ -80,13 +80,7 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
-	var isPass = false;
-	var imgFile = $('.upload-name').val();
-	var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
 
-    if(imgFile.match(fileForm)) {
-    	isPass = true;
-    }
 	
     $(".insBtn").click(function(){
 		if($('#necessary').is(':checked')){
@@ -95,8 +89,14 @@ $(document).ready(function(){
 		if(!$('#necessary').is(':checked')){
 			$("input[name=necessary]").attr('value','N');
 		}
-		console.log($('#necessary').is(':checked'))
-		console.log($("input[name=necessary]").val())
+		
+		var isPass = false;
+		var imgFile = $('.upload-name').val();
+		var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+
+	    if(imgFile.match(fileForm)) {
+	    	isPass = true;
+	    }
 		
 		  Swal.fire({
 			  title: '등록하시겠습니까?',

@@ -58,10 +58,11 @@
 				</div>
 				<div class="sixth_line">
 					<input type="text" name="frOperTime" placeholder="운영시간 입력 ex)09:00-24:00">				
-					<input type="text" name="frClosedDte" placeholder="휴무일 입력">
+					<input type="text" name="frClosedDte" placeholder="휴무일 입력 ex)연중무휴, 금요일">
 				</div>
-				<div>
+				<div style="display: flex; justify-content: space-between;">
 					<p class="frOperTimeComment"></p>
+					<p class="frClosedDteComment"></p>
 				</div>
 				<div class="seventh_line">
 					<h3 class="store_repName">대표자명</h3>
@@ -71,8 +72,8 @@
 					<input type="text" name="frRepName" placeholder="대표자명 입력">				
 					<input type="text" name="frTel" placeholder="전화번호 입력">
 				</div>	
-				<div>
-					<p class="frTelComment" style="float: right;"></p>
+				<div style="display: flex;justify-content: flex-end;">
+					<p class="frTelComment"></p>
 				</div>
 				<div class="ninth_line">
 					<h3 class="store_eno">담당직원</h3>
@@ -111,6 +112,7 @@ $(document).ready(function(){
 	var isPass3 = false;
 	var isPass4 = false;
 	var isPass5 = false;
+	var isPass6 = false;
 	$("[name=frRegiNum]").keyup(function(){
 		var frRegiNum = $(this).val()
 		var regfrRegiNum = /^[0-9]{10}$/;
@@ -175,6 +177,21 @@ $(document).ready(function(){
 		
 	})
 	
+	$("[name=frClosedDte]").keyup(function(){
+		var frClosedDte = $(this).val()
+		var regfrClosedDte = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		
+	  if (frClosedDte.match(regfrClosedDte) != null) {
+	      $(this).removeClass("isNotPass")
+	      $(".frTelComment").text("");
+	      isPass4 = true;
+	  }else{
+      	$(this).addClass("isNotPass")
+        $(".frClosedDteComment").text("한글만 입력가능합니다. ex)연중무휴, 월요일")
+	  }
+		
+	})	
+	
 	$("[name=frTel]").keyup(function(){
 		var tel = $(this).val()
 		var regTel = /^(070|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/;
@@ -182,13 +199,16 @@ $(document).ready(function(){
 	  if (tel.match(regTel) != null) {
 	      $(this).removeClass("isNotPass")
 	      $(".frTelComment").text("");
-	      isPass4 = true;
+	      isPass5 = true;
 	  }else{
       	$(this).addClass("isNotPass")
         $(".frTelComment").text("전화번호 형식으로 입력해주세요. ex)02-357-6813")
 	  }
 		
 	})
+	
+
+	
 	$("[name=email]").keyup(function(){
 		var email = $(this).val()
 		var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
@@ -196,7 +216,7 @@ $(document).ready(function(){
 	  if (email.match(regEmail) != null) {
 	      $(this).removeClass("isNotPass")
 	      $(".emailComment").text("");
-	      isPass5 = true;
+	      isPass6 = true;
 	  }else{
       	$(this).addClass("isNotPass")
         $(".emailComment").text("이메일형식으로 입력해주세요. ex)email@naver.com")
@@ -394,6 +414,19 @@ $(document).ready(function(){
 					  })
 				  }else if(!isPass4){
 					  Swal.fire({
+						  title: '휴무일 형식을 확인해주세요.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frClosedDte]").focus()
+						      return;
+						  }
+					  })
+				  }else if(!isPass5){
+					  Swal.fire({
 						  title: '매장 전화번호 형식을 확인해주세요.',
 						  icon: 'warning',
 						  showCancelButton: false,
@@ -405,7 +438,7 @@ $(document).ready(function(){
 						      return;
 						  }
 					  })
-				  }else if(!isPass5){
+				  }else if(!isPass6){
 					  Swal.fire({
 						  title: '이메일 형식을 확인해주세요.',
 						  icon: 'warning',

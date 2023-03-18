@@ -17,13 +17,16 @@ public interface B2_Dao {
 	public List<Menu> searchMenu(MenuSch sch);
 	// 메뉴 등록
 	public void insertMenu(Menu ins);
-	
+	// 메뉴 등록 시 필수 메뉴라면 모든 매장에 자동으로 등록하기 위한 모든 매장번호 가져오기
+	public List<String> getfrRegiNum();
+	// 메뉴 후 자동으로 필수 메뉴 등록
+	public void insertNesMenu(Onsale ins);
 	
 	// 매장 정보 등록
 	public void insertStore(Store ins);
 	// 필수 메뉴 출력
 	public List<String> getnecessaryMenuNum();
-	// 필수 메뉴 등록
+	// 매장등록 후 자동으로 필수 메뉴 등록
 	public void necessaryMenu(Onsale ins);
 	// 매장 정보 수정
 	public void updateStore(Store upt);

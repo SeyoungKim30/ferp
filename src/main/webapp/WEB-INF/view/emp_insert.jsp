@@ -155,7 +155,7 @@ $(document).ready(function(){
 						  }
 					  })
 				  }
-				  else if($("[name=dname]").val() == ""){
+				  else if($("[name=dname]").val() == null){
 					  Swal.fire({
 						  title: '부서를 선택해주세요.',
 						  icon: 'warning',
