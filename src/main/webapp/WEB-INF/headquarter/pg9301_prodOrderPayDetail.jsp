@@ -162,7 +162,7 @@ var total=0;
 </script>
 <table class="table">
 <thead>
-<tr class="accent"><th colspan="4"><h3>구매내역</h3></th><th>정산기간</th><th colspan="2" >2023년 02월</th></tr>
+<tr class="accent"><th colspan="4"><h3>구매내역</h3></th><th>정산기간</th><th colspan="2" >${fn:substring(prodOrder.orderDateMonth,0,4) }년${fn:substring(prodOrder.orderDateMonth,5,7) }월</th></tr>
 <tr class="accent"><th>품목번호</th><th>품목명</th><th>단가</th><th>수량</th><th>공급가액</th><th>부가세액</th><th>합계금액</th></tr></thead>
 <tbody>
 <c:forEach var="ii" items="${list }">

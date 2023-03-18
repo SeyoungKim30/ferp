@@ -57,14 +57,14 @@ localStorage.setItem("eqIdx","9000")
 	<div class="toolbox">
 	<form id="searchform">
 	<h3>조회 기간 선택</h3>
-	<div class="toolbar" title="단일 주문일자,월별 조회, 발주번호 중 하나의 조건을 입력하세요">
+	<div class="toolbar">
 		<div>
-			<label>주문일자 <input type="date" name="orderDate" required></label>
-			<label>월별 조회 <input type="month" name="orderDateMonth" required></label>
-			<label title="발주번호를 검색조건으로 사용합니다">발주번호<input placeholder="발주번호로 검색" name="orderNum" required></label>
+			<label>주문일자 <input type="date" name="orderDate" required><div style="position: absolute;font-size: 0.8em;color: #007bff;">주문일자,월별 조회, 발주번호 중 하나의 조건을 입력하세요</div></label>
+			<label>월별 조회 <input type="month" name="orderDateMonth" required disabled></label>
+			<label title="발주번호를 검색조건으로 사용합니다">발주번호<input placeholder="발주번호로 검색" name="orderNum" required disabled></label>
 		</div>
 	</div>
-	<h3>조건으로 검색</h3>
+	<h3>추가 조건 지정</h3>
 	<div class="toolbar" title="조건은 다중적용이 가능합니다">
 	<div>
 	<fieldset class="noDisplayForStores">
