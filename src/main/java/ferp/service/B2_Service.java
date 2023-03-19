@@ -120,7 +120,7 @@ public class B2_Service {
 		
 		return dao.detailStore(frRegiNum);
 	}
-	// 해당 매장 정보 삭제
+	// 해당 매장 정보 비활성화
 	public String deleteStore(String frRegiNum) {
 		dao.deleteStore(frRegiNum);
 		

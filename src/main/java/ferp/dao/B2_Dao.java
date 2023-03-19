@@ -26,13 +26,13 @@ public interface B2_Dao {
 	public void insertStore(Store ins);
 	// 필수 메뉴 출력
 	public List<String> getnecessaryMenuNum();
-	// 매장등록 후 자동으로 필수 메뉴 등록
+	// 매장등록 후 필수 메뉴 등록
 	public void necessaryMenu(Onsale ins);
 	// 매장 정보 수정
 	public void updateStore(Store upt);
 	// 해당 매장 정보 조회
 	public Store detailStore(String frRegiNum);
-	// 해당 매장 정보 삭제
+	// 해당 매장 비활성화
 	public void deleteStore(String frRegiNum);
 	
 	// 본사 직원 등록

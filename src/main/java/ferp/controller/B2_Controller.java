@@ -110,8 +110,7 @@ public class B2_Controller {
 		return "redirect:/menuList.do";
 	}
 	
-	// 매장정보등록 controller
-	// http://localhost:7080/ferp/storeInsert.do
+	// 매장정보등록
 	@GetMapping("/storeInsert.do")
 	public String storeInsert() {
 		return "WEB-INF\\view\\store_insert.jsp";
@@ -121,11 +120,10 @@ public class B2_Controller {
 		if( service.insertStore(ins) != null ) {
 			redirect.addFlashAttribute("msg", "매장정보등록 성공!!");
 		}
-		// redirect로 매장정보조회페이지로 이동
 		return "redirect:/salesInfo.do";
 	}
+	
 	// 매장 정보 수정
-	// http://localhost:7080/ferp/storeUpdate.do
 	@GetMapping("/storeUpdate.do")
 	public String storeUpdate(@RequestParam String frRegiNum, Model d) {
 		d.addAttribute("store", service.detailStore(frRegiNum));
@@ -138,7 +136,6 @@ public class B2_Controller {
 			redirect.addFlashAttribute("updMsg", "매장 정보 수정 완료");
 		}
 		
-		// 매장 정보 조회 페이지로 redirect
 		return "redirect:/salesInfo.do";
 	}
 	// 매장 정보 비활성화
@@ -147,7 +144,6 @@ public class B2_Controller {
 		if( service.deleteStore(frRegiNum) != null ) {
 			redirect.addFlashAttribute("delMsg", "매장 정보 비활성화 완료");
 		}
-		// 매장 정보 조회 페이지로 redirect
 		return "redirect:/salesInfo.do";
 	}
 	
