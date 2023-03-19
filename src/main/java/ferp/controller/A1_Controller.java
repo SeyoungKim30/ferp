@@ -182,13 +182,18 @@ public class A1_Controller {
    @RequestMapping("/insOnsale.do")
    public String insOnsale(Onsale ins, 
 		   				@RequestParam("menuNum")String menuNum,
-		   				HttpSession session
+		   				HttpSession session,
+		   				Model d
 		   ) {
 	  Store st = (Store)session.getAttribute("login");
 	  ins.setFrRegiNum(st.getFrRegiNum());
 	  ins.setMenuNum(menuNum);
-      service.insOnsale(ins);
-      return "redirect:/onsaleList.do";
+      if(service.insOnsale(ins)=="완료") {
+    	  d.addAttribute("msg","추가되었습니다.");
+      }else {
+    	  d.addAttribute("msg","이미 추가된 상품입니다.");
+      }
+      return "redirect:/showMenu.do";
    }
    
    // 판매 삭제할 메뉴

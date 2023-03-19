@@ -38,7 +38,8 @@
 	    font-size: 19px;
 	    color: #777;
 	    font-weight: 500;
-	    text-align: right;
+	    text-align: left;
+	    padding-left: 20px;
 	}
 </style>
 <script type="text/javascript">

@@ -33,6 +33,11 @@
 	.infoTextTd{
 		text-align: left;
 	}
+	
+	.menuSchForm{
+		padding: 20px 0 30px;
+	    text-align: right;
+	}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","2001")

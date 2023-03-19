@@ -122,6 +122,13 @@
 			)
 		</insert>
 		
+		<!-- 판매 메뉴 중복 체크 -->
+		<select id="checkOnsale" resultType="onsale">
+		  SELECT * FROM ONSALE 
+		  WHERE menuNum = #{menuNum} 
+		  AND frRegiNum = #{frRegiNum}
+		</select>
+		
 		<!-- 금일 전체 메뉴 개수 -->
 		<select id="totCnt" resultType="int">
 			SELECT count(*)

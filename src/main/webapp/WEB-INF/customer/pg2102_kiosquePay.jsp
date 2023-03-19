@@ -84,6 +84,30 @@
 .orderNum{
 	display: none;
 }
+
+.goHome{
+	padding: 50px 0;
+}
+
+.goHomeBtn{
+    line-height: 68px;
+    width: 200px;
+    height: 70px;
+    color: #2262f3;
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    margin: auto;
+    border-radius: 10px;
+    border: 3px solid #2262f3;
+    font-weight: 600;
+}
+
+.goHomeBtn:hover{
+	border:none;
+	color: #fff;
+	background: #2262f3;
+}
 </style>
 </head>
 
@@ -103,6 +127,9 @@
 				<img alt="" src="${path}/resource/img/card.png"><br>
 				<span>카드 결제</span>
 			</div>
+		</div>
+		<div class="goHome">
+			<a href="${path}/kiosqueMainForCustomer.do" class="goHomeBtn">주문 취소하기</a>
 		</div>
 		<c:forEach var="no" items="${NowOrders}">
 			<div class="payprice">${no. payprice}</div>
@@ -143,8 +170,6 @@ $(".howbox").click(function () {
 		}).then((result) => {
 			if (result.value) {				
 				location.href="payState.do?orderNum="+orderNum+"&price="+price+"&tax="+tax+"&oppm="+oppm;
-			}else{
-				locaion.href="${path}/kiosqueMainForCustomer.do"
 			}
 		});
 });

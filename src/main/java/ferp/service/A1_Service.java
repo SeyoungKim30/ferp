@@ -74,8 +74,13 @@ public class A1_Service {
 	}
 	
 	// 판매할 메뉴 등록
-	public void insOnsale(Onsale ins) {
-		dao.insOnsale(ins);
+	public String insOnsale(Onsale ins) {
+		if(dao.checkOnsale(ins)==null) {
+			dao.insOnsale(ins);
+			return "완료";
+		}else {
+			return "중복";
+		}
 	}
 	
 	// 판매 메뉴 삭제

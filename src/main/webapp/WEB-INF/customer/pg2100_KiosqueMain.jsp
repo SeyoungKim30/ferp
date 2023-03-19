@@ -358,23 +358,6 @@
 		    text-align: center;
 		    padding: 20px;
 		}
-		
-		.lanBtn{
-		    font-size: 20px;
-		    background: #fff;
-		    border: none;
-		    width: 100px;
-		    border-radius: 10px;
-		    height: 38px;
-		    color: #333;
-		    margin-left: 95px;
-		    margin-top: 20px;
-		    cursor: pointer;
-		}
-		
-		.lanBtn:hover{
-			color: #2262f3;
-		}
 </style>
 </head>
 
@@ -449,7 +432,6 @@
 			<li name="tab_list_4" class="tab_list list_4">음료</li>
 			<li name="tab_list_5" class="tab_list list_5">샌드위치</li>
 			<li name="tab_list_6" class="tab_list list_6">케이크</li>
-			<button class="lanBtn">English</button>
 		</ul>
 		<div class="con_wrap">
 			<div class="large_con">
