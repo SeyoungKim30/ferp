@@ -51,6 +51,10 @@
 		<div class="contents">
 		<h2>판매 메뉴 삭제</h2><br><hr><br>
 			<table>
+			<col width="20%">
+			<col width="15%">
+			<col width="45%">
+			<col width="20%">
 				<thead>
 					<tr>
 						<th>이름</th><th>가격</th><th>메뉴 설명</th><th>등록</th>

@@ -55,6 +55,10 @@
             	<button class="menuSch" type="submit">검색</button>
             </form>
 			<table>
+			<col width="20%">
+			<col width="15%">
+			<col width="45%">
+			<col width="20%">
 				<thead>
 					<tr>
 						<th>이름</th><th>가격</th><th>메뉴 설명</th><th>등록</th>
