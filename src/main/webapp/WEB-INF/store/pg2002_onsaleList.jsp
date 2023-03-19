@@ -33,6 +33,13 @@
 	.infoText{
 		text-align: left;
 	}
+	
+	.h5text{
+	    font-size: 19px;
+	    color: #777;
+	    font-weight: 500;
+	    text-align: right;
+	}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","2002")
@@ -49,7 +56,10 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		<h2>판매 메뉴 삭제</h2><br><hr><br>
+		<h2>판매 메뉴 삭제</h2><br>
+<hr>
+<br>
+		<h5 class="h5text">현재 키오스크 화면에 노출 중인 상품들입니다.</h5><br>
 			<table>
 			<col width="20%">
 			<col width="15%">
@@ -71,7 +81,7 @@
 								<td>
 									<input name="menuNum" type="hidden" value="${mn.menuNum}">
 									<c:if test="${mn.necessary == 'N'}">
-									<button class="delBtn btn-primary">삭제</button>
+									<button class="delBtn btn-danger">삭제</button>
 									</c:if>
 									<c:if test="${mn.necessary == 'Y'}">
 									<span class="necessarySpan">필수 판매 메뉴</span>
@@ -103,7 +113,8 @@ $(document).ready(function() {
 			  confirmButtonText: '삭제',
 			  cancelButtonText: '취소'
 			}).then((result) => {
-				if(result.value){				
+				if(result.value){
+					alert("삭제되었습니다.");
 					location.href='${path}/delOnsale.do?menuNum='+menuNum;
 				}
 			});

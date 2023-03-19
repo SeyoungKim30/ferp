@@ -107,7 +107,8 @@ $(document).ready(function() {
 			  confirmButtonText: '등록',
 			  cancelButtonText: '취소'
 			}).then((result) => {
-				if(result.value){				
+				if(result.value){
+					alert("추가되었습니다.");
 					location.href='${path}/insOnsale.do?menuNum='+menuNum+'&frRegiNum='+fn;
 				}
 			});
