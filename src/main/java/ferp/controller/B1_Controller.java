@@ -77,14 +77,16 @@ public class B1_Controller {
 	/*매장QA점검*/
 	//본사:qa표항목전체출력
 	@RequestMapping("qaList.do")
-	public String r6105qaMangement(){
+	public String r6105qaMangement(@ModelAttribute("ql") QAchecklist ql, Model d){
+		d.addAttribute("qalist", service.qaList(ql));
 		return "WEB-INF\\headquarter\\pg6105_QAchecklist.jsp";
 	} 
 	@RequestMapping("qaListJson.do")
-	public String r6105qaMangementJson(Model d){
-		d.addAttribute("qalist", service.qaList());
+	public String r6105qaMangementJson(QAchecklist ql, Model d){
+		d.addAttribute("qalist", service.qaList(ql));
 		return "pageJsonReport";
 	}
+	
 	//qa표 항목추가	
 	@PostMapping("qaAdd.do")
 	public String r6105qaAdd(@RequestParam("qaItem") String qaItem, RedirectAttributes redirect) {
@@ -112,10 +114,40 @@ public class B1_Controller {
 	}
 	
 	//이달qa 특정매장 
-	//매장정보
+	//매장정보 //점수
 	@RequestMapping("qaDetailInfo.do")
-	public String r6104qaStoreDetail(@RequestParam("frRegiNum") String frRegiNum, Model d){
+	public String r6104qaStoreDetail(@RequestParam("frRegiNum") String frRegiNum, 
+									 @RequestParam("inspectDte") String inspectDte, Model d){
+		//매장정보출력
 		d.addAttribute("qdinfo", service.qaDetailStrinfo(frRegiNum));		
+		
+		System.out.println("#######################지원아ㅏㅏㅏㅏㅏㅏㅏㅏㅏ  controller###########################");
+		//점수출력
+		QA qa = new QA();
+		qa.setFrRegiNum(frRegiNum);
+		qa.setInspectDte(inspectDte);
+		System.out.println("frRegiNum"+frRegiNum);
+		System.out.println("inspectDte"+inspectDte);
+
+		double qncnt = service.qaDetailScore(qa).getQncnt();
+		double ycnt = service.qaDetailScore(qa).getYcnt();
+		System.out.println("qncnt   "+qncnt);
+		System.out.println("ycnt     "+ycnt);
+		double score =  ycnt/qncnt*10.0;
+		String resultScore="";
+		System.out.println("score                "+score);
+		if(score>=9.0) {
+			resultScore ="이상없음";
+		}else if(score>=8.0) {
+			resultScore ="주의";
+		}else {
+			resultScore="심각";
+		}
+		System.out.println("resultScore             "+resultScore);
+		
+	    d.addAttribute("resultScore", resultScore);
+		
+		
 		return 	"WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
 	} 
 	//결과표 
@@ -132,7 +164,7 @@ public class B1_Controller {
 		return "pageJsonReport";
 	}
 	*/
-	//결과점수  ~포기
+	//결과점수
 	//1.
 	/*
 	@GetMapping("qaScore.do/{frRegiNum}")
@@ -146,7 +178,6 @@ public class B1_Controller {
 	    model.addAttribute("ncnt", ncnt);
 	   // return "WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
 	}
-	*/
 	//2
 	//@ModelAttribute("qaScore")
 	//form을 숨겨놓고 파라미터값이 넘어가게
@@ -155,8 +186,14 @@ public class B1_Controller {
 		return service.qaDetailScore(frRegiNum);
 	}
 	
-	
-	
+	//3
+	@RequestMapping("qaScore.do")
+	public String r6104qaStoreScore(@ModelAttribute("score") QA qa, Model m) {
+		
+
+		return "WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
+	}
+	*/
 	
 	// http://localhost:6080/ferp/inchargeStore.do
 	

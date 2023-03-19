@@ -22,14 +22,16 @@ public interface B1_Dao {
 	
 	
 	//QA점검
-	public List<QAchecklist> qaList(); //qa표항목전체출력
+	public List<QAchecklist> qaList(QAchecklist ql); //qa표항목전체출력
+	public int totNum();//페이징처리
+	
 	public void qaListIns(String qaItem); //qa표항목추가등록
 	public void qaListUpt(QAchecklist upt); //qa표항목활성.비활성화
 	
 	public List<QA> qaStoresList(QA qa); //이달qa 전매장 조회
 	public QA qaDetailStrinfo(String frRegiNum); //이달qa 상세조회-매장정보
 	public List<QA> qaDetailList(QA qa);  //이달qa 상세조회-결과표
-	public List<QA> qaDetailScore(String frRegiNum); //이달qa 상세조회-점수
+	public QA qaDetailScore(QA qa); //이달qa 상세조회-점수
 	
 	//담당 매장 점검
 	public List<QA> inchargeStore(String empNum); //담당매장 목록

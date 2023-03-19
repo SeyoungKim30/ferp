@@ -148,7 +148,8 @@
 	}
 	/* 삭제버튼 */
 	.btn-danger {
-		border-radius: 5px;
+		border-radius: 5px;	
+		
 	}
 	
 </style>
@@ -276,10 +277,10 @@
 			sbslist.forEach(function(each){
 				
 				if(each.frtel==null){
-					trtd="<tr class='delStore'><td>"+each.frname+"</td><td colspan='5' style='text-align:center'>운영이 종료된 매장입니다</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
+					trtd="<tr class='delStore'><td>"+each.frname+"</td><td colspan='5' style='text-align:center'>운영이 종료된 매장입니다</td><td></td></tr>"
 
 				}else{
-					trtd="<tr><td onclick='goDetail("+each.frRegiNum+")'>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td  class='ctrdata'>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary' onclick='goUpdate("+each.frRegiNum+")'>수정</span><span class='btn-danger' onclick='goDelete("+each.frRegiNum+")'>삭제</span></td></tr>"
+					trtd="<tr  onclick='goDetail("+each.frRegiNum+")' ><td>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td  class='ctrdata'>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary' onclick='event.stopPropagation(); goUpdate("+each.frRegiNum+")'>수정</span><span class='btn-danger' onclick='event.stopPropagation(); goDelete("+each.frRegiNum+")'>삭제</span></td></tr>"
 
 				}
 				ftrtd+=trtd
@@ -320,6 +321,7 @@
 	function goDetail(frRegiNum){
 		location.href="${path}/salesDetail.do?frRegiNum="+frRegiNum+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt
 	}
+	
 	
 	function goUpdate(frRegiNum){
 		  Swal.fire({

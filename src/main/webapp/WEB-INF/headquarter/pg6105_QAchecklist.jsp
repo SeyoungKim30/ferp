@@ -63,6 +63,11 @@
 		text-align: center;
 	}
 	
+	.row.pBtn_center {
+   	 	text-align: center;
+   	 	margin: 30px 0;
+    }
+	
 	
 	/* 모달 창 */
 	.modal {
@@ -134,11 +139,37 @@
 						<thead>
 							<tr><th>항목번호</th><th>항목</th><th>&nbsp;</th></tr>
 						</thead>
-						<tbody></tbody>
+						<tbody>
+						<%-- <c:forEach var="qal" items="${qalist }">
+							<tr><td>${qal.qaNum }</td></tr>
+						</c:forEach> --%>
+						</tbody>
 					
 					</table>
 			</form>
 			<!-- 표 끝 -->
+			
+			<!-- 페이징처리 시작 -->
+			<div class="row pBtn_center">
+				<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${ql.startBlock-1});'">
+					&lt;
+				</button>
+				<c:forEach var="cnt" begin="${ql.startBlock }" end="${ql.endBlock}">
+			  		<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
+						${cnt}
+					</button>
+			  	</c:forEach>
+			  	<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${ql.startBlock+1});'">
+					&gt;
+				</button>
+			</div>
+			<!-- 페이징처리 끝
+			<form id="reqSchFrm" method="post" action="${path }/qaList.do">
+			 -->
+			<form id="reqSchFrm"> 
+			 	<input type="hidden" name="curPage" value="${ql.curPage}" />	
+			</form>
+			
 			
 			
 			<!-- 등록 폼 -->
@@ -161,6 +192,13 @@
 			    </div>
 			</div>	
 			<!-- 등록 폼 끝-->
+			
+			
+			
+			
+
+			
+			
 		
 		</div>
 	</div>
@@ -174,10 +212,11 @@
 	localStorage.setItem("eqIdx","6000");
 	
 	
-
+	
 	//표 출력
+	var curPage = $("[name=curPage]").val();
 	function print(){
-		let url="${path}/qaListJson.do"  //검색값 넘기기
+		let url="${path}/qaListJson.do?curPage="+curPage
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
 			
@@ -201,12 +240,37 @@
 		}).catch(function(err){console.log(err)})	
 	}
 	
-	
 	$(function() {		
 		//표출력
 		print();	
+
 		
 	})
+	
+	
+	//페이징처리 버튼
+	function goPage(cnt){
+		$("[name=curPage]").val(cnt);
+		$("#reqSchFrm").submit()
+		
+		print();
+	}
+
+	
+	if(${ql.curPage==1}){
+		$("[name=prev]").attr("disabled",true);
+	}
+	if(${ql.curPage==ql.endBlock}){
+		$("[name=next]").attr("disabled",true)
+	}
+	
+	$(".pg"+${ql.curPage}).css({
+		'background' : '#a4a4a4',
+		'color' : 'white'
+	})
+	
+	
+
 
 	
 	
@@ -335,7 +399,7 @@ function changeA(qaNum) {
 	
 
 
-	
+
 
 	
 
