@@ -145,11 +145,11 @@ public class C2_Service {
 	}
 	
 	// 직원스케줄 캘린더 삭제	
-	public void sclerkschdDel(String clerkNum, String onDay) {
-		ClerkSchedule del = new ClerkSchedule();
-	    del.setClerkNum(clerkNum);
+	public void sclerkschdDel(String clerkName, String onDay) {
+	    ClerkSchedule del = new ClerkSchedule();
+	    del.setClerkName(clerkName);
 	    del.setOnDay(onDay);
-		dao.sclerkschdDel(del);
+	    dao.sclerkschdDel(del);
 	}
 	
 	// 직원스케줄 캘린더

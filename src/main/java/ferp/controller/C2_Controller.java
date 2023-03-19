@@ -121,11 +121,6 @@ public class C2_Controller {
 	}
 	
 	// 본사 재고 수정
-	@GetMapping("/hproductUpt.do")
-	public String r8203ProductUpt(@RequestParam String productNum, Model d) {
-		d.addAttribute("product", service.r8101ProductInfo(productNum));
-		return "WEB-INF\\headquarter\\pg8203_productUpt.jsp";
-	}
 	@PostMapping("/hproductUpt.do")
 	public String r8203ProductUpt(Product upt, RedirectAttributes redirect) {
 		if( service.r8203ProductUpt(upt) != null) {
@@ -167,10 +162,10 @@ public class C2_Controller {
 	
 	// 직원스케줄 캘린더 삭제
 	@RequestMapping("/sclerkschdDel.do")
-	public String sclerkschdDel(@RequestParam("clerkNum") String clerkNum,
-								@RequestParam("onDay") String onDay){
-		service.sclerkschdDel(clerkNum, onDay);
-		return "redirect:/sclerkschd.do";
+	public String sclerkschdDel(@RequestParam("clerkName") String clerkName,
+	                            @RequestParam("onDay") String onDay){
+	    service.sclerkschdDel(clerkName, onDay);
+	    return "redirect:/sclerkschd.do";
 	}
 	
 	// 직원스케줄 캘린더
