@@ -68,12 +68,10 @@ $(document).ready(function() {
 					<div class="row">
 						<select class="yearCheck">
 							<option value="${SCpsch.orderDateYear}">${SCpsch.orderDateYear}</option>
-							<option value="">---</option>
-							<option value="2023">2023</option>
-							<option value="2022">2022</option>
-							<option value="2021">2021</option>
-							<option value="2021">2020</option>
-							<option value="2021">2019</option>
+							<option value="" disabled>---</option>
+							<c:forEach var="year" items="${past5years }">
+								<option value="${year.years }">${year.years }</option>
+							</c:forEach>
 						</select>
 						<c:forEach var="i" begin="1" end="12">
 							<div class="monthDiv">${i }월</div>

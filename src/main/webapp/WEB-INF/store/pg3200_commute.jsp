@@ -99,6 +99,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	var arr=[];
 	$(".start_btn").click(function () {
 		  Swal.fire({
 			  title: '출근 등록을 하시겠습니까?',
@@ -124,7 +125,28 @@ $(document).ready(function() {
 							  }
 						  })
 					}else{
-						regAjax("/addOnDay.do");
+						<c:forEach var="check" items="${clerkToday }">
+							arr.push({ontime:"${check.ontime}", clerkName:"${check.clerkName}", clerkNum:"${check.clerkNum}"})
+						</c:forEach>
+						for(var i=0;i<arr.length;i++){
+							if($("[name=clerkNum]").val() == arr[i].clerkNum && arr[i].clerkName != "" && arr[i].ontime == ""){
+								regAjax("/addOnDay.do");	
+								return;
+							}else{
+								Swal.fire({
+									title: '이미 출근한 직원입니다',
+									icon: 'warning',
+									showCancelButton: false,
+									confirmButtonColor: '#2262F3',
+									confirmButtonText: '확인'
+									}).then((result) => {
+										if (result.value) {
+										$("[name=clerkNum]").focus()
+									    return;
+									}
+								})
+							}
+						}
 					}
 				}
 			})

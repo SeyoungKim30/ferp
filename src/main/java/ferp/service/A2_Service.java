@@ -109,6 +109,31 @@ public class A2_Service {
 		if(sch.getDemander() == null) sch.setDemander("");
 		if(sch.getOrderDateMonth() == null) sch.setOrderDateMonth("");
 		if(sch.getOrderDateYear() == null) sch.setOrderDateYear(String.valueOf(LocalDate.now().getYear()));
+		if(sch.getPageSize()==0) {
+			sch.setPageSize(5);
+		}
+		sch.setCount(dao.totNumProdOrder(sch));
+		if(sch.getCurPage()==0) {
+			sch.setCurPage(1);
+		}
+		sch.setPageCount(
+				(int)Math.ceil(
+				sch.getCount()/(double)sch.getPageSize())
+				);
+		if(sch.getCurPage()>sch.getPageCount()) {
+			sch.setCurPage(sch.getPageCount());
+		}
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getCurPage()*sch.getPageSize());
+		sch.setBlockSize(5);
+		int blocknum = (int)Math.ceil(sch.getCurPage()/
+					(double)sch.getBlockSize());
+		int endBlock = blocknum*sch.getBlockSize();
+		if(endBlock>sch.getPageCount()) {
+			endBlock = sch.getPageCount();
+		}
+		sch.setEndBlock(endBlock);
+		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.reqList(sch);
 	}
 	public void uptReqList(Prod_ProdOrder upt) {
@@ -146,6 +171,31 @@ public class A2_Service {
 		if(sch.getOrderDateMonth() == null) sch.setOrderDateMonth("");
 		if(sch.getCategory() == null) sch.setCategory("");
 		if(sch.getOrderDateYear() == null) sch.setOrderDateYear(String.valueOf(LocalDate.now().getYear()));
+		if(sch.getPageSize()==0) {
+			sch.setPageSize(5);
+		}
+		sch.setCount(dao.totDefectOrder(sch));
+		if(sch.getCurPage()==0) {
+			sch.setCurPage(1);
+		}
+		sch.setPageCount(
+				(int)Math.ceil(
+				sch.getCount()/(double)sch.getPageSize())
+				);
+		if(sch.getCurPage()>sch.getPageCount()) {
+			sch.setCurPage(sch.getPageCount());
+		}
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getCurPage()*sch.getPageSize());
+		sch.setBlockSize(5);
+		int blocknum = (int)Math.ceil(sch.getCurPage()/
+					(double)sch.getBlockSize());
+		int endBlock = blocknum*sch.getBlockSize();
+		if(endBlock>sch.getPageCount()) {
+			endBlock = sch.getPageCount();
+		}
+		sch.setEndBlock(endBlock);
+		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.viewDefectorder(sch);
 	}
 	public List<Sales> salesGraph(Sales sch, HttpSession session){
@@ -199,6 +249,12 @@ public class A2_Service {
 		if(upt.getProductNum() == null) upt.setProductNum("");
 		if(upt.getOrderDate() == null) upt.setOrderDate("");
 		dao.prodOrderToDefected(upt);
+	}
+	public List<StoreClerk> past5years() {
+		for(int i = 0;i<dao.past5years().size();i++) {
+			System.out.println(dao.past5years().get(i));
+		}
+		return dao.past5years();
 	}
 //	public void deleteDefectOrder(DefectOrder del) {
 //		File file = new File(defectFupload+del.getImg());

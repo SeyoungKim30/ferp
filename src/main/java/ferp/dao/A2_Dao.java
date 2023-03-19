@@ -34,5 +34,8 @@ public interface A2_Dao {
 	public int defectOrderTot(String frRegiNum);
 	public void insertDefectOrder(DefectOrder ins);
 	public void prodOrderToDefected(DefectOrder upt);
+	public List<StoreClerk> past5years();
+	public int totNumProdOrder(Prod_ProdOrder sch);
+	public int totDefectOrder(DefectOrder sch);
 //	public void deleteDefectOrder(DefectOrder del);
 }

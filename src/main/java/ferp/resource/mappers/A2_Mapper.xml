@@ -79,18 +79,33 @@
 		#{productNum},#{demander},#{supplier},sysdate,#{amount},'정산전','요청')
 	</insert>
 	<!-- 발주 신청서 조회 -->
-	<select id="reqList" parameterType="prodOrder" resultType="prodProdOrder">
-		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY, p.OPPOSITE , s.REMAINAMOUNT 
-		FROM PRODUCT p, PRODORDER po, STOCK s 
+	<select id="reqList" parameterType="prodProdOrder" resultType="prodProdOrder">
+		SELECT * FROM (
+			SELECT rownum cnt, a.* FROM (
+				SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY, p.OPPOSITE , s.REMAINAMOUNT 
+				FROM PRODUCT p, PRODORDER po, STOCK s 
+				WHERE p.PRODUCTNUM = po.PRODUCTNUM
+				AND s.PRODUCTNUM = p.PRODUCTNUM
+				AND STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)
+				AND p.PRODUCTNAME LIKE '%'||#{productName}||'%' 
+				AND p.CATEGORY LIKE '%'||#{category}||'%'
+				AND to_char(to_date(ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
+				AND EXTRACT(YEAR FROM ORDERDATE) LIKE '%'||#{orderDateYear}||'%'
+				AND DEMANDER = #{demander}
+				ORDER BY to_char(orderdate, 'YYMMDD HH24:MI:SS') DESC) a
+			)
+		where cnt between #{start} and #{end}
+	</select>
+	<select id="totNumProdOrder" parameterType="prodProdOrder" resultType="int">
+		SELECT count(*) FROM (
+		SELECT po.*, p.img, p.PRODUCTNAME, p.CATEGORY, p.OPPOSITE 
+		FROM PRODUCT p, PRODORDER po
 		WHERE p.PRODUCTNUM = po.PRODUCTNUM
-		AND s.PRODUCTNUM = p.PRODUCTNUM
-		AND STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)
 		AND p.PRODUCTNAME LIKE '%'||#{productName}||'%' 
 		AND p.CATEGORY LIKE '%'||#{category}||'%'
 		AND to_char(to_date(ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
 		AND EXTRACT(YEAR FROM ORDERDATE) LIKE '%'||#{orderDateYear}||'%'
-		AND DEMANDER = #{demander}
-		ORDER BY to_char(orderdate, 'YYMMDD HH24:MI:SS') DESC
+		AND DEMANDER = #{demander})
 	</select>
 	<!-- 발주 신청서 수정 -->
 	<update id="uptReqList" parameterType="prodProdOrder">
@@ -160,7 +175,7 @@
 		ORDER BY orderdate DESC
 	</select>
 	<select id="storeclerkSchedule" parameterType="storeclerk" resultType="storeclerk">
-		SELECT to_char(ontime, 'HH24:MI:SS') ontime, to_char(offtime, 'HH24:MI:SS') offtime,clerkName,hourlypay FROM (
+		SELECT to_char(ontime, 'HH24:MI:SS') ontime, to_char(offtime, 'HH24:MI:SS') offtime,clerkName,s.clerkNum,hourlypay FROM (
 		SELECT e.ONTIME,e.offtime, e.CLERKNUM 
 		FROM STORECLERK s ,EMPCHECKIN e 
 		WHERE s.FRREGINUM = e.FRREGINUM
@@ -177,7 +192,23 @@
 		WHERE FRREGINUM = #{frRegiNum}
 	</select>
 	<select id="viewDefectorder" parameterType="defectorder" resultType="defectorder">
-		SELECT d.DEFNUM ,p.ORDERNUM, p2.productName, p2.CATEGORY, d.METHODS, d.IMG, d.STATE, d.APPLYDATE,p.ORDERDATE ,d.frreginum, d.type, d.completeDate
+		SELECT * FROM (
+			SELECT rownum cnt, a.* FROM (	
+				SELECT d.DEFNUM ,p.ORDERNUM, p2.productName, p2.CATEGORY, d.METHODS, d.IMG, d.STATE, d.APPLYDATE,p.ORDERDATE ,d.frreginum, d.type, d.completeDate
+				FROM DEFECTORDER d, PRODORDER p, PRODUCT p2 
+				WHERE d.ORDERNUM = p.ORDERNUM 
+				AND d.ORDERDATE = p.ORDERDATE 
+				AND p.PRODUCTNUM = p2.PRODUCTNUM 
+				AND frreginum = #{frRegiNum}
+				AND p2.PRODUCTNAME  LIKE '%'||#{productName}||'%'
+				AND p2.CATEGORY  LIKE '%'||#{category}||'%'
+				AND to_char(to_date(d.APPLYDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
+				AND EXTRACT(YEAR FROM d.APPLYDATE) LIKE '%'||#{orderDateYear}||'%') a
+			)
+		where cnt between #{start} and #{end}
+	</select>
+	<select id="totDefectOrder" parameterType="defectorder" resultType="int">
+		SELECT count(*)
 		FROM DEFECTORDER d, PRODORDER p, PRODUCT p2 
 		WHERE d.ORDERNUM = p.ORDERNUM 
 		AND d.ORDERDATE = p.ORDERDATE 
@@ -200,6 +231,11 @@
 	AND PRODUCTNUM = #{productNum}
 	AND ORDERDATE =to_date(#{orderDate},'YYYY-MM-DD HH24:MI:SS')
 	</update>
+	<select id="past5years" resultType="storeclerk">
+		SELECT DISTINCT (TO_char(sysdate, 'YYYY')+1 - (LEVEL)) AS years FROM STORECLERK 
+		CONNECT BY LEVEL <![CDATA[<=]]> 5
+		ORDER BY years DESC
+	</select>
 	<!-- <delete id="deleteDefectOrder" parameterType="defectorder">
 		DELETE FROM DEFECTORDER WHERE DEFNUM = #{defNum}
 	</delete> -->

@@ -33,6 +33,11 @@
 	.infoTextTd{
 		text-align: left;
 	}
+	
+	.menuSchForm{
+		padding: 20px 0 30px;
+	    text-align: right;
+	}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","2001")
@@ -55,6 +60,10 @@
             	<button class="menuSch" type="submit">검색</button>
             </form>
 			<table>
+			<col width="20%">
+			<col width="15%">
+			<col width="45%">
+			<col width="20%">
 				<thead>
 					<tr>
 						<th>이름</th><th>가격</th><th>메뉴 설명</th><th>등록</th>
@@ -75,7 +84,7 @@
 								<button class="addMenu btn-primary">등록</button>
 								</c:if>
 								<c:if test="${mn.necessary == 'Y'}">
-								<span class="necessarySpan">필수 판매 메뉴입니다.</span>
+								<span class="necessarySpan">필수 판매 메뉴</span>
 								</c:if>
 							</td>
 						</tr>
@@ -103,7 +112,8 @@ $(document).ready(function() {
 			  confirmButtonText: '등록',
 			  cancelButtonText: '취소'
 			}).then((result) => {
-				if(result.value){				
+				if(result.value){
+					alert("추가되었습니다.");
 					location.href='${path}/insOnsale.do?menuNum='+menuNum+'&frRegiNum='+fn;
 				}
 			});

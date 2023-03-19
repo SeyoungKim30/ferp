@@ -34,6 +34,7 @@ public interface A1_Dao {
 	public List<Menu> getMenuListCake(String FrRegiNum);
 	
 	// 판매할 메뉴 등록
+	public List<Onsale> checkOnsale(Onsale ins); // 중복 체크
 	public void insOnsale(Onsale ins);
 	// 판매할 메뉴 제거
 	public void delOnsale(Onsale del);

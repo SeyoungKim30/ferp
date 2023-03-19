@@ -41,7 +41,7 @@
 		})
 		$("#rstFrmBtn").click(function(){
 			$("[name=orderDateMonth]").val("")
-			$("[name=clerkName]").val("")
+			$("[name=productName]").val("")
 			$("[name=category]").val("")
 			$("[name=orderDateYear]").val(new Date().getFullYear())
 			$("[name=curPage]").val("1")
@@ -93,7 +93,6 @@
 					<div class="col margin-tn w20">
 						<label>종류</label> 
 						<select name="type" class="regList" required>
-							<option value="">---</option>
 							<option>오배송</option>
 							<option>누락</option>
 							<option>파손</option>
@@ -102,18 +101,19 @@
 					<div class="col margin-tn w20">
 						<label>처리방식</label> 
 						<select name="methods" class="regList" required>
-							<option value="">---</option>
 							<option>환불</option>
 							<option>재배송</option>
 						</select>
 					</div>
 				</div>
+				<label style="margin-left: 18px;">사진첨부</label>
 				<div class="filebox">
 					<div class="margin-sm fileInput" style="margin-left:20px;">
 						<input class="upload-name" style="width:84%;" value="첨부파일" placeholder="첨부파일"><label for="file">파일찾기</label> 
 						<input type="file" id="file" name="file" onchange="filename()">
 					</div>
 				</div>
+				<br>
 				<div class="right">
 					<button type="submit" class="regBtn" style="margin-right: 80px;">신청</button>
 				</div>
@@ -134,10 +134,10 @@
 						<div class="row">
 							<select class="yearCheck">
 								<option value="${dSch.orderDateYear}">${dSch.orderDateYear}</option>
-								<option value="">---</option>
-								<option value="2023">2023</option>
-								<option value="2022">2022</option>
-								<option value="2021">2021</option>
+								<option value="" disabled>---</option>
+								<c:forEach var="year" items="${past5years }">
+									<option value="${year.years }">${year.years }</option>
+								</c:forEach>
 							</select>
 							<c:forEach var="i" begin="1" end="12">
 								<div class="monthDiv">${i }월</div>
@@ -165,7 +165,8 @@
 								<button type="button" id="rstFrmBtn">초기화</button>
 							</div>
 							<input type="hidden" name="orderDateYear" value="${dSch.orderDateYear}">
-							<input type="hidden" name="orderDateMonth" value="${dSch.orderDateMonth }"> 
+							<input type="hidden" name="orderDateMonth" value="${dSch.orderDateMonth }">
+							<input type="hidden" name="curPage" value="${dSch.curPage}"/>	 
 							<input type="hidden" name="frRegiNum" value="${login.frRegiNum}">
 						</form>
 					</div>
@@ -197,6 +198,21 @@
 					</div>
 				</form>
 			</c:forEach>
+			<c:if test="${dSch.startBlock > 0}">
+				<div class="row pBtn_center">
+					<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${dSch.startBlock-1});'">
+						&lt;
+					</button>
+					<c:forEach var="cnt" begin="${dSch.startBlock }" end="${dSch.endBlock}">
+						<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
+							${cnt}
+						</button>
+					</c:forEach>
+					<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${dSch.startBlock+1});'">
+						&gt;
+					</button>
+				</div>
+			</c:if>
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -216,6 +232,21 @@
 				$('.upload-name').val($("#file").val()+" 외 "+parseInt(i-1) + "개")			
 			}
 		}
+		function goPage(cnt){
+			$("[name=curPage]").val(cnt);
+			$("#reqSchFrm").submit()
+		}
+		if(${dSch.curPage==1}){
+			$("[name=prev]").attr("disabled",true)
+		}
+		if(${dSch.curPage==dSch.endBlock}){
+			$("[name=next]").attr("disabled",true)
+		}
+
+		$(".pg"+${dSch.curPage}).css({
+			'background' : '#a4a4a4',
+			'color' : 'white'
+		})
 	</script>
 </body>
 </html>

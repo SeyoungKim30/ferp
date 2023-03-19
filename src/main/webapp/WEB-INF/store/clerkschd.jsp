@@ -55,6 +55,33 @@
         calendar.unselect()
         */
       },
+      eventClick: function(arg) {
+    	    if (confirm('해당 스케줄을 삭제 하시겠습니까?')) {
+    	        function formatDate(date) {
+    	            let year = date.getFullYear();
+    	            let month = ("0" + (date.getMonth() + 1)).slice(-2);
+    	            let day = ("0" + date.getDate()).slice(-2);
+    	            let hour = ("0" + date.getHours()).slice(-2);
+    	            let minute = ("0" + date.getMinutes()).slice(-2);
+    	            let second = ("0" + date.getSeconds()).slice(-2);
+    	            return year + "-" + month + "-" + day + "T" + hour + ":" + minute ;
+    	        }
+    	        $.ajax({
+    	            url: '${path}/sclerkschdDel.do',
+    	            type: 'POST',
+    	            data: { clerkName: arg.event.title, onDay: formatDate(arg.event.start) },
+    	            success: function(result) {
+    	                alert('삭제 완료');
+    	                location.reload();
+    	            },
+    	            error: function(jqXHR, textStatus, errorThrown) {
+    	                alert('삭제 실패');
+    	            }
+    	        });
+    	        arg.event.remove();
+    	    }
+    	},
+
       /*
       eventClick: function(arg) {
         if (confirm('Are you sure you want to delete this event?')) {

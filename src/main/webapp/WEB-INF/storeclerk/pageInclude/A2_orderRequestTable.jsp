@@ -39,7 +39,7 @@
 		})
 		$("#rstFrmBtn").click(function(){
 			$("[name=orderDateMonth]").val("")
-			$("[name=clerkName]").val("")
+			$("[name=productName]").val("")
 			$("[name=category]").val("")
 			$("[name=orderDateYear]").val(new Date().getFullYear())
 			$("[name=curPage]").val("1")
@@ -65,12 +65,10 @@
 					<div class="row">
 						<select class="yearCheck">
 							<option value="${rSch.orderDateYear}">${rSch.orderDateYear}</option>
-							<option value="">---</option>
-							<option value="2023">2023</option>
-							<option value="2022">2022</option>
-							<option value="2021">2021</option>
-							<option value="2021">2020</option>
-							<option value="2021">2019</option>
+							<option value="" disabled>---</option>
+							<c:forEach var="year" items="${past5years }">
+								<option value="${year.years }">${year.years }</option>
+							</c:forEach>
 						</select>
 						<c:forEach var="i" begin="1" end="12">
 							<div class="monthDiv">${i }월</div>
@@ -98,9 +96,10 @@
 						<button type="button" id="schFrmBtn">조회</button>
 						<button type="button" id="rstFrmBtn">초기화</button>
 					</div>
-					<input type="hidden" name="orderDateYear" value="${rSch.orderDateYear}">
-					<input type="hidden" name="orderDateMonth" value="${rSch.orderDateMonth}">
-					<input type="hidden" name="demander" value="${login.frRegiNum}">		
+					<input type="hidden" name="orderDateYear" value="${rSch.orderDateYear}"/>
+					<input type="hidden" name="orderDateMonth" value="${rSch.orderDateMonth}"/>
+					<input type="hidden" name="curPage" value="${rSch.curPage}"/>	
+					<input type="hidden" name="demander" value="${login.frRegiNum}"/>		
 				</form>
 			</div>
 		</div>
@@ -142,6 +141,21 @@
 			<div class="tdDiv" style="width: 7%;">${req.orderState}</div>
 		</div>
 	</c:forEach>
+	<c:if test="${rSch.startBlock > 0}">
+		<div class="row pBtn_center">
+			<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${rSch.startBlock-1});'">
+				&lt;
+			</button>
+			<c:forEach var="cnt" begin="${rSch.startBlock }" end="${rSch.endBlock}">
+				<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
+					${cnt}
+				</button>
+			</c:forEach>
+			<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${rSch.startBlock+1});'">
+				&gt;
+			</button>
+		</div>
+	</c:if>
 	</div>
 	<div id="modal2">
 		<div class="modal_content">
@@ -168,24 +182,22 @@
 		$(".paymentState").text(paymentState)
 		$(".orderState").text(orderState)
 		$(".rmAmount").text(remainAmount)
+		console.log($(".rmAmount").text())
 		var today = new Date().toLocaleDateString()
 		var orderday = new Date($(".orderDate2").text()).toLocaleDateString()
 		var t = new Date(today)
 		var o = new Date(orderday)
-		console.log("123123123-"+(t>o || orderState != '발주취소'))
-		if(t>o || orderState == '발주취소' || orderState == '완료'){
+		if(t>o || orderState == '발주취소' || orderState == '완료' || $(".orderState").text()=='조정중'){
 			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr("disabled", true)
-			$(".uBtn").css("backgroundColor", "#dc3545")
-			$(".uBtn").css("display", "none")
+			$(".uBtn").css({"backgroundColor":"#dc3545","display":"none"})
 			$(".dBtn").text("수정 기간 만료")
 			$(".dBtn").css("width", "25%")
 			$(".rmAmountCon").css("display","none")
 		}else{
 			$(".uBtn, .dBtn, .minus1, .minus10, .plus1, .plus10").attr("disabled", false)
-			$(".uBtn").css("backgroundColor", "#6c757d")
+			$(".uBtn").css({"backgroundColor":"#6c757d","display":"inline-block"})
 			$(".uBtn").text("수정")
 			$(".dBtn").text("취소")
-			$(".uBtn").css("display", "inline-block")
 			$(".dBtn").css("width", "15%")
 			$(".rmAmountCon").css("display","block")
 		}
@@ -196,5 +208,20 @@
 		}
 		$("#modal2").attr("style", "display:block");
 	}
+	function goPage(cnt){
+		$("[name=curPage]").val(cnt);
+		$("#reqSchFrm").submit()
+	}
+	if(${rSch.curPage==1}){
+		$("[name=prev]").attr("disabled",true)
+	}
+	if(${rSch.curPage==rSch.endBlock}){
+		$("[name=next]").attr("disabled",true)
+	}
+
+	$(".pg"+${rSch.curPage}).css({
+		'background' : '#a4a4a4',
+		'color' : 'white'
+	})
 </script>
 </html>

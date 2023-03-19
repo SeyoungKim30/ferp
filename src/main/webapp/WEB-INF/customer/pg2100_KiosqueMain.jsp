@@ -358,23 +358,6 @@
 		    text-align: center;
 		    padding: 20px;
 		}
-		
-		.lanBtn{
-		    font-size: 20px;
-		    background: #fff;
-		    border: none;
-		    width: 100px;
-		    border-radius: 10px;
-		    height: 38px;
-		    color: #333;
-		    margin-left: 95px;
-		    margin-top: 20px;
-		    cursor: pointer;
-		}
-		
-		.lanBtn:hover{
-			color: #2262f3;
-		}
 </style>
 </head>
 
@@ -449,7 +432,6 @@
 			<li name="tab_list_4" class="tab_list list_4">음료</li>
 			<li name="tab_list_5" class="tab_list list_5">샌드위치</li>
 			<li name="tab_list_6" class="tab_list list_6">케이크</li>
-			<button class="lanBtn">English</button>
 		</ul>
 		<div class="con_wrap">
 			<div class="large_con">
@@ -562,7 +544,7 @@
 					<button class="result_btn addOrderBtn">주문하기</button>
 				</div>
 				<ul class="result_list_wrap">
-					<li class="listdefalut">주문하실 음료를<br> 선택해주세요.</li>
+					<li class="listdefalut">주문하실 메뉴를<br> 선택해주세요.</li>
 				</ul>
 			</div>
 		</div>
@@ -751,7 +733,7 @@ var modal_btn_add = $(".modal_btn_add");
 
 // 취소하기 버튼
 $(".delOrderBtn").click(function () {
-	var insHtml = "<li class='listdefalut'>주문하실 음료를<br> 선택해주세요.</li>"
+	var insHtml = "<li class='listdefalut'>주문하실 메뉴를<br> 선택해주세요.</li>"
 	$(".result_list_wrap").html(insHtml);
 	resultAddString = "";
 	od = "";
@@ -770,7 +752,7 @@ $(".addOrderBtn").click(function () {
 				 if (result.value) {					 
 					if(od == ""){
 						  Swal.fire({
-							  title: '주문하실 음료를 추가해주세요',
+							  title: '주문하실 메뉴를 추가해주세요',
 							  icon: 'warning',
 							  showCancelButton: false,
 							  confirmButtonColor: '#2262F3',
