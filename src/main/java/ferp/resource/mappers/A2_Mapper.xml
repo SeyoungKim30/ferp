@@ -118,11 +118,18 @@
 		INSERT INTO CLERKFILE values(#{fname},sysdate,sysdate,#{clerkNum},#{frRegiNum},'')
 	</insert>
 	<select id="viewClerkFileInfo" parameterType="clerkfile" resultType="clerkfile">
-		SELECT * from(
-			SELECT rownum cnt, c.* 
-			FROM CLERKFILE c
-			WHERE CLERKNUM LIKE '%'||#{clerkNum}||'%'
-			AND FRREGINUM = #{frRegiNum})
+		SELECT * 
+		from(
+			SELECT rownum cnt, a.*
+			from(
+				SELECT * 
+				FROM CLERKFILE c
+				WHERE CLERKNUM LIKE '%'||#{clerkNum}||'%'
+				AND FRREGINUM = #{frRegiNum}
+				ORDER BY uptdte DESC
+				) a
+			)
+		ORDER BY cnt
 	</select>
 	<update id="clerkFileUpt" parameterType="clerkfile">
 		UPDATE CLERKFILE 
@@ -178,7 +185,7 @@
 		AND frreginum = #{frRegiNum}
 		AND p2.PRODUCTNAME  LIKE '%'||#{productName}||'%'
 		AND p2.CATEGORY  LIKE '%'||#{category}||'%'
-		AND to_char(to_date(p.ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
+		AND to_char(to_date(d.APPLYDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
 		AND EXTRACT(YEAR FROM d.APPLYDATE) LIKE '%'||#{orderDateYear}||'%'
 	</select>
 	<insert id="insertDefectOrder" parameterType="defectorder">

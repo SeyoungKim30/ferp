@@ -38,7 +38,7 @@
 						<div class="margin-sm fileInput">
 						    <input class="upload-name" value="첨부파일" placeholder="첨부파일"><label for="file">파일찾기</label> 
 						    <input type="file" id="file" name="multiFileList" onchange="filename()" multiple>
-						    <button type="submit" class="addFile">등록</button>
+						    <button type="button" class="addFile">등록</button>
 						</div>
 						<div>
 							<input name="clerkNum" class="fileip" type="hidden">
@@ -71,5 +71,15 @@
 			$("#fileFrm"+i).attr("action","${path}/delClerkFile.do").submit();
 		}
 	}
+	$(".addFile").click(function(){
+		if($(".upload-name").val() == '첨부파일'){
+			alert("등록파일을 선택해주세요")
+		}else{
+			alert("등록되었습니다")
+			$("#fileUpl").submit()
+		}
+	})
+		
+	
 </script>
 </html>

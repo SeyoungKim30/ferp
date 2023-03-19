@@ -42,6 +42,7 @@
 		$("#rstFrmBtn").click(function(){
 			$("[name=orderDateMonth]").val("")
 			$("[name=clerkName]").val("")
+			$("[name=category]").val("")
 			$("[name=orderDateYear]").val(new Date().getFullYear())
 			$("[name=curPage]").val("1")
 			$("#reqSchFrm").submit()

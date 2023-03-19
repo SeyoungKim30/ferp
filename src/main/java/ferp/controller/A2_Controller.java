@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -255,5 +256,9 @@ public class A2_Controller {
 		d.addAttribute("noticeCombo", service2.getNotice());
 		return "forward:pg0002.jsp";
 	}
-	
+	@GetMapping("/clerkFileDownload.do")
+	public String download(@RequestParam("fname") String fname, Model d) {
+		d.addAttribute("downloadFile", fname);
+		return "downloadViewer2";
+	}
 }

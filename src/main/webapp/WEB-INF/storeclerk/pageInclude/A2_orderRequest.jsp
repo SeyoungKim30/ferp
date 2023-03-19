@@ -23,29 +23,33 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".regBtn").click(function(){
-			if(confirm("신청하시겠습니까?")){
-				if($("#regForm .supplierName").val() == "" || $("#regForm .productName").val() == "" || $("#regForm [name=amount]").val() == ""){
-					$("#regForm .supplierName, #regForm .productName, #regForm [name=amount]").css("borderColor","red")
-				}else{
+			if($("#regForm .supplierName").val() == "" || $("#regForm .productName").val() == "" || $("#regForm [name=amount]").val() == ""){
+				alert("신청 자재를 선택해주세요")
+				$("#regForm .supplierName, #regForm .productName, #regForm [name=amount]").css("borderColor","red")
+			}else if($("#regForm [name=amount]").val() == "0"){
+				alert("신청 수량은 0 이상 가능합니다")
+				$("#regForm [name=amount]").css("borderColor","red")
+			}else{
+				if(confirm("신청하시겠습니까?")){
 					$("#regForm .supplierName, #regForm .productName, #regForm [name=amount]").css("borderColor","#a4a4a4")
-					$.ajax({
-						type : "post",
-						url : "/ferp/requestFrm.do",
-						data : $("#regForm").serialize(),
-						dataType : "json",
-						success : function(data) {
-							console.log(data)
-							alert(data.msg)
-							location.reload()
-						},
-						error : function(err) {						
-							console.log($("#regForm").serialize())
-							console.log(err)
-						}
-					})			
+						$.ajax({
+							type : "post",
+							url : "/ferp/requestFrm.do",
+							data : $("#regForm").serialize(),
+							dataType : "json",
+							success : function(data) {
+								console.log(data)
+								alert(data.msg)
+								location.reload()
+							},
+							error : function(err) {						
+								console.log($("#regForm").serialize())
+								console.log(err)
+							}
+						})	
+					}
 				}
-			}
-		})
+			})
 		$(".clsBtn1").click(function(){
 			$(".adjustAmountText").val("0")
 		})

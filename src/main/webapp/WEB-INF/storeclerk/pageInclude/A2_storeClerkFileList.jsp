@@ -40,7 +40,7 @@
 						show+='<div class="tdDiv" style="width: 5%;">'
 						show+='<input type="text" value="'+f.cnt+'" readOnly disabled>'
 						show+='</div>'
-						show+='<div class="tdDiv" style="width: 30%;">'
+						show+='<div class="tdDiv" style="width: 23%;">'
 						show+='<input type="text" name="fname" value="'+f.fname+'" readOnly />'
 						show+='</div>'
 						show+='<div class="tdDiv" style="width: 15%;">'
@@ -62,6 +62,9 @@
 						show+='<div class="tdDiv" style="width: 10%;">'
 						show+='<button type="button" class="delBtn fileDel" onclick="fileDel('+f.cnt+')">삭제</button>'
 						show+='</div>'
+						show+='<div class="tdDiv" style="width: 7%;">'
+						show+='<button type="button" class="downFile" onclick="fileDown('+'`'+f.fname+'`'+')">다운로드</button>'
+						show+='</div>'
 						show+='<input name="clerkNum" value="'+f.clerkNum+'" type="hidden">'
 						show+='<input name="frRegiNum" value="${login.frRegiNum }" type="hidden">'
 						show+='</div>'
@@ -81,12 +84,13 @@
 <body>
 	<div class="row">
 		<div class="thDiv" style="width: 5%;">번호</div>
-		<div class="thDiv" style="width: 30%;">파일명</div>
+		<div class="thDiv" style="width: 23%;">파일명</div>
 		<div class="thDiv" style="width: 15%;">등록일</div>
 		<div class="thDiv" style="width: 15%;">수정일</div>
 		<div class="thDiv" style="width: 15%;">파일설명</div>
 		<div class="thDiv" style="width: 10%;">수정</div>
 		<div class="thDiv" style="width: 10%;">삭제</div>
+		<div class="thDiv" style="width: 7%;">다운로드</div>
 	</div>
 	<div class="listDiv">
 	</div>
@@ -102,5 +106,10 @@
 			$("#fileFrm"+i).attr("action","${path}/delClerkFile.do").submit();
 		}
 	}
+	function fileDown(fname){
+  		if(confirm(fname+"을(를)다운로드하시겠습니까?")){
+  			location.href="${path}/clerkFileDownload.do?fname="+fname
+  		}
+  	}
 </script>
 </html>
