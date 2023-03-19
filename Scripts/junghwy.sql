@@ -631,7 +631,7 @@ SELECT PRODUCTNUM, REMAINAMOUNT  FROM STOCK s WHERE STOCKDATE IN
 		
 select count(*)+1001 from storeclerk where frRegiNum = '1234567890';
 
-SELECT to_char(ontime, 'HH24:MI:SS') ontime, to_char(offtime, 'HH24:MI:SS') offtime,clerkName,hourlypay FROM (
+SELECT to_char(ontime, 'HH24:MI:SS') ontime, to_char(offtime, 'HH24:MI:SS') offtime,clerkName,s.clerkNum,hourlypay FROM (
 		SELECT e.ONTIME,e.offtime, e.CLERKNUM 
 		FROM STORECLERK s ,EMPCHECKIN e 
 		WHERE s.FRREGINUM = e.FRREGINUM
@@ -758,3 +758,21 @@ AND p2.PRODUCTNAME  LIKE '%'||''||'%'
 AND p2.CATEGORY  LIKE '%'||''||'%'
 AND to_char(to_date(d.APPLYDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||''||'%' 
 AND EXTRACT(YEAR FROM d.APPLYDATE) LIKE '%'||''||'%';
+
+SELECT to_char(ontime, 'HH24:MI:SS') ontime,clerkName FROM (
+		SELECT e.ONTIME,e.offtime, e.CLERKNUM 
+		FROM STORECLERK s ,EMPCHECKIN e 
+		WHERE s.FRREGINUM = e.FRREGINUM
+		AND s.CLERKNUM = e.CLERKNUM
+		AND to_char(to_date(ontime,'YYYY-MM-DD HH24:MI:SS'),'MM/DD') = to_char(sysdate,'MM/DD')) a, storeclerk s
+		WHERE a.clerknum(+) = s.CLERKNUM 
+		AND s.FRREGINUM = '1234567890'
+		AND hourlypay != 0
+		ORDER BY s.CLERKNUM ASC;
+		
+SELECT * FROM EMPCHECKIN e WHERE CLERKNUM = '12345678901005'
+
+DELETE FROM EMPCHECKIN 
+WHERE CLERKNUM = '12345678901005' 
+AND ontime = to_date('2023-03-19 12:08:41','yyyy-MM-dd hh24:mi:ss' )
+AND offtime = to_date('2023-03-19 12:11:37','yyyy-MM-dd hh24:mi:ss' );

@@ -23,12 +23,32 @@
 	display: flex;
 	align-items: center;
 }
+.clerkPage2, .prev{
+	display: none;
+}
+.next{
+	position:relative;
+	background-color:white;
+	height:40px;
+	border:1px solid #a4a4a4;
+	top: 180px;
+    right: -225px;
+}
+.prev{
+	position:relative;
+	background-color:white;
+	height:40px;
+	border:1px solid #a4a4a4;
+	top: 180px;
+    right: -225px;
+}
 </style>
 </head>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","0002")
 	localStorage.setItem("eqIdx","0002")
 	var arr = []
+	
 </script>
 <body class="container">
 	<%@ include file="/resource/templates/header.jsp"%>
@@ -65,10 +85,13 @@
 					</div>
 				</div>
 				<div class="schedule">
-					<h3>매장직원 : <span class="todayDate"></span>일</h3>
 					<div class="row">
-						<div class="boxes">
-							<div>
+						<h3>매장직원 : <span class="todayDate"></span>일</h3>
+						<button type="button" class="next" onclick="goNext()">&gt;</button>
+						<button type="button" class="prev" onclick="goPrev()">&lt;</button>
+					</div>
+						<div class="row clerkPage1">
+							<div class="boxes-clerk">
 								<c:forEach var="ct" items="${clerkToday }" begin="0" end="9">
 									<div class="row">
 										<div class="clerkOntime">${ct.clerkName }</div>
@@ -79,31 +102,52 @@
 										</div>
 									</div>
 								</c:forEach>
-							
 							</div>
-						</div>
-						<div class="boxes">
-							<div>
+							<div class="boxes-clerk">
 								<c:forEach var="ct" items="${clerkToday }" begin="10" end="19">
 									<div class="row">
 										<div class="clerkOntime">${ct.clerkName }</div>
 										<div class="clerkOntime">
 											<c:if test="${ct.ontime != null && ct.offtime == null }"><span style="color:blue;">출근 : ${ct.ontime }</span></c:if>
 											<c:if test="${empty ct.ontime }"><span style="color:red;">출근 전</span></c:if>
-											<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근</span></c:if>
+											<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근 : ${ct.offtime }</span></c:if>
 										</div>
 									</div>
 								</c:forEach>
-							
 							</div>
 						</div>
-					</div>
+						<div class="row clerkPage2">
+							<div class="boxes-clerk">
+									<c:forEach var="ct" items="${clerkToday }" begin="20" end="29">
+										<div class="row">
+											<div class="clerkOntime">${ct.clerkName }</div>
+											<div class="clerkOntime">
+												<c:if test="${ct.ontime != null && ct.offtime == null }"><span style="color:blue;">출근 : ${ct.ontime }</span></c:if>
+												<c:if test="${empty ct.ontime }"><span style="color:red;">출근 전</span></c:if>
+												<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근 : ${ct.offtime }</span></c:if>
+											</div>
+										</div>
+									</c:forEach>
+							</div>
+							<div class="boxes-clerk">
+									<c:forEach var="ct" items="${clerkToday }" begin="30" end="39">
+										<div class="row">
+											<div class="clerkOntime">${ct.clerkName }</div>
+											<div class="clerkOntime">
+												<c:if test="${ct.ontime != null && ct.offtime == null }"><span style="color:blue;">출근 : ${ct.ontime }</span></c:if>
+												<c:if test="${empty ct.ontime }"><span style="color:red;">출근 전</span></c:if>
+												<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근 : ${ct.offtime }</span></c:if>
+											</div>
+										</div>
+									</c:forEach>
+							</div>
+						</div>
+					
 				</div>
 				<div class="right">
 					<button onclick="location.href='${path}/storeSet2.do'" class="refreshBtn"><span class="refreshText">⟲</span></button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </body>
@@ -173,5 +217,18 @@ const myChart = new Chart(
 	document.getElementById('myChart'),
 	config
 );
+
+function goNext(){
+	$(".clerkPage1").css("display","none")
+	$(".clerkPage2").css("display","flex")
+	$(".next").css("display","none")
+	$(".prev").css("display","inline-block")
+}
+function goPrev(){
+	$(".clerkPage1").css("display","flex")
+	$(".clerkPage2").css("display","none")
+	$(".next").css("display","inline-block")
+	$(".prev").css("display","none")
+}
 </script>
 </html>
