@@ -115,10 +115,9 @@ margin-right:0.7em;
 		</div>
 	</div>
 
-	<h4><label><input type="checkbox" checked class='stockbar'>자재 수량 조정</label></h4>
+	<h4><label><input type="checkbox" checked class='stockbar'>재고 수량 조정</label></h4>
 	<div class="toolbar stockbar">
-
-		<div><label>재고변경일시<input name="stockDate" type="datetime-local" required></label>
+		<div>
 		<label>적용수량<input name="applyAmount" type="number" required></label>
 		<label>비고<input name="remark"></label></div>
 	</div>

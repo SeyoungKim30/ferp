@@ -11,11 +11,29 @@
 <meta charset="UTF-8">
 <title>거래내역조회</title>
 <style>
+.pagination{
+	display:-ms-flexbox;
+	display:flex;
+	border-radius:.25rem;
+	justify-content: center;
+	}
 .pagination span{
-	border: 1px solid navy;
-	padding:0.2em;
+	position:relative;
+	display:block;
+	padding:.5rem .75rem;
+	margin-left:-1px;
+	line-height:1.25;
+	color:#007bff;
+	background-color:#fff;
+	border:1px solid #dee2e6;
+	cursor: pointer;
 }
+.pagination span:first-child{margin-left:0;border-top-left-radius:.25rem;border-bottom-left-radius:.25rem}
+.pagination span:last-child{border-top-right-radius:.25rem;border-bottom-right-radius:.25rem}
+.pagination .active{color:#fff;background-color:#007bff;border-color:#007bff}
+.pagination span:hover{color:#0056b3;text-decoration:none;background-color:#e9ecef;border-color:#dee2e6}
 </style>
+
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <script type="text/javascript" src="${path }/resource/js/dateValid.js"></script>
@@ -102,7 +120,13 @@ $('.pagination span').on('click',function(){
 	}else{
 		$('#byEach').click();
 	}
-	
+})
+
+document.querySelectorAll('.pagination span').forEach(function(each){
+	console.log(each.innerText)
+	if(each.innerText=='${stmt.rronum}'){
+		each.classList.add('active')
+	}
 })
 </script>
 
