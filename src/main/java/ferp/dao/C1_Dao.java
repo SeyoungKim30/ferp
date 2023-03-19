@@ -55,4 +55,7 @@ public interface C1_Dao {
 	//가맹점 비밀번호
 	public Store r1003tempPassword(Store store);
 	public int r1003updatePassword(Store store);
+	
+	public int r7204getTotalPagesByDate(ACStatement stmt);
+	public int r7204getTotalPages(ACStatement stmt);
 }

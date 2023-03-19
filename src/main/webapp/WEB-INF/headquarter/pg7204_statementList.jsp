@@ -10,9 +10,15 @@
 <head>
 <meta charset="UTF-8">
 <title>거래내역조회</title>
-
+<style>
+.pagination span{
+	border: 1px solid navy;
+	padding:0.2em;
+}
+</style>
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
+<script type="text/javascript" src="${path }/resource/js/dateValid.js"></script>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","7204")
 	localStorage.setItem("eqIdx","1")
@@ -29,8 +35,9 @@
 	<div class="toolbar">
 		<form action="${path }/statementList.do" method="post">
 		<div>
+				<input name="rronum" type="hidden" value="1">
 				<input type="hidden" name="frRegiNum" value="${login.frRegiNum }">
-				<div><label>시작일자<input name="stmtDate" type="date" value="${stmt.stmtDate }" required></label></div>
+				<div><label>시작일자<input name="stmtDate" type="date" value="${stmt.stmtDate }" required onchange="dateMinMax('[name=stmtDate]','[name=stmtDate2]')"></label></div>
 				<div><label>종료일자<input name="stmtDate2" type="date" value="${stmt.stmtDate2 }"></label></div>
 				<div><label>거래처<input name="stmtOpposite" value="${stmt.stmtOpposite }"></label></div>
 				<div><label>계정과목<select name="acntNum">
@@ -65,6 +72,12 @@
 </tbody>
 </table>
 
+<div class="pagination">
+<c:forEach varStatus="ii" begin="1" end="${stmt.totalPage}"> <span>${ii.count }</span></c:forEach>
+</div>
+
+
+
 		</div>
 	</div>
 	
@@ -80,6 +93,16 @@ $('.totalPrice').text(totalPrice.toLocaleString())
 $('#byDate').on('click',function(){
 	$('[name=howtosearch]').val(2)
 	$('#byEach').click();
+})
+
+$('.pagination span').on('click',function(){
+	$('[name=rronum]').val($(this).text())
+	if('${param.howtosearch}'==2){
+		$('#byDate').click();
+	}else{
+		$('#byEach').click();
+	}
+	
 })
 </script>
 

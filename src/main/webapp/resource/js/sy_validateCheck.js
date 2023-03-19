@@ -12,12 +12,6 @@
 	})
 })*/
 
-document.addEventListener('keydown', function(event) {
-  if (event.keyCode == 13) {
-    event.preventDefault();
-  };
-}, true);
-
 //폼아이디랑 폼 action 바꿀거 전체, 제출할때 필요한 숨겨진 real-submit-btn있어야함
 function multipathSubmit(formId, realpath) {
 	let formm = document.querySelector("#" + formId)

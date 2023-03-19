@@ -91,6 +91,13 @@ public class C1_Service {
 		}
 	}
 	
+	public int r7204getTotalPages(ACStatement stmt,int howtosearch) {
+		if(howtosearch==1) {
+			return dao.r7204getTotalPages(stmt);
+		}
+		return dao.r7204getTotalPagesByDate(stmt);
+	}
+	
 	public int r7213deleteACStatement(ACStatement acstmt) {
 		return dao.r7213deleteACStatement(acstmt);
 	}
