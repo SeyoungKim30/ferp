@@ -77,9 +77,7 @@ public class B2_Service {
 	// 메뉴 등록
 	public String insertMenu(Menu ins) {
 		String img = upload(ins.getMultipartfile());
-		
 		ins.setImg(img);
-		
 		dao.insertMenu(ins);
 		
 		if(ins.getNecessary().equals("N")) {
@@ -122,7 +120,7 @@ public class B2_Service {
 		
 		return dao.detailStore(frRegiNum);
 	}
-	// 해당 매장 정보 삭제
+	// 해당 매장 정보 비활성화
 	public String deleteStore(String frRegiNum) {
 		dao.deleteStore(frRegiNum);
 		
@@ -135,8 +133,9 @@ public class B2_Service {
 		
 		dao.insertEmp(ins);
 		
-		return ins.getEmpnum();
+		return ins.getEname();
 	}
+	
 	// 등록한 직원정보 출력
 	public Emp getEmpInfo(Emp sch) {
 		
@@ -298,7 +297,7 @@ public class B2_Service {
 		return noticeNum;
 	}
 	
-	// 메인 페이지에서 최근 10개 공지사항 combo
+	// 메인 페이지에서 최근 6개 공지사항 combo
 	public List<Notice> getNotice(){
 		return dao.getNotice();
 	}

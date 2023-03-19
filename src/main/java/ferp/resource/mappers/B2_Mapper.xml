@@ -6,7 +6,6 @@
 <mapper namespace="ferp.dao.B2_Dao">
 	<!-- 메뉴 조회 -->
 	<select id="searchMenu" resultType="menu" parameterType="menuSch">
-
 		select *
 		from (
 			SELECT rownum cnt, n.*
@@ -82,7 +81,8 @@
 			frOperTime = '',
 			frClosedDte = '',
 			frTel = '',
-			frPass = null
+			frPass = null,
+			email = ''
 		WHERE frRegiNum = #{frRegiNum}
 	</update>
 	
@@ -91,6 +91,7 @@
 	<insert id="insertEmp" parameterType="emp">
 		INSERT INTO emp VALUES(to_char(sysdate,'yymm')||emp_seq.nextval, #{pass}, #{ename}, #{dname})
 	</insert>
+	
 	<!-- 등록한 직원 정보 출력 -->
 	<select id="getEmpInfo" resultType="emp" parameterType="emp">
 		SELECT *
