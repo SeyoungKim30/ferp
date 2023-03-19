@@ -26,21 +26,13 @@
 .clerkPage2, .prev{
 	display: none;
 }
-.next{
+.next, .prev{
 	position:relative;
 	background-color:white;
-	height:40px;
-	border:1px solid #a4a4a4;
-	top: 180px;
-    right: -225px;
-}
-.prev{
-	position:relative;
-	background-color:white;
-	height:40px;
-	border:1px solid #a4a4a4;
-	top: 180px;
-    right: -225px;
+	height: 50px;
+    border: 1px solid #a4a4a4;
+    top: 170px;
+    right: -250px;
 }
 </style>
 </head>
