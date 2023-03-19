@@ -75,7 +75,7 @@
 								<button class="addMenu btn-primary">등록</button>
 								</c:if>
 								<c:if test="${mn.necessary == 'Y'}">
-								<span class="necessarySpan">필수 판매 메뉴입니다.</span>
+								<span class="necessarySpan">필수 판매 메뉴</span>
 								</c:if>
 							</td>
 						</tr>

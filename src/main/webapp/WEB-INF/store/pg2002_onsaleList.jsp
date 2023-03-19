@@ -70,7 +70,7 @@
 									<button class="delBtn btn-primary">삭제</button>
 									</c:if>
 									<c:if test="${mn.necessary == 'Y'}">
-									<span class="necessarySpan">필수 판매 메뉴입니다.</span>
+									<span class="necessarySpan">필수 판매 메뉴</span>
 									</c:if>
 								</td>
 						</tr>
