@@ -136,7 +136,6 @@ $(document).ready(function(){
 			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
 			}).then((result) => {
 			  if (result.value) {
-				//"확인" 버튼을 눌렀을 때 작업할 내용
 				location.href = "${path}/noticeDelete.do?noticeNum="+'${notice.noticeNum}'
 			  }
 			})	
