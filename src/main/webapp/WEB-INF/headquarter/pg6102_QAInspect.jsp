@@ -154,6 +154,7 @@ var frRegiNum =<%=frRegiNum%>
 			// clist
 			clist.push($("input[name=wrt]")[idx].value)
 	    }
+		
 		console.log(nlist)
 		console.log(ylist)
 		console.log(clist)
@@ -163,6 +164,7 @@ var frRegiNum =<%=frRegiNum%>
 		formData.append("clist", clist);
 		formData.append("frRegiNum", frRegiNum);
 		console.log(formData)	
+		
 		var data01 = { nlist:nlist, ylist:ylist, clist:clist, frRegiNum:frRegiNum}
 		console.log(data01)
 		//submit

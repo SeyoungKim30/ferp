@@ -131,7 +131,7 @@
 			qaStrlist.forEach(function(each){
 				
 				if(each.regDte!=null){
-					tdclick="<tr onclick='goDetail("+each.frRegiNum+")'>"
+					tdclick="<tr onclick='goDetail("+each.frRegiNum+","+each.inspectDte.replace(/\-/g, '')+")'>"
 					tdDte="<td>"+each.inspectDte+"</td><td>"+each.regDte+"</td></tr>"
 				}else{
 					tdclick="<tr onclick='goAlert()'>"
@@ -162,8 +162,14 @@
 	});
 	
 	
-	function goDetail(frRegiNum){
-		location.href="${path}/qaDetailInfo.do?frRegiNum="+frRegiNum
+	function goDetail(frRegiNum ,inspectDte){
+		
+		//var splitDte= inspectDte.split("-");
+		//var inspectDte = inspectDte.replace(/\-/g, "");
+		console.log(inspectDte)
+		location.href="${path}/qaDetailInfo.do?frRegiNum="+frRegiNum+"&inspectDte="+inspectDte
+		
+		
 	}
 	function goAlert(){
 		alert("아직 점검이 시행되지 않은 매장입니다\n점검이 완료된 후 점검배정일과 점검등록일이 출력됩니다.")

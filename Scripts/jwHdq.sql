@@ -67,10 +67,12 @@ WHERE ord.frreginum(+)=s.frreginum AND s.empnum=e.empnum AND s.frreginum=fprdord
 AND frname LIKE '%'||''||'%'
 AND frRepname LIKE '%'||''||'%'
 AND ename LIKE '%'||''||'%'
-AND 
-ORDER BY frtel NULLS LAST, frname;
+ORDER BY DECODE(frpass, NULL, 2, 1), frname;
 
 
+--frname, frtel NULLS LAST;
+
+SELECT * FROM store;
 
 
 
@@ -269,15 +271,26 @@ WHERE q.qanum=qck.qanum
 AND frreginum='1234567891'
 AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 ORDER BY q.qanum;
---qa점검결과
+--qa점검결과 ~채택
 SELECT results, count(results) yncnt
 FROM QA q, QACHECKLIST qck
 WHERE q.qanum = qck.qanum
 AND frreginum='1234567891'
 AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 GROUP BY results;
+--qa점검결과 채택
+SELECT qncnt, ycnt
+FROM (  SELECT count(qanum) qncnt
+		from qa
+		WHERE FRREGINUM ='1234567891'
+		AND to_Char(INSPECTDTE, 'YYYY-MM-DD') = '2023-03-13') qc,
+	 (  SELECT count(results) ycnt
+		FROM qa
+		WHERE FRREGINUM ='1234567891'
+		AND to_Char(INSPECTDTE, 'YYYY-MM-DD') = '2023-03-13'
+		AND results='Y' ) qy;
 
-SELECT * FROM QACHECKLIST;
+
 
 --담당매장점검
 --점검일장 랜덤 배정
@@ -370,21 +383,6 @@ FROM (	SELECT INSPECTIONNUM, inspectdte, REGDTE, count(qanum) qncnt
 WHERE q.inspectdte=cy.inspectdte(+) AND q.INSPECTIONNUM=cy.INSPECTIONNUM(+)
 ORDER BY q.INSPECTDTE DESC ;
 
-SELECT q.INSPECTIONNUM, to_Char(q.INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE,  nvl(to_Char(q.REGDTE, 'YYYY.MM.DD'),'-') REGDTE, qncnt, ycnt
-FROM (	SELECT INSPECTIONNUM, inspectdte, REGDTE, count(qanum) qncnt
-		from qa
-		WHERE FRREGINUM ='1234567891'
-		GROUP BY INSPECTDTE , REGDTE, INSPECTIONNUM ) q ,
-	(	SELECT INSPECTIONNUM, inspectdte, count(results) ycnt
-		FROM qa
-		WHERE FRREGINUM ='1234567891'
-		AND results='Y'
-		GROUP BY INSPECTDTE, INSPECTIONNUM) cy
-WHERE q.inspectdte=cy.inspectdte(+)
-AND q.INSPECTIONNUM=cy.INSPECTIONNUM(+)
-ORDER BY q.INSPECTDTE DESC;
-
-SELECT * FROM qa;
 
 --특정매장 과거점검결과 
 SELECT q.qanum, qaitem, RESULTS, nvl(COMMENTS,' ') COMMENTS, to_Char(INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE
@@ -393,14 +391,6 @@ WHERE q.qanum=qcl.QANUM
 AND FRREGINUM='1234567891'
 AND INSPECTIONNUM='QA230222' 
 ORDER BY qanum;
-
-SELECT q.qanum, qaitem, RESULTS, nvl(COMMENTS,' ') COMMENTS, to_Char(INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE
-FROM QA q, QACHECKLIST qcl 
-WHERE q.qanum=qcl.QANUM
-AND FRREGINUM='1234567891'
-AND INSPECTIONNUM='QA230222' 
-ORDER BY qanum;
-
 
 
 SELECT q.INSPECTIONNUM, to_Char(q.INSPECTDTE, 'YYYY.MM.DD') INSPECTDTE,  nvl(to_Char(q.REGDTE, 'YYYY.MM.DD'),'-') REGDTE, qncnt, ycnt
@@ -504,7 +494,8 @@ SELECT * FROM QACHECKLIST ;
 
 SELECT * FROM QACHECKLIST;
 SELECT * FROM QA;
-
+SELECT * FROM store;
+SELECT * FROM emp;
 
 /*
 DROP sequence qanum_seq;
@@ -759,3 +750,15 @@ SELECT * FROM orders;
 SELECT * FROM qa 		WHERE qanum='1001'
 		AND FRREGINUM='1234567891'
 		AND trunc(inspectdte,'month')=trunc(sysdate, 'month');
+
+	
+	SELECT COUNT(*)
+		FROM QACHECKLIST;
+	
+	select *
+			from (
+				SELECT ROWNUM CNT,qanum, qaitem, usable
+				FROM QACHECKLIST
+				)
+			where cnt between 1 and 5;
+		
