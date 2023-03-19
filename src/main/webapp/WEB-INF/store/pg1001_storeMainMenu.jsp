@@ -105,7 +105,7 @@
         	<div class="right_btns">
         		<div class="btnText">매장 관리<br>관련 메뉴</div>
         		<div class="btn" onclick="location.href='${path}/addCommute.do'">출퇴근<br>등록</div>
-        		<div class="btn" onclick="location.href='${path}/storeSet.do'">매장<br>관리</div>
+        		<div class="btn" onclick="location.href='${path}/storeSet2.do'">매장<br>관리</div>
         	</div>
 		</div>
     </div>
