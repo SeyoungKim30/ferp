@@ -14,6 +14,7 @@ public class StoreClerk {
 	private String ontime;
 	private String offtime;
 	private String monthDate;
+	private String years;
 	public StoreClerk() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -95,5 +96,11 @@ public class StoreClerk {
 	}
 	public void setOfftime(String offtime) {
 		this.offtime = offtime;
+	}
+	public String getYears() {
+		return years;
+	}
+	public void setYears(String years) {
+		this.years = years;
 	}
 }

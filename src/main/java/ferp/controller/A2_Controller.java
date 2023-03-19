@@ -245,7 +245,7 @@ public class A2_Controller {
 	
 	@RequestMapping("/asd.do")
 	public String asd() {
-		return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
+		return "redirect:storeSet2.do";
 	}
 	@RequestMapping("/storeSet2.do")
 	public String asda(StoreClerk sch, Sales sch2, HttpSession session, Model d) {
@@ -256,9 +256,15 @@ public class A2_Controller {
 		d.addAttribute("noticeCombo", service2.getNotice());
 		return "forward:pg0002.jsp";
 	}
+//	파일 다운로드
 	@GetMapping("/clerkFileDownload.do")
 	public String download(@RequestParam("fname") String fname, Model d) {
 		d.addAttribute("downloadFile", fname);
 		return "downloadViewer2";
+	}
+//	최근 5년 콤보박스
+	@ModelAttribute("past5years")
+	public List<StoreClerk> past5years(){
+		return service.past5years();
 	}
 }

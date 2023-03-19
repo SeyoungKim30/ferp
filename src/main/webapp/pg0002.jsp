@@ -74,8 +74,8 @@
 										<div class="clerkOntime">${ct.clerkName }</div>
 										<div class="clerkOntime">
 											<c:if test="${ct.ontime != null && ct.offtime == null }"><span style="color:blue;">출근 : ${ct.ontime }</span></c:if>
-											<c:if test="${empty ct.ontime }"><span style="color:red;">출근</span></c:if>
-											<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근</span></c:if>
+											<c:if test="${empty ct.ontime }"><span style="color:red;">출근 전</span></c:if>
+											<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근 : ${ct.offtime }</span></c:if>
 										</div>
 									</div>
 								</c:forEach>
@@ -89,7 +89,7 @@
 										<div class="clerkOntime">${ct.clerkName }</div>
 										<div class="clerkOntime">
 											<c:if test="${ct.ontime != null && ct.offtime == null }"><span style="color:blue;">출근 : ${ct.ontime }</span></c:if>
-											<c:if test="${empty ct.ontime }"><span style="color:red;">출근</span></c:if>
+											<c:if test="${empty ct.ontime }"><span style="color:red;">출근 전</span></c:if>
 											<c:if test="${ct.offtime != null }"><span style="color:green;">퇴근</span></c:if>
 										</div>
 									</div>
@@ -117,11 +117,6 @@ $(".todayDate").text(todayDate)
 <c:forEach var="sg" items="${salesGraph }">
 	arr.push({tot:"${sg.tot}", orderdate:"${sg.orderdate}"})
 </c:forEach>
-	console.log(arr)
-	console.log(arr[0].tot)
-	console.log(arr[0].orderdate)
-	console.log(new Date(arr[0].orderdate).getMonth()+1)
-	console.log(new Date(arr[0].orderdate).getDate())
 	
 const labels = [	
 	(new Date(arr[6].orderdate).getMonth()+1)+"/"+new Date(arr[6].orderdate).getDate(),
@@ -133,7 +128,7 @@ const labels = [
 	(new Date(arr[0].orderdate).getMonth()+1)+"/"+new Date(arr[0].orderdate).getDate()
 ];
 	var login = '${login.frRegiNum}'
-console.log(login)
+
 const data = {
 	labels: labels,
 	datasets: [

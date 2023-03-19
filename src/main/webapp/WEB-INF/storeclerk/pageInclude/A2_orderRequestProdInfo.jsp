@@ -93,6 +93,7 @@
 	</div>
 </body>
 <script type="text/javascript">
+console.log($(".rmAmount").text())
 	$(".uBtn").on('click',function() {
 		var dataString = 'amount=' + $(".amount").text() + '&orderNum=' + $(".orderNum").text() + '&productNum=' + $(".productNum").text() + '&orderDate=' + $(".orderDate2").text()
 		if (confirm("수정하시겠습니까?")) {
