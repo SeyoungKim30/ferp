@@ -125,6 +125,9 @@
 		values('PD'||FERD.PDSEQ.NEXTVAL,#{category},
 		#{productName},#{opposite},#{price},#{img},#{remark})
 	</insert>
+	<select id="getNextval" resultType="string">
+		SELECT 'PD' || PDSEQ.NEXTVAL AS SEQ FROM DUAL
+	</select>
 	
 	<!-- 본사 재고 수정 -->
 	<update id="r8203ProductUpt" parameterType="product">
