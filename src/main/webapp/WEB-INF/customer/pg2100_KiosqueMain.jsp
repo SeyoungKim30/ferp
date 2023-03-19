@@ -562,7 +562,7 @@
 					<button class="result_btn addOrderBtn">주문하기</button>
 				</div>
 				<ul class="result_list_wrap">
-					<li class="listdefalut">주문하실 음료를<br> 선택해주세요.</li>
+					<li class="listdefalut">주문하실 메뉴를<br> 선택해주세요.</li>
 				</ul>
 			</div>
 		</div>
@@ -751,7 +751,7 @@ var modal_btn_add = $(".modal_btn_add");
 
 // 취소하기 버튼
 $(".delOrderBtn").click(function () {
-	var insHtml = "<li class='listdefalut'>주문하실 음료를<br> 선택해주세요.</li>"
+	var insHtml = "<li class='listdefalut'>주문하실 메뉴를<br> 선택해주세요.</li>"
 	$(".result_list_wrap").html(insHtml);
 	resultAddString = "";
 	od = "";
@@ -770,7 +770,7 @@ $(".addOrderBtn").click(function () {
 				 if (result.value) {					 
 					if(od == ""){
 						  Swal.fire({
-							  title: '주문하실 음료를 추가해주세요',
+							  title: '주문하실 메뉴를 추가해주세요',
 							  icon: 'warning',
 							  showCancelButton: false,
 							  confirmButtonColor: '#2262F3',

@@ -143,6 +143,8 @@ $(".howbox").click(function () {
 		}).then((result) => {
 			if (result.value) {				
 				location.href="payState.do?orderNum="+orderNum+"&price="+price+"&tax="+tax+"&oppm="+oppm;
+			}else{
+				locaion.href="${path}/kiosqueMainForCustomer.do"
 			}
 		});
 });
