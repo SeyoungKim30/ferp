@@ -26,6 +26,7 @@ public interface C2_Dao {
 	public void r8105InoutDel2(Stock del);
 	// 본사 재고 등록
 	public void r8202ProductIns(Product ins);
+	public String getNextval();
 	// 본사 재고 수정
 	public void r8203ProductUpt(Product upt);
 	// 자재 코드 콤보

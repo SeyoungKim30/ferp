@@ -49,7 +49,6 @@
 			      </tr>
    				</thead>
 			    <tbody>
-			   	 <c:if test="${list ne null}">
 			    	<c:forEach var="notice" items="${list}">
 			    	<tr>
 			    		<td>${notice.cnt}</td>
@@ -57,9 +56,7 @@
 			    		<td><fmt:formatDate value="${notice.regdte}"/></td>
 			    		<td class="numberData">${notice.readCnt}</td>
 			    	</tr>
-			    		
 					</c:forEach>
-				</c:if>
 			    </tbody>   				
 			</table>
 			<div class="page_wrap">

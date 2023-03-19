@@ -133,7 +133,6 @@
 				and noticeNum LIKE '%'||'N'||'%'
 				ORDER BY regdte DESC)n )
 		where cnt between #{start} and #{end}	
-
 	</select>
 	<select id="totCntNotice" resultType="int" parameterType="noticeSch">
 		select count(*)
@@ -168,7 +167,7 @@
 			important = #{important}
 		WHERE noticeNum = #{noticeNum}
 	</update>
-	<!-- 공지사항, 문의글 삭제 -->
+	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice">
 		DELETE from notice
 		WHERE noticeNum = #{noticeNum}

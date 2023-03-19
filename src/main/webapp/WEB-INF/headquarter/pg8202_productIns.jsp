@@ -63,8 +63,23 @@ body{
 				action="${path}/hproductIns.do" novalidate>
 				<table>
 					<tr><th><label for="category">카테고리명</label></th>
-						<td><input type="text" name="category" value="${param.category}" 
-							class="ckValid" id="category" placeholder="카테고리명 입력" required></td></tr>
+						<!-- <td><input type="text" name="category" value="${param.category}" 
+							class="ckValid" id="category" placeholder="카테고리명 입력" required></td></tr> -->
+						<td><select name="category" class="ckValid" id="category" required>
+								<option value="">카테고리를 선택하세요</option>
+								<option value="유제품" ${param.category == '유제품' ? 'selected' : ''}>유제품</option>
+								<option value="면세_과일" ${param.category == '원두' ? 'selected' : ''}>면세_과일</option>
+								<option value="원두 및 커피" ${param.category == '원두 및 커피' ? 'selected' : ''}>원두 및 커피</option>
+								<option value="차 및 티" ${param.category == '차 및 티' ? 'selected' : ''}>차 및 티</option>
+								<option value="시럽 및 음료재료" ${param.category == '시럽 및 음료재료' ? 'selected' : ''}>시럽 및 음료재료</option>
+								<option value="디저트 및 빵" ${param.category == '디저트 및 빵' ? 'selected' : ''}>디저트 및 빵</option>
+								<option value="MD 상품" ${param.category == 'MD 상품' ? 'selected' : ''}>MD 상품</option>
+								<option value="식기류" ${param.category == '식기류' ? 'selected' : ''}>식기류</option>
+								<option value="일회용품" ${param.category == '일회용품' ? 'selected' : ''}>일회용품</option>
+								<option value="서비스용품" ${param.category == '서비스용품' ? 'selected' : ''}>서비스용품</option>
+								<option value="청소용품" ${param.category == '청소용품' ? 'selected' : ''}>청소용품</option>
+								<option value="기타 용품" ${param.category == '기타 용품' ? 'selected' : ''}>기타 용품</option>
+							</select></td></tr>
 					<tr><th><label for="productName">자재명</label></th>
 						<td><input type="text" name="productName" value="${param.productName}" 
 							class="ckValid" id="productName" placeholder="자재명 입력" 

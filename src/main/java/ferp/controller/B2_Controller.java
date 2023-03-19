@@ -184,14 +184,13 @@ public class B2_Controller {
 	}
 	
 	// 공지사항 조회
-	// http://localhost:7080/ferp/noticeList.do
 	@RequestMapping("/noticeList.do")
 	public String noticeList(@ModelAttribute("sch") NoticeSch sch, Model d) {
 		d.addAttribute("list", service.searchNotice(sch));
 		
 		return "WEB-INF\\view\\notice_list.jsp";
 	}
-	// 공지사항 상세 페이지로 이동
+	// 공지사항 상세 페이지
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(@RequestParam String noticeNum, Model d) {
 		d.addAttribute("notice", service.detailNotice(noticeNum));
@@ -206,7 +205,6 @@ public class B2_Controller {
 		return "downloadViewer";
 	}
 	// 공지사항 등록
-	// http://localhost:7080/ferp/noticeInsert.do
 	@GetMapping("/noticeInsert.do")
 	public String noticeInsert() {
 		return "WEB-INF\\view\\notice_insert.jsp";
@@ -216,7 +214,6 @@ public class B2_Controller {
 		if( service.insertNotice(ins) != null ) {
 			redirect.addFlashAttribute("insMsg", "공지사항 등록 성공");
 		}
-		// redirect로 공지사항 조회 controller 호출
 		return "redirect:/noticeList.do";
 	}
 	// 공지사항 수정

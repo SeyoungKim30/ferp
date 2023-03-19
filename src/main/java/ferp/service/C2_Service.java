@@ -28,10 +28,26 @@ public class C2_Service {
 	private String upload;
 	
 	// 자재 이미지 업로드
-	public String upload(MultipartFile multipartfile) {
-		String img = multipartfile.getOriginalFilename();
-		if( img!=null && !img.equals("")) {
-			File imgObj = new File(upload+img);
+//	public String upload(MultipartFile multipartfile) {
+//		String img = multipartfile.getOriginalFilename();
+//		if( img!=null && !img.equals("")) {
+//			File imgObj = new File(upload+img);
+//			try {
+//				multipartfile.transferTo(imgObj);
+//			} catch (IllegalStateException e) {
+//				System.out.println("파일업로드 예외1:"+e.getMessage());
+//			} catch (IOException e) {
+//				System.out.println("파일업로드 예외2:"+e.getMessage());
+//			}
+//		}
+//		return img;
+//	}
+	private String upload(MultipartFile multipartfile) {
+	    String originalFilename = multipartfile.getOriginalFilename();
+	    String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	    String filename = dao.getNextval() + extension; // 'PD'와 시퀀스 번호로 파일 이름 생성
+	    if( originalFilename!=null && !originalFilename.equals("")) {
+			File imgObj = new File(upload+filename);
 			try {
 				multipartfile.transferTo(imgObj);
 			} catch (IllegalStateException e) {
@@ -40,7 +56,7 @@ public class C2_Service {
 				System.out.println("파일업로드 예외2:"+e.getMessage());
 			}
 		}
-		return img;
+	    return filename;
 	}
 	
 	// 본사/매장 재고 조회
@@ -140,6 +156,7 @@ public class C2_Service {
 	public List<HashMap<String, Object>> sclerkschd(String writer){
 		return dao.sclerkschd(writer);
 	}
+	
 	// 본사 직원 점검일 배정 
 	
 }

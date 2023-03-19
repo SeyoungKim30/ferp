@@ -2,6 +2,7 @@ SELECT * FROM PRODUCT;
 SELECT * FROM STOCK;
 SELECT * FROM PRODORDER;
 SELECT * FROM STORE; 
+SELECT 'PD' || PDSEQ.NEXTVAL AS SEQ FROM DUAL;
 ----------------------------------
 -- 본사/매장 재고 조회(자재코드별로 최근일자의 자재수량 조회)
 SELECT p.*, s.stockDate, s.REMAINAMOUNT, s.FRREGINUM 

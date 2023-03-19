@@ -157,15 +157,10 @@ public class B2_Service {
 		if(sch.getTitle()==null) sch.setTitle("");
 		
 		sch.setCount(dao.totCntNotice(sch));
-		
 		if(sch.getCurPage()==0) sch.setCurPage(1);
-		
 		if(sch.getPageSize()==0) sch.setPageSize(10);
-		
 		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
-		
 		if(sch.getCurPage()>sch.getPageCount()) sch.setCurPage(sch.getPageCount());
-		
 		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
 		sch.setEnd(sch.getPageSize()*sch.getCurPage());
 		sch.setBlockSize(5);
@@ -189,11 +184,9 @@ public class B2_Service {
 	public String insertNotice(Notice ins) {
 		if( ins.getMultipartfile() != null) {
 			String fname = upload(ins.getMultipartfile());
-			
 			ins.setFname(fname);
 		}
 		if( ins.getMultipartfile() == null ) {
-			
 			ins.setFname("");
 		}
 		dao.insertNotice(ins);
