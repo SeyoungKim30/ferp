@@ -121,6 +121,9 @@ input:focus, select:focus{
 .isNotPass{
 	border: 2px solid red !important;
 }
+p{
+	color: red;
+}
 
 
 

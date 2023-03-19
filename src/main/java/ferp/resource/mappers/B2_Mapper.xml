@@ -6,7 +6,6 @@
 <mapper namespace="ferp.dao.B2_Dao">
 	<!-- 메뉴 조회 -->
 	<select id="searchMenu" resultType="menu" parameterType="menuSch">
-
 		select *
 		from (
 			SELECT rownum cnt, n.*
@@ -26,7 +25,17 @@
 	<insert id="insertMenu" parameterType="menu">
 		INSERT INTO menu VALUES('M'||menu_seq.nextval, #{menuName}, #{price}, #{info}, #{img}, #{necessary}, #{category})
 	</insert>
-	
+	<!-- 메뉴 등록 시 필수 메뉴라면 모든 매장에 자동으로 등록하기 위한 모든 매장번호 가져오기 -->
+	<select id="getfrRegiNum" resultType="string">
+		SELECT FrRegiNum
+		FROM store
+		WHERE NOT empnum = '0'
+		AND NOT FrRegiNum = '9999999999'
+	</select>
+	<!-- 필수 메뉴 등록시 매장 필수 메뉴 등록 -->
+	<insert id="insertNesMenu" parameterType="onsale">
+		INSERT INTO onsale VALUES('M'||menu_seq.currval, #{frRegiNum})
+	</insert>
 	
 	<!-- 매장정보 등록 -->
 	<insert id="insertStore" parameterType="store">
@@ -39,7 +48,7 @@
 		FROM menu
 		WHERE necessary = 'N'
 	</select>
-	<!-- 매장 등록시 해당 매장 필수 메뉴 등록 -->
+	<!-- 매장 등록시 매장 필수 메뉴 등록 -->
 	<insert id="necessaryMenu" parameterType="onsale">
 		INSERT INTO onsale VALUES(#{menuNum}, #{frRegiNum})
 	</insert>
@@ -72,7 +81,8 @@
 			frOperTime = '',
 			frClosedDte = '',
 			frTel = '',
-			frPass = null
+			frPass = null,
+			email = ''
 		WHERE frRegiNum = #{frRegiNum}
 	</update>
 	
@@ -81,6 +91,7 @@
 	<insert id="insertEmp" parameterType="emp">
 		INSERT INTO emp VALUES(to_char(sysdate,'yymm')||emp_seq.nextval, #{pass}, #{ename}, #{dname})
 	</insert>
+	
 	<!-- 등록한 직원 정보 출력 -->
 	<select id="getEmpInfo" resultType="emp" parameterType="emp">
 		SELECT *

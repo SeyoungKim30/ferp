@@ -98,7 +98,7 @@ header{
 	</c:if>
 	<c:if test="${login.frRegiNum == '9999999999'}">
 		<div class="headerTop">
-			<h2 class="nameText">${login.ename }담당자</h2>
+			<h2 class="nameText">${login.ename } 담당자</h2>
 			<button class="logout logoutBtn" onclick="location.href='${path}/logoutEmp.do'">로그아웃</button>
 		</div>
 	</c:if>

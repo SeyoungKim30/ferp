@@ -22,20 +22,24 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".regBtn").click(function(){
-			if(confirm("등록하시겠습니까?")){
-				console.log($("#regForm [name=clerkName]").val())
-				if($("#regForm [name=clerkName]").val() == ""){
-					$("#regForm [name=clerkName]").css('borderColor','red')
-				}else if($("[name=hourlyPay]").val() == ""){
-					$("[name=hourlyPay]").css('borderColor','red')
-				}else if($("[name=residentNum]").val() == ""){
-					$("[name=residentNum]").css('borderColor','red')
-				}else if($("[name=phoneNum]").val() == ""){
-					$("[name=phoneNum]").css('borderColor','red')
-				}else if($("[name=address]").val() == ""){
-					$("[name=address]").css('borderColor','red')
-				}else{
-					regAjax("insStoreclerk.do")					
+			if($("#regForm [name=clerkName]").val() == ""){
+				alert("직원명을 입력해주세요")
+				$("#regForm [name=clerkName]").css('borderColor','red')
+			}else if($("[name=hourlyPay]").val() == ""){
+				alert("시급을 입력해주세요")
+				$("[name=hourlyPay]").css('borderColor','red')
+			}else if($("[name=residentNum]").val() == ""){
+				alert("주민번호를 입력해주세요")
+				$("[name=residentNum]").css('borderColor','red')
+			}else if($("[name=phoneNum]").val() == ""){
+				alert("전화번호를 입력해주세요")
+				$("[name=phoneNum]").css('borderColor','red')
+			}else if($("[name=address]").val() == ""){
+				alert("주소를 입력해주세요")
+				$("[name=address]").css('borderColor','red')
+			}else{
+				if(confirm("등록하시겠습니까?")){
+					regAjax("insStoreclerk.do")	
 				}
 			}
 		})
@@ -79,8 +83,8 @@
 				</div>
 				<div class="row">
 					<div class="col margin-tn w25">
-						<label>주민등록번호</label>
-						<input type="text" name="residentNum" class="margin-tln regList" placeholder="주민등록번호" required /> 
+						<label>주민등록번호(생년월일)</label>
+						<input type="text" name="residentNum" class="margin-tln regList" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6" placeholder="주민등록번호" required /> 
 					</div>
 					<div class="col margin-tn w25">
 						<label>전화번호</label>

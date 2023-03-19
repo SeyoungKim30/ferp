@@ -33,7 +33,7 @@
 		<h3>계정과목 검색</h3>
 			<form class="toolbar" action="${path}/selectAccount.do" method="post">
 			<div>
-				<label>계정코드<input name="acntNum" value="${account.acntNum}"></label>
+				<label>계정코드<input name="acntNum" value="${account.acntNum}" type="number"></label>
 				<label>구분<select name="acntGroup">
 						<option <c:if test="${account.acntGroup == '' }">selected="selected"</c:if> value="">전체</option>
 						<option <c:if test="${account.acntGroup == '자산' }">selected="selected"</c:if> >자산</option>

@@ -234,8 +234,10 @@ WHEN NOT MATCHED THEN
 	</delete>
 	
 	
-	<select id="r7204selectStatementList" parameterType="acstmt" resultType="acstmt">
-	SELECT STATEMENTNUM,a.ACNTTITLE "ACNTNUM",
+<select id="r7204selectStatementList" parameterType="acstmt" resultType="acstmt">
+SELECT e2.* FROM (
+SELECT rownum AS rronum, e.* from
+( SELECT STATEMENTNUM,a.ACNTTITLE "ACNTNUM",
 		CASE WHEN acntgroup='비용' THEN debit-credit 
 		WHEN acntgroup='자산' THEN debit-credit
 		ELSE CREDIT - debit END AS DEBIT,
@@ -246,11 +248,26 @@ WHEN NOT MATCHED THEN
 	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> 
 	STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
 	AND STMTDATE BETWEEN TO_DATE(#{stmtDate},'YYYY-MM-DD') AND TO_DATE(#{stmtDate2},'YYYY-MM-DD')
+	AND FRREGINUM = #{frRegiNum} ORDER BY STMTDATE) e ) e2
+WHERE rronum BETWEEN 20*(#{rronum}-1)+1 AND 20*#{rronum}
+</select>
+<select id="r7204getTotalPages" parameterType="acstmt" resultType="Integer">
+SELECT CEIL(COUNT(e.STATEMENTNUM)/20) FROM (
+SELECT STATEMENTNUM
+	FROM ACSTATEMENT s , ACCOUNT a
+	WHERE s.ACNTNUM = a.ACNTNUM 
+	AND s.ACNTNUM LIKE '%'||#{acntNum,jdbcType=VARCHAR}||'%'
+	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> 
+	STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
+	AND STMTDATE BETWEEN TO_DATE(#{stmtDate},'YYYY-MM-DD') AND TO_DATE(#{stmtDate2},'YYYY-MM-DD')
 	AND FRREGINUM = #{frRegiNum}
-	</select>
+) e
+</select>
 	
-	<select id="r7204selectStatementListByDate" parameterType="acstmt" resultType="acstmt">
-	SELECT TO_CHAR(STMTDATE,'YYYY-MM-DD') as "STMTDATE",a.ACNTTITLE "ACNTNUM",
+<select id="r7204selectStatementListByDate" parameterType="acstmt" resultType="acstmt">
+SELECT e2.* FROM (
+SELECT rownum AS rronum, e.* from
+( SELECT TO_CHAR(STMTDATE,'YYYY-MM-DD') as "STMTDATE",a.ACNTTITLE "ACNTNUM",
 		sum(CASE WHEN acntgroup='비용' THEN debit-credit 
 		WHEN acntgroup='자산' THEN debit-credit
 		ELSE CREDIT - debit END) AS DEBIT
@@ -262,9 +279,22 @@ WHEN NOT MATCHED THEN
 	AND STMTDATE BETWEEN TO_DATE(#{stmtDate},'YYYY-MM-DD') AND TO_DATE(#{stmtDate2},'YYYY-MM-DD')
 	AND FRREGINUM = #{frRegiNum}
 	GROUP BY STMTDATE,a.ACNTTITLE
-	</select>
+ORDER BY STMTDATE ) e ) e2
+WHERE rronum BETWEEN 20*(#{rronum}-1)+1 AND 20*#{rronum}
+</select>
 	
-	
+<select id="r7204getTotalPagesByDate" parameterType="acstmt" resultType="Integer">
+SELECT CEIL(COUNT(e.stmtdate)/20) FROM (
+	SELECT STMTDATE FROM ACSTATEMENT s , ACCOUNT a
+	WHERE s.ACNTNUM = a.ACNTNUM 
+	AND s.ACNTNUM LIKE '%'||#{acntNum,jdbcType=VARCHAR}||'%'
+	AND (<if test="stmtOpposite=='' or stmtOpposite==null">STMTOPPOSITE IS NULL OR</if> 
+	STMTOPPOSITE LIKE '%'||#{stmtOpposite,jdbcType=VARCHAR}||'%')
+	AND STMTDATE BETWEEN TO_DATE(#{stmtDate},'YYYY-MM-DD') AND TO_DATE(#{stmtDate2},'YYYY-MM-DD')
+	AND FRREGINUM = #{frRegiNum}
+	GROUP BY STMTDATE,a.ACNTTITLE) e
+</select>
+
 <select id="r9402selectDefectOrder" resultMap="dsp" parameterType="defectorder">
 SELECT d.*,p.PRODUCTNAME, p.PRICE ,s.EMPNUM ,s.FRNAME,po.AMOUNT ,po.PAYMENTSTATE ,po.ORDERSTATE
 FROM DEFECTORDER d, store s,PRODUCT p,PRODORDER po 

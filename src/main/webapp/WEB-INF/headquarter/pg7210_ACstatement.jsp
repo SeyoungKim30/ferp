@@ -20,7 +20,7 @@
 	
 <script>
 localStorage.setItem("pageIdx","7210")
-localStorage.setItem("eqIdx","1")
+localStorage.setItem("eqIdx","7000")
 </script>
 
 <style>
@@ -91,7 +91,8 @@ text-align: center;}
 <option v-for='(each) in accountList' :value='each.acntNum' :label='each.acntTitle'/>
 </datalist>
 </form>
-<div class="rowAddRemove"><button type="button" @click="addRow">행 추가</button><button type="button" @click="removeRow">행 삭제</button></div>
+<div class="rowAddRemove"><button type="button" @click="addRow">행 추가</button><button type="button" id="BtnRemoveRow" @click="removeRow">행 삭제</button>	</div>
+<div class="valid-feedback" id="needmorethan2rows" style="text-align: right;">2행 미만일땐 등록이 불가능합니다</div>
 		</div>
 	</div>
 	
@@ -123,9 +124,20 @@ $(document).ready(function(){
 		      this.index=this.stmtlist.length;
 		      let newrow={ lineNum: this.index , acntNum: '', debit: 0, acntTitle: '', credit: 0, stmtOpposite: '', remark: '' }
 		      this.stmtlist.push(newrow);
+		      const btnremove=document.querySelector('#BtnRemoveRow')
+			    if(this.stmtlist.length>2){
+			    	btnremove.disabled=false;
+			    	validClass('#BtnRemoveRow','#needmorethan2rows')
+			    }
 		    },
 		    removeRow(){
-		    	this.stmtlist.pop();
+		    	const btnremove=document.querySelector('#BtnRemoveRow')
+			    if(this.stmtlist.length==2){
+			    	btnremove.disabled=true;
+			    	invalidClass('#BtnRemoveRow','#needmorethan2rows')
+			    }else{
+			    	this.stmtlist.pop();
+			    }
 		    },
 		   acntMatch(index){
 		    	const stmt = this.stmtlist[index];
@@ -160,32 +172,38 @@ $(document).ready(function(){
 		    		.then(response=>response.json())
 		    		.then(json=>{
 		    			console.log(json.stmtList)
-		    			//출력하고 총액구하기 
-		    			this.stmtlist=json.stmtList;
-		    			this.rronum=json.stmtList[0].rronum;
-		    			this.frRegiNum=json.stmtList[0].frRegiNum;
-		    			this.stmtDate=json.stmtList[0].stmtDate.substr(0,10);
-		    			this.statementNum=json.stmtList[0].statementNum;
-		    			this.numinput()
-		    			//앞뒤로 가는 버튼 
-		    			let rronum=this.rronum;
-		    			this.prevbtn=``;
-		    			this.nextbtn=``;
-		    			if(rronum!=1 && rronum!=-1 ){	//맨앞 아닐때 
-		    				this.prevbtn='display:inline-block;'
-		    			}else{
-		    				this.prevbtn='display:none;'
-		    			}
-		    			if(this.rronum>0){
-		    				this.nextbtn='display:inline-block;'
-		    			}else{
-		    				this.nextbtn='display:none;'
-		    			}
-		    			//계정명
-		    			for(let i=0; i<this.stmtlist.length; i++){
-				    		this.acntMatch(i);
-				    	}
-		    			//계정명
+						if(json.stmtList.length>0){
+			    			//출력하고 총액구하기 
+			    			this.stmtlist=json.stmtList;
+			    			this.rronum=json.stmtList[0].rronum;
+			    			this.frRegiNum=json.stmtList[0].frRegiNum;
+			    			this.stmtDate=json.stmtList[0].stmtDate.substr(0,10);
+			    			this.statementNum=json.stmtList[0].statementNum;
+			    			this.numinput()
+			    			//앞뒤로 가는 버튼 
+			    			let rronum=this.rronum;
+			    			this.prevbtn=``;
+			    			this.nextbtn=``;
+			    			if(rronum!=1 && rronum!=-1 ){	//맨앞 아닐때 
+			    				this.prevbtn='display:inline-block;'
+			    			}else{
+			    				this.prevbtn='display:none;'
+			    			}
+			    			if(this.rronum>0){
+			    				this.nextbtn='display:inline-block;'
+			    			}else{
+			    				this.nextbtn='display:none;'
+			    			}
+			    			//계정명
+			    			for(let i=0; i<this.stmtlist.length; i++){
+					    		this.acntMatch(i);
+					    	}
+						}else{
+							this.stmtlist=json.stmtList;
+							this.totalcredit = 0;
+					        this.totaldebit=0;
+							this.debitCreditGap=0;
+						}
 		    		}).catch(error=>{console.error(error)})
 		    },
 		    select(){
@@ -216,14 +234,21 @@ $(document).ready(function(){
 				      { lineNum: 0, acntNum: '', debit: 0, acntTitle: '', credit: 0, stmtOpposite: '', remark: '' },
 				      { lineNum: 1, acntNum: '', debit: 0, acntTitle: '', credit: 0, stmtOpposite: '', remark: '' }
 				    ]
+			   this.statementNum='';
 		   },
 		   primary(){
 				let statementNum = $('[name=statementNum]').val();
 				if(statementNum==''){
+					let conf=confirm('새 전표를 등록할까요?')
+					if(conf){
 					$('[name=statementNum]').val('WR');
 					multipathSubmit('form1',"${path }/insertACstatement.do");
+					}else{ return false;}
 				}else if(statementNum.length==6){
+					let conf=confirm('전표를 수정하시겠습니까?')
+					if(conf){
 					multipathSubmit('form1',"${path }/updateACstatement.do");
+					}else{return false;}
 				}
 		   },
 		  deleteThis(){

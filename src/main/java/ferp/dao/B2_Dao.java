@@ -17,19 +17,22 @@ public interface B2_Dao {
 	public List<Menu> searchMenu(MenuSch sch);
 	// 메뉴 등록
 	public void insertMenu(Menu ins);
-	
+	// 메뉴 등록 시 필수 메뉴라면 모든 매장에 자동으로 등록하기 위한 모든 매장번호 가져오기
+	public List<String> getfrRegiNum();
+	// 메뉴 등록 시 모든 매장에 등록
+	public void insertNesMenu(Onsale ins);
 	
 	// 매장 정보 등록
 	public void insertStore(Store ins);
 	// 필수 메뉴 출력
 	public List<String> getnecessaryMenuNum();
-	// 필수 메뉴 등록
+	// 매장등록 후 필수 메뉴 등록
 	public void necessaryMenu(Onsale ins);
 	// 매장 정보 수정
 	public void updateStore(Store upt);
 	// 해당 매장 정보 조회
 	public Store detailStore(String frRegiNum);
-	// 해당 매장 정보 삭제
+	// 해당 매장 비활성화
 	public void deleteStore(String frRegiNum);
 	
 	// 본사 직원 등록
@@ -78,13 +81,11 @@ public interface B2_Dao {
 	// 문의글 삭제
 	public void deleteQnA(String noticeNum);
 	
-	// 메인 페이지에서 최근 10개 공지사항 combo
+	// 메인 페이지 공지사항
 	public List<Notice> getNotice();
 	// 전체 매장 매출 조회
 	public List<Sales> getSales();
 	// 담당매장 출근시간 조회
 	public List<OnTime> getOnTime(String empnum);
-	// 담당매장 조회
-	public List<String> getMyStore(String empnum);
 	
 }

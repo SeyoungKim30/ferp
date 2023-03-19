@@ -102,6 +102,8 @@ public class C1_Controller {
 	public String r7204selectStatementList(@ModelAttribute("stmt") ACStatement aCStatement,@RequestParam(value="howtosearch",required = false) int howtosearch,Model model) {
 		model.addAttribute("accountList", service.r7100SelectAccount(new Account(true)));
 		model.addAttribute("stmtList",service.r7204selectStatementList(aCStatement,howtosearch));
+		aCStatement.setTotalPage(service.r7204getTotalPages(aCStatement,howtosearch));
+
 		return "WEB-INF\\headquarter\\pg7204_statementList.jsp";	
 	}
 

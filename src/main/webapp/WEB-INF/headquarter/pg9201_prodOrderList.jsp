@@ -57,14 +57,14 @@ localStorage.setItem("eqIdx","9000")
 	<div class="toolbox">
 	<form id="searchform">
 	<h3>조회 기간 선택</h3>
-	<div class="toolbar" title="단일 주문일자,월별 조회, 발주번호 중 하나의 조건을 입력하세요">
+	<div class="toolbar">
 		<div>
-			<label>주문일자 <input type="date" name="orderDate" required></label>
-			<label>월별 조회 <input type="month" name="orderDateMonth" required></label>
-			<label title="발주번호를 검색조건으로 사용합니다">발주번호<input placeholder="발주번호로 검색" name="orderNum" required></label>
+			<label>주문일자 <input type="date" name="orderDate" required><div style="position: absolute;font-size: 0.8em;color: #007bff;">주문일자,월별 조회, 발주번호 중 하나의 조건을 입력하세요</div></label>
+			<label>월별 조회 <input type="month" name="orderDateMonth" required disabled></label>
+			<label title="발주번호를 검색조건으로 사용합니다">발주번호<input placeholder="발주번호로 검색" name="orderNum" required disabled></label>
 		</div>
 	</div>
-	<h3>조건으로 검색</h3>
+	<h3>추가 조건 지정</h3>
 	<div class="toolbar" title="조건은 다중적용이 가능합니다">
 	<div>
 	<fieldset class="noDisplayForStores">
@@ -72,7 +72,7 @@ localStorage.setItem("eqIdx","9000")
 		<label>담당자<input name="supplier" list="empList"></label><datalist id="empList"></datalist>
 	</fieldset>
 		<label>상품 선택<input name="productNum" list="productList"></label><datalist id="productList"></datalist>
-		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송중</option><option>완료</option><option>조정</option><option>취소완료</option></select></label>
+		<label>발주상태<select name="orderState"><option value="">전체 보기</option><option>요청</option><option>배송중</option><option>완료</option><option>조정중</option><option>발주취소</option></select></label>
 		<label>결제상태<select name="paymentState"><option value="">전체 보기</option><option>정산전</option><option>청구</option><option>계산서 발행</option><option>완료</option><option>취소</option></select></label>
 	</div>
 	<div style="position: relative;">
@@ -180,8 +180,8 @@ function htmlPrint(list){
 			if(each.prodOrder.orderState=='요청'){htmls+=`<option selected>요청</option><option>배송중</option>`}
 			if(each.prodOrder.orderState=='배송중'){htmls+=`<option selected>배송중</option><option>완료</option>`}
 			if(each.prodOrder.orderState=='완료'){htmls+=`<option selected>완료</option>`}
-			if(each.prodOrder.orderState=='조정'){htmls+=`<option selected disabled>조정</option>`}
-			if(each.prodOrder.orderState=='취소완료'){htmls+=`<option selected disabled>취소완료</option>`}
+			if(each.prodOrder.orderState=='조정중'){htmls+=`<option selected disabled>조정중</option>`}
+			if(each.prodOrder.orderState=='발주취소'){htmls+=`<option selected disabled>발주취소</option>`}
 			htmls+=`</select>`
 		</c:if>
 			+`</td><td>`+each.prodOrder.paymentState
