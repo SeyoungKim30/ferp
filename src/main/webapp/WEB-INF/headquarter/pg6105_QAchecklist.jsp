@@ -14,6 +14,8 @@
 
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
@@ -281,81 +283,97 @@
   	var qanum = form.querySelector('[name=qaNum]');	
 	
   	function changeDA(qaNum){	
-		var cDAresult=confirm("해당 문항을 비활성화하시겠습니까?");  //DA로바뀜
-		if(cDAresult==true){
-			usable.value='DA';
-			qanum.value=qaNum;
-			form.submit();
-			alert("비활성화되었습니다")
-		}
+		
+		 Swal.fire({
+			title: '해당 문항을 비활성화하시겠습니까?',
+		  	icon: 'question',
+		  	showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+		  	confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		 	cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+		 	confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+		  	cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+		}).then((result) => {
+		  if (result.value) {
+				usable.value='DA';
+				qanum.value=qaNum;
+				form.submit();
+			
+			  Swal.fire({
+				  title: '비활성화되었습니다',
+				  icon: 'success',
+				  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+				  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				  confirmButtonText: '확인' // confirm 버튼 텍스트 지정
+				}).then((result) => {
+				  if (result.value) {
+				  }
+				})
+		  }
+		})
 	}	
+  	
+  	
 	function changeA(qaNum){
-		var cAresult=confirm("해당 문항을 활성화하시겠습니까?"); //A로바뀜
-		if(cAresult==true){
-			usable.value='A';
-			qanum.value=qaNum;
-			form.submit();
-			alert("활성화되었습니다")
-		}
+		
+		Swal.fire({
+			title: '해당 문항을 활성화하시겠습니까?',//A로바뀜
+		  	icon: 'question',
+		  	showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+		  	confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		 	cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+		 	confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+		  	cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+		}).then((result) => {
+		  if (result.value) {
+			  	usable.value='A';
+				qanum.value=qaNum;
+				form.submit();
+			
+			  Swal.fire({
+				  title: '활성화되었습니다',
+				  icon: 'success',
+				  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+				  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				  confirmButtonText: '확인' // confirm 버튼 텍스트 지정
+				}).then((result) => {
+				  if (result.value) {
+				  }
+				})
+		  }
+		})
+		
+		
 	}
-	/*
-	//ajax로 하는 방식
-	function changeDA(qaNum) {
-    $.ajax({
-        url: '${path}/qaUseable.do',
-        type: 'post',
-        data: {qaNum: qaNum, usable: 'DA'},
-        success: function(response) {
-            console.log(response);
-            print();
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-}
-
-function changeA(qaNum) {
-    $.ajax({
-        url: '${path}/qaUseable.do',
-        type: 'post',
-        data: {qaNum: qaNum, usable: 'A'},
-        success: function(response) {
-            console.log(response);
-            print();
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-}
-	*/
 
 	
 	
 
 	/* 모달에서 등록 */
 	//항목등록
-//	var qaItem = document.querySelector("input[name=qaItem]").value;
-
 	function add() {
 	  var qaItem = $("#qaItem").val();
-
-	  console.log(qaItem)
-	  console.log(qaItem.length)
-	  console.log(qaItem>0)
 	  
 	  $.ajax({
 	    type: "POST",
 	    url: "${path}/qaAdd.do",
 	    data: { qaItem: qaItem },
 	    success: function(data) {	
-	    	
-    		alert("항목이 등록되었습니다");
-        	$(".modal").fadeOut();
-        	print();
-    	
+	
+	 		Swal.fire({
+			  title: '항목이 등록되었습니다',
+			  icon: 'success',
+			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			}).then((result) => {
+			if (result.value) {
+				$(".modal").fadeOut();
+		        print();
+			  }
+			})
+        	
 	    },	    
+	    
 	    error: function(xhr, status, error) {
 	      alert("서버와의 통신에 실패했습니다.");
 	    }  
@@ -376,12 +394,6 @@ function changeA(qaNum) {
 	$(".form_control").on("input", function() {
 		
 		var qaItem = $("#qaItem").val();
-
-		console.log(qaItem)
-		console.log(qaItem.length)
-		console.log(qaItem.length>0)
-			 
-		
 		if (qaItem.length > 0 ) {
 			$(".btn-primary").prop("disabled", false);			
 	  	} else {

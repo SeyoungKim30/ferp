@@ -12,6 +12,8 @@
 <title>점검결과조회</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 <style>
@@ -129,7 +131,6 @@
 			var tdDte='';
 			
 			qaStrlist.forEach(function(each){
-				
 				if(each.regDte!=null){
 					tdclick="<tr onclick='goDetail("+each.frRegiNum+","+each.inspectDte.replace(/\-/g, '')+")'>"
 					tdDte="<td>"+each.inspectDte+"</td><td>"+each.regDte+"</td></tr>"
@@ -172,7 +173,17 @@
 		
 	}
 	function goAlert(){
-		alert("아직 점검이 시행되지 않은 매장입니다\n점검이 완료된 후 점검배정일과 점검등록일이 출력됩니다.")
+		
+	  Swal.fire({
+		  title: '점검이 시행되지 않은 매장입니다.\n\n점검이 완료된 후 점검배정일과\n점검등록일이 출력됩니다.',
+		  icon: 'warning',
+		  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+		  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		  confirmButtonText: '확인' // confirm 버튼 텍스트 지정
+		}).then((result) => {
+		  if (result.value) {
+		  }
+		})
 	}
 	
 </script>

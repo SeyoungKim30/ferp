@@ -8,6 +8,17 @@ WHERE state='완료'
 AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM');
 --AND SUBSTR(orderdate, 1, 5)=to_char(add_months(SYSDATE, -1),'YY/MM');
 
+--본사:지정한 기간동안의 전체매장의 총 매출조회 
+SELECT to_char(orderdate, 'YYYY-MM') orderdate, nvl(sum(payprice),0) allfrsales 
+FROM orders
+WHERE state='완료'
+AND trunc(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023-03', 'YYYY-MM') 
+GROUP BY to_char(orderdate, 'YYYY-MM')
+ORDER BY orderdate;
+
+
+
+
 /*
 --본사:전체매장의 개별매출조회(사용자지정 기간-月기준)
 SELECT frname, s.frreginum, frtel, frrepname, ename, nvl(frsales, 0) frsales
@@ -90,8 +101,8 @@ SELECT PRODUCTNUM, sum(amount)
 FROM PRODORDER
 WHERE DEMANDER='1234567891' --querystring으로 받아서
 AND PAYMENTSTATE='완료'
-AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/01', 'YYYY-MM') --querystring으로 받아서
-GROUP BY PRODUCTNUM ;
+AND TRUNC(orderdate,'month') BETWEEN to_date('2023-01', 'YYYY-MM') AND to_date('2023/03', 'YYYY-MM') --querystring으로 받아서
+GROUP BY PRODUCTNUM;
 
 
 

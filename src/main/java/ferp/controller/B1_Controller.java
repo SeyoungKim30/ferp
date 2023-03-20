@@ -121,21 +121,16 @@ public class B1_Controller {
 		//매장정보출력
 		d.addAttribute("qdinfo", service.qaDetailStrinfo(frRegiNum));		
 		
-		System.out.println("#######################지원아ㅏㅏㅏㅏㅏㅏㅏㅏㅏ  controller###########################");
 		//점수출력
 		QA qa = new QA();
 		qa.setFrRegiNum(frRegiNum);
 		qa.setInspectDte(inspectDte);
-		System.out.println("frRegiNum"+frRegiNum);
-		System.out.println("inspectDte"+inspectDte);
 
 		double qncnt = service.qaDetailScore(qa).getQncnt();
 		double ycnt = service.qaDetailScore(qa).getYcnt();
-		System.out.println("qncnt   "+qncnt);
-		System.out.println("ycnt     "+ycnt);
 		double score =  ycnt/qncnt*10.0;
 		String resultScore="";
-		System.out.println("score                "+score);
+		
 		if(score>=9.0) {
 			resultScore ="이상없음";
 		}else if(score>=8.0) {
@@ -143,10 +138,8 @@ public class B1_Controller {
 		}else {
 			resultScore="심각";
 		}
-		System.out.println("resultScore             "+resultScore);
 		
 	    d.addAttribute("resultScore", resultScore);
-		
 		
 		return 	"WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
 	} 
@@ -165,37 +158,10 @@ public class B1_Controller {
 	}
 	*/
 	//결과점수
-	//1.
-	/*
-	@GetMapping("qaScore.do/{frRegiNum}")
-	public String r6104qaStoreScore(@PathVariable String frRegiNum, Model model) {
-	    String score = service.qaDetailScore(frRegiNum);
-	    Map<String, Integer> mapr = service.getQaDetailScoreMap(frRegiNum);
-	    int ycnt = mapr.get("Y")!=null?mapr.get("Y"):0;
-	    int ncnt = mapr.get("N")!=null?mapr.get("N"):0;
-	    model.addAttribute("score", score);
-	    model.addAttribute("ycnt", ycnt);
-	    model.addAttribute("ncnt", ncnt);
-	   // return "WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
-	}
-	//2
-	//@ModelAttribute("qaScore")
-	//form을 숨겨놓고 파라미터값이 넘어가게
-	@GetMapping("/qaScore/{frRegiNum}")
-	public String r6104qaStoreScore(@PathVariable("frRegiNum") String frRegiNum) {
-		return service.qaDetailScore(frRegiNum);
-	}
+	//@PathVariable 사용법만 잘 알았어도...
 	
-	//3
-	@RequestMapping("qaScore.do")
-	public String r6104qaStoreScore(@ModelAttribute("score") QA qa, Model m) {
-		
-
-		return "WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
-	}
-	*/
 	
-	// http://localhost:6080/ferp/inchargeStore.do
+	
 	
 	/*담당 매장 점검*/
 	//담당매장 목록 
@@ -262,8 +228,6 @@ public class B1_Controller {
 	
 	
 	/*
-	
-	
 	
 	@PostMapping("updateQAall.do")
 	public String r6102updateQAall(@RequestParam("ylist") String[] ylist,

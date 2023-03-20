@@ -323,14 +323,26 @@
 		
 		//날짜를 검색
 		$("[type=month]").change(function(){
-			var frSchOrderdt = $("[name=frSchOrderdt]").val();
-			var toSchOrderdt = $("[name=toSchOrderdt]").val();
+			frSchOrderdt = $("[name=frSchOrderdt]").val();
+			toSchOrderdt = $("[name=toSchOrderdt]").val();
 			
 			if(frSchOrderdt<=toSchOrderdt){
 				search();
 			}else{
-				alert("검색날짜에 유의하세요");
-				$("[name=frSchOrderdt]").val(toSchOrderdt);
+				
+			  Swal.fire({
+				  title: '검색날짜에 유의하세요',
+				  icon: 'warning',
+				  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+				  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				  confirmButtonText: '확인' // confirm 버튼 텍스트 지정
+				}).then((result) => {
+				  if (result.value) {
+					$("[name=frSchOrderdt]").val(toSchOrderdt);
+
+				  }
+				})
+				
 			}
 		})
 

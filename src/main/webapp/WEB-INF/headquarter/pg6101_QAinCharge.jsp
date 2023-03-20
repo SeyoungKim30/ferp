@@ -12,6 +12,8 @@
 <title>담당 매장 점검</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
 
@@ -418,8 +420,19 @@
 	function goInspect(frRegiNum){
 		location.href="${path}/inspectQAPrint.do?frRegiNum="+frRegiNum
 	}
+	
 	function goAlert(){
-		alert("아직 점검일이 아닙니다")
+		
+	  Swal.fire({
+		  title: '아직 점검일이 아닙니다',
+		  icon: 'warning',
+		  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+		  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		  confirmButtonText: '확인' // confirm 버튼 텍스트 지정
+		}).then((result) => {
+		  if (result.value) {
+		  }
+		})
 	}
 
 	
