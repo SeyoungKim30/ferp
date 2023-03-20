@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>본사 재고 관리 조회</title>
+<title>재고 입출고</title>
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -150,18 +150,20 @@
 		$('.uptbtn').on('click', function() {
 			const span = $(this).find('span');
 			span.text('완료');
-			
-			const applyAmountTd = $(this).closest('tr').find('td:nth-child(6)');
-			const applyAmountInput = $(`<input style="width:100px;" type="number" value="${applyAmountTd.text().trim()}">`);
-			applyAmountTd.html(applyAmountInput);
-			
+			console.log('1111');
 			const row = $(this).closest('tr');
 			const productNum = row.find('td:nth-child(1)').text().trim();
 			const remainAmount = row.find('td:nth-child(7)').text().trim();
 			$('#updateForm [name=productNum]').val(productNum);
 			$('#updateForm [name=remainAmount]').val(remainAmount);
 			
-			span.off('click').on('click', function() {
+			const minValue=$('#updateForm [name=remainAmount]').val();
+			const applyAmountTd = $(this).closest('tr').find('td:nth-child(6)');
+			const applyAmountInput = $(`<input style="width:100px;" type="number" 
+				value="${applyAmountTd.text().trim()}" min='-`+minValue+`'>`);
+			
+			applyAmountTd.html(applyAmountInput);
+			span.on('click', function() {
 				if (applyAmountInput.val().trim() === '') {
 					alert('입력값을 입력해주세요.');
 					return;
@@ -190,7 +192,12 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		<h2>재고 입출고</h2><br><hr><br>
+		<form id="updateForm" action="${path}/sinoutUpt.do">
+		    		<input type="text" name="productNum"/>
+		    		<input type="text" name="applyAmount"/>
+		    		<input type="text" name="remainAmount"/>
+		    	</form>
+		<h2>재고 입출고 내역</h2><br><hr><br>
 		<div class="toolbox">
 		<h3>재고 입출고 검색</h3><br>
 			<form class="toolbar" method="post">
@@ -249,11 +256,7 @@
 		    		<input type="text" name="applyAmount"/>
 		    		<input type="text" name="remainAmount"/>
 		    	</form>
-		    	<form id="updateForm" action="${path}/sinoutUpt.do">
-		    		<input type="text" name="productNum"/>
-		    		<input type="text" name="applyAmount"/>
-		    		<input type="text" name="remainAmount"/>
-		    	</form>
+		    	
 			</div>
 		</div>
 	</div>

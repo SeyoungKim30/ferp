@@ -35,7 +35,7 @@
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
-		<h2>본사 재고 관리 조회</h2><br><hr><br>
+		<h2>재고 입출고 내역</h2><br><hr><br>
 			<div class="searchtab">
 				<table>
 				<thead>
