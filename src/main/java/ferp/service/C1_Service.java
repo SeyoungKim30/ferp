@@ -312,7 +312,7 @@ public class C1_Service {
 			//prodOrder 변경
 			change+=dao.r9403updateProdOrder(po);
 		}
-		if(stock.getStockDate()!=null) {
+		if(stock.getApplyAmount()!=0) {
 			//stock 변경사항
 			daoC2.r8103InoutIns(stock);
 		}

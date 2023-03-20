@@ -160,6 +160,9 @@ function filltheform(dpslist){
 	$('.modalOpen').on('click',function(){
 		var idindex=$(this).attr('id')
 		console.log(dpslist[idindex])
+		$('#modal input').attr('disabled',false)
+		$('#modal [type=checkbox]').prop('checked',true)
+		//체크박스도 다 체크
 		$('#modal #frName').text(dpslist[idindex].store.frName)
 		$('#modal [name=frRegiNum]').val(dpslist[idindex].defectOrder.frRegiNum)
 		$('#modal #defNum').text(dpslist[idindex].defectOrder.defNum)
