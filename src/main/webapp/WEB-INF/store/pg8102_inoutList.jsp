@@ -72,6 +72,7 @@
 		    }
 		});
 		--%>
+		
 		// 자재코드별로 최근일자의 데이터에만 버튼 보이게
 		$("tbody tr").each(function() {
 			// 현재 제품의 자재코드를 가져옴
@@ -87,6 +88,7 @@
 				$(this).find(".delBtn").hide();
 			}
 		});
+		
 		$("#insBtn").click(function(){
 			var isInValid = false
 			for(var idx=0;idx<$(".ckValid").length;idx++){
@@ -114,10 +116,13 @@
 				}
 			})
 		})
+		
+		// 등록시 최소 수량 지정
 		$('select[name="productNum"]').change(function() {
 			const remainAmount = $(this).find('option:selected').attr('id');
 			$('input[name="applyAmount"]').attr('min', remainAmount);
-		}); // 등록시 최소 수량 지정
+		}); 
+		
 		$('.delBtn').on('click', function() {
 			Swal.fire({
 				title: '삭제하시겠습니까?',
@@ -153,26 +158,14 @@
 			const row = $(this).closest('tr');
 			const productNum = row.find('td:nth-child(1)').text().trim();
 			const remainAmount = row.find('td:nth-child(7)').text().trim();
-			
 			$('#updateForm [name=productNum]').val(productNum);
 			$('#updateForm [name=remainAmount]').val(remainAmount);
 			
-			applyAmountInput.on('input', function() {
-				if ($(this).val().trim() !== applyAmountTd.text().trim()) {
-					span.prop('disabled', false);
-				} else {
-					span.prop('disabled', true);
+			span.off('click').on('click', function() {
+				if (applyAmountInput.val().trim() === '') {
+					alert('입력값을 입력해주세요.');
+					return;
 				}
-			});
-			
-			// Disable the '완료' button if the input field is empty
-			if (applyAmountInput.val().trim() === '') {
-				span.prop('disabled', true);
-			} else {
-				span.prop('disabled', false);
-			}
-			
-			span.off('click').prop('disabled', true).on('click', function() {
 				Swal.fire({
 					title: '수정하시겠습니까?',
 					icon: 'warning',

@@ -107,11 +107,11 @@ $(document).ready(function(){
 			$(this).attr("selected", "selected")
 		}
 	})
-	var isPass1 = false;
-	var isPass2 = false;
-	var isPass3 = false;
-	var isPass4 = false;
-	var isPass5 = false;	
+	var isPass1 = true;
+	var isPass2 = true;
+	var isPass3 = true;
+	var isPass4 = true;
+	var isPass5 = true;	
 	$("[name=frPass]").keyup(function(){
 		var pw = $(this).val()
 		var number = pw.search(/[0-9]/g);
@@ -122,18 +122,22 @@ $(document).ready(function(){
         if (pw.length < 5 || pw.length > 15) {
         	$(this).addClass("isNotPass")
             $(".frPassComment").text("5자리 ~ 15자리 이내로 입력해주세요.")
+            isPass1 = false;	
         } else if (pw.search(/\s/) != -1) {
         	$(this).removeClass("isNotPass")
         	$(".frPassComment").text("비밀번호는 공백 없이 입력해주세요.")
         	$(this).addClass("isNotPass")
+        	isPass1 = false;
         } else if ((number < 0 && english < 0) || (english < 0 && spece < 0) || (spece < 0 && number < 0)) {
         	$(this).removeClass("isNotPass")
         	$(".frPassComment").text("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.")
-        	$(this).addClass("isNotPass")        	
+        	$(this).addClass("isNotPass")        
+        	isPass1 = false;
         } else if (/(\w)\1\1\1/.test(pw)) {
         	$(this).removeClass("isNotPass")
         	$(".frPassComment").text("같은 문자를 4번 이상 사용하실 수 없습니다.")
-        	$(this).addClass("isNotPass")       	
+        	$(this).addClass("isNotPass")  
+        	isPass1 = false;
         } else {
         	$(this).removeClass("isNotPass")
         	$(".frPassComment").text("");
@@ -151,6 +155,7 @@ $(document).ready(function(){
 	  }else{
       	$(this).addClass("isNotPass")
         $(".frOperTimeComment").text("입력형식이 잘못되었습니다. ex)09:00-21:00")
+        isPass2 = false;
 	  }
 	})
 	$("[name=frClosedDte]").keyup(function(){
@@ -164,6 +169,7 @@ $(document).ready(function(){
 	  }else{
       	$(this).addClass("isNotPass")
         $(".frClosedDteComment").text("한글만 입력가능합니다. ex)연중무휴, 월요일")
+        isPass3 = false;
 	  }
 	})	
 	$("[name=frTel]").keyup(function(){
@@ -177,6 +183,7 @@ $(document).ready(function(){
 	  }else{
       	$(this).addClass("isNotPass")
         $(".frTelComment").text("전화번호 형식으로 입력해주세요. ex)02-357-6813")
+        isPass4 = false;
 	  }
 		
 	})
@@ -191,6 +198,7 @@ $(document).ready(function(){
 	  }else{
       	$(this).addClass("isNotPass")
         $(".emailComment").text("이메일형식으로 입력해주세요. ex)email@naver.com")
+        isPass5 = false;
 	  }
 	})	
     $(".uptBtn").click(function(){

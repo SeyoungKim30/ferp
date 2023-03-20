@@ -55,6 +55,33 @@
         calendar.unselect()
         */
       },
+      eventClick: function(arg) {
+    	    if (confirm('해당 스케줄을 삭제 하시겠습니까?')) {
+    	        function formatDate(date) {
+    	            let year = date.getFullYear();
+    	            let month = ("0" + (date.getMonth() + 1)).slice(-2);
+    	            let day = ("0" + date.getDate()).slice(-2);
+    	            let hour = ("0" + date.getHours()).slice(-2);
+    	            let minute = ("0" + date.getMinutes()).slice(-2);
+    	            let second = ("0" + date.getSeconds()).slice(-2);
+    	            return year + "-" + month + "-" + day + "T" + hour + ":" + minute ;
+    	        }
+    	        $.ajax({
+    	            url: '${path}/sclerkschdDel.do',
+    	            type: 'POST',
+    	            data: { clerkName: arg.event.title, onDay: formatDate(arg.event.start) },
+    	            success: function(result) {
+    	                alert('삭제 완료');
+    	                location.reload();
+    	            },
+    	            error: function(jqXHR, textStatus, errorThrown) {
+    	                alert('삭제 실패');
+    	            }
+    	        });
+    	        arg.event.remove();
+    	    }
+    	},
+
       /*
       eventClick: function(arg) {
         if (confirm('Are you sure you want to delete this event?')) {
@@ -209,7 +236,19 @@
 			// 출근시간이 퇴근시간보다 작을 때만 등록
 			if (onDay < offDay) {
 				// 등록 처리
-				$("form").submit();
+				Swal.fire({
+					title: '등록하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+					confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+					cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+					confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+					cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+				}).then((result) => {
+					if (result.value) {
+						$("form").submit()
+					}
+				})
 			} else {
 				alert("출근시간이 퇴근시간보다 큽니다.");
 			}

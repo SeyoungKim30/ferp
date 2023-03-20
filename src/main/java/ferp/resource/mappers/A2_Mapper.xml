@@ -175,7 +175,7 @@
 		ORDER BY orderdate DESC
 	</select>
 	<select id="storeclerkSchedule" parameterType="storeclerk" resultType="storeclerk">
-		SELECT to_char(ontime, 'HH24:MI:SS') ontime, to_char(offtime, 'HH24:MI:SS') offtime,clerkName,hourlypay FROM (
+		SELECT to_char(ontime, 'HH24:MI:SS') ontime, to_char(offtime, 'HH24:MI:SS') offtime,clerkName,s.clerkNum,hourlypay FROM (
 		SELECT e.ONTIME,e.offtime, e.CLERKNUM 
 		FROM STORECLERK s ,EMPCHECKIN e 
 		WHERE s.FRREGINUM = e.FRREGINUM

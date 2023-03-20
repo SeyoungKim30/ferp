@@ -179,6 +179,7 @@
 		WHERE ORDERNUM = #{orderNum}
 		</update>
 		
+		
 		<!-- 주문 현황 -->
 		<select id="getStandByList" parameterType="orders" resultType="orders">
 		SELECT o.*, m.MENUNAME
@@ -186,6 +187,7 @@
 		WHERE m.MENUNUM = o.MENUNUM 
 		AND o.STATE = '제조 대기'
 		AND o.FRREGINUM = #{frRegiNum}
+		ORDER BY ordernum
 		</select>
 		
 		<!-- 결제 취소 -->
