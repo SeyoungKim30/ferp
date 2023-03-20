@@ -35,7 +35,7 @@ var fetchUpdatePromise =function(formid, pathurl) {
 			resolve(text+'건 성공');
 	      })
 	      .catch(error => {
-	        reject(error);
+	        reject('처리결과를 확인하세요');
 	      });
 	  });
 	}
