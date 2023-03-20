@@ -52,6 +52,10 @@ public class B2_Controller {
 	public List<Sales> totSales(){
 		return service.getSales();
 	}
+	@ModelAttribute("storeNum")
+	public List<String> storeNum(){
+		return service.getStoreNum();
+	}
 	// 본사 메인페이지
 	@RequestMapping("/goHqPage.do")
 	public String goHqPage(HttpSession session, Model d) {

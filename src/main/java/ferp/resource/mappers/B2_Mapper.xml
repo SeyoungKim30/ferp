@@ -195,6 +195,11 @@
 		SELECT *
 		FROM dnameCategory
 	</select>
+	<!-- 가맹점 번호 콤보 -->
+	<select id="getStoreNum" resultType="string">
+		SELECT FRREGINUM
+		FROM store
+	</select>
 	
 	<!-- 문의글 조회 -->
 	<select id="searchQnA" resultType="notice" parameterType="noticeSch">

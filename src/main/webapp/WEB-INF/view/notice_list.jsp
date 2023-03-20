@@ -120,7 +120,9 @@ $(document).ready(function(){
 			  }
 			})	
     }
-
+    $(".schBtn").click(function(){
+    	$("form").submit()
+    })
 });
 function goPage(cnt) {
 	$("[name=curPage]").val(cnt);

@@ -69,6 +69,8 @@ public interface B2_Dao {
 	public List<String> getMenuCategory();
 	// 부서 콤보
 	public List<String> getDname();
+	// 가맹점 번호 콤보
+	public List<String> getStoreNum();
 	
 	// 문의글 등록
 	public void insertQnA(Notice ins);
