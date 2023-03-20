@@ -92,7 +92,7 @@
     <bean id="multipartResolver"
 			class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	<bean id="downloadViewer" class="ferp.download.DownloadView"></bean>
-	<bean id="downloadViewer2" class="ferp.download.DownloadView2"></bean>
+	<bean id="downloadViewer2" class="ferp.download.DownloadView2"></bean> 
 	
 	<!-- 
 		# 웹 소켓 통신을 위한 객체 선언.
