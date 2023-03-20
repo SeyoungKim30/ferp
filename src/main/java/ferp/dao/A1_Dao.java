@@ -21,6 +21,8 @@ public interface A1_Dao {
 	// 출근 등록
 	public void addOnDay(ClerkSchedule inscs);
 	
+	// 퇴근 유효성
+	public String checkOff(ClerkSchedule uptcs);
 	// 퇴근 등록
 	public void addOffTime(ClerkSchedule uptcs);
 	
