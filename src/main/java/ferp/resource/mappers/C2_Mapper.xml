@@ -54,7 +54,8 @@
 	            (
 	                SELECT REMAINAMOUNT + #{applyAmount, index=2}
 	                FROM STOCK 
-	                WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1} 
+	                WHERE PRODUCTNUM = #{productNum,jdbcType=VARCHAR, index=1}
+	                AND FRREGINUM = #{frRegiNum,jdbcType=VARCHAR, index=3} 
 	                AND STOCKDATE = (
 	                    SELECT MAX(STOCKDATE) 
 	                    FROM STOCK 
