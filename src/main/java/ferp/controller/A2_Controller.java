@@ -254,6 +254,7 @@ public class A2_Controller {
 		d.addAttribute("clerkToday", service.storeclerkSchedule(sch,session));
 		d.addAttribute("salesGraph", service.salesGraph(sch2,session));
 		d.addAttribute("noticeCombo", service2.getNotice());
+		d.addAttribute("important", service2.importantNotice());
 		return "forward:pg0002.jsp";
 	}
 //	파일 다운로드

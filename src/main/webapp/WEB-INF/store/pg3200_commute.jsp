@@ -132,7 +132,8 @@ $(document).ready(function() {
 							if($("[name=clerkNum]").val() == arr[i].clerkNum && arr[i].clerkName != "" && arr[i].ontime == ""){
 								regAjax("/addOnDay.do");	
 								return;
-							}else{
+							}
+							if($("[name=clerkNum]").val() == arr[i].clerkNum && arr[i].clerkName != "" && arr[i].ontime != ""){
 								Swal.fire({
 									title: '이미 출근한 직원입니다',
 									icon: 'warning',

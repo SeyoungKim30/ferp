@@ -16,8 +16,10 @@
 }
 .rB{
 	width: 100%;
+	background-color: #007bff;
+	border: 1px solid #007bff;
 	color:white;
-	border: none;
+	border-radius: 3px;
 }
 .orderNum{
 	font-size: xx-large;
