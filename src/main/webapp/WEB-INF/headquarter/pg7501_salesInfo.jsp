@@ -157,6 +157,7 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script><!-- 그래프 -->
 
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 
@@ -178,14 +179,30 @@
 				<h2>매장 정보 조회</h2><br><hr><br>
 				
 				<!-- 전체매장총매출출력칸 시작-->
-				<div class="hdq_totalSalesPrt">
-					<div>
+				<div class="hdq_totalSalesPrt" onclick="goGraph()">
+					
+					<div class="allSalesNumber">
 					<h2>투썸플레이스 지난 달 총 매출&nbsp;&nbsp;&nbsp;&nbsp;
 						<span>
 							<fmt:formatNumber type="number" maxFractionDigits="3" value="${addAllsales}" />
 						</span>&nbsp;원
 					</h2>
 					</div>
+					<!-- 
+					<div class="allSalesGraph" style="display:none">
+						<h2>총매출 그래프</h2>
+						<div class="period">
+						<form>
+							<input id="strperiod2" name="frSchOrderdt" value="${sch.frSchOrderdt}" type="month"/>
+							~
+							<input id="endperiod2" name="toSchOrderdt" value="${sch.toSchOrderdt}" type="month"/>
+						</form>
+						</div>
+						<div>
+						  <canvas id="myChart" height="200%"></canvas>
+						</div>
+					</div>
+					 -->
 				</div>
 				<!-- 전체매장총매출출력칸 끝-->
 				
@@ -306,18 +323,19 @@
 		
 		//날짜를 검색
 		$("[type=month]").change(function(){
-			frSchOrderdt = $("[name=frSchOrderdt]").val();
-			toSchOrderdt = $("[name=toSchOrderdt]").val();
+			var frSchOrderdt = $("[name=frSchOrderdt]").val();
+			var toSchOrderdt = $("[name=toSchOrderdt]").val();
+			
 			if(frSchOrderdt<=toSchOrderdt){
 				search();
 			}else{
 				alert("검색날짜에 유의하세요");
+				$("[name=frSchOrderdt]").val(toSchOrderdt);
 			}
 		})
 
 	})
 	
-			
 	function goDetail(frRegiNum){
 		location.href="${path}/salesDetail.do?frRegiNum="+frRegiNum+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt
 	}
@@ -383,6 +401,56 @@
  			  }
  			})	
      }
+     
+     
+
+   
+    //그래프
+    /*
+	function goGraph(){
+    	
+    	
+		var lablesArray=[]; // 시작 월부터 끝 월까지의 배열 생성
+		
+		const frSchOrderdt = $("[name=frSchOrderdt]").val(); // 선택한 시작 월
+		const toSchOrderdt = $("[name=toSchOrderdt]").val(); // 선택한 끝 월
+
+		for (let idx=frSchOrderdt; idx<=toSchOrderdt; idx++) {
+			lablesArray.push(${idx < 10 ? '0' + i : i});
+		}
+		 
+		 
+    	
+		const ctx = document.getElementById('myChart');
+    	new Chart(ctx,{
+    		type:'line',
+    		data:{
+    			labels:lablesArray,
+    			datasets:[{
+    				label:"allSales",
+    				data:[],
+    				fill:false.
+    				borderColor:"",
+    				:tension0.1
+    			}]
+    			
+    		}
+    	
+    	})
+    	
+    	    const config = {
+    			type:'line',
+    			data:data
+      		};
+    	    
+    	    const myChart = new Chart(
+    			,
+    			config
+    		); 
+    	 
+     }
+     
+    */
 	
 	
 </script>
