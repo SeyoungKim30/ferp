@@ -94,6 +94,11 @@ public class A1_Service {
 		return dao.getAllMenu(sch);
 	}
 	
+	// 예상 시간 대기
+		public int getWaitTime(String frRegiNum) {
+			return dao.getWaitTime(frRegiNum);
+		}
+	
 	
 	// orders ins
     public void insertOrdersList(

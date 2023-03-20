@@ -203,6 +203,15 @@
 			WHERE remark = #{orderNum}
 		</delete>
 
+		<!-- 예상 대기 -->
+		<select id="getWaitTime" parameterType="string" resultType="int">
+			SELECT count(*)
+			FROM ORDERS
+			WHERE FRREGINUM = #{frRegiNum}
+			AND TO_CHAR(SYSDATE, 'YYYYMMDD') = TO_CHAR(ORDERDATE, 'YYYYMMDD')
+			AND STATE = '제조 대기';
+		</select>
+
 		<!-- 제조 완료 -->
 		<update id="clearOrder" parameterType="string">
 			UPDATE ORDERS

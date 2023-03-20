@@ -84,6 +84,8 @@
 		
 			감사합니다.<br>
 			결제가 완료되었습니다.<br>
+			예상 소요 시간은 ${time}분입니다.<br>
+			매장 상황에 따라 소요시간이 변경될 수 있습니다.<br>
 			주문번호 : <span class="orderNum">${orderNum}</span>
 		</p>
 		<div class="goMain">
