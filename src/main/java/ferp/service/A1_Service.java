@@ -70,8 +70,17 @@ public class A1_Service {
 	}
 	
 	// 퇴근 등록
-	public void addOffTime(ClerkSchedule uptcs) {
-		dao.addOffTime(uptcs);
+	public String addOffTime(ClerkSchedule uptcs) {
+		System.out.println("★★★★★★★★"+dao.checkOff(uptcs).equals("0"));
+		if(dao.checkOff(uptcs).equals("0")) {
+			return "출근 정보가 없습니다.";
+		}
+		if(dao.checkOff(uptcs).equals("1")) {
+			dao.addOffTime(uptcs);
+			return "퇴근 등록이 완료되었습니다.";
+		}else {
+			return "그외";
+		}
 	}
 	
 	// 판매할 메뉴 등록

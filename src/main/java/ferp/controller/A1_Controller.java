@@ -157,12 +157,10 @@ public class A1_Controller {
    public String addOffTime(ClerkSchedule uptcs, Model d, HttpSession session) {
       Store st = (Store)session.getAttribute("login");
       uptcs.setFrRegiNum(st.getFrRegiNum());
-      service.addOffTime(uptcs);
-      d.addAttribute("msg","퇴근 등록이 완료되었습니다.");
+      d.addAttribute("msg",service.addOffTime(uptcs));
       return "pageJsonReport";
    }
-   
-   
+
    // 전체 메뉴 조회 페이지
    @RequestMapping("/onsaleList.do")
    public String pg2002onsaleList(Model d, HttpSession session){

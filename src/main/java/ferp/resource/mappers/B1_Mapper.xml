@@ -13,6 +13,15 @@
 		WHERE state='완료'
 		AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM')
 	</select>
+	<!-- 본사:전체매장매출총액 그래프 -->
+	<select id="allSalesGraph" parameterType="orders" resultType="orders">
+		SELECT to_char(orderdate, 'YYYY-MM') orderdate, nvl(sum(payprice),0) allfrsales 
+		FROM orders
+		WHERE state='완료'
+		AND trunc(orderdate,'month') BETWEEN to_date(#{frSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{toSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') 
+		GROUP BY to_char(orderdate, 'YYYY-MM')
+		ORDER BY orderdate
+	</select>
 	
 	<!-- 본사:매장별매출 전체조회 -->
 	<select id="salesByStoreList" parameterType="orders" resultType="orders">
@@ -42,11 +51,8 @@
 		<if test="ename!=null and !ename.equals('')">
 		AND ename LIKE '%'||#{ename}||'%'
 		</if>
-		ORDER BY frtel NULLS LAST, frname
+		ORDER BY DECODE(frpass, NULL, 2, 1), frname
 	</select>
-	<!-- ORDER BY조건 : NULLS LAST 
-		 - ORDER BY 절에서 NULL 값을 가진 레코드를 마지막에 출력하도록 지시 - 제일 먼저 선언할것.
-	-->
 	
 	<!-- 본사:매장정보상세조회 -->
 	<select id="storeDetailInfo" parameterType="String" resultType="orders">
@@ -96,9 +102,20 @@
 	
 	
 	<!-- 매장QA -->
-	<!-- 본사:품질관리점검표 출력 -->
-	<select id="qaList" resultType="qachecklist">
-		SELECT qanum, qaitem, usable FROM QACHECKLIST
+	<!-- 본사:품질관리점검표 출력 --> <!-- 페이지처리 -->
+	<select id="qaList" parameterType="qachecklist" resultType="qachecklist">
+		select *
+		from (
+			SELECT ROWNUM CNT,qanum, qaitem, usable
+			FROM QACHECKLIST
+			)
+		where cnt between #{start} and #{end}
+	</select>
+
+	<!-- 페이지처리 -->		
+	<select id="totNum" resultType="int">
+		SELECT COUNT(*)
+		FROM QACHECKLIST
 	</select>
 	
 	<!-- 본사:품질관리점검표 추가등록 -->
@@ -154,15 +171,18 @@
 		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
 	</select>	
 	<!-- qa결과점수 --> 
-	<select id="qaDetailScore" parameterType="string" resultType="qa">
-		SELECT results, count(results) yncnt
-		FROM QA q, QACHECKLIST qck
-		WHERE q.qanum = qck.qanum
-		AND frRegiNum=#{frRegiNum, jdbcType=VARCHAR}
-		AND trunc(inspectdte, 'MONTH') = trunc(SYSDATE, 'MONTH')
-		GROUP BY results
+	<select id="qaDetailScore" parameterType="qa" resultType="qa">
+		SELECT qncnt, ycnt
+		FROM (  SELECT count(qanum) qncnt
+				from qa
+				WHERE FRREGINUM =#{frRegiNum, jdbcType=VARCHAR, index=1}
+				AND to_Char(INSPECTDTE, 'YYYYMMDD')=#{inspectDte, jdbcType=VARCHAR, index=2}) qc,
+			 (  SELECT count(results) ycnt
+				FROM qa
+				WHERE FRREGINUM=#{frRegiNum, jdbcType=VARCHAR, index=1}
+				AND to_Char(INSPECTDTE, 'YYYYMMDD')=#{inspectDte, jdbcType=VARCHAR, index=2}
+				AND results='Y' ) qy
 	</select>
-	
 	
 	
 	
@@ -329,5 +349,6 @@
 		WHERE frRegiNum=#{writer, jdbcType=VARCHAR}
 		GROUP BY to_char(onTime, 'YYYY/MM/DD')
 	</select>
+
 
 </mapper>

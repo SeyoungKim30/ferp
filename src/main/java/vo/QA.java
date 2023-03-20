@@ -21,11 +21,11 @@ public class QA { //실제 실행한 QA
 	
 	//qa결과출력
 	private String qaItem;
-	private int ynCnt;
 	
 	//담당매장 목록
 	private int qncnt;
 	private int ycnt;
+	private String score;
 	
 	//qa등록
 	private List<String> nlist;
@@ -112,12 +112,7 @@ public class QA { //실제 실행한 QA
 	public void setQaItem(String qaItem) {
 		this.qaItem = qaItem;
 	}
-	public int getYnCnt() {
-		return ynCnt;
-	}
-	public void setYnCnt(int ynCnt) {
-		this.ynCnt = ynCnt;
-	}
+
 	public int getQncnt() {
 		return qncnt;
 	}
@@ -130,6 +125,14 @@ public class QA { //실제 실행한 QA
 	public void setYcnt(int ycnt) {
 		this.ycnt = ycnt;
 	}
+	public String getScore() {
+		return score;
+	}
+	public void setScore(String score) {
+		this.score = score;
+	}
+	
+	
 	public List<String> getNlist() {
 		return nlist;
 	}
@@ -148,6 +151,8 @@ public class QA { //실제 실행한 QA
 	public void setClist(List<String> clist) {
 		this.clist = clist;
 	}
+	
+	
 
 	
 	

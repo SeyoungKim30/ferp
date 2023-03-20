@@ -13,6 +13,8 @@
 
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
@@ -244,10 +246,24 @@
 		$("[type=month]").change(function(){
 			frSchOrderdt = $("[name=frSchOrderdt]").val();
 			toSchOrderdt = $("[name=toSchOrderdt]").val();
+			
 			if(frSchOrderdt<=toSchOrderdt){
 				print();
 			}else{
-				alert("검색날짜에 유의하세요");
+				
+			  Swal.fire({
+				  title: '검색날짜에 유의하세요',
+				  icon: 'warning',
+				  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+				  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				  confirmButtonText: '확인' // confirm 버튼 텍스트 지정
+				}).then((result) => {
+				  if (result.value) {
+					$("[name=frSchOrderdt]").val(toSchOrderdt);
+
+				  }
+				})
+				
 			}
 		})
 	})

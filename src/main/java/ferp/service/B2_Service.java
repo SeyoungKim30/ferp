@@ -37,7 +37,7 @@ public class B2_Service {
 		
 		if(sch.getCurPage()==0) sch.setCurPage(1);
 		
-		if(sch.getPageSize()==0) sch.setPageSize(15);
+		if(sch.getPageSize()==0) sch.setPageSize(7);
 		
 		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
 		
