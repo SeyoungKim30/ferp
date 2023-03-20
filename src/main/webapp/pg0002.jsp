@@ -34,6 +34,36 @@
     top: 170px;
     right: -250px;
 }
+.main_popup{
+	width:350px;
+	height:350px;
+	border:3px solid #3E4156;
+	border-radius: 30px;
+	background-color: white;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 30px 25px 10px 25px;
+}
+.popup_bottom > a{
+	text-decoration:none; 
+}
+.pull-right{float:right}
+.popup_bottom{
+    color: black;
+	padding: 9px 30px 3px 20px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 14px;
+}
+pre{
+	white-space: pre-line;
+    font-size: 15px;
+    font-family: inherit;
+    height: 220px;
+    overflow: auto;
+    margin-top: 14px;
+}
 </style>
 </head>
 <script type="text/javascript">
@@ -142,6 +172,22 @@
 			</div>
 		</div>
 	</div>
+	<c:if test="${important.title ne null}">
+		<div id="main_popup" class="main_popup" style="position: absolute; z-index:10000; display: none;">
+			<div style="height: 280px; border-bottom: 1px solid;">
+				<h3 style="border-bottom: 1px solid;padding-bottom: 10px;">
+    				${important.title}
+    			</h3>
+				<pre>
+${important.content}
+				</pre>
+			</div>
+			<div class="popup_bottom">
+				<a href="javascript:closePopupNotToday()" class="white">오늘 하루동안 보지 않기</a>
+				<a class="pull-right white" href="javascript:closeMainPopup();">닫기</a>
+			</div>
+		</div>
+	</c:if>	
 </body>
 <script type="text/javascript">
 //상세페이지로 이동
@@ -221,6 +267,45 @@ function goPrev(){
 	$(".clerkPage2").css("display","none")
 	$(".next").css("display","inline-block")
 	$(".prev").css("display","none")
+}
+
+//레이어 팝업
+if(getCookie("notToday")!="Y"){
+	$("#main_popup").show('fade');
+}
+
+function closePopupNotToday(){	             
+	setCookie('notToday','Y', 1);
+	$("#main_popup").hide('fade');
+}
+
+function setCookie(name, value, expiredays) {
+	var today = new Date();
+    today.setDate(today.getDate() + expiredays);
+
+    document.cookie = name + '=' + escape(value) + '; path=/; expires=' + today.toGMTString() + ';'
+}
+
+function getCookie(name) { 
+var cName = name + "="; 
+var x = 0; 
+while ( x <= document.cookie.length ) 
+{ 
+    var y = (x+cName.length); 
+    if ( document.cookie.substring( x, y ) == cName ) 
+    { 
+        if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 ) 
+            endOfCookie = document.cookie.length;
+        return unescape( document.cookie.substring( y, endOfCookie ) ); 
+    } 
+    x = document.cookie.indexOf( " ", x ) + 1; 
+    if ( x == 0 ) 
+        break; 
+} 
+return ""; 
+}
+function closeMainPopup(){
+$("#main_popup").hide('fade');
 }
 </script>
 </html>
