@@ -270,12 +270,12 @@ function goPrev(){
 }
 
 //레이어 팝업
-if(getCookie("notToday")!="Y"){
+if(getCookie("notTodayStore")!="Y"){
 	$("#main_popup").show('fade');
 }
 
 function closePopupNotToday(){	             
-	setCookie('notToday','Y', 1);
+	setCookie('notTodayStore','Y', 1);
 	$("#main_popup").hide('fade');
 }
 

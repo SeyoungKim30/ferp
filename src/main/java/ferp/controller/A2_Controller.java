@@ -245,7 +245,7 @@ public class A2_Controller {
 	
 	@RequestMapping("/asd.do")
 	public String asd() {
-		return "/WEB-INF/store/pg1001_storeMainMenu.jsp";
+		return "forward:/storeMainMenu.do";
 	}
 	@RequestMapping("/storeSet2.do")
 	public String asda(StoreClerk sch, Sales sch2, HttpSession session, Model d) {
