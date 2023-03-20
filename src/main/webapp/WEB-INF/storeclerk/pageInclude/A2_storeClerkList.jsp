@@ -165,7 +165,7 @@
 							<button type="button" class="fileBtn" onclick="cFile('${sc.clerkName }','${sc.clerkNum }')">파일</button>
 						</div>
 						<div class="tdDiv" style="width: 10%;">
-							<button type="button" class="uptCfm" style="display: none;">완료</button>
+							<button type="button" class="uptCfm cfm${sc.clerkNum }" style="display: none;">완료</button>
 							<button type="button" class="uptBtn upt${sc.clerkNum }" onclick="location.href='javascript:activateInput(${sc.clerkNum })'">수정</button>
 							<button type="button" class="delBtn" onclick="location.href='javascript:delInfo(${sc.clerkNum })'">삭제</button>
 						</div>
@@ -219,8 +219,8 @@
 	function activateInput(i){
 		if(confirm("수정하시겠습니까?")){
 			$(".i"+i).attr("disabled",false)
-			$(".uptCfm").css("display","inline")
-			$(".uptBtn").css("display","none")
+			$(".cfm"+i).css("display","inline")
+			$(".upt"+i).css("display","none")
 		}
 		$(".uptCfm").click(function(){
 			if(confirm("변경사항을 저장하시겠습니까?")){

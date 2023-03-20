@@ -242,11 +242,7 @@ public class A2_Controller {
 	public List<StoreClerk> storeclerkSchedule(StoreClerk sch, HttpSession session){
 		return service.storeclerkSchedule(sch,session);
 	}
-	
-	@RequestMapping("/asd.do")
-	public String asd() {
-		return "forward:/storeMainMenu.do";
-	}
+//	매장 메인
 	@RequestMapping("/storeSet2.do")
 	public String asda(StoreClerk sch, Sales sch2, HttpSession session, Model d) {
 		Store s = (Store)session.getAttribute("login");
