@@ -57,7 +57,8 @@
 		<h2>판매 메뉴 등록</h2><br><hr><br>
            <form class="menuSchForm">
             	<input type="text" placeholder="메뉴명을 입력하세요." name="menuName" value="${sch.menuName}">
-            	<button class="menuSch" type="submit">검색</button>
+            	<input type="hidden" name="curPage" value="${sch.curPage}" />
+            	<button class="menuSch" type="button">검색</button>
             </form>
 			<table>
 			<col width="20%">
@@ -91,10 +92,46 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<c:if test="${sch.startBlock > 0}">
+					<div class="row pBtn_center">
+						<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${sch.startBlock-1});'">
+							&lt;
+						</button>
+							<c:forEach var="cnt" begin="${sch.startBlock }" end="${sch.endBlock}">
+						  		<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
+									${cnt}
+								</button>
+						  	</c:forEach>
+					  	<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${sch.startBlock+1});'">
+							&gt;
+						</button>
+					</div>
+				</c:if>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
+
+$(".menuSch").click(function () {
+	$(".menuSchForm").submit()
+})
+
+function goPage(cnt){
+	$("[name=curPage]").val(cnt);
+	$(".menuSchForm").submit()
+}
+if(${sch.curPage==1}){
+	$("[name=prev]").attr("disabled",true)
+}
+if(${sch.curPage==sch.endBlock}){
+	$("[name=next]").attr("disabled",true)
+}
+
+$(".pg"+${sch.curPage}).css({
+	'background' : '#a4a4a4',
+	'color' : 'white'
+});
+
 $(document).ready(function() {
 	
 	var fn = ${login.frRegiNum};
