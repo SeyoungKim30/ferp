@@ -36,7 +36,7 @@
 				</div>
 				<div class="second_line">
 					<input type="text" name="frRegiNum" placeholder="사업자번호 입력(숫자10자리) ex)8462550658">
-					<input type="text" name="frPass" placeholder="비밀번호 입력">
+					<input type="password" name="frPass" placeholder="비밀번호 입력">
 				</div>
 				<div style="display: flex; justify-content: space-between;">
 					<p class="frRegiNumComment"></p>

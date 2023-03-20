@@ -127,8 +127,11 @@ WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
 	AND (po.DEMANDER LIKE '%'||#{demander,jdbcType=VARCHAR}||'%' OR se.frname LIKE '%'||#{demander,jdbcType=VARCHAR}||'%')
 	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')	
 	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%'
+	AND po.orderState !='발주취소'
+	And po.DEMANDER != '9999999999'
 GROUP BY TRUNC(ORDERDATE,'month'),FRREGINUM,FRNAME,ename,empnum,po.PAYMENTSTATE
 </select>
+
 <update id="r9311updateProdOrderPayState" parameterType="prodOrder">
 	UPDATE PRODORDER SET PAYMENTSTATE = #{paymentState} 
 	WHERE trunc(ORDERDATE,'month') = to_date(#{orderDateMonth},'yyyy-mm') 
