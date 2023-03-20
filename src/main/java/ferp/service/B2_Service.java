@@ -230,6 +230,10 @@ public class B2_Service {
 	public List<String> getDname(){
 		return dao.getDname();
 	}
+	// 가맹점 번호 콤보
+	public List<String> getStoreNum(){
+		return dao.getStoreNum();
+	}
 	
 	
 	// 문의글 조회

@@ -48,7 +48,7 @@ public class A1_Controller {
          return "WEB-INF\\store\\pg1000_storeLogin.jsp";
       }else {
          session.setAttribute("login", service.storeLogin(st));
-         return "forward:/asd.do";
+         return "WEB-INF\\store\\pg1001_storeMainMenu.jsp";
       }
    }
    // 본사 로그인
@@ -239,8 +239,12 @@ public class A1_Controller {
    
    // 주문 완료 페이지
    @RequestMapping("/orderCom.do")
-   public String orderCom(@RequestParam("orderNum") String orderNum, Model d) {
+   public String orderCom(@RequestParam("orderNum") String orderNum, Model d,HttpSession session) {
 	   d.addAttribute("orderNum", orderNum);
+	   Store st = (Store)session.getAttribute("login");
+	   int time = service.getWaitTime(st.getFrRegiNum());
+	   time = time*3;
+	   d.addAttribute("time", time);
 	   return "WEB-INF\\customer\\pg2103_kiosqueOrderComplete.jsp";
    }
    // 키오스크 추가 

@@ -49,8 +49,8 @@ text-align: center;}
 		<form action="${path }/insertACstatement.do" method="post" id="form1">
 		<div class="toolbox">
 			<div class="toolbar">
-				<div><button class="btn-dark" type="button" @click='prevSelect' :style="prevbtn">이전전표</button>
-				<button class="btn-dark" type="button" @click='nextSelect' :style="nextbtn">다음전표</button></div>
+				<div><button class="btn-dark" type="button" @click='prevSelect' :style="prevbtn" style="display: none;">이전전표</button>
+				<button class="btn-dark" type="button" @click='nextSelect' :style="nextbtn" style="display: none;">다음전표</button></div>
 			<div>
 					<button class="btn-reset" title="저장되지 않은 내용을 모두 삭제하고 새 전표를 입력합니다." type="button" @click='resetBtn'>새 전표</button>
 					<button class="btn-danger" type="button" @click='deleteThis'>삭제하기</button>

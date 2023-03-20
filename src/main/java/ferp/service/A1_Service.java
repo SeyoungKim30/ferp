@@ -19,6 +19,7 @@ import vo.Orders;
 import vo.Store;
 import vo.StoreClerk;
 
+
 @Service
 public class A1_Service {
 
@@ -91,8 +92,38 @@ public class A1_Service {
 	// 본사 제공 전체 메뉴
 	public List<Menu> getAllMenu(Menu sch){
 		if(sch.getMenuName()==null) sch.setMenuName("");
+		if(sch.getPageSize()==0) {
+			sch.setPageSize(10);
+		}
+		sch.setCount(dao.pageAllMenu(sch));
+		if(sch.getCurPage()==0) {
+			sch.setCurPage(1);
+		}
+		sch.setPageCount(
+				(int)Math.ceil(
+				sch.getCount()/(double)sch.getPageSize())
+				);
+		if(sch.getCurPage()>sch.getPageCount()) {
+			sch.setCurPage(sch.getPageCount());
+		}
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getCurPage()*sch.getPageSize());
+		sch.setBlockSize(5);
+		int blocknum = (int)Math.ceil(sch.getCurPage()/
+					(double)sch.getBlockSize());
+		int endBlock = blocknum*sch.getBlockSize();
+		if(endBlock>sch.getPageCount()) {
+			endBlock = sch.getPageCount();
+		}
+		sch.setEndBlock(endBlock);
+		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.getAllMenu(sch);
 	}
+	
+	// 예상 시간 대기
+		public int getWaitTime(String frRegiNum) {
+			return dao.getWaitTime(frRegiNum);
+		}
 	
 	
 	// orders ins

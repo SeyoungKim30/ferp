@@ -81,9 +81,11 @@
 			</div>
 			<hr>
 			<div class="orderDate2" style="display: none;"></div>
+			<c:if test="${empty login.ename }">
 			<div>
 				<button type="button" class="wdBtn">배송 오류 신청</button>				
 			</div>
+			</c:if>
 			<div class="right margin">
 				<button type="button" class="uBtn">수정</button>
 				<button type="button" class="dBtn">취소</button>

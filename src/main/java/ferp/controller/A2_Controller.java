@@ -245,7 +245,7 @@ public class A2_Controller {
 	
 	@RequestMapping("/asd.do")
 	public String asd() {
-		return "/WEB-INF/store/pg1001_storeMainMenu.jsp";
+		return "forward:/storeMainMenu.do";
 	}
 	@RequestMapping("/storeSet2.do")
 	public String asda(StoreClerk sch, Sales sch2, HttpSession session, Model d) {
@@ -254,6 +254,7 @@ public class A2_Controller {
 		d.addAttribute("clerkToday", service.storeclerkSchedule(sch,session));
 		d.addAttribute("salesGraph", service.salesGraph(sch2,session));
 		d.addAttribute("noticeCombo", service2.getNotice());
+		d.addAttribute("important", service2.importantNotice());
 		return "forward:pg0002.jsp";
 	}
 //	파일 다운로드

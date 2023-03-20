@@ -52,6 +52,11 @@ public interface A1_Dao {
 	// 결제대기에서 제조대기로
 	public void uptOrderStatePay(String orderNum);
 	
+	// 예상 시간 대기
+	public int getWaitTime(String frRegiNum);
+	
+	// 본사 제공 페이지 수
+	public int pageAllMenu(Menu sch);
 	
 	// 제조 대기 리스트
 	public List<Orders> getStandByList(Orders orders);

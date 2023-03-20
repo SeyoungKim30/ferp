@@ -51,7 +51,13 @@
 	    color: #2262F3;
 	    font-weight: 500;
 	    line-height: 55px;
-	    padding: 100px 0;
+	    padding: 100px 0 0;
+	}
+	
+	.timeP{
+		color: #666;
+		font-size: 25px;
+		padding: 20px 0 100px;
 	}
 	
 	.orderNum{
@@ -72,6 +78,14 @@
 	button {
 		font-size: 20px;
 	}
+	
+	.timeText{
+		font-weight: 700;
+		color: #333;
+		font-size: 35px;
+	}
+	
+	
 </style>
 </head>
 
@@ -84,7 +98,11 @@
 		
 			감사합니다.<br>
 			결제가 완료되었습니다.<br>
-			주문번호 : <span class="orderNum">${orderNum}</span>
+			주문번호 : <span class="orderNum">${orderNum}</span><br>
+		</p>
+		<p class="timeP">
+			예상 소요 시간은 <span class="timeText">${time}분</span>입니다.<br>
+			매장 상황에 따라 소요시간이 변경될 수 있습니다.
 		</p>
 		<div class="goMain">
 			<span class="goMainS">10</span>초 후에 메인으로 돌아갑니다.<br>

@@ -64,6 +64,25 @@ pre{
     overflow: auto;
     margin-top: 14px;
 }
+
+
+.dimmed{
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,0.5);
+	z-index: -1;
+	opacity: 0;
+	pointer-events: none;
+}
+.dimmed.on{
+	z-index: 99;
+	opacity: 1;
+	pointer-events: all;
+}
+
 </style>
 </head>
 <script type="text/javascript">
@@ -73,6 +92,7 @@ pre{
 	
 </script>
 <body class="container">
+<div class="dimmed"></div>
 	<%@ include file="/resource/templates/header.jsp"%>
 	<div class="main_wrapper">
 		<%@ include file="/resource/templates/sidebar.jsp"%>
@@ -270,13 +290,16 @@ function goPrev(){
 }
 
 //레이어 팝업
-if(getCookie("notToday")!="Y"){
+var dimmed = $('.dimmed');
+if(getCookie("notTodayStore")!="Y"){
 	$("#main_popup").show('fade');
+	dimmed.addClass('on');
 }
 
 function closePopupNotToday(){	             
-	setCookie('notToday','Y', 1);
+	setCookie('notTodayStore','Y', 1);
 	$("#main_popup").hide('fade');
+	dimmed.removeClass('on');
 }
 
 function setCookie(name, value, expiredays) {
@@ -306,6 +329,7 @@ return "";
 }
 function closeMainPopup(){
 $("#main_popup").hide('fade');
+dimmed.removeClass('on');
 }
 </script>
 </html>
