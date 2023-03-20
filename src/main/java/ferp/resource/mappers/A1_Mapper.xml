@@ -179,6 +179,7 @@
 		WHERE ORDERNUM = #{orderNum}
 		</update>
 		
+		
 		<!-- 주문 현황 -->
 		<select id="getStandByList" parameterType="orders" resultType="orders">
 		SELECT o.*, m.MENUNAME
