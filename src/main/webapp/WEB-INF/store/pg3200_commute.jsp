@@ -144,7 +144,7 @@ $(document).ready(function() {
 										if (result.value) {
 										$("[name=clerkNum]").focus()
 									    return;
-									}
+									} 
 								})
 							}
 						}
