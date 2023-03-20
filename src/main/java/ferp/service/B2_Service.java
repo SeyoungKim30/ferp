@@ -37,7 +37,7 @@ public class B2_Service {
 		
 		if(sch.getCurPage()==0) sch.setCurPage(1);
 		
-		if(sch.getPageSize()==0) sch.setPageSize(15);
+		if(sch.getPageSize()==0) sch.setPageSize(7);
 		
 		sch.setPageCount( (int)Math.ceil(sch.getCount()/(double)sch.getPageSize()) );
 		
@@ -229,6 +229,10 @@ public class B2_Service {
 	// 부서 콤보
 	public List<String> getDname(){
 		return dao.getDname();
+	}
+	// 가맹점 번호 콤보
+	public List<String> getStoreNum(){
+		return dao.getStoreNum();
 	}
 	
 	

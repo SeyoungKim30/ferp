@@ -106,12 +106,22 @@
 			ORDER BY MENUNAME
 		</select>
 		
-		<!-- 본사 제공 전체 메뉴 가져오기 -->
+		<!-- 본사 제공 전체 메뉴 가져오기 (페이징!!!!!!!) -->
 		<select id="getAllMenu" parameterType="menu" resultType="menu">
-			SELECT *
+			SELECT * from(
+			SELECT rownum cnt, a.* FROM 
+			    (SELECT *
+			    FROM MENU 
+			    WHERE MENUNAME LIKE '%'||#{menuName}||'%'
+			    ORDER BY MENUNAME) a
+			    )
+			WHERE cnt BETWEEN #{start} AND #{end}
+		</select>
+		
+		<select id="pageAllMenu" parameterType="menu" resultType="int">
+			SELECT COUNT(*)
 			FROM MENU
 			WHERE MENUNAME LIKE '%'||#{menuName}||'%'
-			ORDER BY MENUNAME
 		</select>
 		
 		<!-- 판매할 메뉴 추가 -->

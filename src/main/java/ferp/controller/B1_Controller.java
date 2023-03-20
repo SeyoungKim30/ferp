@@ -77,14 +77,16 @@ public class B1_Controller {
 	/*매장QA점검*/
 	//본사:qa표항목전체출력
 	@RequestMapping("qaList.do")
-	public String r6105qaMangement(){
+	public String r6105qaMangement(@ModelAttribute("ql") QAchecklist ql, Model d){
+		d.addAttribute("qalist", service.qaList(ql));
 		return "WEB-INF\\headquarter\\pg6105_QAchecklist.jsp";
 	} 
 	@RequestMapping("qaListJson.do")
-	public String r6105qaMangementJson(Model d){
-		d.addAttribute("qalist", service.qaList());
+	public String r6105qaMangementJson(QAchecklist ql, Model d){
+		d.addAttribute("qalist", service.qaList(ql));
 		return "pageJsonReport";
 	}
+	
 	//qa표 항목추가	
 	@PostMapping("qaAdd.do")
 	public String r6105qaAdd(@RequestParam("qaItem") String qaItem, RedirectAttributes redirect) {
@@ -112,10 +114,33 @@ public class B1_Controller {
 	}
 	
 	//이달qa 특정매장 
-	//매장정보
+	//매장정보 //점수
 	@RequestMapping("qaDetailInfo.do")
-	public String r6104qaStoreDetail(@RequestParam("frRegiNum") String frRegiNum, Model d){
+	public String r6104qaStoreDetail(@RequestParam("frRegiNum") String frRegiNum, 
+									 @RequestParam("inspectDte") String inspectDte, Model d){
+		//매장정보출력
 		d.addAttribute("qdinfo", service.qaDetailStrinfo(frRegiNum));		
+		
+		//점수출력
+		QA qa = new QA();
+		qa.setFrRegiNum(frRegiNum);
+		qa.setInspectDte(inspectDte);
+
+		double qncnt = service.qaDetailScore(qa).getQncnt();
+		double ycnt = service.qaDetailScore(qa).getYcnt();
+		double score =  ycnt/qncnt*10.0;
+		String resultScore="";
+		
+		if(score>=9.0) {
+			resultScore ="이상없음";
+		}else if(score>=8.0) {
+			resultScore ="주의";
+		}else {
+			resultScore="심각";
+		}
+		
+	    d.addAttribute("resultScore", resultScore);
+		
 		return 	"WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
 	} 
 	//결과표 
@@ -132,33 +157,11 @@ public class B1_Controller {
 		return "pageJsonReport";
 	}
 	*/
-	//결과점수  ~포기
-	//1.
-	/*
-	@GetMapping("qaScore.do/{frRegiNum}")
-	public String r6104qaStoreScore(@PathVariable String frRegiNum, Model model) {
-	    String score = service.qaDetailScore(frRegiNum);
-	    Map<String, Integer> mapr = service.getQaDetailScoreMap(frRegiNum);
-	    int ycnt = mapr.get("Y")!=null?mapr.get("Y"):0;
-	    int ncnt = mapr.get("N")!=null?mapr.get("N"):0;
-	    model.addAttribute("score", score);
-	    model.addAttribute("ycnt", ycnt);
-	    model.addAttribute("ncnt", ncnt);
-	   // return "WEB-INF\\headquarter\\pg6104_QAstoreDetail.jsp";
-	}
-	*/
-	//2
-	//@ModelAttribute("qaScore")
-	//form을 숨겨놓고 파라미터값이 넘어가게
-	@GetMapping("/qaScore/{frRegiNum}")
-	public String r6104qaStoreScore(@PathVariable("frRegiNum") String frRegiNum) {
-		return service.qaDetailScore(frRegiNum);
-	}
+	//결과점수
+	//@PathVariable 사용법만 잘 알았어도...
 	
 	
 	
-	
-	// http://localhost:6080/ferp/inchargeStore.do
 	
 	/*담당 매장 점검*/
 	//담당매장 목록 
@@ -225,8 +228,6 @@ public class B1_Controller {
 	
 	
 	/*
-	
-	
 	
 	@PostMapping("updateQAall.do")
 	public String r6102updateQAall(@RequestParam("ylist") String[] ylist,

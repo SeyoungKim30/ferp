@@ -112,19 +112,35 @@ $(document).ready(function(){
 	var isPass4 = false;
 	var isPass5 = false;
 	var isPass6 = false;
+	var duplicate = true;
+	var arr = []
+	<c:forEach var="st" items="${storeNum}">
+		arr.push(${st})
+	</c:forEach>
+	
 	$("[name=frRegiNum]").keyup(function(){
 		var frRegiNum = $(this).val()
 		var regfrRegiNum = /^[0-9]{10}$/;
 		
+		for(var i = 0; i < arr.length; i++){
+			if(arr[i] == frRegiNum){
+				duplicate = false;
+			}
+		}
 	  if (frRegiNum.match(regfrRegiNum) != null) {
 	      $(this).removeClass("isNotPass")
 	      $(".frRegiNumComment").text("");
 	      isPass1 = true;
-	  }else{
+	  }
+	  else{
       	$(this).addClass("isNotPass")
         $(".frRegiNumComment").text("숫자10자리로 입력해주세요. ex)1973249871")
 	  }
-		
+	
+	  if(!duplicate){
+      	$(this).addClass("isNotPass")
+        $(".frRegiNumComment").text("등록된 사업자번호가 있습니다.")
+	  }
 	})
 	$("[name=frPass]").keyup(function(){
 		var pw = $(this).val()
@@ -433,6 +449,19 @@ $(document).ready(function(){
 						}).then((result) => {
 						  if (result.value) {
 							  $("[name=email]").focus()
+						      return;
+						  }
+					  })
+				  }else if(!duplicate){
+					  Swal.fire({
+						  title: '등록된 사업자번호가 있습니다.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#3085d6',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=frRegiNum]").focus()
 						      return;
 						  }
 					  })
