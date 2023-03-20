@@ -66,7 +66,8 @@
 	}
 	#QAresult{
 		font-size: 24px;
-		font-weight:600;
+		font-weight:900;
+		color: #C83E4D;
 	}
 	
 	
@@ -99,11 +100,9 @@
 			</div>
 			<!-- 매장정보간단출력 끝-->
 			
-			<!-- 결과표 시작 -->
+			<!-- 결과표 시작 -->			
 			<div id="qaRslt">
-				
-				<span>점검결과:</span><span id="QAresult">${qaScore}</span>
-				  
+				<span>점검결과:</span><span id="QAresult">${resultScore}</span>		  
 			</div>
 			<table>
 				<col width="55%">
@@ -115,6 +114,8 @@
 				<tbody></tbody>
 			</table>
 			<!-- 결과표 끝 -->
+			
+			
 		</div>
 	</div>
 </body>
@@ -123,9 +124,10 @@
 	//사이드바에 번호 매긴 것 
 	localStorage.setItem("pageIdx","6104"); //id값
 	localStorage.setItem("eqIdx","6000");
-
+	
+	 
 	function print(){
-		
+		      
 		let url="${path}/qaDetailList.do?frRegiNum="+${qdinfo.frRegiNum}
 		
 		fetch(url).then(function(response){return response.json()}).then(function(json){
@@ -144,15 +146,21 @@
 				
 				trtd+="<tr><td>"+each.qaItem+"</td><td class='ctrdata'>"+tdRslt+"</td><td>"+each.comments+"</td></tr>"
 			});
-			console.log(trtd);
 			$("table tbody").html(trtd);
+			
+
 			
 		}).catch(function(err){console.log(err)})
 	}
 	
-	$(document).ready(function(){
+
+	$(function(){
+
 		print();
+		
 	})
+
+
 	
 	//이전페이지가기 클릭
 	function back(){

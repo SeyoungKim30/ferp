@@ -148,7 +148,8 @@
 	}
 	/* 삭제버튼 */
 	.btn-danger {
-		border-radius: 5px;
+		border-radius: 5px;	
+		
 	}
 	
 </style>
@@ -156,6 +157,7 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script><!-- 그래프 -->
 
 <script type="text/javascript" src="${path }/resource/js/sy_fetchs.js"></script>
 
@@ -177,14 +179,30 @@
 				<h2>매장 정보 조회</h2><br><hr><br>
 				
 				<!-- 전체매장총매출출력칸 시작-->
-				<div class="hdq_totalSalesPrt">
-					<div>
+				<div class="hdq_totalSalesPrt" onclick="goGraph()">
+					
+					<div class="allSalesNumber">
 					<h2>투썸플레이스 지난 달 총 매출&nbsp;&nbsp;&nbsp;&nbsp;
 						<span>
 							<fmt:formatNumber type="number" maxFractionDigits="3" value="${addAllsales}" />
 						</span>&nbsp;원
 					</h2>
 					</div>
+					<!-- 
+					<div class="allSalesGraph" style="display:none">
+						<h2>총매출 그래프</h2>
+						<div class="period">
+						<form>
+							<input id="strperiod2" name="frSchOrderdt" value="${sch.frSchOrderdt}" type="month"/>
+							~
+							<input id="endperiod2" name="toSchOrderdt" value="${sch.toSchOrderdt}" type="month"/>
+						</form>
+						</div>
+						<div>
+						  <canvas id="myChart" height="200%"></canvas>
+						</div>
+					</div>
+					 -->
 				</div>
 				<!-- 전체매장총매출출력칸 끝-->
 				
@@ -276,10 +294,10 @@
 			sbslist.forEach(function(each){
 				
 				if(each.frtel==null){
-					trtd="<tr class='delStore'><td>"+each.frname+"</td><td colspan='5' style='text-align:center'>운영이 종료된 매장입니다</td><td class='frt_last_culmm'><span class='btn-secondary'>수정</span><span class='btn-danger'>삭제</span></td></tr>"
+					trtd="<tr class='delStore'><td>"+each.frname+"</td><td colspan='5' style='text-align:center'>운영이 종료된 매장입니다</td><td></td></tr>"
 
 				}else{
-					trtd="<tr><td onclick='goDetail("+each.frRegiNum+")'>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td  class='ctrdata'>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary' onclick='goUpdate("+each.frRegiNum+")'>수정</span><span class='btn-danger' onclick='goDelete("+each.frRegiNum+")'>삭제</span></td></tr>"
+					trtd="<tr  onclick='goDetail("+each.frRegiNum+")' ><td>"+each.frname+"</td><td class='numdata'>"+each.frsales.toLocaleString()+"</td><td class='numdata'>"+each.frpurchase.toLocaleString()+"</td><td  class='ctrdata'>"+each.frtel+"</td><td class='ctrdata'>"+each.frRepname+"</td><td class='ctrdata'>"+each.ename+"</td><td class='frt_last_culmm'><span class='btn-secondary' onclick='event.stopPropagation(); goUpdate("+each.frRegiNum+")'>수정</span><span class='btn-danger' onclick='event.stopPropagation(); goDelete("+each.frRegiNum+")'>삭제</span></td></tr>"
 
 				}
 				ftrtd+=trtd
@@ -307,19 +325,33 @@
 		$("[type=month]").change(function(){
 			frSchOrderdt = $("[name=frSchOrderdt]").val();
 			toSchOrderdt = $("[name=toSchOrderdt]").val();
+			
 			if(frSchOrderdt<=toSchOrderdt){
 				search();
 			}else{
-				alert("검색날짜에 유의하세요");
+				
+			  Swal.fire({
+				  title: '검색날짜에 유의하세요',
+				  icon: 'warning',
+				  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+				  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				  confirmButtonText: '확인' // confirm 버튼 텍스트 지정
+				}).then((result) => {
+				  if (result.value) {
+					$("[name=frSchOrderdt]").val(toSchOrderdt);
+
+				  }
+				})
+				
 			}
 		})
 
 	})
 	
-			
 	function goDetail(frRegiNum){
 		location.href="${path}/salesDetail.do?frRegiNum="+frRegiNum+"&frSchOrderdt="+frSchOrderdt+"&toSchOrderdt="+toSchOrderdt
 	}
+	
 	
 	function goUpdate(frRegiNum){
 		  Swal.fire({
@@ -381,6 +413,56 @@
  			  }
  			})	
      }
+     
+     
+
+   
+    //그래프
+    /*
+	function goGraph(){
+    	
+    	
+		var lablesArray=[]; // 시작 월부터 끝 월까지의 배열 생성
+		
+		const frSchOrderdt = $("[name=frSchOrderdt]").val(); // 선택한 시작 월
+		const toSchOrderdt = $("[name=toSchOrderdt]").val(); // 선택한 끝 월
+
+		for (let idx=frSchOrderdt; idx<=toSchOrderdt; idx++) {
+			lablesArray.push(${idx < 10 ? '0' + i : i});
+		}
+		 
+		 
+    	
+		const ctx = document.getElementById('myChart');
+    	new Chart(ctx,{
+    		type:'line',
+    		data:{
+    			labels:lablesArray,
+    			datasets:[{
+    				label:"allSales",
+    				data:[],
+    				fill:false.
+    				borderColor:"",
+    				:tension0.1
+    			}]
+    			
+    		}
+    	
+    	})
+    	
+    	    const config = {
+    			type:'line',
+    			data:data
+      		};
+    	    
+    	    const myChart = new Chart(
+    			,
+    			config
+    		); 
+    	 
+     }
+     
+    */
 	
 	
 </script>

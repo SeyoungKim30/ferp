@@ -16,6 +16,7 @@ import vo.OpenTimeCalender;
 import vo.Orders;
 import vo.QA;
 import vo.QAchecklist;
+import vo.SCPage;
 import vo.Store;
 
 @Service
@@ -63,9 +64,42 @@ public class B1_Service {
 	
 	/*매장qa점검*/
 	//qa표항목전체출력
-	public List<QAchecklist> qaList(){
-		return dao.qaList();
+	public List<QAchecklist> qaList(QAchecklist ql){
+		pagination(ql);
+		return dao.qaList(ql);
 	};
+	//페이징처리
+	private void pagination(QAchecklist ql) { //vo
+		if(ql.getPageSize()==0) {
+			ql.setPageSize(7);//한 페이지에 몇 개
+			System.out.println("출력데이터 수"+ql.getPageSize());
+		}
+		ql.setCount(dao.totNum()); //sql vo에 있는 데이터 수 count()
+		if(ql.getCurPage()==0) { //전체데이터
+			ql.setCurPage(1);
+			System.out.println("현재 페이지"+ql.getCurPage());
+		}
+		ql.setPageCount(
+			(int)Math.ceil(
+					ql.getCount()/(double)ql.getPageSize())
+			);
+		if(ql.getCurPage()>ql.getPageCount()) {
+			ql.setCurPage(ql.getPageCount());
+		}
+		ql.setStart((ql.getCurPage()-1)*ql.getPageSize()+1);
+		ql.setEnd(ql.getCurPage()*ql.getPageSize());
+		ql.setBlockSize(5);
+		int blocknum = (int)Math.ceil(ql.getCurPage()/
+					(double)ql.getBlockSize());
+		int endBlock = blocknum*ql.getBlockSize();
+		if(endBlock>ql.getPageCount()) {
+			endBlock = ql.getPageCount();
+		}
+		ql.setEndBlock(endBlock);
+		ql.setStartBlock((blocknum-1)*ql.getBlockSize()+1);
+	}
+	
+	
 	//qa표항목추가등록
 	public void qaListIns(String qaItem) {
 		dao.qaListIns(qaItem);
@@ -88,32 +122,8 @@ public class B1_Service {
 		return dao.qaDetailList(qa);
 	}
 	//이달qa 특정매장-결과점수
-	//포기
-	public String qaDetailScore(String frRegiNum) {
-		Map<String, Integer> mapr = new HashMap<String, Integer>(); // 빈 map을 선언
-		List<QA> qlist = dao.qaDetailScore(frRegiNum); //리스트로 담아놓은 dao를
-		/*
-		(Y, 6)  >> Y가 key가 되고 6이 value
-		(N, 1)  >> N가 key가 되고 2이 value
-		*/
-		for(QA qa:qlist) { //map에 담고
-			mapr.put(qa.getResults(), qa.getYnCnt());
-		}
-		// 값을 각각 사용하기
-        int ycnt = mapr.get("Y")!=null?mapr.get("Y"):0;
-        int ncnt = mapr.get("N")!=null?mapr.get("N"):0;
-        double result = Math.round( ycnt/(ycnt+ncnt)*100 )/100.0;
-
-        String score = "";
-
-		if(result>=0.9) {
-			score="이상없음";
-		}else if(result>0.7) {
-			score="경미";
-		}else{
-			score="심각";
-		}
-		return score;		
+	public QA qaDetailScore(QA qa) {
+		return dao.qaDetailScore(qa);
 	}
 	
 	
@@ -220,5 +230,5 @@ public class B1_Service {
 	}
 	
 	
-	
+
 }

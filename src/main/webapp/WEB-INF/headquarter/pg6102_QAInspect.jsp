@@ -12,6 +12,8 @@
 <title>매장QA등록</title>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 
 <link rel="stylesheet" href="${path}/resource/css/basicStyle.css" />
 <link rel="stylesheet" href="${path}/resource/css/displayingSY.css" />
@@ -154,6 +156,7 @@ var frRegiNum =<%=frRegiNum%>
 			// clist
 			clist.push($("input[name=wrt]")[idx].value)
 	    }
+		
 		console.log(nlist)
 		console.log(ylist)
 		console.log(clist)
@@ -163,6 +166,7 @@ var frRegiNum =<%=frRegiNum%>
 		formData.append("clist", clist);
 		formData.append("frRegiNum", frRegiNum);
 		console.log(formData)	
+		
 		var data01 = { nlist:nlist, ylist:ylist, clist:clist, frRegiNum:frRegiNum}
 		console.log(data01)
 		//submit
@@ -173,15 +177,22 @@ var frRegiNum =<%=frRegiNum%>
 		  //contentType: false, //get방식
 		  //processData: false,
 		  success: function (response) {
-			alert("등록되었습니다");
-			location.href="${path}/inchargeStore.do";
+    		  Swal.fire({
+    			  title: '등록되었습니다!',
+    			  icon: 'success',
+    			  showCancelButton: false, // cancel버튼 보이기. 기본은 원래 없음
+    			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+    			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+    			}).then((result) => {
+    			  if (result.value) {
+    				  location.href="${path}/inchargeStore.do"
+    			  }
+    			})	
 		  },
 		  error: function (xhr, status, error) {
 			  alert("등록에 실패하였습니다")
 		  }
 		});
-		
-		//console.
 	
 	}
 	
@@ -191,17 +202,39 @@ var frRegiNum =<%=frRegiNum%>
 	
 	//클릭체줄
 	$(".btn-primary").click(function(){
-		if(	 confirm("등록 후 수정이 불가능합니다. 제출하시겠습니까?")==true ){
-			handout();
-		}
+		
+		  Swal.fire({
+			  title: '등록 후 수정이 불가능합니다.\n제출하시겠습니까?',
+			  icon: 'question',
+			  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+			  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+			}).then((result) => {
+			  if (result.value) {
+				  handout();
+			  }
+			})
+		
 	});
 	
 	//엔터제출
 	$("input").keyup(function(event){
 		if(event.keyCode==13){
-			if(	 confirm("등록 후 수정이 불가능합니다. 제출하시겠습니까?")==true ){
-				handout();
-			}
+			  Swal.fire({
+				  title: '등록 후 수정이 불가능합니다.\n제출하시겠습니까?',
+				  icon: 'question',
+				  showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+				  confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				  cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+				  confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+				  cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+				}).then((result) => {
+				  if (result.value) {
+					  handout();
+				  }
+				})
 		}
 	});
 	

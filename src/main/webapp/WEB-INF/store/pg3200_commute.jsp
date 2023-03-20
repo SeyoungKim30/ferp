@@ -190,8 +190,22 @@ $(document).ready(function() {
 			data : $("#commuteFm").serialize(),
 			dataType : "json",
 			success : function(data) {
-				alert(data.msg);
-				location.href="/ferp/storeMainMenu.do";
+				if(data.msg=="출근 정보가 없습니다."){
+					  Swal.fire({
+						  title: '출근 정보가 없습니다.',
+						  icon: 'warning',
+						  showCancelButton: false,
+						  confirmButtonColor: '#2262F3',
+						  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.value) {
+							  $("[name=clerkNum]").focus()
+						      return;
+						  }
+					  })
+				}else{
+				location.href="/ferp/storeMainMenu.do";					
+				}
 			},
 			error : function(err) {
 				console.log(err)

@@ -413,6 +413,11 @@
 									<span class="custom_checkbox"><i class="ri-check-line"></i></span>
 									<span class="menu_opt">연하게</span>
 								</label>
+								<label for="menu_opt_6" class="pojang">
+									<input type="checkbox" name="option_5" id="menu_opt_6">
+									<span class="custom_checkbox"><i class="ri-check-line"></i></span>
+									<span class="menu_opt">포장</span>
+								</label>
 							</div>
 						</form>
 					</div>
@@ -581,6 +586,7 @@ tabContent.click(function () {
 			$(".option_radio").css('display','none');
 			$(".delS").css('display','none');
 			$(".addS").css('display','none');
+			$(".pojang").css('display','flex');
 			$(".sizeUp").css('display','flex');
 			$(".radio01").text("Ice");
 			$(".radio02").text("Hot");
@@ -589,6 +595,7 @@ tabContent.click(function () {
 			$(".option_radio").css('display','flex');
 			$(".delS").css('display','flex');
 			$(".addS").css('display','flex');
+			$(".pojang").css('display','flex');
 			$(".sizeUp").css('display','flex');
 			$(".radio01").text("Ice");
 			$(".radio02").text("Hot");
@@ -598,6 +605,7 @@ tabContent.click(function () {
 			$(".delS").css('display','none');
 			$(".addS").css('display','none');
 			$(".sizeUp").css('display','none');
+			$(".pojang").css('display','none');
 			$(".radio01").text("매장");
 			$(".radio02").text("포장");
 			$('.radio01').prop('checked', true);
@@ -606,6 +614,7 @@ tabContent.click(function () {
 			$(".delS").css('display','none');
 			$(".addS").css('display','none');
 			$(".sizeUp").css('display','flex');
+			$(".pojang").css('display','none');
 			$(".radio01").text("Ice");
 			$(".radio02").text("Hot");
 			$('.radio01').prop('checked', true);
@@ -682,6 +691,10 @@ var modal_btn_add = $(".modal_btn_add");
 	
 	if ($("#menu_opt_5").is(":checked")) {
 		option+="/연하게";
+	}
+	
+	if ($("#menu_opt_6").is(":checked")) {
+		option+="/포장";
 	}
 	
 	if ($("#menu_opt_1").is(":checked") || $("#menu_opt_2").is(":checked") ) {

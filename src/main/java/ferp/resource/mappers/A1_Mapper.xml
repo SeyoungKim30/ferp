@@ -47,6 +47,14 @@
 		AND FRREGINUM =#{FrRegiNum}
 		</update>
 		
+		<!-- 퇴근 유효성 -->
+		<select id="checkOff" parameterType="clerkschedule" resultType="string">
+		SELECT COUNT(ONTIME)
+		FROM EMPCHECKIN e
+		WHERE CLERKNUM = #{clerkNum}
+		AND TO_CHAR(sysdate, 'YYYYMMDD') = TO_CHAR(ONTIME, 'YYYYMMDD')
+		</select>
+		
 		<!-- 로그인한 매장의 판매 메뉴 불러오기(전체) -->
 		<select id="getMenuList" parameterType="menu" resultType="menu">
 			SELECT m.MENUNUM, MENUNAME, PRICE, INFO, IMG, NECESSARY, CATEGORY
@@ -116,6 +124,16 @@
 			    ORDER BY MENUNAME) a
 			    )
 			WHERE cnt BETWEEN #{start} AND #{end}
+		</select>
+		
+		<!-- 주문 현황 -->
+		<select id="getStandByList" parameterType="orders" resultType="orders">
+		SELECT o.*, m.MENUNAME
+		FROM MENU m, ORDERS o 
+		WHERE m.MENUNUM = o.MENUNUM 
+		AND o.STATE = '제조 대기'
+		AND o.FRREGINUM = #{frRegiNum}
+		ORDER BY ordernum
 		</select>
 		
 		<select id="pageAllMenu" parameterType="menu" resultType="int">
@@ -190,15 +208,7 @@
 		</update>
 		
 		
-		<!-- 주문 현황 -->
-		<select id="getStandByList" parameterType="orders" resultType="orders">
-		SELECT o.*, m.MENUNAME
-		FROM MENU m, ORDERS o 
-		WHERE m.MENUNUM = o.MENUNUM 
-		AND o.STATE = '제조 대기'
-		AND o.FRREGINUM = #{frRegiNum}
-		ORDER BY ordernum
-		</select>
+
 		
 		<!-- 결제 취소 -->
 		<update id="delOrder" parameterType="string">
