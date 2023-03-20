@@ -17,6 +17,7 @@ public interface C2_Dao {
 	public Product r8101ProductInfo(String productNum);
 	// 본사/매장 재고 입출고 조회
 	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch);
+	public int inoutListTot(ProductProdOrder sch);
 	// 매장 재고 입출고 등록
 	public void r8103InoutIns(Stock ins);
 	// 매장 재고 입출고 수정

@@ -33,13 +33,24 @@
 	
 	<!-- 본사/매장 재고 입출고 조회 -->
 	<select id="r8204InoutList" resultType="productProdOrder" parameterType="productProdOrder">
-		SELECT s.STOCKDATE ,p.category ,p.PRODUCTNUM ,p.PRODUCTNAME ,
-			p.PRICE ,s.APPLYAMOUNT ,s.REMAINAMOUNT, s.remark
+		SELECT * FROM 
+			(SELECT rownum cnt , a.* FROM 
+			(SELECT s.STOCKDATE ,p.category ,p.PRODUCTNUM ,p.PRODUCTNAME ,
+				p.PRICE ,s.APPLYAMOUNT ,s.REMAINAMOUNT, s.remark
+			FROM PRODUCT p, STOCK s
+			WHERE p.PRODUCTNUM = s.PRODUCTNUM
+			AND s.FrRegiNum = #{frRegiNum,jdbcType=VARCHAR}
+			AND p.productNum LIKE '%'||upper(#{productNum,jdbcType=VARCHAR})||'%'
+			ORDER BY s.STOCKDATE DESC) a )
+			WHERE cnt BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="inoutListTot" resultType="int" parameterType="productProdOrder">
+		SELECT count(*)
 		FROM PRODUCT p, STOCK s
 		WHERE p.PRODUCTNUM = s.PRODUCTNUM
-		AND s.FrRegiNum = #{frRegiNum,jdbcType=VARCHAR}
-		AND p.productNum LIKE '%'||upper(#{productNum,jdbcType=VARCHAR})||'%'
-		ORDER BY s.STOCKDATE desc
+		AND s.FrRegiNum = #{frRegiNum}
+		AND p.productNum LIKE '%'||upper(#{productNum})||'%'
 	</select>
 	
 	<!-- 매장 재고 입출고 등록 -->

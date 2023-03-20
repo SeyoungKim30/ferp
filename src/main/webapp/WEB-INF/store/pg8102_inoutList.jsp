@@ -200,7 +200,7 @@
 		<h2>재고 입출고 내역</h2><br><hr><br>
 		<div class="toolbox">
 		<h3>재고 입출고 검색</h3><br>
-			<form class="toolbar" method="post">
+			<form class="toolbar" method="post" id="reqSchFrm">
 				<select name="productNum" required>
 					<option value="">자재코드선택</option>
 			        <c:forEach var="pn" items="${productNumCom}">
@@ -210,6 +210,7 @@
 					</c:forEach>
 				</select>
 				<button class="btn-secondary" type="submit">검색</button>
+				<input type="hidden" name="curPage" value="${sch.curPage}" />
 			</form>
 		</div>
 		<div class="toolbox">
@@ -256,9 +257,40 @@
 		    		<input type="text" name="applyAmount"/>
 		    		<input type="text" name="remainAmount"/>
 		    	</form>
-		    	
+		    	<c:if test="${sch.startBlock > 0}">
+					<div style="text-align:center;">
+						<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${sch.startBlock-1});'">
+							&lt;
+						</button>
+							<c:forEach var="cnt" begin="${sch.startBlock }" end="${sch.endBlock}">
+						  		<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
+									${cnt}
+								</button>
+						  	</c:forEach>
+					  	<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${sch.startBlock+1});'">
+							&gt;
+						</button>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+function goPage(cnt){
+	$("[name=curPage]").val(cnt);
+	$("#reqSchFrm").submit()
+}
+if(${sch.curPage==1}){
+	$("[name=prev]").attr("disabled",true)
+}
+if(${sch.curPage==sch.endBlock}){
+	$("[name=next]").attr("disabled",true)
+}
+
+$(".pg"+${sch.curPage}).css({
+	'background' : '#a4a4a4',
+	'color' : 'white'
+})
+</script>
 </html>

@@ -104,3 +104,23 @@ WHERE CLERKNUM IN (
   AND c.ONDAY = #{onDay}
   AND s.clerkName = #{clerkName}
 );
+
+
+SELECT * FROM 
+(SELECT rownum cnt , a.* FROM 
+(SELECT s.STOCKDATE ,p.category ,p.PRODUCTNUM ,p.PRODUCTNAME ,
+	p.PRICE ,s.APPLYAMOUNT ,s.REMAINAMOUNT, s.remark
+FROM PRODUCT p, STOCK s
+WHERE p.PRODUCTNUM = s.PRODUCTNUM
+AND s.FrRegiNum = '1234567890'
+AND p.productNum LIKE '%'||upper('pd10001')||'%'
+ORDER BY s.STOCKDATE DESC) a )
+WHERE cnt BETWEEN 1 AND 5;
+
+
+
+SELECT count(*)
+FROM PRODUCT p, STOCK s
+WHERE p.PRODUCTNUM = s.PRODUCTNUM
+AND s.FrRegiNum = '1234567890'
+AND p.productNum LIKE '%'||upper('')||'%';
