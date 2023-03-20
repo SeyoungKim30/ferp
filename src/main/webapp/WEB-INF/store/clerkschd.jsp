@@ -236,7 +236,19 @@
 			// 출근시간이 퇴근시간보다 작을 때만 등록
 			if (onDay < offDay) {
 				// 등록 처리
-				$("form").submit();
+				Swal.fire({
+					title: '등록하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+					confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+					cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+					confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+					cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+				}).then((result) => {
+					if (result.value) {
+						$("form").submit()
+					}
+				})
 			} else {
 				alert("출근시간이 퇴근시간보다 큽니다.");
 			}
