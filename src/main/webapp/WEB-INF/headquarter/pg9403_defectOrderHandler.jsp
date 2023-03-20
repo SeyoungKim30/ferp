@@ -127,7 +127,7 @@ margin-right:0.7em;
 		<input name='orderDate' placeholder="발주신청일자" type="hidden">
 		<div>
 		<label>변경수량<input name="amount" required></label>
-		<label>발주상태<select name="orderState"><option>요청</option><option>조정</option><option>취소완료</option></select></label>
+		<label>발주상태<select name="orderState"><option>요청</option><option>조정중</option><option>발주취소</option></select></label>
 		<label>비고<input name="remark"></label></div>
 	</div></div>
 	<button class="btn-primary">등록하기</button>
