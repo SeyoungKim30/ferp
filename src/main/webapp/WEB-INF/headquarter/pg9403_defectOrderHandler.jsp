@@ -93,6 +93,7 @@ margin-right:0.7em;
 <form action="${path }/updateDefectOrder.do" method="post" id="updateForm">
 	<h4>신청 상태 조정</h4>
 	<div class="toolbar">
+	<img src=''>
 		<div><ul>
 			<li>신청지점 : <span id='frName'></span><input name='frRegiNum' type="hidden">
 			<li>신청번호 : <span id="defNum"></span><input name='defNum' type="hidden">
@@ -163,6 +164,8 @@ function filltheform(dpslist){
 		$('#modal input').attr('disabled',false)
 		$('#modal [type=checkbox]').prop('checked',true)
 		//체크박스도 다 체크
+		$('#modal img').attr('src','${path }/resource/img/defectOrder/'+dpslist[idindex].defectOrder.img)
+		
 		$('#modal #frName').text(dpslist[idindex].store.frName)
 		$('#modal [name=frRegiNum]').val(dpslist[idindex].defectOrder.frRegiNum)
 		$('#modal #defNum').text(dpslist[idindex].defectOrder.defNum)
