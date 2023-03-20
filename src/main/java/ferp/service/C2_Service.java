@@ -77,6 +77,31 @@ public class C2_Service {
 	// 본사/매장 재고 입출고 조회
 	public List<ProductProdOrder> r8204InoutList(ProductProdOrder sch){
 		if(sch.getProductNum()==null) sch.setProductNum("");
+		if(sch.getPageSize()==0) {
+			sch.setPageSize(10);
+		}
+		sch.setCount(dao.inoutListTot(sch));
+		if(sch.getCurPage()==0) {
+			sch.setCurPage(1);
+		}
+		sch.setPageCount(
+				(int)Math.ceil(
+				sch.getCount()/(double)sch.getPageSize())
+				);
+		if(sch.getCurPage()>sch.getPageCount()) {
+			sch.setCurPage(sch.getPageCount());
+		}
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getCurPage()*sch.getPageSize());
+		sch.setBlockSize(10);
+		int blocknum = (int)Math.ceil(sch.getCurPage()/
+					(double)sch.getBlockSize());
+		int endBlock = blocknum*sch.getBlockSize();
+		if(endBlock>sch.getPageCount()) {
+			endBlock = sch.getPageCount();
+		}
+		sch.setEndBlock(endBlock);
+		sch.setStartBlock((blocknum-1)*sch.getBlockSize()+1);
 		return dao.r8204InoutList(sch);
 	}
 	

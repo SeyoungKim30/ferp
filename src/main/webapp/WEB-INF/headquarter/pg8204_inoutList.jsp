@@ -54,8 +54,43 @@
 			    	</c:forEach>
 				</tbody>
 				</table>
+				<c:if test="${sch.startBlock > 0}">
+					<div style="text-align:center;">
+						<button name="prev" class="pgBtnPrev" onclick="location.href='javascript:goPage(${sch.startBlock-1});'">
+							&lt;
+						</button>
+							<c:forEach var="cnt" begin="${sch.startBlock }" end="${sch.endBlock}">
+						  		<button class="pgBtn pg${cnt}" onclick="location.href='javascript:goPage(${cnt});'">
+									${cnt}
+								</button>
+						  	</c:forEach>
+					  	<button name="next" class="pgBtnNext" onclick="location.href='javascript:goPage(${sch.startBlock+1});'">
+							&gt;
+						</button>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
+	<form id="reqSchFrm">
+	<input type="hidden" name="curPage" value="${sch.curPage}" />
+	</form>
 </body>
+<script type="text/javascript">
+function goPage(cnt){
+	$("[name=curPage]").val(cnt);
+	$("#reqSchFrm").submit()
+}
+if(${sch.curPage==1}){
+	$("[name=prev]").attr("disabled",true)
+}
+if(${sch.curPage==sch.endBlock}){
+	$("[name=next]").attr("disabled",true)
+}
+
+$(".pg"+${sch.curPage}).css({
+	'background' : '#a4a4a4',
+	'color' : 'white'
+})
+</script>
 </html>

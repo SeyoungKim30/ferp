@@ -51,7 +51,7 @@ public class C2_Controller {
 	// 매장 재고 입출고 조회
 	// http://localhost:6080/ferp/sInoutList.do
 	@RequestMapping("/sInoutList.do")
-	public String r8102InoutList(ProductProdOrder sch, Model d, HttpSession session){
+	public String r8102InoutList(@ModelAttribute("sch") ProductProdOrder sch, Model d, HttpSession session){
 		Store st = (Store)session.getAttribute("login");
 		sch.setFrRegiNum(st.getFrRegiNum());
 		d.addAttribute("list", service.r8204InoutList(sch));
@@ -132,7 +132,7 @@ public class C2_Controller {
 	// 본사 재고 입출고 조회
 	// http://localhost:6080/ferp/hInoutList.do
 	@RequestMapping("/hInoutList.do")
-	public String r8204InoutList(ProductProdOrder sch, Model d, HttpSession session) {
+	public String r8204InoutList(@ModelAttribute("sch") ProductProdOrder sch, Model d, HttpSession session) {
 		Emp st = (Emp)session.getAttribute("login");
 		sch.setFrRegiNum(st.getFrRegiNum());
 		d.addAttribute("list", service.r8204InoutList(sch));
