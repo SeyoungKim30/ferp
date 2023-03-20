@@ -186,6 +186,7 @@
 		WHERE m.MENUNUM = o.MENUNUM 
 		AND o.STATE = '제조 대기'
 		AND o.FRREGINUM = #{frRegiNum}
+		ORDER BY ordernum
 		</select>
 		
 		<!-- 결제 취소 -->
