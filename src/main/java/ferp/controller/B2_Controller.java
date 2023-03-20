@@ -133,7 +133,7 @@ public class B2_Controller {
 	@PostMapping("/storeUpdate.do")
 	public String storeUpdate(Store upt, RedirectAttributes redirect) {
 		if( service.updateStore(upt) != null) {
-			redirect.addFlashAttribute("updMsg", "매장 정보 수정 완료");
+			redirect.addFlashAttribute("uptMsg", "매장 정보 수정 완료");
 		}
 		
 		return "redirect:/salesInfo.do";
