@@ -203,7 +203,7 @@
 <script type="text/javascript">
 	function goPage(cnt){
 		$("[name=curPage]").val(cnt);
-		localStorage.setItem("sclistPg",cnt)
+		localStorage.setItem("sclistPg",cnt) 
 		$("#frm01").submit()
 	}
 	if(${SCsch.curPage==1}){
