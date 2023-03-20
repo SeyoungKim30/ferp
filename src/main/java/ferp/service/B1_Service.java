@@ -122,7 +122,6 @@ public class B1_Service {
 		return dao.qaDetailList(qa);
 	}
 	//이달qa 특정매장-결과점수
-	//포기
 	public QA qaDetailScore(QA qa) {
 		return dao.qaDetailScore(qa);
 	}

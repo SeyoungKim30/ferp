@@ -55,11 +55,10 @@
     			  successCallback(calendarlist)
     			  console.log(calendarlist)
     			  
-    			  //지각하면 셀 색깔 노랑으로
+    			  //지각하면 셀 색깔 다홍으로
     			  for (var idx=0;idx<calendarlist.length; idx++){
     				 var realOptime = (calendarlist[idx].start).slice(0,10)
     				 var stringOptime = (calendarlist[idx].start).slice(11,16)
-   				 
     				if(opentime<stringOptime){
        				 	var cell=$('#calendar').find('.fc-day[data-date="'+realOptime+'"]');
        				 	cell.css('background-color','#F49390');
@@ -70,62 +69,6 @@
     			  console.log(err)
     		  }
     	  })
- /*
-
-
------------
-JavaScript나 Java에서 한글로 된 요일을 날짜로 바꾸는 방법은 다음과 같습니다.
-
-JavaScript
-JavaScript에서는 Date 객체의 메서드 중 하나인 setDate() 메서드를 사용하여 날짜를 설정할 수 있습니다. 이 메서드는 1일부터 시작하는 날짜를 설정하기 때문에, 요일을 지정하려면 먼저 현재 요일을 알아내어 설정하려는 요일까지의 차이를 계산해야 합니다.
-
-javascript
-Copy code
-function getDateByKoreanDay(koreanDay) {
-  const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-  const today = new Date();
-  const todayWeekday = today.getDay();
-  const targetWeekday = weekdays.indexOf(koreanDay);
-
-  const daysUntilTarget = (targetWeekday + 7 - todayWeekday) % 7;
-  today.setDate(today.getDate() + daysUntilTarget);
-  
-  return today;
-}
-
-console.log(getDateByKoreanDay('월')); // Mon Mar 07 2023 14:29:31 GMT+0900 (Korean Standard Time)
-console.log(getDateByKoreanDay('화')); // Tue Mar 08 2023 14:29:31 GMT+0900 (Korean Standard Time)
-console.log(getDateByKoreanDay('토')); // Sat Mar 12 2023 14:29:31 GMT+0900 (Korean Standard Time)
-위 예제에서는 getDateByKoreanDay() 함수를 정의하고, 인수로 한글 요일을 받습니다. 함수 내부에서는 weekdays 배열을 사용하여 요일의 인덱스를 찾고, getDay() 메서드를 사용하여 현재 요일의 인덱스를 구합니다. 그리고 차이를 계산하여 setDate() 메서드로 해당 요일을 가진 날짜를 구한 뒤, 그 값을 반환합니다.
-
-Java
-Java에서는 java.text.SimpleDateFormat 클래스를 사용하여 한글 요일을 날짜로 바꿀 수 있습니다.
-
-java
-
-public class Main {
-    public static void main(String[] args) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd E", Locale.KOREAN);
-        Calendar cal = Calendar.getInstance();
-        String koreanDay = "월";
-        int currentWeekday = cal.get(Calendar.DAY_OF_WEEK);
-
-        int daysUntilTarget = (8 + koreanDay.charAt(0) - '월' - currentWeekday) % 7;
-        cal.add(Calendar.DATE, daysUntilTarget);
-
-        Date date = cal.getTime();
-        String formattedDate = sdf.format(date);
-        System.out.println(formattedDate); // 2023-03-07 월
-    }
-}
-위 예제에서는 SimpleDateFormat 클래스를 사용하여 한글 요일을 포함한 날짜 형식 문자열을 만들고, Calendar 클래스를 사용하여 해당 요일을 가진 날짜를 구합니다. 그리고 format() 메서드를 사용하여 Date 객체를 문자열로 변환합니다.
-
-
-
-
-
-
- */
     	  
       }
       

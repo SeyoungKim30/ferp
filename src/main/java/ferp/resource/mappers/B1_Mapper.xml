@@ -13,6 +13,15 @@
 		WHERE state='완료'
 		AND to_char(orderdate, 'YYYY/MM')=to_char(add_months(SYSDATE, -1),'YYYY/MM')
 	</select>
+	<!-- 본사:전체매장매출총액 그래프 -->
+	<select id="allSalesGraph" parameterType="orders" resultType="orders">
+		SELECT to_char(orderdate, 'YYYY-MM') orderdate, nvl(sum(payprice),0) allfrsales 
+		FROM orders
+		WHERE state='완료'
+		AND trunc(orderdate,'month') BETWEEN to_date(#{frSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') AND to_date(#{toSchOrderdt,jdbcType=VARCHAR}, 'YYYY-MM') 
+		GROUP BY to_char(orderdate, 'YYYY-MM')
+		ORDER BY orderdate
+	</select>
 	
 	<!-- 본사:매장별매출 전체조회 -->
 	<select id="salesByStoreList" parameterType="orders" resultType="orders">
