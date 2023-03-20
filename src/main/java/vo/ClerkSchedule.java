@@ -6,7 +6,16 @@ public class ClerkSchedule {
 	private String clerkNum;
 	private String onDay;
 	private String offDay;
+	private String clerkName;
 	
+	public String getClerkName() {
+		return clerkName;
+	}
+
+	public void setClerkName(String clerkName) {
+		this.clerkName = clerkName;
+	}
+
 	public ClerkSchedule() {
 		super();
 		// TODO Auto-generated constructor stub

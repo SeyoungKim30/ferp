@@ -122,7 +122,7 @@
 	<!-- 본사 재고 등록 -->
 	<insert id="r8202ProductIns" parameterType="product">
 		INSERT INTO PRODUCT
-		values('PD'||FERD.PDSEQ.NEXTVAL,#{category},
+		values('PD'||FERD.PDSEQ.CURRVAL,#{category},
 		#{productName},#{opposite},#{price},#{img},#{remark})
 	</insert>
 	<select id="getNextval" resultType="string">
@@ -173,9 +173,13 @@
 	
 	<!-- 직원스케줄 캘린더 삭제 -->
 	<delete id="sclerkschdDel" parameterType="clerkschedule">
-		DELETE FROM CLERKSCHEDULE 
-		WHERE ONDAY =#{onDay}
-		AND CLERKNUM =#{clerkNum}
+	    DELETE FROM CLERKSCHEDULE
+	    WHERE CLERKNUM IN (
+	        SELECT c.CLERKNUM
+	        FROM CLERKSCHEDULE c, STORECLERK s
+	        WHERE c.CLERKNUM = s.CLERKNUM
+	        AND c.ONDAY = #{onDay}
+	        AND s.clerkName = #{clerkName})
 	</delete>
 	
 	<!-- 본사 직원 점검일 배정 -->

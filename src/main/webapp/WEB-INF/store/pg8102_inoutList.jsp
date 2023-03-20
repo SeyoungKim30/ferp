@@ -158,19 +158,15 @@
 			$('#updateForm [name=remainAmount]').val(remainAmount);
 			
 			applyAmountInput.on('input', function() {
-				if ($(this).val().trim() !== applyAmountTd.text().trim()) {
-					span.prop('disabled', false);
-				} else {
-					span.prop('disabled', true);
-				}
-			});
-			
-			// Disable the '완료' button if the input field is empty
-			if (applyAmountInput.val().trim() === '') {
-				span.prop('disabled', true);
-			} else {
-				span.prop('disabled', false);
-			}
+				  if ($(this).val().trim() === '') {
+				    span.prop('disabled', true);
+				  } else {
+				    span.prop('disabled', false);
+				  }
+				  
+				  // Update the disabled property of the '완료' button
+				  span.prop('disabled', $(this).val().trim() === applyAmountTd.text().trim());
+				});
 			
 			span.off('click').prop('disabled', true).on('click', function() {
 				Swal.fire({
