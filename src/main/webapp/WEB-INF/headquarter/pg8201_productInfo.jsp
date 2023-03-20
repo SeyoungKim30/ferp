@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>본사 자재 정보</title>
+<title>자재 상세 정보</title>
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -42,7 +42,19 @@ label{
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#uptBtn").click(function(){
-			$("form").submit()
+			Swal.fire({
+				title: '수정하시겠습니까?',
+				icon: 'warning',
+				showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+				confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+				cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+				confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+				cancelButtonText: '취소' // cancel 버튼 텍스트 지정
+			}).then((result) => {
+				if (result.value) {
+					$("form").submit()
+				}
+			})
 		})
 		$("#returnBtn").click(function(){
 			location.href = "${path}/hproductList.do"
