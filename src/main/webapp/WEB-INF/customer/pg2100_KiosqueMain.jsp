@@ -4,13 +4,7 @@
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%    
-response.setHeader("Cache-Control","no-store");    
-response.setHeader("Pragma","no-cache");    
-response.setDateHeader("Expires",0);    
-if (request.getProtocol().equals("HTTP/1.1"))  
-        response.setHeader("Cache-Control", "no-cache");  
-%>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <fmt:requestEncoding value="UTF-8" />
 <!DOCTYPE html>
