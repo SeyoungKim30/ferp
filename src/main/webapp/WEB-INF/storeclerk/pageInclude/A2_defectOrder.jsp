@@ -83,11 +83,11 @@
 					<input type="hidden" name="orderDate" value="${param.orderDate }" required/>
 					<div class="col margin-tn w20">
 						<label>발주 번호</label> 
-						<input type="text" name="orderNum" value="${param.orderNum }" class="margin-tln regList" required />
+						<input type="text" name="orderNum" value="${param.orderNum }" style="background-color:white;border: 1px solid #a4a4a4;" class="margin-tln regList" readOnly required />
 					</div>
 					<div class="col margin-tn w20">
 						<label>자재명</label> 
-						<input type="text" class="margin-tln regList productNameFrm" required />
+						<input type="text" class="margin-tln regList productNameFrm" style="background-color:white;border: 1px solid #a4a4a4;" readOnly required />
 						<input type="hidden" name="productNum" value="${param.productNum }" class="margin-tln regList" placeholder="" required />
 					</div>
 					<div class="col margin-tn w20">
