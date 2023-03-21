@@ -14,6 +14,7 @@ import ferp.dao.C2_Dao;
 import vo.ClerkSchedule;
 import vo.Product;
 import vo.ProductProdOrder;
+import vo.ProductStock;
 import vo.Stock;
 import vo.StoreClerk;
 
@@ -136,7 +137,7 @@ public class C2_Service {
 	}
 	
 	// 본사 재고 등록
-	public String r8202ProductIns(Product ins) {
+	public String r8202ProductIns(ProductStock ins) {
 		if( ins.getMultipartfile() != null) {
 			String img = upload(ins.getMultipartfile());
 			ins.setImg(img);

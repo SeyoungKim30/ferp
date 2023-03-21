@@ -132,10 +132,13 @@
 	</update>
 	
 	<!-- 본사 재고 등록 -->
-	<insert id="r8202ProductIns" parameterType="product">
-		INSERT INTO PRODUCT
-		values('PD'||FERD.PDSEQ.CURRVAL,#{category},
-		#{productName},#{opposite},#{price},#{img},#{remark})
+	<insert id="r8202ProductIns" parameterType="productStock">
+		INSERT ALL
+			INTO PRODUCT (PRODUCTNUM, CATEGORY, PRODUCTNAME, OPPOSITE, PRICE, IMG, REMARK)
+				VALUES ('PD'||FERD.PDSEQ.CURRVAL, #{category}, #{productName}, #{opposite}, #{price}, #{img}, #{remark})
+			INTO STOCK (PRODUCTNUM, FRREGINUM, STOCKDATE, APPLYAMOUNT, REMAINAMOUNT, REMARK)
+				VALUES ('PD'||FERD.PDSEQ.CURRVAL, '9999999999', SYSDATE, 0, 0, NULL)
+		SELECT * FROM DUAL
 	</insert>
 	<select id="getNextval" resultType="string">
 		SELECT 'PD' || PDSEQ.NEXTVAL AS SEQ FROM DUAL
