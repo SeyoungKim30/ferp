@@ -204,7 +204,12 @@ $(document).ready(function() {
 						  }
 					  })
 				}else{
-					alert("퇴근 등록이 완료되었습니다.");
+					if(url == "/addOffTime.do"){
+						alert("퇴근 등록이 완료되었습니다.");
+					}
+					if(url == "/addOnDay.do"){
+						alert("출근 등록이 완료되었습니다.");
+					}
 					location.href="/ferp/storeMainMenu.do";					
 				}
 			},

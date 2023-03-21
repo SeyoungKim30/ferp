@@ -25,20 +25,26 @@
 			if($("#regForm [name=clerkName]").val() == ""){
 				alert("직원명을 입력해주세요")
 				$("#regForm [name=clerkName]").css('borderColor','red')
+				$("[name=hourlyPay], [name=residentNum], [name=phoneNum], [name=address]").css('borderColor','#a4a4a4')
 			}else if($("[name=hourlyPay]").val() == ""){
 				alert("시급을 입력해주세요")
 				$("[name=hourlyPay]").css('borderColor','red')
+				$("#regForm [name=clerkName], [name=residentNum], [name=phoneNum], [name=address]").css('borderColor','#a4a4a4')
 			}else if($("[name=residentNum]").val() == ""){
 				alert("주민번호를 입력해주세요")
 				$("[name=residentNum]").css('borderColor','red')
+				$("#regForm [name=clerkName], [name=hourlyPay], [name=phoneNum], [name=address]").css('borderColor','#a4a4a4')
 			}else if($("[name=phoneNum]").val() == ""){
 				alert("전화번호를 입력해주세요")
 				$("[name=phoneNum]").css('borderColor','red')
+				$("#regForm [name=clerkName], [name=hourlyPay], [name=residentNum], [name=address]").css('borderColor','#a4a4a4')
 			}else if($("[name=address]").val() == ""){
 				alert("주소를 입력해주세요")
 				$("[name=address]").css('borderColor','red')
+				$("#regForm [name=clerkName], [name=hourlyPay], [name=residentNum], [name=phoneNum]").css('borderColor','#a4a4a4')
 			}else{
 				if(confirm("등록하시겠습니까?")){
+				$("#regForm [name=clerkName], [name=hourlyPay], [name=residentNum], [name=phoneNum], [name=address]").css('borderColor','#a4a4a4')
 					regAjax("insStoreclerk.do")	
 				}
 			}
@@ -78,7 +84,7 @@
 					</div>
 					<div class="col margin-tn w25">
 						<label>시급</label>
-						<input type="text" name="hourlyPay" class="margin-tln regList" placeholder="시급" required />					 
+						<input type="text" name="hourlyPay" class="margin-tln regList" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="시급" required />					 
 					</div>
 				</div>
 				<div class="row">
@@ -150,16 +156,16 @@
 							<input type="text" class="listInput i${sc.clerkNum } center" name="gender" style="width: 100%;" value="${sc.gender }" disabled />
 						</div>
 						<div class="tdDiv" style="width: 15%;">
-							<input type="text" class="listInput i${sc.clerkNum } center" name="phoneNum" style="width: 100%;" value="${sc.phoneNum }" disabled />
+							<input type="text" class="listInput i${sc.clerkNum } center" name="phoneNum" style="width: 100%;" oninput="tel(this)" value="${sc.phoneNum }" disabled />
 						</div>
 						<div class="tdDiv" style="width: 15%;">
-							<input type="text" class="listInput i${sc.clerkNum } center" name="residentNum" style="width: 100%;" value="${sc.residentNum }" disabled />
+							<input type="text" class="listInput i${sc.clerkNum } center" name="residentNum" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6" value="${sc.residentNum }" disabled />
 						</div>
 						<div class="tdDiv left" style="width: 26%;">
 							<input type="text" class="listInput i${sc.clerkNum } left" name="address" style="width: 100%;" value="${sc.address }" disabled />
 						</div>
 						<div class="tdDiv right" style="width: 9%;">
-							<input type="text" class="listInput i${sc.clerkNum } right" name="hourlyPay" style="width: 100%;" value="<fmt:formatNumber value='${sc.hourlyPay }' pattern='#,##0.##'/>" disabled />
+							<input type="text" class="listInput i${sc.clerkNum } right" name="hourlyPay" style="width: 100%;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value="<fmt:formatNumber value='${sc.hourlyPay }' pattern='#,##0.##'/>" disabled />
 						</div>
 						<div class="tdDiv" style="width: 7%;">
 							<button type="button" class="fileBtn" onclick="cFile('${sc.clerkName }','${sc.clerkNum }')">파일</button>

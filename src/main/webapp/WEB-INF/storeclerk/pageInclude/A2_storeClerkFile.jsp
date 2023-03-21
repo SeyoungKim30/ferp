@@ -36,7 +36,7 @@
 				<div class="toolbox">
 					<div class="filebox">
 						<div class="margin-sm fileInput">
-						    <input class="upload-name" value="첨부파일" placeholder="첨부파일"><label for="file">파일찾기</label> 
+						    <input class="upload-name" value="첨부파일" placeholder="첨부파일" readOnly><label for="file">파일찾기</label> 
 						    <input type="file" id="file" name="multiFileList" onchange="filename()" multiple>
 						    <button type="button" class="addFile">등록</button>
 						</div>

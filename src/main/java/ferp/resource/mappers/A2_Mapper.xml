@@ -203,7 +203,8 @@
 				AND p2.PRODUCTNAME  LIKE '%'||#{productName}||'%'
 				AND p2.CATEGORY  LIKE '%'||#{category}||'%'
 				AND to_char(to_date(d.APPLYDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
-				AND EXTRACT(YEAR FROM d.APPLYDATE) LIKE '%'||#{orderDateYear}||'%') a
+				AND EXTRACT(YEAR FROM d.APPLYDATE) LIKE '%'||#{orderDateYear}||'%'
+				ORDER BY d.APPLYDATE DESC) a
 			)
 		where cnt between #{start} and #{end}
 	</select>

@@ -152,8 +152,18 @@ input[type="text"].listInput:focus {
 	border-radius: 5px;
 }
 
-.uptBtn, .uptCfm {
+.uptBtn{
 	background-color: #6c757d;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	width: 40%;
+	padding: 3px;
+	margin-top: 7px;
+}
+
+.uptCfm {
+	background-color: #007bff;
 	color: white;
 	border: none;
 	border-radius: 3px;
