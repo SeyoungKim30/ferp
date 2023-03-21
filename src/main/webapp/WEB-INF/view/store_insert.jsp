@@ -190,7 +190,7 @@ $(document).ready(function(){
 		
 	  if (frClosedDte.match(regfrClosedDte) != null) {
 	      $(this).removeClass("isNotPass")
-	      $(".frTelComment").text("");
+	      $(".frClosedDteComment").text("");
 	      isPass4 = true;
 	  }else{
       	$(this).addClass("isNotPass")

@@ -95,7 +95,7 @@
 				<div class="submit_line">
 					<button type="button" class="uptBtn">수 정</button>
 				</div>	
-			</form>		
+			</form>
 			</div>
 		</div>
 	</div>
