@@ -25,7 +25,7 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		
+		$("[name=productNum]").val("${sch.productNum}");
 	});
 	
 </script>
@@ -36,6 +36,21 @@
 		<%@ include file="/resource/templates/sidebar.jsp"%>
 		<div class="contents">
 		<h2>재고 입출고 내역</h2><br><hr><br>
+		<div class="toolbox">
+		<h3>재고 입출고 검색</h3><br>
+			<form class="toolbar" method="post" id="reqSchFrm">
+				<select name="productNum" required>
+					<option value="">자재코드선택</option>
+			        <c:forEach var="pn" items="${productNumCom}">
+				        <c:if test="${pn.frRegiNum == login.frRegiNum}">
+							<option>${pn.productNum}</option>
+						</c:if>
+					</c:forEach>
+				</select>
+				<button class="btn-secondary" type="submit">검색</button>
+				<input type="hidden" name="curPage" value="${sch.curPage}" />
+			</form>
+		</div>
 			<div class="searchtab">
 				<table>
 				<thead>
@@ -72,9 +87,10 @@
 			</div>
 		</div>
 	</div>
+	<!-- 
 	<form id="reqSchFrm">
 	<input type="hidden" name="curPage" value="${sch.curPage}" />
-	</form>
+	</form> -->
 </body>
 <script type="text/javascript">
 function goPage(cnt){
