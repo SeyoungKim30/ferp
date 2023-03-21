@@ -117,6 +117,20 @@ SELECT po.ORDERNUM,po.PRODUCTNUM FROM PRODORDER po, product pd,
 )
 </update>
 
+<select id='r9203forTotalStock' parameterType="prodOrder" resultType="prodOrder">
+SELECT po.PRODUCTNUM , sum(po.AMOUNT) AS AMOUNT
+FROM PRODORDER po, product pd, 
+		(SELECT FRREGINUM ,FRNAME,e.empnum,ename FROM store s, emp e WHERE s.EMPNUM =e.EMPNUM) se
+WHERE po.DEMANDER = se.FRREGINUM AND pd.PRODUCTNUM =po.PRODUCTNUM
+	AND TRUNC(orderdate) = to_date('2023-03-21','YYYY-MM-DD') --일별일때만 일괄 가능
+	AND (po.DEMANDER LIKE '%'||#{demander,jdbcType=VARCHAR}||'%' OR se.frname LIKE '%'||#{demander,jdbcType=VARCHAR}||'%')	-- 주문지점
+	AND (se.ename LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%' OR se.empNum LIKE '%'||#{supplier,jdbcType=VARCHAR}||'%')	-- 담당자
+	AND (pd.PRODUCTNUM LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%' OR pd.PRODUCTNAME LIKE '%'||#{productNum,jdbcType=VARCHAR}||'%') --상품번호 또는 이름
+	AND po.PAYMENTSTATE LIKE '%'||#{paymentState,jdbcType=VARCHAR}||'%' AND po.ORDERSTATE LIKE '%'||#{orderState,jdbcType=VARCHAR}||'%'
+	AND po.DEMANDER !='9999999999'
+GROUP BY  po.PRODUCTNUM
+</select>
+
 <select id="r9310selectProdOrderPayState" resultMap="posesRS" parameterType="prodOrder">
 SELECT to_char(TRUNC(ORDERDATE,'month'),'YYYY-MM') AS orderDateMonth,FRREGINUM,FRNAME, 
 	sum(AMOUNT*price) AS price,sum(CASE WHEN CATEGORY LIKE '면세'||'%' THEN 0 ELSE AMOUNT * price * 0.1 END ) AS remark,
@@ -190,8 +204,10 @@ ORDER BY CATEGORY
 	<select id="r7211selectACStatement" parameterType="acstmt" resultType="acstmt">
 	SELECT a.* ,CASE WHEN ii2.maxrn=ii.rronum THEN (ii.rronum*-1) ELSE ii.rronum END as rronum
 	FROM ACSTATEMENT a ,
-		(SELECT rownum AS rronum, a.statementNum FROM ACSTATEMENT a WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate} AND FRREGINUM =#{frRegiNum} AND LINENUM =1 ORDER BY STATEMENTNUM	) ii,
-		(SELECT max(rn) AS maxrn from(SELECT rownum AS rn, STATEMENTNUM FROM ACSTATEMENT WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate} AND FRREGINUM =#{frRegiNum} AND LINENUM =1 ORDER BY STATEMENTNUM) )ii2
+		(SELECT rownum AS rronum, a.statementNum FROM ACSTATEMENT a 
+			WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate} AND FRREGINUM =#{frRegiNum} AND LINENUM =1 ORDER BY STATEMENTNUM	) ii,
+		(SELECT max(rn) AS maxrn from(SELECT rownum AS rn, STATEMENTNUM FROM ACSTATEMENT 
+			WHERE TO_CHAR(stmtdate,'YYYY-MM-DD') =#{stmtDate} AND FRREGINUM =#{frRegiNum} AND LINENUM =1 ORDER BY STATEMENTNUM) )ii2
 		WHERE ii.statementNum=a.STATEMENTNUM 
 		AND TO_CHAR(a.stmtdate,'YYYY-MM-DD') =#{stmtDate}
 		AND a.FRREGINUM =#{frRegiNum}

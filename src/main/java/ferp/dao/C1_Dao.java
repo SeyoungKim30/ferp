@@ -30,6 +30,7 @@ public interface C1_Dao {
 	public List<ACStatement> r7204selectStatementList(ACStatement stmt);
 	public List<ACStatement> r7204selectStatementListByDate(ACStatement stmt);
 	
+	public List<ProdOrder>r9203forTotalStock(ProdOrder prodOrder);
 	public List<Prod_order_stock_emp_store>r9201select(ProdOrder prodOrder);
 	public List<Prod_order_stock_emp_store>r9201select999(ProdOrder prodOrder);
 	public int r9203updateOrderState(ProdOrder prodOrder);

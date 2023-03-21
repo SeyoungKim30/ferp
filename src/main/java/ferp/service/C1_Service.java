@@ -126,15 +126,16 @@ public class C1_Service {
 				}
 			}
 		}else{
+			//본사에서 시킨거 아님
 				Stock stock = new Stock();
 				if(prodOrder.getOrderStateUpdate().equals("배송중")) {
 					prodOrder.setOrderState("요청");
-					for(Prod_order_stock_emp_store poses : dao.r9201select(prodOrder)) {
+					for(ProdOrder poses : dao.r9203forTotalStock(prodOrder)) {
 						//재고stock에 insert 본사에서 빠진거 (본사주문일때 빼고)
-						stock.setApplyAmount(poses.getProdOrder().getAmount()*(-1));
-						stock.setFrRegiNum(poses.getProdOrder().getSupplier()); //가맹점이 시키면 공급자는 항상 본사니까 본사재고에서 조정하는거
-						stock.setProductNum(poses.getProdOrder().getProductNum());
-						stock.setRemark(poses.getProdOrder().getOrderNum());
+						stock.setApplyAmount(poses.getAmount()*(-1));
+						stock.setFrRegiNum("9999999999"); //가맹점이 시키면 공급자는 항상 본사니까 본사재고에서 조정하는거
+						stock.setProductNum(poses.getProductNum());
+						stock.setRemark(poses.getOrderNum());
 						daoC2.r8103InoutIns(stock);
 						}
 				}else if(prodOrder.getOrderStateUpdate().equals("완료")){
