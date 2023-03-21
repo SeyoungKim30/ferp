@@ -38,14 +38,15 @@
 		padding: 20px 0 30px;
 	    text-align: right;
 	}
+	
+	.pBtn_center{
+		text-align: center;
+	}
 </style>
 <script type="text/javascript">
 	localStorage.setItem("pageIdx","2001")
 	localStorage.setItem("eqIdx","2000")
 
-	$(document).ready(function(){
-
-	});
 
 </script>
 </head>

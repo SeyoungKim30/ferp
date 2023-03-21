@@ -204,7 +204,8 @@ $(document).ready(function() {
 						  }
 					  })
 				}else{
-				location.href="/ferp/storeMainMenu.do";					
+					alert("퇴근 등록이 완료되었습니다.");
+					location.href="/ferp/storeMainMenu.do";					
 				}
 			},
 			error : function(err) {
