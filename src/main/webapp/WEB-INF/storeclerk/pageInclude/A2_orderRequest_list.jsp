@@ -65,7 +65,7 @@
 						<button type="button" class="regB${p.productNum } rB">신청</button>
 					</div>
 				</div>
-				<img src="${path }/resource/img/${p.img}" width="200px" height="200px" class="p preview${p.productNum }" />
+				<img src="${path }/resource/img/${p.img}" width="200px" height="200px" onerror="this.onerror=null;this.src='${path }/resource/img/preparingImg.png'"class="p preview${p.productNum }" />
 <style>
 .p${p .productNum}:hover ~ .preview${p .productNum}{
 	position:absolute;
