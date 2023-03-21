@@ -72,7 +72,7 @@
 		    }
 		});
 		--%>
-		
+		<%--
 		// 자재코드별로 최근일자의 데이터에만 버튼 보이게
 		$("tbody tr").each(function() {
 			// 현재 제품의 자재코드를 가져옴
@@ -87,7 +87,30 @@
 				$(this).find(".uptbtn").hide();
 				$(this).find(".delBtn").hide();
 			}
-		});
+		});--%>
+		
+		if (${sch.curPage} == 1) {
+			// 각 자재코드별로 최근일자 데이터를 찾아서 uptbtn, delBtn 버튼을 보이게 함
+			$("tbody tr").each(function() {
+				// 현재 제품의 자재코드를 가져옴
+				var productNum = $(this).find("td:first-child").text();
+				// 현재 제품이 가장 위에 있는 데이터인지 확인
+				var isFirst = $(this).prevAll().filter(":has(td:first-child:contains('" + productNum + "'))").length === 0;
+				// 가장 위에 있는 데이터라면 버튼을 보이게 함
+				if (isFirst) {
+					$(this).find(".uptbtn").show();
+					$(this).find(".delBtn").show();
+				} else {
+					$(this).find(".uptbtn").hide();
+					$(this).find(".delBtn").hide();
+				}
+			});
+		} else {
+			$("tbody tr").each(function() {
+				$(this).find(".uptbtn").hide();
+				$(this).find(".delBtn").hide();
+			});
+		}
 		
 		$("#insBtn").click(function(){
 			var isInValid = false

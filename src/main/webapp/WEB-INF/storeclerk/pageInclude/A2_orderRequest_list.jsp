@@ -31,18 +31,18 @@
 	<div>
 		<div class="row">
 			<div class="thDiv" style="width: 14%;">카테고리</div>
-			<div class="thDiv" style="width: 19%;">자재명</div>
+			<div class="thDiv" style="width: 21%;">자재명</div>
 			<div class="thDiv" style="width: 19%;">거래처</div>
 			<div class="thDiv" style="width: 14%;">가격</div>
-			<div class="thDiv" style="width: 14%;">재고 수량</div>
-			<div class="thDiv" style="width: 9%;">요청 수량</div>
+			<div class="thDiv" style="width: 13%;">재고 수량</div>
+			<div class="thDiv" style="width: 11%;">요청 수량</div>
 			<div class="thDiv" style="width: 9%;">신청</div>
 		</div>
 		<div>
 			<c:forEach var="p" items="${plist }">
 				<div class="row p${p.productNum }">
 					<div class="tdDiv" style="width: 14%;">${p.category }</div>
-					<div class="tdDiv" style="width: 19%;">
+					<div class="tdDiv" style="width: 21%;">
 						<input type="hidden" class="productName${p.productNum }" value="${p.productName }"> ${p.productName }
 					</div>
 					<div class="tdDiv" style="width: 19%;">
@@ -53,11 +53,11 @@
 					<div class="tdDiv" style="width: 12%;"><div class="right"><fmt:formatNumber value='${p.price }' type='currency'/></div></div>
 					<div class="tdDiv" style="width: 2%;"></div>
 					<div class="tdDiv" class="remainAmount${p.productNum }" style="width: 10%;"><div class="right">${p.remainAmount }</div></div>
-					<div class="tdDiv" style="width: 4%;"></div>
-					<div class="tdDiv" style="width: 9%;">
+					<div class="tdDiv" style="width: 3%;"></div>
+					<div class="tdDiv" style="width: 11%;">
 						<div class="row center">
 							<button type="button" class="adjustAmountBtn minus${p.productNum }">-</button>
-							<input class="adjustAmountText a${p.productNum }" type="text" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<input class="adjustAmountText a${p.productNum } right" type="text" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<button type="button" class="adjustAmountBtn plus${p.productNum }">+</button>
 						</div>
 					</div>

@@ -68,7 +68,7 @@
 	<!-- 자재 리스트 조회 -->
 	<select id="availProd" parameterType="rqproduct" resultType="rqproduct">
 		SELECT * FROM PRODUCT p , (SELECT PRODUCTNUM, REMAINAMOUNT, frreginum, stockdate, applyamount  FROM STOCK WHERE STOCKDATE IN 
-					(SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)) h
+					(SELECT max(STOCKDATE) FROM stock WHERE frreginum = '9999999999' GROUP BY PRODUCTNUM)) h
 		WHERE p.PRODUCTNUM = h.PRODUCTNUM(+)
 		AND PRODUCTNAME LIKE '%'||#{productName}||'%'
 	</select>
