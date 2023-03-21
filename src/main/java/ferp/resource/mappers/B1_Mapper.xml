@@ -64,7 +64,7 @@
 	
 	<!-- 본사:매장정보상세조회-매매액 -->
 	<select id="detailSalesList" parameterType="orders" resultType="orders">		
-		SELECT o.orderdate, nvl(frsales,0) frsales, nvl(frpurchase,0) frpurchase,  nvl(frsales-frpurchase,0) profit
+		SELECT o.orderdate, nvl(frsales,0) frsales, nvl(frpurchase,0) frpurchase,  ( nvl(frsales,0)-nvl(frpurchase,0) ) profit
 		FROM (  SELECT orderdate, nvl(sum(mcnt*price),0) frpurchase
 				FROM PRODUCT p ,(SELECT to_char(orderdate, 'YYYY.MM') orderdate, PRODUCTNUM, nvl(sum(amount),0) mcnt
 								FROM PRODORDER
