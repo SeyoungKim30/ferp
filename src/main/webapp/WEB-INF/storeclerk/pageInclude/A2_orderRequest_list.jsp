@@ -73,6 +73,7 @@
 }
 </style>
 <script type="text/javascript">
+	var headQ = '${login.frRegiNum}'
 	$(".p${p.productNum }").mouseover(function(e){
 		$(".preview${p.productNum }").css({
 			left: e.pageX-200,
@@ -92,26 +93,33 @@
 		}
 	})
 	$(".plus${p.productNum }").click(function(){
-		console.log(parseInt($(".a${p.productNum }").val())+1)
-		console.log('${p.remainAmount }')
-		if((parseInt($(".a${p.productNum }").val())+1)<='${p.remainAmount }'){
+		if(headQ != '9999999999'){
+			if((parseInt($(".a${p.productNum }").val())+1)<='${p.remainAmount }'){
+				i${p.productNum }++
+				$(".minus${p.productNum }").attr("disabled",false)
+				$(".a${p.productNum }").val(i${p.productNum })
+			}else{
+				alert("요청수량 초과")
+			}
+		}else{
 			i${p.productNum }++
 			$(".minus${p.productNum }").attr("disabled",false)
 			$(".a${p.productNum }").val(i${p.productNum })
-		}else{
-			alert("요청수량 초과")
 		}
 	})
 	
 	$(".a${p.productNum }").change(function(){
-		if(parseInt($(".a${p.productNum }").val())>'${p.remainAmount }'){
-			console.log((parseInt($(".a${p.productNum }").val())+1))
-			alert("요청수량 초과")
-			$(".a${p.productNum }").val('${p.remainAmount }')
-			i${p.productNum } = $(".a${p.productNum }").val()
-			$(".minus${p.productNum }").attr("disabled",false)
+		if(headQ != '9999999999'){
+			if(parseInt($(".a${p.productNum }").val())>'${p.remainAmount }'){
+				alert("요청수량 초과")
+				$(".a${p.productNum }").val('${p.remainAmount }')
+				i${p.productNum } = $(".a${p.productNum }").val()
+				$(".minus${p.productNum }").attr("disabled",false)
+			}else{
+				i${p.productNum } = $(".a${p.productNum }").val()
+			}
 		}else{
-			i${p.productNum } = $(".a${p.productNum }").val()
+			$(".minus${p.productNum }").attr("disabled",false)
 		}
 	})
 	
