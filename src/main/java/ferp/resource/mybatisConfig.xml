@@ -35,6 +35,7 @@
 		<typeAlias alias="defectorder" type="vo.DefectOrder"/>
 		<typeAlias alias="sales" type="vo.Sales"/>
 		<typeAlias alias="ontime" type="vo.OnTime"/>
+		<typeAlias alias="productStock" type="vo.ProductStock"/>
 	</typeAliases>
 			
 <mappers>

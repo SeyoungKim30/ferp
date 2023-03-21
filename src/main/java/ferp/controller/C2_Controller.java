@@ -19,6 +19,7 @@ import vo.ClerkSchedule;
 import vo.Emp;
 import vo.Product;
 import vo.ProductProdOrder;
+import vo.ProductStock;
 import vo.Stock;
 import vo.Store;
 import vo.StoreClerk;
@@ -113,7 +114,7 @@ public class C2_Controller {
 		return "WEB-INF\\headquarter\\pg8202_productIns.jsp";
 	}
 	@PostMapping("/hproductIns.do")
-	public String r8202ProductIns(Product ins, RedirectAttributes redirect){
+	public String r8202ProductIns(ProductStock ins, RedirectAttributes redirect){
 		if( service.r8202ProductIns(ins) != null ) {
 			redirect.addFlashAttribute("msg", "등록 성공");
 		}
