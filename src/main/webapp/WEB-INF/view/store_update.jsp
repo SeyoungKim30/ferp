@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="${path}/resource/css/store_main_index.css"/>
 </head>
 <script type="text/javascript">
-	localStorage.setItem("pageIdx","4101")
+	localStorage.setItem("pageIdx","4201")
 	localStorage.setItem("eqIdx","4000")
 </script>
 <body class="container">
