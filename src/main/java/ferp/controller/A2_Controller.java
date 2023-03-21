@@ -145,7 +145,7 @@ public class A2_Controller {
 	@PostMapping("/delReqList.do")
 	public String pg9102(Prod_ProdOrder del, Model d) {
 		service.delReqList(del);
-		d.addAttribute("msg", "삭제완료");
+		d.addAttribute("msg", "취소완료");
 		return "pageJsonReport";
 	}
 //	카테고리 콤보박스
@@ -214,6 +214,7 @@ public class A2_Controller {
 	@PostMapping("/insDefectProd.do")
 	public String pg9401(DefectOrder ins, Model d) {
 		service.insertDefectOrder(ins);
+		service.prodOrderToDefected(ins);
 		d.addAttribute("msg", "신청완료");
 		return "redirect:viewDefectProd.do";
 	}
@@ -222,7 +223,6 @@ public class A2_Controller {
 	public String pg9402(@ModelAttribute("dSch") DefectOrder sch, HttpSession session, Model d) {
 		Store s = (Store)session.getAttribute("login");
 		sch.setFrRegiNum(s.getFrRegiNum());
-		service.prodOrderToDefected(sch);
 		d.addAttribute("defectlist", service.viewDefectorder(sch));
 		return "/WEB-INF/storeclerk/A2_defectOrderCon.jsp";
 	}

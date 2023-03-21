@@ -125,7 +125,7 @@ public class A2_Service {
 		}
 		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
 		sch.setEnd(sch.getCurPage()*sch.getPageSize());
-		sch.setBlockSize(5);
+		sch.setBlockSize(10);
 		int blocknum = (int)Math.ceil(sch.getCurPage()/
 					(double)sch.getBlockSize());
 		int endBlock = blocknum*sch.getBlockSize();
