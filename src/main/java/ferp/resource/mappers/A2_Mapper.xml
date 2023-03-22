@@ -86,7 +86,7 @@
 				FROM PRODUCT p, PRODORDER po, STOCK s 
 				WHERE p.PRODUCTNUM = po.PRODUCTNUM
 				AND s.PRODUCTNUM = p.PRODUCTNUM
-				AND STOCKDATE IN (SELECT max(STOCKDATE) FROM stock GROUP BY PRODUCTNUM)
+				AND STOCKDATE IN (SELECT max(STOCKDATE) FROM stock where frreginum = '9999999999' GROUP BY PRODUCTNUM)
 				AND p.PRODUCTNAME LIKE '%'||#{productName}||'%' 
 				AND p.CATEGORY LIKE '%'||#{category}||'%'
 				AND to_char(to_date(ORDERDATE,'YYYY-MM-DD HH24:MI:SS'),'MONTH') LIKE '%'||#{orderDateMonth}||'%' 
