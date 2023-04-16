@@ -23,16 +23,15 @@
 
 ## FERP 설명
 
-![Untitled](FERP%20ERP%20For%20Franchase%209653790bad9d4cf5bc9cff2f7c90de5d/Untitled.png)
-
+![Untitled](https://user-images.githubusercontent.com/112458754/232328673-902d1980-beab-42d7-9f02-767387700ede.png)
 《FERP》는 기업에서 필요한 여러가지 정보처리 기능들을 공통 데이터베이스로 관리하는 ERP를 외식산업계에 빠르게 확산되고 있는 ‘키오스크’에 접목시키기 위한 프로젝트입니다.
 
-![Untitled](FERP%20ERP%20For%20Franchase%209653790bad9d4cf5bc9cff2f7c90de5d/Untitled%201.png)
 
+![Untitled 1](https://user-images.githubusercontent.com/112458754/232328603-46f9e991-0aef-487a-9f21-f85f3915771b.png)
 《FERP》는 ERP의 구성 중에서도 인사, 물류, 분석, 재무에 집중합니다. 고객이 키오스크를 통해 주문하는 순간부터 매장의 운영, 본사에서의 관리까지 하나의 통합된 시스템 안에서 이루어지는 서비스를 제공합니다. 
 
-![Untitled](FERP%20ERP%20For%20Franchase%209653790bad9d4cf5bc9cff2f7c90de5d/Untitled%202.png)
 
+![Untitled 2](https://user-images.githubusercontent.com/112458754/232328690-87039330-ce1f-4d3c-b2e2-cc5386e0b14d.png)
 고객은 손쉬운 키오스크 사용을 경험하고 본사에선 실시간으로 매장에 대한 정보 확인 및 체계화된 매장 관리가 가능해집니다. 매장에선 프랜차이즈 환경에 최적화된 재고관리 및 발주 서비스를 이용할 수 있고 매장 관리에 필요한 매출분석, 인사, 회계 등의 기능을 제공받습니다.
 
 ## 🔧SKILLS & TOOLS
@@ -66,7 +65,7 @@
 - Chart.js
 
 ## 🎛️ERD
-![Untitled](FERP%20ERP%20For%20Franchase%209653790bad9d4cf5bc9cff2f7c90de5d/Untitled%203.png)
+![Untitled 3](https://user-images.githubusercontent.com/112458754/232328712-dcbd35e2-0924-4a1a-bf70-c4a284b1eca7.png)
 
 
 
@@ -82,7 +81,7 @@
 - 고객이 키오스크로 메뉴 선택 및 결제
 - 주문서 화면과 호출화면
 
-## 🪙재무관리
+## 💰재무관리
 - 회계 계정 추가 및 사용상태 변경
 - 전표 수동입력·수정·삭제
 - 매출발생, 발주 정산 등의 거래 발생시 자동으로 전표 입력
