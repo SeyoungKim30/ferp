@@ -1,19 +1,6 @@
 # FERP : ERP For Franchase
 
-# 목차
-[프로젝트 소개](#프로젝트-소개)
-
-&nbsp;&nbsp;&nbsp;[진행개요](#진행개요)
-  
-&nbsp;&nbsp;&nbsp;[FERP 설명](#FERP-설명)
-  
-&nbsp;&nbsp;&nbsp;[SKILLS & TOOLS](#SKILLS-&-TOOLS)
-  
-&nbsp;&nbsp;&nbsp;[ERD](#ERD)
-  
-[주요기능](#주요기능)
-
-# 프로젝트 소개 ([Notion에서 전체 보기](https://cerulean-plastic-e02.notion.site/FERP-ERP-For-Franchase-9653790bad9d4cf5bc9cff2f7c90de5d))
+[Notion에서 전체 보기](https://cerulean-plastic-e02.notion.site/FERP-ERP-For-Franchase-9653790bad9d4cf5bc9cff2f7c90de5d)
 
 ## 📢진행개요
 
@@ -21,13 +8,10 @@
 - **진행기간** : 2023.02.10 ~ 2023.03.18
 - **인원** : 6명
 
-## FERP 설명
+## 📠FERP 설명
 
-![Untitled](https://user-images.githubusercontent.com/112458754/232328673-902d1980-beab-42d7-9f02-767387700ede.png)
-
-![Untitled 1](https://user-images.githubusercontent.com/112458754/232328603-46f9e991-0aef-487a-9f21-f85f3915771b.png)
-
-![Untitled 2](https://user-images.githubusercontent.com/112458754/232328690-87039330-ce1f-4d3c-b2e2-cc5386e0b14d.png)
+|![Untitled](https://user-images.githubusercontent.com/112458754/232328673-902d1980-beab-42d7-9f02-767387700ede.png)|![Untitled 1](https://user-images.githubusercontent.com/112458754/232328603-46f9e991-0aef-487a-9f21-f85f3915771b.png)|
+|---|---|
 
 
 - 《FERP》는 기업에서 필요한 여러가지 정보처리 기능들을 공통 데이터베이스로 관리하는 ERP를 외식산업계에 빠르게 확산되고 있는 ‘키오스크’에 접목시키기 위한 프로젝트입니다.
@@ -37,46 +21,48 @@
 ## 🔧SKILLS & TOOLS
 
 ### Language
-- JAVA 15.0
-- JSP 2.3
-- HTML 5
-- CSS 3
-- JavaScript 1.7
 
-### DB & Server
-- ORACLE 11g
-- APACHETOMCAT 9.0
+<img src="https://img.shields.io/badge/java 15.0-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/JSP 2.3-000000?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/HTML 5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript 1.7-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
 
-### Tools
-- Eclipse 2022-12
-- DBEAVER 23.0.0
-- Git
-- ERD Cloud
-- Notion
+### DB & Server 
+<img src="https://img.shields.io/badge/oracle 11g-F80000?style=for-the-badge&logo=Oracle&logoColor=white"> <img src="https://img.shields.io/badge/-   APACHETOMCAT 9.0-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
+
+### Tools 
+
+<img  src="https://img.shields.io/badge/eclipse ide-2C2255?style=for-the-badge&logo=eclipseide&logoColor=white"> <img  src="https://img.shields.io/badge/DBEAVER 23.0.0-97816F?style=for-the-badge&logo=&logoColor=white"> <img  src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img  src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img  src="https://img.shields.io/badge/ERD Cloud-3D3F77?style=for-the-badge&logo=&logoColor=white"> <img  src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 
 ### Framework
-- SPRING
-- myBatis
 
-### API
-- AJAX & Fetch
-- Full Calendar    
-- J-query 3.6.0
-- Chart.js
+<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/myBatis-4D3E3F?style=for-the-badge&logo=&logoColor=white">
+
+### API & Library 
+
+<img  src="https://img.shields.io/badge/AJAX-518ABC?style=for-the-badge&logo=&logoColor=white"> <img  src="https://img.shields.io/badge/Fetch-F5C342?style=for-the-badge&logo=&logoColor=white"> <img  src="https://img.shields.io/badge/Full Calendar-212329?style=for-the-badge&logo=&logoColor=white"> <img  src="https://img.shields.io/badge/jquery 3.6.0-0769AD?style=for-the-badge&logo=jquery&logoColor=white"> <img  src="https://img.shields.io/badge/chart.js-FF6384?style=for-the-badge&logo=chart.js&logoColor=white"> 
 
 ## 🎛️ERD
-![Untitled 3](https://user-images.githubusercontent.com/112458754/232328712-dcbd35e2-0924-4a1a-bf70-c4a284b1eca7.png)
+<img src="https://user-images.githubusercontent.com/112458754/232328712-dcbd35e2-0924-4a1a-bf70-c4a284b1eca7.png" width="80%">
 
 
 
 # 주요기능
 
 ## 🏡DASHBOARD
+<table>
+<tr><td width="50%">
+<img src="https://cerulean-plastic-e02.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb2656737-8670-479d-bc5b-e840b445ee73%2FUntitled.png?id=5b921025-fb73-4348-8c28-db23a272b215&table=block&spaceId=5f95482e-bab9-40f2-9c09-3914e2c1cca0&width=1420&userId=&cache=v2"></td><td>
+<img src="https://cerulean-plastic-e02.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd2e67389-7e6d-4974-84ed-4c53919c4cb0%2FUntitled.png?id=091f42f3-6cfc-4a6d-b2de-9cadd9cc6441&table=block&spaceId=5f95482e-bab9-40f2-9c09-3914e2c1cca0&width=580&userId=&cache=v2"></td></tr>
+</table>
+
 - 로그인 후 Dashboard에서 중요정보 확인
 - 필수공지 팝업
 - 영업 시간, 공지·문의, 채팅, 매출 통계 조회, 판매 메뉴 등
 
 ## 🤖키오스크
+<table>
+<tr><td width="50%">
+<img src="https://cerulean-plastic-e02.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc58052d5-d288-4a79-96e4-ae52c4eb1b3f%2F%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA_2023-04-14_%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE_2.52.50.png?id=ffde7818-1893-48f0-a90e-b351b6d1127f&table=block&spaceId=5f95482e-bab9-40f2-9c09-3914e2c1cca0&width=1370&userId=&cache=v2"></td><td>
+<img src="https://cerulean-plastic-e02.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F5778c6f5-f8ef-47ab-8afc-4c7849561f66%2F%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA_2023-04-14_%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE_2.53.27.png?id=15b106d1-3ea2-438b-a56d-7779d5c5bbe7&table=block&spaceId=5f95482e-bab9-40f2-9c09-3914e2c1cca0&width=1370&userId=&cache=v2"></td></tr>
+</table>
 - 매장에서 판매할 메뉴 선택
 - 고객이 키오스크로 메뉴 선택 및 결제
 - 주문서 화면과 호출화면
