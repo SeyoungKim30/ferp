@@ -63,6 +63,7 @@
 <img src="https://cerulean-plastic-e02.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc58052d5-d288-4a79-96e4-ae52c4eb1b3f%2F%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA_2023-04-14_%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE_2.52.50.png?id=ffde7818-1893-48f0-a90e-b351b6d1127f&table=block&spaceId=5f95482e-bab9-40f2-9c09-3914e2c1cca0&width=1370&userId=&cache=v2"></td><td>
 <img src="https://cerulean-plastic-e02.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F5778c6f5-f8ef-47ab-8afc-4c7849561f66%2F%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA_2023-04-14_%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE_2.53.27.png?id=15b106d1-3ea2-438b-a56d-7779d5c5bbe7&table=block&spaceId=5f95482e-bab9-40f2-9c09-3914e2c1cca0&width=1370&userId=&cache=v2"></td></tr>
 </table>
+
 - 매장에서 판매할 메뉴 선택
 - 고객이 키오스크로 메뉴 선택 및 결제
 - 주문서 화면과 호출화면
@@ -73,6 +74,7 @@
 <img src="https://user-images.githubusercontent.com/112458754/232982190-21086a2d-0d54-4220-9286-a1c45de3631a.png"></td><td>
 <img src="https://user-images.githubusercontent.com/112458754/232982265-f7ce2f01-06be-4439-8de0-b05f50005eff.png"></td></tr>
 </table>
+
 - 회계 계정 추가 및 사용상태 변경
 - 전표 수동입력·수정·삭제
 - 매출발생, 발주 정산 등의 거래 발생시 자동으로 전표 입력
@@ -89,6 +91,7 @@
 <img src="https://user-images.githubusercontent.com/112458754/232982561-62d08234-b823-4fb7-bc49-f53f63709594.png">
 </td></tr>
 </table>
+
 - 물류 재고 확인 및 관리
 - 연도별, 월별, 카테고리로 발주 내역 조회
 - 발주 신청 관리
@@ -103,6 +106,7 @@
 <img src="https://user-images.githubusercontent.com/112458754/232982705-1c4ecb46-37d1-4788-bd2d-14f76b7bcdd6.png"></td><td>
 <img src="https://user-images.githubusercontent.com/112458754/232982688-e49e6438-d8b6-4fd5-b6b2-cbdffd0d5a9a.png"></td></tr>
 </table>
+
 - 직원 출·퇴근 시간 등록
 - 직원 정보 조회 및 등록·수정·삭제 기능과 직원 서류 업로드 기능
 - 직원 월별 급여액 조회
@@ -114,6 +118,7 @@
 <img src="https://user-images.githubusercontent.com/112458754/232983002-522492d2-5277-43b6-9f3a-96961be3d30d.png"></td><td>
 <img src="https://user-images.githubusercontent.com/112458754/232982997-d2c5b367-e3ed-4404-8073-9523a3776fe1.png"></td></tr>
 </table>
+
 - 신규 가맹점 등록, 수정, 비활성화
 - 가맹점 별 담당 본사 직원 배정
 - 가맹점 정보 수정, 비활성화
