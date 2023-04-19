@@ -68,24 +68,52 @@
 - 주문서 화면과 호출화면
 
 ## 💰재무관리
+<table>
+<tr><td width="50%">
+<img src="https://user-images.githubusercontent.com/112458754/232982190-21086a2d-0d54-4220-9286-a1c45de3631a.png"></td><td>
+<img src="https://user-images.githubusercontent.com/112458754/232982265-f7ce2f01-06be-4439-8de0-b05f50005eff.png"></td></tr>
+</table>
 - 회계 계정 추가 및 사용상태 변경
 - 전표 수동입력·수정·삭제
 - 매출발생, 발주 정산 등의 거래 발생시 자동으로 전표 입력
 - 거래내역 날짜별·계정별 조회
 
 ## 🚚물류관리
+<table>
+<tr><td width="50%">
+<img src="https://user-images.githubusercontent.com/112458754/232982308-5f64d09f-f488-495d-8054-bf2d5e96d9e2.png"></td><td>
+<img src="https://user-images.githubusercontent.com/112458754/232982367-07e6cbd2-37a8-4c24-b704-58e3130386c7.png"></td></tr>
+<tr><td>
+<img src="https://user-images.githubusercontent.com/112458754/232982503-505053af-e78c-4695-977f-a7085807f494.png">
+</td><td>
+<img src="https://user-images.githubusercontent.com/112458754/232982561-62d08234-b823-4fb7-bc49-f53f63709594.png">
+</td></tr>
+</table>
 - 물류 재고 확인 및 관리
 - 연도별, 월별, 카테고리로 발주 내역 조회
 - 발주 신청 관리
 - 배송 불량 신청 및 관리
 
 ## 👷인사관리
+<table>
+<tr><td width="50%">
+<img src="https://user-images.githubusercontent.com/112458754/232982698-adc9f433-5c87-40c1-84e2-b5bedf6528d5.png"></td><td>
+<img src="https://user-images.githubusercontent.com/112458754/232982702-849c8a1e-3ed4-4307-b639-24be156f1845.png"></td></tr>
+<tr><td width="50%">
+<img src="https://user-images.githubusercontent.com/112458754/232982705-1c4ecb46-37d1-4788-bd2d-14f76b7bcdd6.png"></td><td>
+<img src="https://user-images.githubusercontent.com/112458754/232982688-e49e6438-d8b6-4fd5-b6b2-cbdffd0d5a9a.png"></td></tr>
+</table>
 - 직원 출·퇴근 시간 등록
 - 직원 정보 조회 및 등록·수정·삭제 기능과 직원 서류 업로드 기능
 - 직원 월별 급여액 조회
 - 직원 스케줄 조회 및 등록
 
 ## 📋가맹점 관리
+<table>
+<tr><td width="50%">
+<img src="https://user-images.githubusercontent.com/112458754/232983002-522492d2-5277-43b6-9f3a-96961be3d30d.png"></td><td>
+<img src="https://user-images.githubusercontent.com/112458754/232982997-d2c5b367-e3ed-4404-8073-9523a3776fe1.png"></td></tr>
+</table>
 - 신규 가맹점 등록, 수정, 비활성화
 - 가맹점 별 담당 본사 직원 배정
 - 가맹점 정보 수정, 비활성화
